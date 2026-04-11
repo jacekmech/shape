@@ -46,6 +46,8 @@ Shape observes the following principles:
 * **Traceable**  
   All changes are explicit, reviewable, and persisted.
 
+Late changes are inherently expensive to coordinate. Shape keeps the mechanism for handling them small and explicit, but does not pretend the problem itself is lightweight. Its goal is not to eliminate the cost of late change, but to prevent silent drift across requirements, design, and implementation.
+
 ---
 
 ## 2. Vocabulary
@@ -62,22 +64,22 @@ A distinct phase of the workflow with a defined purpose and output. The core sta
 Markdown document specifying functional and non-functional requirements for a feature.
 
 ### Technical Concept (Tech Concept)  
-Markdown document specifying technical design and initial work breakdown into coarse-grained Implementation Slices. It serves as the design baseline for implementation.
+Markdown document specifying technical design and initial implementation direction for a feature. It serves as the design baseline for implementation.
 
 ### Implementation Plan  
-Markdown document driving execution. It starts from the initial Implementation Slices defined in the Technical Concept and evolves during implementation by adding detailed Implementation Tasks and tracking progress.
+Markdown document driving execution. It is created at implementation kickoff and evolves during implementation by defining Implementation Slices, adding detailed Implementation Tasks, and tracking progress.
 
 ### Implementation Slice  
-Coarse-grained unit of delivery that can be reviewed, integrated, and validated independently. Slices originate in the Technical Concept and are executed and refined in the Implementation Plan.
+Coarse-grained unit of delivery that can be reviewed, integrated, and validated independently. Slices are defined in the Implementation Plan and may be added or adjusted during implementation.
 
 ### Implementation Task  
 Fine-grained unit of work derived from a Slice. Typically involves a small, well-defined change (e.g., a few related modifications across code or configuration). Tasks are explicitly listed in the Implementation Plan.
 
 ### Implementation Batch  
-A selected group of Implementation Tasks executed in a single coding step by the AI-agent. Each batch is followed by developer-led diff review and concluded with a commit.
+A selected group of Implementation Tasks executed in a single coding step by the AI Agent. Each batch is followed by developer-led diff review and concluded with a commit.
 
-### Update  
-Append-only change record added to a ready PRD or ready Technical Concept after baseline acceptance. An Update captures newly discovered information, decisions, or corrections without modifying the original baseline content.
+### Specification Update  
+Append-only change record added to a PRD or Technical Concept after baseline acceptance. A Specification Update captures newly discovered information, decisions, or corrections without modifying the original baseline content.
 
 ---
 
@@ -86,13 +88,16 @@ Append-only change record added to a ready PRD or ready Technical Concept after 
 This section defines roles as **responsibility boundaries**. The workflow can be executed by a single person, but roles clarify responsibilities and allow scaling across specialists.
 
 ### Product Owner  
-Responsible for feature definition. Provides input during the specification process and collaborates with the AI-agent to produce a structured PRD.
+Responsible for feature definition. Provides input during the specification process and collaborates with the AI Agent to produce a structured PRD. Owns requirement-level correctness.
 
 ### Architect  
-Responsible for technical design. Translates the PRD into a Technical Concept and prepares the initial version of the Implementation Plan, including coarse-grained Implementation Slices.
+Responsible for technical design. Translates the PRD into a Technical Concept and supports requirement-to-design alignment when changes occur. Owns design-level correctness.
 
 ### Developer  
-Responsible for execution. Evolves the Implementation Plan, refines Slices into Implementation Tasks, selects Implementation Batches, reviews diffs, commits changes, and validates completed Slices.
+Responsible for execution. Creates and evolves the Implementation Plan, refines Slices into Implementation Tasks, selects Implementation Batches, reviews diffs, commits changes, and validates completed Slices. Owns implementation correctness and repository changes.
+
+### AI Agent  
+Responsible for drafting artifacts, proposing updates, implementing approved task batches, and maintaining workflow artifacts under human guidance and approval. The AI Agent accelerates delivery, but does not replace human ownership of requirements, design, or implementation decisions.
 
 ### External Review (Out of Scope)  
 Formal reviews, approvals, and integration processes (e.g., pull requests, code reviews, deployment approvals) are critical for delivery but are not managed by Shape and remain part of the surrounding engineering environment.
@@ -117,7 +122,7 @@ Each stage produces a well-defined artifact that becomes the input to the next s
 
 **Summary**  
 Transforms an initial feature idea into a structured **Product Requirements Definition (PRD)**.  
-The AI-agent collaborates with the user to iteratively refine input until the document is complete, consistent, and ready for downstream use.
+The AI Agent collaborates with the user to iteratively refine input until the document is complete, consistent, and ready for downstream use.
 
 **Role**  
 Product Owner
@@ -133,7 +138,7 @@ PRD is accepted as ready for the feature scope to be handed over downstream.
 
 **Feedback Loop**  
 - **Inbound**  
-  Updates appended when gaps or inconsistencies are discovered in later stages  
+  Specification Updates appended when gaps or inconsistencies are discovered in later stages  
 - **Outbound**  
   None
 
@@ -142,8 +147,7 @@ PRD is accepted as ready for the feature scope to be handed over downstream.
 ### 4.2 Technical Concept
 
 **Summary**  
-Transforms the PRD into a **Technical Concept**, defining architecture, constraints, and an initial breakdown into **Implementation Slices**.  
-Also initializes the **Implementation Plan** with coarse-grained structure.
+Transforms the PRD into a **Technical Concept**, defining architecture, constraints, and implementation direction.
 
 **Role**  
 Architect
@@ -154,25 +158,24 @@ Architect
 - Optional technical notes (unstructured or semi-structured)
 
 **Output**  
-- Technical Concept markdown document (design baseline)  
-- Implementation Plan markdown document with defined **Implementation Slices**
+Technical Concept markdown document (design baseline)
 
 **Completion Condition**  
-Technical Concept is accepted as ready for implementation to begin and Implementation Slices are defined at a level sufficient to start execution planning.
+Technical Concept is accepted as ready for implementation planning to begin.
 
 **Feedback Loop**  
 - **Inbound**  
-  Updates appended when gaps or inconsistencies are discovered during Implementation  
+  Specification Updates appended when gaps or inconsistencies are discovered during later stages  
 - **Outbound**  
-  May append Updates to PRD when requirement-level issues are identified
+  May append Specification Updates to PRD when requirement-level issues are identified
 
 ---
 
 ### 4.3 Implementation
 
 **Summary**  
-Executes the feature based on the **Technical Concept** and **Implementation Plan**.  
-The Developer incrementally refines Implementation Slices into **Implementation Tasks**, executes them in **Implementation Batches**, reviews diffs, and commits changes.
+Executes the feature based on the **PRD**, **Technical Concept**, and **Implementation Plan**.  
+Implementation begins by creating the **Implementation Plan**, then incrementally refining Slices into **Implementation Tasks**, executing them in **Implementation Batches**, reviewing diffs, and committing changes.
 
 The **Implementation Plan** acts as the **primary execution control document**, evolving throughout this stage.
 
@@ -185,10 +188,10 @@ Developer
 **Input**  
 - PRD markdown document  
 - Technical Concept markdown document  
-- Implementation Plan markdown document  
 - Codebase  
 
 **Output**  
+- Implementation Plan markdown document  
 - Implemented feature committed to the current branch  
 - Updated Implementation Plan reflecting completed Slices and Tasks  
 
@@ -199,7 +202,7 @@ All Implementation Slices are completed, validated, and reflected in both code a
 - **Inbound**  
   None  
 - **Outbound**  
-  May append Updates to Technical Concept and/or PRD when gaps or inconsistencies are identified
+  May append Specification Updates to Technical Concept and/or PRD when gaps or inconsistencies are identified
 
 ---
 
@@ -209,10 +212,10 @@ All Implementation Slices are completed, validated, and reflected in both code a
   Each stage produces a persistent artifact used as input for subsequent stages
 
 - **Append-Only Evolution**  
-  Changes to PRD and Technical Concept are recorded as Updates, preserving full traceability
+  Changes to PRD and Technical Concept are recorded as Specification Updates, preserving full traceability
 
 - **Optimistically Concurrent**  
-  Stages do not block each other; discrepancies are resolved asynchronously through feedback loops
+  Stages do not block each other; discrepancies are resolved asynchronously through explicit update handling
 
 - **Traceable Execution**  
   Progression from PRD to code is fully reconstructable via documents, diffs, and commits
@@ -237,11 +240,11 @@ This model ensures stability for execution while preserving the ability to incor
 ### 5.1 Baseline Creation
 
 **Summary**  
-PRD and Technical Concept are created through iterative, Socratic interaction between the user and the AI-agent. The goal is to converge on a complete, internally consistent baseline.
+PRD and Technical Concept are created through iterative, Socratic interaction between the user and the AI Agent. The goal is to converge on a complete, internally consistent baseline.
 
 **Process**
 - User provides initial input (unstructured or semi-structured)
-- AI-agent guides refinement through questions and suggestions
+- AI Agent guides refinement through questions and suggestions
 - Document is incrementally structured according to its template
 - Gaps, ambiguities, and inconsistencies are resolved during this phase
 - Document metadata is set explicitly, including:
@@ -275,15 +278,15 @@ Once ready, the baseline PRD or Technical Concept is **not modified directly**.
 
 ---
 
-### 5.3 Updates (Append-Only Changes)
+### 5.3 Specification Updates (Append-Only Changes)
 
 **Summary**  
-All changes after baseline readiness are recorded as **Updates**, appended to the PRD or Technical Concept.
+All changes after baseline readiness are recorded as **Specification Updates**, appended to the PRD or Technical Concept.
 
 **Structure**
-Each Update includes:
+Each Specification Update includes:
 - Name
-- Status: `draft | ready`
+- Status: `proposed | approved`
 - Date
 - Context
 - Change / decision
@@ -291,8 +294,9 @@ Each Update includes:
 
 **Rules**
 - Updates are appended in chronological order  
-- Existing Updates are not modified  
+- Existing approved Updates are not modified  
 - Updates do not rewrite baseline content; they extend it  
+- Only **approved** Updates are considered effective for downstream work
 
 **Usage**
 - Captures discoveries during later stages  
@@ -304,21 +308,23 @@ Each Update includes:
 ### 5.4 Cross-Document Feedback
 
 **Summary**  
-Updates may propagate across documents when issues affect multiple stages.
+Specification Updates may originate during Technical Concept creation, slice planning, implementation, or independent review outside the main stage flow.
 
 **Rules**
-- Implementation may append Updates to:
+- Technical Concept may propose Specification Updates to:
+  - PRD
+- Implementation may propose Specification Updates to:
   - Technical Concept
   - PRD
-- Technical Concept may append Updates to:
-  - PRD
-- PRD does not propagate further upstream
-- Implementation Plan is updated inline and does not use append-only Updates
+- Specification Updates may also be proposed independently of the main stage flow
+- Propagation to downstream artifacts is handled explicitly when relevant
+- Implementation Plan is updated inline and does not use append-only Specification Updates
 
 **Characteristics**
-- Non-blocking (work continues while updates are recorded)  
-- Explicit (all changes are documented)  
-- Traceable (full history preserved)  
+- Non-blocking  
+- Explicit  
+- Traceable  
+- Lightweight by default, but capable of handling late changes when needed  
 
 ---
 
@@ -337,11 +343,13 @@ The **Implementation Plan** is the central control artifact throughout this proc
 ### 6.1 Initialization
 
 **Summary**  
-Implementation begins with an existing Implementation Plan containing **Implementation Slices** defined during the Technical Concept stage.
+Implementation begins by creating an Implementation Plan from the ready PRD and Technical Concept.
 
 **State**
-- Implementation Plan status is `ready`
-- Slices are defined  
+- PRD status is `ready`
+- Technical Concept status is `ready`
+- Implementation Plan is created
+- Initial Slices are defined  
 - Tasks are not yet specified  
 - No execution has occurred  
 
@@ -354,7 +362,7 @@ A selected Implementation Slice is expanded into **Implementation Tasks**.
 
 **Process**
 - Developer selects a Slice  
-- AI-agent proposes a breakdown into Tasks  
+- AI Agent proposes a breakdown into Tasks  
 - Developer reviews and adjusts if needed  
 - Tasks are added to the Implementation Plan  
 - Implementation Plan status changes from `ready` to `in progress` when active execution begins
@@ -383,17 +391,17 @@ The Developer selects a subset of Implementation Tasks to execute as a **Batch**
 ### 6.4 Batch Execution
 
 **Summary**  
-The AI-agent executes the selected Batch.
+The AI Agent executes the selected Batch.
 
 **Process**
-- AI-agent implements code changes required by the selected Tasks  
-- AI-agent updates the Implementation Plan:
+- AI Agent implements code changes required by the selected Tasks  
+- AI Agent updates the Implementation Plan:
   - marks Tasks as completed  
   - records progress  
 
 **Constraints**
-- AI-agent operates strictly within Batch scope  
-- AI-agent does not select or reorder Tasks  
+- AI Agent operates strictly within Batch scope  
+- AI Agent does not select or reorder Tasks  
 
 ---
 
@@ -450,19 +458,21 @@ Implementation ends when all Slices are completed and validated.
 ### 6.9 Feedback to Documents
 
 **Summary**  
-Discoveries during Implementation are recorded through two different mechanisms, depending on document type.
+Discoveries during Implementation may require requirement-level or design-level updates.
 
 **Rules**
-- Gaps or inconsistencies affecting PRD or Technical Concept trigger append-only Updates
+- Requirement-level issues may trigger proposed Specification Updates to PRD
+- Design-level issues may trigger proposed Specification Updates to Technical Concept
 - Implementation Plan is updated inline as a live document
-- Updates may be appended to:
-  - Technical Concept  
-  - PRD (if required)
+- Downstream propagation is handled explicitly when relevant
+- Approved updates do not silently reinterpret already executed work
 
 **Characteristics**
 - Non-blocking  
 - Explicit  
 - Traceable  
+
+---
 
 ## 7. Repository Layout Conventions
 
@@ -470,7 +480,7 @@ This section defines where Shape artifacts live in the monorepo and how they are
 
 Shape explicitly optimizes repository layout for **speed, feature-level collaboration, and execution continuity**, rather than for strict separation of artifacts by role or document type.
 
-The workflow assumes tight collaboration between Product Owner, Architect, and Developer around the same feature. For that reason, the core feature artifacts are **co-located in a single feature folder**, instead of being separated into document-type buckets such as `prds/`, `tech-concepts/`, and `implementation-plans/`.
+The workflow assumes tight collaboration between Product Owner, Architect, Developer, and AI Agent around the same feature. For that reason, the core feature artifacts are **co-located in a single feature folder**, instead of being separated into document-type buckets such as `prds/`, `tech-concepts/`, and `implementation-plans/`.
 
 This is a deliberate choice. Shape favors:
 
@@ -672,7 +682,7 @@ All documents in Shape follow these principles:
   Documents are created and extended through AI-human collaboration.
 
 - **Baseline + Updates (PRD, Technical Concept)**  
-  Documents are created, accepted as ready, and then extended via **Updates** (append-only).
+  Documents are created, accepted as ready, and then extended via **Specification Updates** (append-only).
 
 - **Live document (Implementation Plan)**  
   The Implementation Plan evolves directly during execution and is not append-only.
@@ -685,6 +695,9 @@ All documents in Shape follow these principles:
   - PRD: `draft | ready`
   - Technical Concept: `draft | ready`
   - Implementation Plan: `draft | ready | in progress | done`
+
+- **Status model for Specification Updates**
+  - `proposed | approved`
 
 ---
 
@@ -769,15 +782,17 @@ Avoid:
 
 ##### Updates
 
-Append-only list of changes after baseline readiness.
+Append-only list of Specification Updates after baseline readiness.
 
 Each Update includes:
 - Name  
-- Status: `draft | ready`  
+- Status: `proposed | approved`  
 - Date  
 - Context  
 - Change / decision  
 - Impact  
+
+Only approved Updates are considered effective.
 
 ---
 
@@ -792,7 +807,7 @@ Focus:
 - responsibilities  
 - interfaces  
 - constraints  
-- slice-level decomposition  
+- implementation direction  
 
 Avoid:
 - task-level planning  
@@ -862,16 +877,6 @@ Avoid:
 
 ---
 
-##### Slices
-
-Initial breakdown into Implementation Slices:
-
-- [ ] Slice Name — Goal  
-
-(Slices are represented with checkboxes and updated during execution)
-
----
-
 ##### Notes
 - Assumptions  
 - Non-goals  
@@ -887,15 +892,17 @@ Initial breakdown into Implementation Slices:
 
 ##### Updates
 
-Append-only list of changes after baseline readiness.
+Append-only list of Specification Updates after baseline readiness.
 
 Each Update includes:
 - Name  
-- Status: `draft | ready`  
+- Status: `proposed | approved`  
 - Date  
 - Context  
 - Change / decision  
 - Impact  
+
+Only approved Updates are considered effective.
 
 ---
 
@@ -979,26 +986,278 @@ Use for:
 
 ## 9. Workflow Operations
 
-Define the core operations the system performs. Examples include:
-- create artifact
-- update artifact
-- append feedback
-- resolve latest approved artifact
-- start slice
-- conclude slice
+This section defines the core operations performed within Shape.
 
-These are conceptual building blocks that later map to skills. Defining them early ensures a clean separation between workflow logic and implementation.
+Operations are the **canonical actions of the workflow**. They describe what Shape must be able to do, independent of prompt wording or implementation details.
+
+Shape distinguishes between:
+
+- **Primary workflow operations** — actions that advance a feature through definition, design, and implementation
+- **Supporting operations** — actions that establish or inspect local workflow context
+
+Specification change handling is intentionally explicit. Shape does not attempt to make late changes look cheap or effortless. Instead, it provides a small operational model for proposing and approving them without silently rewriting requirements, design, or execution state.
+
+---
+
+### 9.1 Primary Workflow Operations
+
+#### 1. Initiate Feature
+**Description**  
+Create the initial feature workspace and establish the feature as a deliverable unit in the repository.
+
+**Responsible role**  
+Product Owner, Architect, or Developer
+
+**AI Agent**  
+Proposes feature identifier and slug if needed, and scaffolds the feature folder and core artifact files according to Shape conventions.
+
+**User**  
+Provides or approves the feature identity and confirms creation of the feature workspace.
+
+---
+
+#### 2. Create PRD
+**Description**  
+Draft and iteratively refine the Product Requirements Definition until it is ready for downstream use.
+
+**Responsible role**  
+Product Owner
+
+**AI Agent**  
+Guides the discussion, identifies gaps and ambiguities, drafts and revises the PRD, and updates the document until it is ready.
+
+**User**  
+Provides product intent, answers clarification questions, reviews the draft, and approves the PRD as ready.
+
+---
+
+#### 3. Create Technical Concept
+**Description**  
+Draft and iteratively refine the Technical Concept from the ready PRD until it is ready for implementation.
+
+**Responsible role**  
+Architect
+
+**AI Agent**  
+Validates the PRD as input, analyzes the codebase and constraints, drafts and revises the Technical Concept, and updates the document until it is ready.
+
+**User**  
+Provides technical guidance and constraints, reviews design decisions, and approves the Technical Concept as ready.
+
+---
+
+#### 4. Initiate Implementation
+**Description**  
+Create the initial Implementation Plan from the ready PRD and Technical Concept and prepare execution to begin.
+
+**Responsible role**  
+Architect
+
+**AI Agent**  
+Validates that PRD and Technical Concept are ready, proposes the initial Implementation Plan structure and initial slices, and creates the document.
+
+**User**  
+Reviews the proposed implementation structure, adjusts it if needed, and approves the Implementation Plan as ready.
+
+---
+
+#### 5. Prepare Slice
+**Description**  
+Expand a selected implementation slice into executable implementation tasks.
+
+**Responsible role**  
+Developer
+
+**AI Agent**  
+Proposes a task breakdown for the selected slice and updates the Implementation Plan if the proposal is approved.
+
+**User**  
+Selects the slice, reviews and adjusts the proposed tasks, and approves updating the Implementation Plan.
+
+---
+
+#### 6. Implement Batch
+**Description**  
+Execute a selected batch of implementation tasks in code and reflect completed work in the Implementation Plan.
+
+**Responsible role**  
+Developer
+
+**AI Agent**  
+Implements the selected tasks, keeps within batch scope, and updates task progress in the Implementation Plan.
+
+**User**  
+Selects the tasks for the batch and provides any execution constraints or corrections.
+
+---
+
+#### 7. Review Batch
+**Description**  
+Validate that the implemented batch matches the selected tasks and intended slice outcome.
+
+**Responsible role**  
+Developer
+
+**AI Agent**  
+Summarizes what changed, explains how the batch maps to the selected tasks, and highlights notable decisions or risks.
+
+**User**  
+Reviews the diff and explanation, validates correctness and scope, and decides whether the batch is accepted or requires changes.
+
+---
+
+#### 8. Commit Batch
+**Description**  
+Persist an accepted implementation batch as an explicit repository checkpoint.
+
+**Responsible role**  
+Developer
+
+**AI Agent**  
+Proposes a commit message if needed and identifies the reviewed batch boundary to be committed.
+
+**User**  
+Confirms the batch is accepted and creates the commit.
+
+---
+
+#### 9. Record Implementation Decision
+**Description**  
+Record an implementation-time decision or clarification that should remain visible during execution.
+
+**Responsible role**  
+Developer
+
+**AI Agent**  
+Identifies decisions worth recording, proposes a concise entry for the Implementation Plan, and inserts it if approved.
+
+**User**  
+Reviews the proposed decision record, adjusts it if needed, and approves storing it in the Implementation Plan.
+
+---
+
+#### 10. Propose Specification Update
+**Description**  
+Propose an append-only update to the PRD or Technical Concept when a requirement-level or design-level gap, inconsistency, or late change is identified.
+
+**Responsible role**  
+Product Owner, Architect, or Developer
+
+**AI Agent**  
+Summarizes the issue, proposes the Specification Update content in append-only form, and adds it with status `proposed`.
+
+**User**  
+Confirms that the issue should be formalized, adjusts the proposal if needed, and approves creating the proposed update entry.
+
+---
+
+#### 11. Approve Specification Update
+**Description**  
+Approve a proposed Specification Update so that it becomes part of the effective specification.
+
+**Responsible role**  
+Product Owner or Architect, depending on target artifact and team policy
+
+**AI Agent**  
+Presents the proposed update, highlights its likely impact, and changes its status to `approved` if approval is granted.
+
+**User**  
+Reviews the proposed update, decides whether to approve it, and triggers any downstream adjustments when relevant.
+
+---
+
+#### 12. Finish Slice
+**Description**  
+Validate that a slice is complete and mark it as done in the Implementation Plan.
+
+**Responsible role**  
+Developer
+
+**AI Agent**  
+Summarizes completed tasks and resulting functionality, and updates the slice state if the developer approves completion.
+
+**User**  
+Reviews the implemented slice outcome, validates that the slice goal has been met, and approves marking the slice complete.
+
+---
+
+#### 13. Finish Implementation
+**Description**  
+Conclude implementation by verifying completion state, repository readiness, and final Implementation Plan status.
+
+**Responsible role**  
+Developer
+
+**AI Agent**  
+Checks that all slices are marked complete, confirms the Implementation Plan reflects execution state, and proposes final status updates.
+
+**User**  
+Verifies repository cleanliness and completion readiness, then approves marking the Implementation Plan as done.
+
+---
+
+### 9.2 Supporting Operations
+
+#### 14. Pick Up Feature
+**Description**  
+Select the feature to work on and make it the active local Shape context.
+
+**Responsible role**  
+Product Owner, Architect, or Developer
+
+**AI Agent**  
+Resolves candidate feature folders, sets the selected feature as active in local Shape state, and confirms the resolved workspace.
+
+**User**  
+Identifies or chooses the feature to work on and confirms the selection if needed.
+
+---
+
+#### 15. Show Status
+**Description**  
+Display the current Shape configuration, active feature context, resolved artifacts, and structural warnings.
+
+**Responsible role**  
+Product Owner, Architect, or Developer
+
+**AI Agent**  
+Reads Shape configuration and local state, resolves the active feature and core artifacts, and reports current statuses and missing prerequisites.
+
+**User**  
+Requests the current workflow state and uses the result to decide what to do next.
+
+---
+
+### 9.3 Notes on Change Handling
+
+Shape keeps change handling intentionally small:
+
+- Specification Updates are append-only
+- Specification Update status is limited to `proposed | approved`
+- Only approved updates are considered effective
+- Downstream propagation is handled explicitly when relevant
+- Shape does not require formal lineage tracking between related updates across artifacts
+
+This keeps the mechanism understandable while still making late changes visible and controlled.
 
 ---
 
 ## 10. Skill Inventory
 
 List the initial set of skills required to support the workflow. For example:
+- pick up feature
+- show status
 - create PRD draft
-- generate Tech Concept from PRD
-- generate Implementation Plan
-- append feedback
-- start/conclude slice
+- generate Technical Concept from PRD
+- initiate implementation
+- prepare slice
+- implement batch
+- review batch summary
+- record implementation decision
+- propose specification update
+- approve specification update
+- finish slice
+- finish implementation
 
 Skills should align with workflow operations and operate on defined artifacts.
 
@@ -1008,6 +1267,7 @@ Skills should align with workflow operations and operate on defined artifacts.
 
 Define when explicit reviews, diffs, and commits must occur. At minimum:
 - after each artifact creation/update
+- after each implementation batch
 - at the end of each slice
 
 This enforces discipline, ensures visibility of changes, and keeps the workflow auditable. Frequent commits within slices are allowed, but key checkpoints must be explicit.
@@ -1016,11 +1276,12 @@ This enforces discipline, ensures visibility of changes, and keeps the workflow 
 
 ## Summary
 
-This checklist defines the minimal but complete set of primitives required to build a coherent v1 workflow. The focus should be on clarity, consistency, and explicit structure — especially around artifacts, lifecycle, and change management.
+This checklist defines the minimal but complete set of primitives required to build a coherent v1 workflow. The focus should be on clarity, consistency, and explicit structure — especially around artifacts, lifecycle, operations, and change management.
 
 The most critical elements to get right early are:
 - artifact schemas
 - artifact lifecycle
 - change/feedback model
+- workflow operations
 
 These form the foundation upon which all automation and skills will operate.
