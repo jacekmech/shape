@@ -15,10 +15,15 @@ TODOs:
 
 Shape is a lightweight software delivery workflow with clear roles, steps, and document-based handovers, using a **feature** as its atomic unit of delivery. It provides a minimal but sufficient set of primitives instructing an AI coding agent how to support users in creating feature specifications and working code.
 
+Shape structures and amplifies human intent. The quality of what gets delivered is bounded by the quality of the input provided. Clear thinking in — clear software out.
+
 Shape observes the following principles:
 
 * **Lightweight**  
   Minimal set of activities and documents required to deliver a feature.
+
+* **Highly Collaborative**  
+  Roles collaborate tightly around the same feature and shared artifacts.
 
 * **Loosely Coupled**  
   Clear boundaries between steps and responsibilities.
@@ -33,7 +38,7 @@ Shape observes the following principles:
   Delivery progresses through repeated refinement across all stages.
 
 * **Discovery-Driven**  
-  Learnings are fed back into earlier documents through controlled updates.
+  Learnings are fed back into PRD and Technical Concept through controlled updates.
 
 * **Optimistically Concurrent**  
   Work proceeds without blocking; discrepancies are resolved asynchronously.
@@ -70,6 +75,9 @@ Fine-grained unit of work derived from a Slice. Typically involves a small, well
 
 ### Implementation Batch  
 A selected group of Implementation Tasks executed in a single coding step by the AI-agent. Each batch is followed by developer-led diff review and concluded with a commit.
+
+### Update  
+Append-only change record added to a ready PRD or ready Technical Concept after baseline acceptance. An Update captures newly discovered information, decisions, or corrections without modifying the original baseline content.
 
 ---
 
@@ -121,11 +129,11 @@ Unstructured or semi-structured feature description.
 PRD markdown document, structured according to a predefined template and **reviewed for completeness and clarity**.
 
 **Completion Condition**  
-PRD is accepted as a sufficient and stable definition of the feature scope.
+PRD is accepted as ready for the feature scope to be handed over downstream.
 
 **Feedback Loop**  
 - **Inbound**  
-  Addenda appended when gaps or inconsistencies are discovered in later stages  
+  Updates appended when gaps or inconsistencies are discovered in later stages  
 - **Outbound**  
   None
 
@@ -150,13 +158,13 @@ Architect
 - Implementation Plan markdown document with defined **Implementation Slices**
 
 **Completion Condition**  
-Technical Concept is accepted as a stable design baseline and Implementation Slices are defined at a level sufficient to begin execution.
+Technical Concept is accepted as ready for implementation to begin and Implementation Slices are defined at a level sufficient to start execution planning.
 
 **Feedback Loop**  
 - **Inbound**  
-  Addenda appended when gaps or inconsistencies are discovered during Implementation  
+  Updates appended when gaps or inconsistencies are discovered during Implementation  
 - **Outbound**  
-  May append Addenda to PRD when requirement-level issues are identified
+  May append Updates to PRD when requirement-level issues are identified
 
 ---
 
@@ -191,7 +199,7 @@ All Implementation Slices are completed, validated, and reflected in both code a
 - **Inbound**  
   None  
 - **Outbound**  
-  May append Addenda to Technical Concept and/or PRD when gaps or inconsistencies are identified
+  May append Updates to Technical Concept and/or PRD when gaps or inconsistencies are identified
 
 ---
 
@@ -201,7 +209,7 @@ All Implementation Slices are completed, validated, and reflected in both code a
   Each stage produces a persistent artifact used as input for subsequent stages
 
 - **Append-Only Evolution**  
-  Changes to PRD and Technical Concept are recorded as Addenda, preserving full traceability
+  Changes to PRD and Technical Concept are recorded as Updates, preserving full traceability
 
 - **Optimistically Concurrent**  
   Stages do not block each other; discrepancies are resolved asynchronously through feedback loops
@@ -215,10 +223,12 @@ All Implementation Slices are completed, validated, and reflected in both code a
 
 This section defines how specification documents are created, stabilized, and evolved over time.
 
-Shape enforces a **two-phase lifecycle**:
+Shape enforces a **two-phase lifecycle** for **PRD** and **Technical Concept**:
 
 1. **Baseline Creation** — mutable, exploratory  
 2. **Append-Only Evolution** — controlled, traceable  
+
+The **Implementation Plan** follows a different lifecycle: it is a **live document** updated inline during execution.
 
 This model ensures stability for execution while preserving the ability to incorporate new information.
 
@@ -227,19 +237,23 @@ This model ensures stability for execution while preserving the ability to incor
 ### 5.1 Baseline Creation
 
 **Summary**  
-Documents are created through iterative, Socratic interaction between the user and the AI-agent. The goal is to converge on a complete, internally consistent baseline.
+PRD and Technical Concept are created through iterative, Socratic interaction between the user and the AI-agent. The goal is to converge on a complete, internally consistent baseline.
 
 **Process**
 - User provides initial input (unstructured or semi-structured)
 - AI-agent guides refinement through questions and suggestions
 - Document is incrementally structured according to its template
 - Gaps, ambiguities, and inconsistencies are resolved during this phase
+- Document metadata is set explicitly, including:
+  - `status: draft | ready`
+  - `date: YYYY-MM-DD`
 
 **Output**  
 Version 1 of the document (baseline)
 
 **Completion Condition**
 - Document is explicitly reviewed and accepted by the responsible role
+- Document status is set to `ready`
 - Document is considered stable for downstream use
 
 ---
@@ -247,7 +261,7 @@ Version 1 of the document (baseline)
 ### 5.2 Baseline Immutability
 
 **Summary**  
-Once approved, the baseline document is **not modified directly**.
+Once ready, the baseline PRD or Technical Concept is **not modified directly**.
 
 **Rules**
 - Existing content is not edited, removed, or rewritten  
@@ -261,22 +275,24 @@ Once approved, the baseline document is **not modified directly**.
 
 ---
 
-### 5.3 Addenda (Append-Only Updates)
+### 5.3 Updates (Append-Only Changes)
 
 **Summary**  
-All changes after baseline approval are recorded as **Addenda**, appended to the document.
+All changes after baseline readiness are recorded as **Updates**, appended to the PRD or Technical Concept.
 
 **Structure**
-Each Addendum contains:
-- **Context** — where and when the issue was identified (e.g., Implementation Slice, Task)
-- **Issue** — description of the gap, inconsistency, or new information
-- **Decision** — resolution applied
-- **Impact** — effect on system behavior, design, or execution
+Each Update includes:
+- Name
+- Status: `draft | ready`
+- Date
+- Context
+- Change / decision
+- Impact
 
 **Rules**
-- Addenda are appended in chronological order  
-- Existing Addenda are not modified  
-- Addenda do not rewrite baseline content; they extend it  
+- Updates are appended in chronological order  
+- Existing Updates are not modified  
+- Updates do not rewrite baseline content; they extend it  
 
 **Usage**
 - Captures discoveries during later stages  
@@ -288,15 +304,16 @@ Each Addendum contains:
 ### 5.4 Cross-Document Feedback
 
 **Summary**  
-Addenda may propagate across documents when issues affect multiple stages.
+Updates may propagate across documents when issues affect multiple stages.
 
 **Rules**
-- Implementation may append Addenda to:
+- Implementation may append Updates to:
   - Technical Concept
   - PRD
-- Technical Concept may append Addenda to:
+- Technical Concept may append Updates to:
   - PRD
 - PRD does not propagate further upstream
+- Implementation Plan is updated inline and does not use append-only Updates
 
 **Characteristics**
 - Non-blocking (work continues while updates are recorded)  
@@ -323,6 +340,7 @@ The **Implementation Plan** is the central control artifact throughout this proc
 Implementation begins with an existing Implementation Plan containing **Implementation Slices** defined during the Technical Concept stage.
 
 **State**
+- Implementation Plan status is `ready`
 - Slices are defined  
 - Tasks are not yet specified  
 - No execution has occurred  
@@ -339,6 +357,7 @@ A selected Implementation Slice is expanded into **Implementation Tasks**.
 - AI-agent proposes a breakdown into Tasks  
 - Developer reviews and adjusts if needed  
 - Tasks are added to the Implementation Plan  
+- Implementation Plan status changes from `ready` to `in progress` when active execution begins
 
 **Output**
 - Slice with a defined set of Implementation Tasks  
@@ -422,6 +441,7 @@ Implementation ends when all Slices are completed and validated.
 
 **Completion Condition**
 - All Slices marked as completed  
+- Implementation Plan status is set to `done`
 - Implementation Plan reflects full progress  
 - Feature is fully implemented in code  
 
@@ -430,13 +450,14 @@ Implementation ends when all Slices are completed and validated.
 ### 6.9 Feedback to Documents
 
 **Summary**  
-Discoveries during Implementation are recorded via Addenda.
+Discoveries during Implementation are recorded through two different mechanisms, depending on document type.
 
 **Rules**
-- Gaps or inconsistencies trigger Addenda in:
+- Gaps or inconsistencies affecting PRD or Technical Concept trigger append-only Updates
+- Implementation Plan is updated inline as a live document
+- Updates may be appended to:
   - Technical Concept  
-  - PRD (if required)  
-- Implementation Plan is updated inline (not append-only)
+  - PRD (if required)
 
 **Characteristics**
 - Non-blocking  
@@ -445,17 +466,190 @@ Discoveries during Implementation are recorded via Addenda.
 
 ## 7. Repository Layout Conventions
 
-Define where artifacts live in the monorepo. Even if hardcoded in v1, establish concepts like:
-- documentation root
-- initiative folder structure
-- artifact paths
-- skills location
+This section defines where Shape artifacts live in the monorepo and how they are organized.
 
-A consistent layout allows Codex to reliably locate and update artifacts and makes the workflow predictable.
+Shape explicitly optimizes repository layout for **speed, feature-level collaboration, and execution continuity**, rather than for strict separation of artifacts by role or document type.
+
+The workflow assumes tight collaboration between Product Owner, Architect, and Developer around the same feature. For that reason, the core feature artifacts are **co-located in a single feature folder**, instead of being separated into document-type buckets such as `prds/`, `tech-concepts/`, and `implementation-plans/`.
+
+This is a deliberate choice. Shape favors:
+
+- faster handoffs
+- lower navigation overhead
+- stronger feature-local context
+- easier AI-assisted artifact resolution
+- room for additional feature-specific documents when needed
+
+over stricter role-based separation in repository structure.
 
 ---
 
-## 7. Documents Inventory & Schemas
+### 7.1 Default Layout
+
+The default Shape layout for a feature is:
+
+```text
+features/
+  202404-automated-map-creation/
+    01-prd.md
+    02-tech-concept.md
+    03-implementation-plan.md
+```
+
+This convention is the default and recommended repository structure for Shape.
+
+---
+
+### 7.2 Layout Rules
+
+#### Feature folder
+
+Each feature has its own dedicated folder under `features/`.
+
+The folder name should contain:
+
+- a stable feature identifier
+- a short, human-readable slug
+
+Recommended pattern:
+
+```text
+<feature-id>-<feature-slug>
+```
+
+Example:
+
+```text
+202404-automated-map-creation
+```
+
+This keeps feature folders unique, readable, and easy to scan in an IDE.
+
+---
+
+#### Core document filenames
+
+Each feature folder contains exactly these three core documents:
+
+- `01-prd.md`
+- `02-tech-concept.md`
+- `03-implementation-plan.md`
+
+These filenames are intentionally:
+
+- short
+- predictable
+- ordered
+- easy for both humans and AI tools to resolve
+
+The numeric prefixes preserve a stable visual and logical order in IDEs and file listings.
+
+---
+
+### 7.3 Why Shape Uses Feature Folders
+
+Shape does **not** recommend storing artifacts in separate repository-wide buckets such as:
+
+```text
+prds/
+tech-concepts/
+implementation-plans/
+```
+
+That model increases separation between related artifacts of the same feature and adds unnecessary navigation overhead during iterative work.
+
+In Shape, a feature is the primary unit of delivery. The repository layout should reflect that.
+
+Co-locating the PRD, Technical Concept, and Implementation Plan in one folder:
+
+- keeps the feature context together
+- makes cross-document work faster
+- improves discoverability of all feature artifacts during implementation
+- reduces ambiguity for AI-assisted workflows
+- allows extra ad hoc feature documents to be added without inventing new repository-wide categories
+
+This means Shape explicitly chooses **feature-local collaboration over repository-level role separation**.
+
+---
+
+### 7.4 Additional Feature-Local Documents
+
+A feature folder may contain additional documents when needed.
+
+Examples include:
+
+- research notes
+- UX notes
+- diagrams
+- decision logs
+- slice summaries
+- rollout notes
+
+These documents are optional and feature-specific. They do not replace the three core Shape artifacts, but may support them.
+
+Shape prefers keeping such documents inside the same feature folder whenever they are specific to that feature.
+
+---
+
+### 7.5 Root Path Flexibility
+
+Shape uses `features/` as the default logical root for feature artifacts.
+
+However, the physical root may vary by repository. For example, a team may place the feature folders under a different top-level path if needed.
+
+Examples:
+
+```text
+features/
+docs/features/
+geoform-documentation/features/
+```
+
+Shape should therefore define a **recommended default layout**, while allowing the repository-specific root location to be configured by the team.
+
+The important constraint is not the exact root name, but the internal structure of each feature folder.
+
+---
+
+### 7.6 Resolution Principle for AI-Assisted Workflows
+
+Repository conventions must allow an AI-assisted system to resolve feature artifacts deterministically.
+
+For that reason, Shape favors:
+
+- one folder per feature
+- one predictable filename per core artifact
+- stable folder naming
+- minimal ambiguity in artifact location
+
+This reduces the need for heuristic searching and makes skills more reliable when creating, reading, and updating artifacts.
+
+---
+
+### 7.7 Summary
+
+Shape standardizes on a **feature-folder layout**:
+
+```text
+features/
+  202404-automated-map-creation/
+    01-prd.md
+    02-tech-concept.md
+    03-implementation-plan.md
+```
+
+This layout is chosen deliberately to support:
+
+- speed
+- tight cross-role collaboration
+- feature-local execution context
+- scalable AI-assisted artifact handling
+
+rather than stricter separation of artifacts by role or document type.
+
+---
+
+## 8. Documents Inventory & Schemas
 
 This section defines the three core documents used in Shape:
 
@@ -478,19 +672,23 @@ All documents in Shape follow these principles:
   Documents are created and extended through AI-human collaboration.
 
 - **Baseline + Updates (PRD, Technical Concept)**  
-  Documents are created, approved, and then extended via **Updates** (append-only).
+  Documents are created, accepted as ready, and then extended via **Updates** (append-only).
 
 - **Live document (Implementation Plan)**  
   The Implementation Plan evolves directly during execution and is not append-only.
 
 - **Required status and date**  
-  All documents and Updates must include:
-  - `status: draft | final`  
-  - `date: YYYY-MM-DD`  
+  All documents and Updates must include a document-type-specific status and:
+  - `date: YYYY-MM-DD`
+
+- **Status model by document type**
+  - PRD: `draft | ready`
+  - Technical Concept: `draft | ready`
+  - Implementation Plan: `draft | ready | in progress | done`
 
 ---
 
-### 7.1 Product Requirements Definition (PRD)
+### 8.1 Product Requirements Definition (PRD)
 
 #### Purpose
 
@@ -511,7 +709,7 @@ Avoid:
 
 ##### Header
 - Title  
-- Status: `draft | final`  
+- Status: `draft | ready`  
 - Date  
 
 ---
@@ -571,11 +769,11 @@ Avoid:
 
 ##### Updates
 
-Append-only list of changes after baseline approval.
+Append-only list of changes after baseline readiness.
 
 Each Update includes:
 - Name  
-- Status: `draft | final`  
+- Status: `draft | ready`  
 - Date  
 - Context  
 - Change / decision  
@@ -583,7 +781,7 @@ Each Update includes:
 
 ---
 
-### 7.2 Technical Concept
+### 8.2 Technical Concept
 
 #### Purpose
 
@@ -606,7 +804,7 @@ Avoid:
 
 ##### Header
 - Title  
-- Status: `draft | final`  
+- Status: `draft | ready`  
 - Date  
 
 ---
@@ -689,11 +887,11 @@ Initial breakdown into Implementation Slices:
 
 ##### Updates
 
-Append-only list of changes after baseline approval.
+Append-only list of changes after baseline readiness.
 
 Each Update includes:
 - Name  
-- Status: `draft | final`  
+- Status: `draft | ready`  
 - Date  
 - Context  
 - Change / decision  
@@ -701,7 +899,7 @@ Each Update includes:
 
 ---
 
-### 7.3 Implementation Plan
+### 8.3 Implementation Plan
 
 #### Purpose
 
@@ -721,7 +919,7 @@ This is a live document, updated continuously during implementation.
 
 ##### Header
 - Title  
-- Status: `draft | final`  
+- Status: `draft | ready | in progress | done`  
 - Date  
 
 ---
@@ -776,6 +974,7 @@ Use for:
 
 - Additional observations  
 - Clarifications  
+
 ---
 
 ## 9. Workflow Operations
