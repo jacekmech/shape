@@ -19,6 +19,11 @@ Shape is a lightweight software delivery workflow with clear roles, steps, and d
 
 Shape structures and amplifies human intent. The quality of what gets delivered is bounded by the quality of the input provided. Clear thinking in — clear software out.
 
+Shape separates execution units by cognitive boundary:
+
+- a **Slice** is sized for reliable execution within a single focused AI session
+- a **Batch** is sized for reliable human review within a single developer validation step
+
 Shape observes the following principles:
 
 * **Lightweight**  
@@ -72,13 +77,13 @@ Markdown document specifying technical design and initial implementation directi
 Markdown document driving execution. It is created at implementation kickoff and evolves during implementation by defining Implementation Slices, adding detailed Implementation Tasks, and tracking progress.
 
 ### Implementation Slice  
-Coarse-grained unit of delivery that can be reviewed, integrated, and validated independently. Slices are defined in the Implementation Plan and may be added or adjusted during implementation.
+Coarse-grained execution unit of delivery that can be reviewed, integrated, and validated independently. Slices are defined in the Implementation Plan and may be added or adjusted during implementation. A Slice should be small enough to fit into a single focused agent session without relying on long-running conversational carryover.
 
 ### Implementation Task  
 Fine-grained unit of work derived from a Slice. Typically involves a small, well-defined change (e.g., a few related modifications across code or configuration). Tasks are explicitly listed in the Implementation Plan.
 
 ### Implementation Batch  
-A selected group of Implementation Tasks executed in a single coding step by the AI Agent. Each batch is followed by developer-led diff review and concluded with a commit.
+A selected group of Implementation Tasks executed in a single coding step by the AI Agent and then reviewed by the Developer. A Batch should be small enough to fit into a single high-quality developer review step. Each batch is followed by developer-led diff review and concluded with a commit.
 
 ### Specification Update  
 Append-only change record added to a PRD or Technical Concept after baseline readiness. A Specification Update captures newly discovered information, decisions, or corrections without modifying the original baseline content.
@@ -340,6 +345,8 @@ Execution follows a **developer-controlled, iterative microcycle**:
 
 The **Implementation Plan** is the central control artifact throughout this process.
 
+A new Slice should normally begin in a **fresh agent session**. Slices should therefore be small enough to fit within practical agent context limits without depending on long-running conversational carryover. Batches should be selected to preserve high-quality developer reviewability, not just execution speed.
+
 ---
 
 ### 6.1 Initialization
@@ -367,6 +374,7 @@ A selected Implementation Slice is expanded into **Implementation Tasks**.
 - AI Agent proposes a breakdown into Tasks  
 - Developer reviews and adjusts if needed  
 - Tasks are added to the Implementation Plan  
+- Slice scope is checked against practical agent context limits
 - Implementation Plan status changes from `ready` to `in progress` when active execution begins
 
 **Output**
@@ -375,6 +383,7 @@ A selected Implementation Slice is expanded into **Implementation Tasks**.
 **Completion Condition**
 - Tasks are sufficiently granular for execution  
 - Slice scope is clear and bounded  
+- Slice remains small enough to be executed within a single focused agent session
 
 ---
 
@@ -386,7 +395,8 @@ The Developer selects a subset of Implementation Tasks to execute as a **Batch**
 **Rules**
 - Batch is explicitly defined by the Developer  
 - Batch size is small and controlled (e.g., 1–3 Tasks)  
-- Batch defines the scope of the next execution step  
+- Batch defines the scope of the next execution step
+- Batch should remain small enough for a single high-quality developer review step
 
 ---
 
@@ -431,6 +441,7 @@ After all Tasks within a Slice are completed, the Slice is validated.
 **Process**
 - Developer verifies that Slice objectives are met  
 - Functional and technical expectations are confirmed  
+- Slice is confirmed as complete within the intended session-sized boundary
 
 **Output**
 - Slice marked as completed in Implementation Plan  
@@ -441,6 +452,9 @@ After all Tasks within a Slice are completed, the Slice is validated.
 
 **Summary**  
 The process repeats for the next Slice until all Slices are completed.
+
+**Rule**
+- Each new Slice should normally begin in a fresh agent session
 
 ---
 
@@ -947,6 +961,8 @@ Defines the high-level structure of execution.
 
 (Slices are represented with checkboxes. New slices may be appended during implementation.)
 
+Each Slice should remain small enough to fit within a single focused agent session.
+
 ---
 
 ##### Execution Order
@@ -965,6 +981,7 @@ Rules:
 - Developer selects tasks for execution in batches (batches are not explicitly represented)  
 - This is the only place where sequencing exists  
 - Progress is reflected inline  
+- Batches should remain small enough for a single high-quality developer review step
 
 ---
 
@@ -1065,7 +1082,7 @@ Reviews the proposed implementation structure, adjusts it if needed, and marks t
 
 #### 5. Prepare Slice
 **Description**  
-Expand a selected implementation slice into executable implementation tasks.
+Expand a selected implementation slice into executable implementation tasks while keeping the slice within practical agent context limits.
 
 **Responsible role**  
 Developer
@@ -1138,33 +1155,33 @@ Reviews the proposed decision record, adjusts it if needed, and confirms storing
 
 ---
 
-#### 10. Draft Specification Update
+#### 10. Update PRD
 **Description**  
-Create an append-only draft update in the PRD or Technical Concept when a requirement-level or design-level gap, inconsistency, or late change is identified.
+Add a new PRD Specification Update or continue refining an existing draft PRD update until it remains `draft` or is marked `ready`.
 
 **Responsible role**  
 Product Owner, Architect, or Developer
 
 **AI Agent**  
-Summarizes the issue, proposes the Specification Update content in append-only form, and adds it with status `draft`.
+Summarizes the issue, proposes the Specification Update content in append-only form, and updates the relevant PRD update entry.
 
 **User**  
-Confirms that the issue should be formalized, adjusts the proposal if needed, and confirms creating the draft update entry.
+Confirms that the issue should be formalized, adjusts the proposal if needed, and decides whether the result remains `draft` or becomes `ready`.
 
 ---
 
-#### 11. Mark Specification Update Ready
+#### 11. Update Technical Concept
 **Description**  
-Mark a draft Specification Update as ready so that it becomes part of the effective specification.
+Add a new Technical Concept Specification Update or continue refining an existing draft Technical Concept update until it remains `draft` or is marked `ready`.
 
 **Responsible role**  
 Product Owner, Architect, or Developer
 
 **AI Agent**  
-Presents the draft update, highlights its likely impact, and changes its status to `ready` when instructed.
+Summarizes the issue, proposes the Specification Update content in append-only form, and updates the relevant Technical Concept update entry.
 
 **User**  
-Reviews the draft update, decides whether it is ready, and triggers any downstream adjustments when relevant.
+Confirms that the issue should be formalized, adjusts the proposal if needed, and decides whether the result remains `draft` or becomes `ready`.
 
 ---
 
@@ -1304,7 +1321,7 @@ Skills should be named consistently as short imperative verb phrases and should 
   - **Outcome:** Implementation Plan exists with initial slices and is ready for execution
 
 - **prepare slice**
-  - **Purpose:** expand a selected implementation slice into executable implementation tasks
+  - **Purpose:** expand a selected implementation slice into executable implementation tasks while keeping the slice within practical agent context limits
   - **Triggers on:** request to refine a slice for execution
   - **Outcome:** selected slice has implementation tasks added to the Implementation Plan
 
@@ -1347,6 +1364,8 @@ Skills should be named consistently as short imperative verb phrases and should 
 - Skills should respect Shape document lifecycle rules, including append-only updates for PRD and Technical Concept.
 - `update prd` and `update technical concept` should clearly support both creating a new update and continuing an existing draft update.
 - Shape strongly prefers at most one draft Specification Update per target document at a time. Multiple concurrent draft updates in the same document are discouraged because they increase ambiguity and drift risk. Skills should warn about this situation and prefer continuing an existing draft, but should not assume they can fully prevent manual divergence.
+- `prepare slice` should explicitly account for practical agent context limits.
+- `implement batch` and `review batch` should preserve batch sizes that remain reviewable by a developer in one focused step.
 - This section defines only the inventory and intent of skills.
 - Full skill behavior, prompts, validations, and file formats belong in separate skill files.
 
@@ -1435,6 +1454,9 @@ The agent should be able to understand:
 - where PRD, Technical Concept, and Implementation Plan files live
 - how append-only updates are handled
 - how implementation work is expected to proceed in slices and batches
+- that each new Slice should normally begin in a fresh agent session
+- that Slice sizing should account for practical agent context limits
+- that Batch sizing should account for practical developer review limits
 - where the agent should be conservative and ask for confirmation
 
 ---
