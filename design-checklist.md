@@ -4,6 +4,8 @@ This document outlines the core primitives and design elements required to struc
 
 TODOs:
 * branching strategy
+* connect to agents (how explicit connection to config files, what Shape expects, a kind of prerequisites are needed)
+* update mechanism should be there also to provide a feature for development in more like streamed version, and Shape should note it
 * document reviews (most likely out out scope)
 * PR reviews (most likely out out scope)
 * CI/CD (most likely out out scope)
@@ -79,7 +81,7 @@ Fine-grained unit of work derived from a Slice. Typically involves a small, well
 A selected group of Implementation Tasks executed in a single coding step by the AI Agent. Each batch is followed by developer-led diff review and concluded with a commit.
 
 ### Specification Update  
-Append-only change record added to a PRD or Technical Concept after baseline acceptance. A Specification Update captures newly discovered information, decisions, or corrections without modifying the original baseline content.
+Append-only change record added to a PRD or Technical Concept after baseline readiness. A Specification Update captures newly discovered information, decisions, or corrections without modifying the original baseline content.
 
 ---
 
@@ -97,10 +99,10 @@ Responsible for technical design. Translates the PRD into a Technical Concept an
 Responsible for execution. Creates and evolves the Implementation Plan, refines Slices into Implementation Tasks, selects Implementation Batches, reviews diffs, commits changes, and validates completed Slices. Owns implementation correctness and repository changes.
 
 ### AI Agent  
-Responsible for drafting artifacts, proposing updates, implementing approved task batches, and maintaining workflow artifacts under human guidance and approval. The AI Agent accelerates delivery, but does not replace human ownership of requirements, design, or implementation decisions.
+Responsible for drafting artifacts, proposing updates, implementing selected task batches, and maintaining workflow artifacts under human guidance. The AI Agent accelerates delivery, but does not replace human ownership of requirements, design, or implementation decisions.
 
 ### External Review (Out of Scope)  
-Formal reviews, approvals, and integration processes (e.g., pull requests, code reviews, deployment approvals) are critical for delivery but are not managed by Shape and remain part of the surrounding engineering environment.
+Formal reviews and integration processes (e.g., pull requests, code reviews, deployment approvals) are critical for delivery but are not managed by Shape and remain part of the surrounding engineering environment.
 
 ---
 
@@ -286,7 +288,7 @@ All changes after baseline readiness are recorded as **Specification Updates**, 
 **Structure**
 Each Specification Update includes:
 - Name
-- Status: `proposed | approved`
+- Status: `draft | ready`
 - Date
 - Context
 - Change / decision
@@ -294,9 +296,9 @@ Each Specification Update includes:
 
 **Rules**
 - Updates are appended in chronological order  
-- Existing approved Updates are not modified  
+- Existing ready Updates are not modified  
 - Updates do not rewrite baseline content; they extend it  
-- Only **approved** Updates are considered effective for downstream work
+- Only **ready** Updates are considered effective for downstream work
 
 **Usage**
 - Captures discoveries during later stages  
@@ -311,12 +313,12 @@ Each Specification Update includes:
 Specification Updates may originate during Technical Concept creation, slice planning, implementation, or independent review outside the main stage flow.
 
 **Rules**
-- Technical Concept may propose Specification Updates to:
+- Technical Concept may add Specification Updates to:
   - PRD
-- Implementation may propose Specification Updates to:
+- Implementation may add Specification Updates to:
   - Technical Concept
   - PRD
-- Specification Updates may also be proposed independently of the main stage flow
+- Specification Updates may also be created independently of the main stage flow
 - Propagation to downstream artifacts is handled explicitly when relevant
 - Implementation Plan is updated inline and does not use append-only Specification Updates
 
@@ -461,11 +463,11 @@ Implementation ends when all Slices are completed and validated.
 Discoveries during Implementation may require requirement-level or design-level updates.
 
 **Rules**
-- Requirement-level issues may trigger proposed Specification Updates to PRD
-- Design-level issues may trigger proposed Specification Updates to Technical Concept
+- Requirement-level issues may trigger draft Specification Updates to PRD
+- Design-level issues may trigger draft Specification Updates to Technical Concept
 - Implementation Plan is updated inline as a live document
 - Downstream propagation is handled explicitly when relevant
-- Approved updates do not silently reinterpret already executed work
+- Ready updates do not silently reinterpret already executed work
 
 **Characteristics**
 - Non-blocking  
@@ -697,7 +699,7 @@ All documents in Shape follow these principles:
   - Implementation Plan: `draft | ready | in progress | done`
 
 - **Status model for Specification Updates**
-  - `proposed | approved`
+  - `draft | ready`
 
 ---
 
@@ -786,13 +788,13 @@ Append-only list of Specification Updates after baseline readiness.
 
 Each Update includes:
 - Name  
-- Status: `proposed | approved`  
+- Status: `draft | ready`  
 - Date  
 - Context  
 - Change / decision  
 - Impact  
 
-Only approved Updates are considered effective.
+Only ready Updates are considered effective.
 
 ---
 
@@ -896,13 +898,13 @@ Append-only list of Specification Updates after baseline readiness.
 
 Each Update includes:
 - Name  
-- Status: `proposed | approved`  
+- Status: `draft | ready`  
 - Date  
 - Context  
 - Change / decision  
 - Impact  
 
-Only approved Updates are considered effective.
+Only ready Updates are considered effective.
 
 ---
 
@@ -995,7 +997,7 @@ Shape distinguishes between:
 - **Primary workflow operations** — actions that advance a feature through definition, design, and implementation
 - **Supporting operations** — actions that establish or inspect local workflow context
 
-Specification change handling is intentionally explicit. Shape does not attempt to make late changes look cheap or effortless. Instead, it provides a small operational model for proposing and approving them without silently rewriting requirements, design, or execution state.
+Specification change handling is intentionally explicit. Shape does not attempt to make late changes look cheap or effortless. Instead, it provides a small operational model for drafting and readying them without silently rewriting requirements, design, or execution state.
 
 ---
 
@@ -1027,7 +1029,7 @@ Product Owner
 Guides the discussion, identifies gaps and ambiguities, drafts and revises the PRD, and updates the document until it is ready.
 
 **User**  
-Provides product intent, answers clarification questions, reviews the draft, and approves the PRD as ready.
+Provides product intent, answers clarification questions, reviews the draft, and marks the PRD as ready.
 
 ---
 
@@ -1042,7 +1044,7 @@ Architect
 Validates the PRD as input, analyzes the codebase and constraints, drafts and revises the Technical Concept, and updates the document until it is ready.
 
 **User**  
-Provides technical guidance and constraints, reviews design decisions, and approves the Technical Concept as ready.
+Provides technical guidance and constraints, reviews design decisions, and marks the Technical Concept as ready.
 
 ---
 
@@ -1057,7 +1059,7 @@ Architect
 Validates that PRD and Technical Concept are ready, proposes the initial Implementation Plan structure and initial slices, and creates the document.
 
 **User**  
-Reviews the proposed implementation structure, adjusts it if needed, and approves the Implementation Plan as ready.
+Reviews the proposed implementation structure, adjusts it if needed, and marks the Implementation Plan as ready.
 
 ---
 
@@ -1069,10 +1071,10 @@ Expand a selected implementation slice into executable implementation tasks.
 Developer
 
 **AI Agent**  
-Proposes a task breakdown for the selected slice and updates the Implementation Plan if the proposal is approved.
+Proposes a task breakdown for the selected slice and updates the Implementation Plan if the proposal is accepted.
 
 **User**  
-Selects the slice, reviews and adjusts the proposed tasks, and approves updating the Implementation Plan.
+Selects the slice, reviews and adjusts the proposed tasks, and confirms updating the Implementation Plan.
 
 ---
 
@@ -1129,40 +1131,40 @@ Record an implementation-time decision or clarification that should remain visib
 Developer
 
 **AI Agent**  
-Identifies decisions worth recording, proposes a concise entry for the Implementation Plan, and inserts it if approved.
+Identifies decisions worth recording, proposes a concise entry for the Implementation Plan, and inserts it if accepted.
 
 **User**  
-Reviews the proposed decision record, adjusts it if needed, and approves storing it in the Implementation Plan.
+Reviews the proposed decision record, adjusts it if needed, and confirms storing it in the Implementation Plan.
 
 ---
 
-#### 10. Propose Specification Update
+#### 10. Draft Specification Update
 **Description**  
-Propose an append-only update to the PRD or Technical Concept when a requirement-level or design-level gap, inconsistency, or late change is identified.
+Create an append-only draft update in the PRD or Technical Concept when a requirement-level or design-level gap, inconsistency, or late change is identified.
 
 **Responsible role**  
 Product Owner, Architect, or Developer
 
 **AI Agent**  
-Summarizes the issue, proposes the Specification Update content in append-only form, and adds it with status `proposed`.
+Summarizes the issue, proposes the Specification Update content in append-only form, and adds it with status `draft`.
 
 **User**  
-Confirms that the issue should be formalized, adjusts the proposal if needed, and approves creating the proposed update entry.
+Confirms that the issue should be formalized, adjusts the proposal if needed, and confirms creating the draft update entry.
 
 ---
 
-#### 11. Approve Specification Update
+#### 11. Mark Specification Update Ready
 **Description**  
-Approve a proposed Specification Update so that it becomes part of the effective specification.
+Mark a draft Specification Update as ready so that it becomes part of the effective specification.
 
 **Responsible role**  
-Product Owner or Architect, depending on target artifact and team policy
+Product Owner, Architect, or Developer
 
 **AI Agent**  
-Presents the proposed update, highlights its likely impact, and changes its status to `approved` if approval is granted.
+Presents the draft update, highlights its likely impact, and changes its status to `ready` when instructed.
 
 **User**  
-Reviews the proposed update, decides whether to approve it, and triggers any downstream adjustments when relevant.
+Reviews the draft update, decides whether it is ready, and triggers any downstream adjustments when relevant.
 
 ---
 
@@ -1174,10 +1176,10 @@ Validate that a slice is complete and mark it as done in the Implementation Plan
 Developer
 
 **AI Agent**  
-Summarizes completed tasks and resulting functionality, and updates the slice state if the developer approves completion.
+Summarizes completed tasks and resulting functionality, and updates the slice state if the developer confirms completion.
 
 **User**  
-Reviews the implemented slice outcome, validates that the slice goal has been met, and approves marking the slice complete.
+Reviews the implemented slice outcome, validates that the slice goal has been met, and confirms marking the slice complete.
 
 ---
 
@@ -1192,7 +1194,7 @@ Developer
 Checks that all slices are marked complete, confirms the Implementation Plan reflects execution state, and proposes final status updates.
 
 **User**  
-Verifies repository cleanliness and completion readiness, then approves marking the Implementation Plan as done.
+Verifies repository cleanliness and completion readiness, then confirms marking the Implementation Plan as done.
 
 ---
 
@@ -1233,8 +1235,8 @@ Requests the current workflow state and uses the result to decide what to do nex
 Shape keeps change handling intentionally small:
 
 - Specification Updates are append-only
-- Specification Update status is limited to `proposed | approved`
-- Only approved updates are considered effective
+- Specification Update status is limited to `draft | ready`
+- Only ready updates are considered effective
 - Downstream propagation is handled explicitly when relevant
 - Shape does not require formal lineage tracking between related updates across artifacts
 
@@ -1244,44 +1246,313 @@ This keeps the mechanism understandable while still making late changes visible 
 
 ## 10. Skill Inventory
 
-List the initial set of skills required to support the workflow. For example:
-- pick up feature
-- show status
-- create PRD draft
-- generate Technical Concept from PRD
-- initiate implementation
-- prepare slice
-- implement batch
-- review batch summary
-- record implementation decision
-- propose specification update
-- approve specification update
-- finish slice
-- finish implementation
+This section defines the initial set of skills supporting the core operations of Shape.
 
-Skills should align with workflow operations and operate on defined artifacts.
+Skills are listed here as a **capability inventory only**. This document does **not** define full skill contents or embed skill files. Each skill will be implemented separately in its own file.
+
+For Shape v1, each skill should be described in this document using only:
+
+- **Skill name**
+- **Purpose**
+- **Triggers on**
+- **Outcome**
+
+Skills should be named consistently as short imperative verb phrases and should align with workflow operations and artifact boundaries.
 
 ---
 
-## 11. Review and Commit Boundaries
+### 10.1 Core Skills
 
-Define when explicit reviews, diffs, and commits must occur. At minimum:
-- after each artifact creation/update
-- after each implementation batch
-- at the end of each slice
+- **initiate feature**
+  - **Purpose:** create the initial feature workspace according to Shape repository conventions
+  - **Triggers on:** request to start a new feature
+  - **Outcome:** feature folder and core artifact files exist for the new feature
 
-This enforces discipline, ensures visibility of changes, and keeps the workflow auditable. Frequent commits within slices are allowed, but key checkpoints must be explicit.
+- **pick up feature**
+  - **Purpose:** resolve and select an existing feature as the active Shape context
+  - **Triggers on:** request to work on an existing feature
+  - **Outcome:** active feature context is set to the selected feature
+
+- **show status**
+  - **Purpose:** display the current Shape context, resolved artifacts, statuses, and structural warnings
+  - **Triggers on:** request to inspect current workflow state
+  - **Outcome:** current workflow state is visible to the user
+
+- **create prd**
+  - **Purpose:** create or refine the PRD baseline until it reaches a usable state
+  - **Triggers on:** request to start or continue PRD definition
+  - **Outcome:** PRD exists in `draft` or `ready` state
+
+- **update prd**
+  - **Purpose:** add a new PRD Specification Update or continue refining an existing draft PRD update until it remains `draft` or is marked `ready`
+  - **Triggers on:** request to record, continue, or finalize a requirement-level change, correction, or newly discovered information
+  - **Outcome:** PRD contains a newly added or updated Specification Update in `draft` or `ready` state
+
+- **create technical concept**
+  - **Purpose:** create or refine the Technical Concept baseline from the PRD and technical context
+  - **Triggers on:** request to start or continue technical design
+  - **Outcome:** Technical Concept exists in `draft` or `ready` state
+
+- **update technical concept**
+  - **Purpose:** add a new Technical Concept Specification Update or continue refining an existing draft Technical Concept update until it remains `draft` or is marked `ready`
+  - **Triggers on:** request to record, continue, or finalize a design-level change, correction, or newly discovered information
+  - **Outcome:** Technical Concept contains a newly added or updated Specification Update in `draft` or `ready` state
+
+- **initiate implementation**
+  - **Purpose:** create the initial Implementation Plan from the ready PRD and Technical Concept
+  - **Triggers on:** request to begin implementation planning
+  - **Outcome:** Implementation Plan exists with initial slices and is ready for execution
+
+- **prepare slice**
+  - **Purpose:** expand a selected implementation slice into executable implementation tasks
+  - **Triggers on:** request to refine a slice for execution
+  - **Outcome:** selected slice has implementation tasks added to the Implementation Plan
+
+- **implement batch**
+  - **Purpose:** execute a selected batch of implementation tasks in code
+  - **Triggers on:** request to implement one or more selected implementation tasks
+  - **Outcome:** code changes exist for the selected batch and are ready for review
+
+- **review batch**
+  - **Purpose:** summarize and inspect the implemented batch against the selected tasks
+  - **Triggers on:** request to review completed batch work
+  - **Outcome:** implemented batch is visible and understandable for developer review
+
+- **commit batch**
+  - **Purpose:** persist an accepted implementation batch as a repository checkpoint
+  - **Triggers on:** request to commit reviewed batch changes
+  - **Outcome:** accepted batch is committed to the repository
+
+- **record implementation decision**
+  - **Purpose:** capture an implementation-time decision in the Implementation Plan
+  - **Triggers on:** request to document a relevant implementation clarification or trade-off
+  - **Outcome:** Implementation Plan contains the recorded decision
+
+- **finish slice**
+  - **Purpose:** validate a completed slice and mark it as done
+  - **Triggers on:** request to close a slice whose tasks are completed
+  - **Outcome:** selected slice is marked as done in the Implementation Plan
+
+- **finish implementation**
+  - **Purpose:** conclude implementation after all slices are completed and validated
+  - **Triggers on:** request to finalize feature implementation
+  - **Outcome:** Implementation Plan is marked as `done`
 
 ---
 
-## Summary
+### 10.2 Inventory Notes
 
-This checklist defines the minimal but complete set of primitives required to build a coherent v1 workflow. The focus should be on clarity, consistency, and explicit structure — especially around artifacts, lifecycle, operations, and change management.
+- Skills should remain aligned with workflow operations, not with arbitrary prompt phrasing.
+- Skills should operate on explicit artifacts and repository state.
+- Skills should respect Shape document lifecycle rules, including append-only updates for PRD and Technical Concept.
+- `update prd` and `update technical concept` should clearly support both creating a new update and continuing an existing draft update.
+- Shape strongly prefers at most one draft Specification Update per target document at a time. Multiple concurrent draft updates in the same document are discouraged because they increase ambiguity and drift risk. Skills should warn about this situation and prefer continuing an existing draft, but should not assume they can fully prevent manual divergence.
+- This section defines only the inventory and intent of skills.
+- Full skill behavior, prompts, validations, and file formats belong in separate skill files.
 
-The most critical elements to get right early are:
-- artifact schemas
-- artifact lifecycle
-- change/feedback model
-- workflow operations
+---
 
-These form the foundation upon which all automation and skills will operate.
+## 11. Repository Readiness for Agent-Assisted Delivery
+
+Shape assumes that artifact quality alone is not sufficient to ensure high-quality agent-assisted delivery. The surrounding repository context also matters.
+
+Even with a strong PRD, Technical Concept, and Implementation Plan, a coding agent will produce less reliable results if the repository does not clearly communicate how code should be written, validated, and organized.
+
+This section defines what Shape expects from the repository environment, how missing guidance affects delivery quality, and how Shape skills should behave when repository readiness is incomplete.
+
+---
+
+### 11.1 Purpose
+
+The purpose of repository readiness guidance is to improve:
+
+- implementation consistency
+- alignment with local repository conventions
+- architectural correctness
+- validation reliability
+- predictability of agent output
+- overall delivery quality
+
+Shape does not require a specific coding agent vendor or a single mandatory instruction filename. Instead, it expects that the repository provides sufficient agent-facing guidance in a form that the coding agent can reliably consume.
+
+Examples of such files may include:
+
+- `AGENTS.md`
+- `CLAUDE.md`
+- `GEMINI.md`
+- other repository-level agent instruction files
+- contributor or engineering guidance documents referenced from agent-facing instructions
+
+The important requirement is not the exact filename, but the presence of clear, accessible, repository-specific guidance.
+
+---
+
+### 11.2 Expected Repository Guidance
+
+Shape strongly prefers that the repository provides agent-facing guidance covering the following areas.
+
+#### Repository structure
+The agent should be able to understand:
+
+- how the repository is organized
+- where major code areas live
+- where documentation artifacts live
+- where Shape feature folders are expected to be created
+- whether there are important monorepo boundaries or ownership boundaries
+
+#### Development and validation commands
+The agent should be able to understand:
+
+- how to install dependencies
+- how to run relevant tests
+- how to run linting
+- how to run formatting
+- how to build the project
+- how to validate changes before review
+
+#### Code style and local conventions
+The agent should be able to understand:
+
+- formatting expectations
+- naming conventions
+- file organization preferences
+- local patterns that should be followed
+- conventions that differ from generic framework defaults
+
+#### Architectural constraints and preferred patterns
+The agent should be able to understand:
+
+- important architectural boundaries
+- preferred implementation patterns
+- forbidden or discouraged patterns
+- how responsibilities are typically split
+- which decisions should remain consistent across features
+
+#### Delivery and workflow expectations
+The agent should be able to understand:
+
+- Shape artifact conventions
+- where PRD, Technical Concept, and Implementation Plan files live
+- how append-only updates are handled
+- how implementation work is expected to proceed in slices and batches
+- where the agent should be conservative and ask for confirmation
+
+---
+
+### 11.3 Readiness Levels
+
+Shape should treat repository readiness as graded rather than binary.
+
+#### Ready enough
+The repository contains sufficient guidance for an agent to operate with acceptable consistency and predictability.
+
+Typical characteristics:
+
+- repository structure is understandable
+- validation commands are available
+- coding conventions are documented
+- architectural direction is at least partially clear
+- Shape artifact locations and workflow expectations are discoverable
+
+This is the preferred operating condition.
+
+#### Degraded
+Some important guidance is missing, incomplete, outdated, or fragmented.
+
+Typical characteristics:
+
+- agent instructions exist but are partial
+- some commands are missing or unclear
+- architectural expectations are only partly documented
+- local conventions must be inferred from code rather than stated explicitly
+
+Work may still proceed, but results are likely to be:
+
+- less consistent
+- more error-prone
+- less aligned with repository conventions
+- more likely to require manual correction or rework
+
+This condition should trigger a warning, but should not automatically block work.
+
+#### High risk
+Critical guidance is missing or too unclear for reliable agent-assisted delivery.
+
+Typical characteristics:
+
+- no usable agent-facing repository instructions
+- no clear validation commands
+- no understandable repository structure guidance
+- no clear indication of local coding or architectural expectations
+
+Work may still technically proceed, but the probability of low-quality, inconsistent, or misaligned output is materially higher.
+
+This condition should trigger a strong warning and explicit user confirmation before continuing.
+
+---
+
+### 11.4 Non-Blocking but Explicit Policy
+
+Shape does not assume it can fully prevent users from working in an underprepared repository.
+
+Accordingly:
+
+- missing repository guidance should not automatically block feature initiation
+- Shape should inspect and report missing or weak guidance explicitly
+- Shape should communicate likely consequences of proceeding without it
+- Shape should ask for explicit confirmation before continuing in clearly degraded or high-risk conditions
+
+Shape prefers transparent warnings over false guarantees of control.
+
+This is intentional. A user may choose to proceed despite missing guidance, may modify files manually outside Shape, or may accept lower predictability for the sake of speed. The workflow should acknowledge that reality rather than pretending it can fully enforce repository discipline.
+
+---
+
+### 11.5 Expected Skill Behavior
+
+This section should be operationalized primarily through the `initiate feature` skill and, where useful, through `show status`.
+
+#### Initiate feature
+When starting a feature, the skill should:
+
+- inspect the repository for agent-facing guidance
+- determine whether relevant guidance appears present, partial, or critically missing
+- summarize the current readiness state
+- identify the most important gaps
+- explain that lower readiness reduces delivery quality and predictability
+- ask whether the user wants to proceed if readiness is degraded or high risk
+
+The skill should not hard-block feature creation solely because readiness is incomplete.
+
+#### Show status
+When requested, the skill should also be able to surface repository readiness information, including:
+
+- whether agent-facing guidance appears present
+- whether major gaps were previously detected
+- whether the current repository state appears ready enough, degraded, or high risk for agent-assisted delivery
+
+This keeps repository readiness visible beyond the initial feature setup.
+
+---
+
+### 11.6 Minimal Recommendation for Shape Repositories
+
+For practical use, Shape strongly recommends that a repository provide at least:
+
+- one agent-facing repository instruction file
+- clear locations for Shape feature artifacts
+- lint, test, build, and formatting commands
+- key coding style expectations
+- important architectural constraints and preferred implementation patterns
+
+This is not intended as heavy process. It is the minimum repository context needed to reduce ambiguity and improve the quality of agent-assisted delivery.
+
+---
+
+### 11.7 Summary Principle
+
+Shape assumes that coding agents perform best when repository expectations are explicit.
+
+Good artifacts improve feature-level intent. Good repository guidance improves implementation-level consistency.
+
+Both are needed for reliable agent-assisted delivery.
