@@ -456,6 +456,7 @@ The AI Agent executes the selected Batch.
 - AI Agent does not select or reorder Tasks
 - AI Agent does **not** mark the batch as approved merely because implementation completed
 - AI Agent may update temporary execution state in the Implementation Plan if needed, but task completion should be finalized only after developer approval during review
+- AI Agent may prepare a proposed update to the **Relevant Files** section of the Implementation Plan based on the files and code areas touched by the batch, but this should be finalized only after developer review so that the working file map reflects accepted implementation state rather than temporary execution output
 
 **Constraints**
 - AI Agent operates strictly within Batch scope
@@ -481,8 +482,11 @@ Approval and commit form a single normal progression boundary. Once a batch is a
 - Developer may request one or more adjustment iterations
 - Developer may ask the AI Agent to record relevant implementation decisions
 - Developer may reshape future tasking or slice boundaries if implementation reveals a better plan
-- Once satisfied, the Developer explicitly confirms the batch is approved.
-- After approval, the AI Agent marks relevant tasks as completed in the Implementation Plan so that the workflow continues to minimize direct document editing by the Developer.
+- Once satisfied, the Developer explicitly confirms the batch is approved
+- After approval, the AI Agent marks relevant tasks as completed in the Implementation Plan so that the workflow continues to minimize direct document editing by the Developer
+- After approval, the AI Agent updates the **Relevant Files** section of the Implementation Plan when needed, keeping it as a compact working file map for upcoming slices and fresh-session pickup
+- When maintaining **Relevant Files**, the AI Agent may add, adjust, or remove entries based on current relevance, but should avoid turning this section into a full file inventory or historical changelog
+- The **Relevant Files** section should reflect accepted implementation state and likely future usefulness, not every file touched during exploratory or rejected work
 - Developer commits the approved batch before the next batch begins
 
 **Outcome**
@@ -510,6 +514,7 @@ After all Tasks within a Slice are completed and their approved batches have bee
 - Developer verifies that Slice objectives are met
 - Functional and technical expectations are confirmed
 - Slice is confirmed as complete within the intended session-sized boundary
+- Developer may confirm that the **Relevant Files** section still reflects the files and directories most useful for subsequent slices; the AI Agent should prune or refresh entries when slice completion changes what is worth carrying forward
 
 **Output**
 - Slice marked as completed in Implementation Plan
@@ -550,7 +555,7 @@ Discoveries during Implementation may require requirement-level or design-level 
 **Rules**
 - Requirement-level issues may trigger draft Specification Updates to PRD
 - Design-level issues may trigger draft Specification Updates to Technical Concept
-- Implementation Plan is updated inline as a live document; open slices may be edited and new slices may be added
+- Implementation Plan is updated inline as a live document, including adding new slices, updating eligible open slices, and maintaining the **Relevant Files** section as a compact working file map for subsequent execution
 - Downstream propagation is handled explicitly when relevant
 - Ready updates do not silently reinterpret already executed work
 
@@ -986,6 +991,7 @@ It focuses on:
 - tasks
 - progress
 - decisions made during execution
+- relevant files for upcoming execution context curation
 
 This is a live document and is updated continuously during implementation.
 
@@ -1034,6 +1040,14 @@ The Implementation Plan should contain:
   - Trade-offs discovered during coding
   - Cross-slice implications
 
+- **Relevant Files**
+  - Curated working file map for upcoming execution
+  - Maintained by the AI Agent during implementation
+  - May include files or directories
+  - Kept selective and compact
+  - May be refreshed or pruned as slice-by-slice relevance changes
+  - Not a full file inventory, task tracker, or historical changelog
+  
 - **Notes**
   - Additional observations
   - Clarifications

@@ -61,6 +61,30 @@ Use for:
 
 ---
 
+## Relevant Files
+
+Curated working file map for upcoming execution.
+
+Use for:
+- files or directories likely to matter for upcoming Slices
+- anchor files that help a fresh session pick up the feature efficiently
+- major code areas already touched that are still relevant to subsequent work
+
+Examples:
+- `apps/web/src/features/contact-form/`
+- `apps/api/src/routes/contact.ts`
+- `packages/validation/src/contact-schema.ts`
+
+Rules:
+- Keep this section selective and compact.
+- It is a working context map, not a full file inventory.
+- Entries may be added, updated, or removed during implementation as relevance changes.
+- Prefer files or directories that improve fresh-session pickup and context curation.
+- Do not use this section to track task-level progress.
+- Do not treat this section as a historical changelog of all touched files.
+
+---
+
 ## Notes
 - Additional observations
 - Clarifications
