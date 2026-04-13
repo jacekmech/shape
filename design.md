@@ -1240,7 +1240,22 @@ Confirms that the issue should be formalized, adjusts the proposal if needed, an
 
 ---
 
-#### 13. Finish Implementation
+#### 13. Update Implementation Plan
+**Description**  
+Apply relevant ready updates from the PRD and/or Technical Concept to the Implementation Plan.
+
+**Responsible role**  
+Developer
+
+**AI Agent**  
+Identifies which ready PRD or Technical Concept updates affect execution planning, summarizes their implementation impact, and proposes corresponding inline changes to the Implementation Plan. It may add new Slices or update existing open Slices, but does not modify closed Slices, Slices already in progress, or any Implementation Tasks.
+
+**User**  
+Confirms that the specification updates should be reflected in the Implementation Plan, reviews the proposed planning changes, adjusts them if needed, and approves updating the document.
+
+---
+
+#### 14. Finish Implementation
 **Description**  
 Conclude implementation by verifying completion state, repository readiness, and final Implementation Plan status.
 
@@ -1257,7 +1272,7 @@ Verifies repository cleanliness and completion readiness, then confirms marking 
 
 ### 9.2 Supporting Operations
 
-#### 14. Pick Up Feature
+#### 15. Pick Up Feature
 **Description**  
 Select the feature to work on and make it the active local Shape context.
 
@@ -1272,7 +1287,7 @@ Identifies or chooses the feature to work on and confirms the selection if neede
 
 ---
 
-#### 15. Show Status
+#### 16. Show Status
 **Description**  
 Display the current Shape configuration, active feature context, resolved artifacts, structural warnings, and likely next actions.
 
@@ -1287,7 +1302,7 @@ Requests the current workflow state and uses the result to decide what to do nex
 
 ---
 
-#### 16. Show Capabilities
+#### 17. Show Capabilities
 **Description**  
 Display the currently supported Shape operations or skills in a user-friendly form so that the workflow is easy to operate without memorization.
 
@@ -1382,6 +1397,11 @@ The inventory should also be easy to surface to the user on demand. Shape assume
   - **Triggers on:** request to begin implementation planning
   - **Outcome:** Implementation Plan exists with initial slices and is ready for execution
 
+- **update implementation plan**
+  - **Purpose:** apply relevant ready updates from the PRD and/or Technical Concept to the Implementation Plan by adding new Slices or updating existing open Slices
+  - **Triggers on:** request to propagate ready specification updates into execution planning
+  - **Outcome:** Implementation Plan is updated inline to reflect the new execution shape, without changing closed Slices, in-progress Slices, or any Implementation Tasks
+  
 - **prepare slice**
   - **Purpose:** expand a selected implementation slice into executable implementation tasks while keeping the slice within practical agent context limits and suitable for fresh-session execution
   - **Triggers on:** request to refine a slice for execution
