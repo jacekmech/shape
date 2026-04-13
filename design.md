@@ -1,6 +1,6 @@
-# Shape: Codex-Based Artifact-Driven Software Delivery Workflow (v0.1)
+# Shape: AI-Assisted Software Delivery Workflow (v0.1)
 
-This document outlines the core primitives and design elements required to structure the first version of an AI-assisted, artifact-driven software delivery workflow using Codex in a monorepo setup.
+This document outlines the core primitives and design elements required to structure the first version of an AI-assisted, artifact-driven software delivery workflow in a monorepo setup.
 
 ---
 
