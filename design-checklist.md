@@ -1,16 +1,6 @@
-# Shape: Codex-Based Artifact-Driven Software Delivery Workflow (v1)
+# Shape: Codex-Based Artifact-Driven Software Delivery Workflow (v0.1)
 
 This document outlines the core primitives and design elements required to structure the first version of an AI-assisted, artifact-driven software delivery workflow using Codex in a monorepo setup.
-
-TODOs:
-* branching strategy (it operates in a given branch)
-* connect to agents (how explicit connection to config files, what Shape expects, a kind of prerequisites are needed)
-* update mechanism should be there also to provide a feature for development in more like streamed version, and Shape should note it
-* document reviews (most likely out out scope)
-* PR reviews (most likely out out scope)
-* CI/CD (most likely out out scope)
-* automated and manual testing (except unit tests) (most likely out out scope)
-* tested in greenfield development so far (no scaffolding, no refactoring, no tech debt cleanup)
 
 ---
 
@@ -60,6 +50,22 @@ Shape observes the following principles:
   All changes are explicit, reviewable, and persisted.
 
 Late changes are inherently expensive to coordinate. Shape keeps the mechanism for handling them small and explicit, but does not pretend the problem itself is lightweight. Its goal is not to eliminate the cost of late change, but to prevent silent drift across requirements, design, and implementation.
+
+### Out of Scope
+
+Shape v1 focuses on the core artifact-driven workflow for delivering a feature within an already chosen branch and repository context. It does not define branching strategy or prescribe a specific coding agent vendor, integration mechanism, or mandatory agent instruction filename.
+
+Shape does define repository readiness expectations for agent-assisted delivery, but it does not standardize the full setup or installation model for agent tooling across repositories.
+
+It also does not yet define a streamed or continuous delivery mode beyond the standard document update flow described in this specification.
+
+The following areas are intentionally out of scope for Shape v1:
+- document review workflows
+- pull request review workflows
+- CI/CD design and automation
+- testing beyond unit-test-oriented implementation support, including integration, end-to-end, load, and manual testing practices
+
+Shape has been exercised primarily in greenfield development. It is not yet designed as a workflow for scaffolding-heavy setup, large-scale refactoring, or tech-debt cleanup.
 
 ---
 
