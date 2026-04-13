@@ -124,9 +124,6 @@ Responsible for execution. Creates and evolves the Implementation Plan, refines 
 ### AI Agent  
 Responsible for drafting artifacts, proposing updates, implementing selected task batches, and maintaining workflow artifacts under human guidance. The AI Agent accelerates delivery, but does not replace human ownership of requirements, design, or implementation decisions. It should also keep workflow capabilities, current state, and next steps understandable to the user throughout execution. It should signal workflow mode when useful for orientation, especially when entering Shape-driven work, resuming in a fresh session, or when a workflow rule materially affects what happens next, but should avoid repetitive reminder phrasing on every exchange.
 
-### External Review (Out of Scope)  
-Formal reviews and integration processes (e.g., pull requests, code reviews, deployment approvals) are critical for delivery but are not managed by Shape and remain part of the surrounding engineering environment.
-
 ---
 
 ## 4. Feature Delivery Flow
@@ -366,7 +363,7 @@ Specification Updates may originate during Technical Concept creation, slice pla
   - PRD
 - Specification Updates may also be created independently of the main stage flow
 - Propagation to downstream artifacts is handled explicitly when relevant
-- Implementation Plan is updated inline and does not use append-only Specification Updates
+- Implementation Plan is updated inline; only open slices may be edited, and new slices may be added
 
 **Characteristics**
 - Non-blocking
@@ -388,7 +385,7 @@ The **Implementation Plan** is the central control artifact throughout this proc
 
 A new Slice should begin in a **fresh agent session**. This is a critical Shape discipline, not just a convenience recommendation. It exists to preserve deliberate context curation, reduce carryover noise, and improve output quality. Slices should therefore be small enough to fit within practical agent context limits without depending on long-running conversational carryover. Batches should be selected to preserve high-quality developer reviewability, not just execution speed.
 
-A fresh session should normally begin by resolving the active feature context through **Pick Up Feature**, unless the active feature is already unambiguous and can be confirmed with minimal friction.
+A fresh session should normally begin by resolving the active feature context through **Pick Up Feature**, an agent-supported feature selection operation, unless the active feature is already unambiguous and can be confirmed with minimal friction.
 
 ---
 
@@ -413,10 +410,10 @@ Implementation begins by creating an Implementation Plan from the ready PRD and 
 A selected Implementation Slice is expanded into **Implementation Tasks**.
 
 **Process**
-- In a fresh session, the active feature is first resolved through Pick Up Feature unless already clearly active
-- Developer selects a Slice
+- In a fresh session, the active feature is first resolved through **Pick Up Feature** unless already clearly active
+- Developer selects a Slice, defaulting to the next unfinished one
 - AI Agent proposes a breakdown into Tasks
-- Developer reviews and adjusts if needed
+- Developer reviews and requests adjustment if needed
 - Tasks are added to the Implementation Plan
 - Slice scope is checked against practical agent context limits
 - Implementation Plan status changes from `ready` to `in progress` when active execution begins
@@ -465,7 +462,7 @@ The AI Agent executes the selected Batch.
 - AI Agent does not select or reorder Tasks
 
 **Guidance to user**  
-When a batch finishes implementing, the AI Agent should clearly ask the Developer for **review** and **approval**, explicitly stating that the next step is to inspect the diff, request any needed adjustments, and then either approve or reject the batch.
+When a batch finishes implementing, the AI Agent should clearly ask the Developer for **review** and **approval**, explicitly stating that the next step is to inspect the diff, request any needed adjustments, and then either approve or reiterate.
 
 ---
 
@@ -553,7 +550,7 @@ Discoveries during Implementation may require requirement-level or design-level 
 **Rules**
 - Requirement-level issues may trigger draft Specification Updates to PRD
 - Design-level issues may trigger draft Specification Updates to Technical Concept
-- Implementation Plan is updated inline as a live document
+- Implementation Plan is updated inline as a live document; open slices may be edited and new slices may be added
 - Downstream propagation is handled explicitly when relevant
 - Ready updates do not silently reinterpret already executed work
 
@@ -1113,13 +1110,13 @@ Provides technical guidance and constraints, optionally provides existing techni
 Create the initial Implementation Plan from the ready PRD and Technical Concept and prepare execution to begin.
 
 **Responsible role**  
-Architect
+Developer
 
 **AI Agent**  
 Validates that PRD and Technical Concept are ready, proposes the initial Implementation Plan structure and initial slices, checks that slices are shaped for fresh-session execution, and creates the document.
 
 **User**  
-Reviews the proposed implementation structure, adjusts it if needed, and marks the Implementation Plan as ready.
+Reviews the proposed implementation structure, adjusts it if needed, and approves the Implementation Plan as ready.
 
 ---
 
@@ -1131,7 +1128,7 @@ Expand a selected implementation slice into executable implementation tasks whil
 Developer
 
 **AI Agent**  
-In a fresh session, resolves the active feature through Pick Up Feature unless already clearly active, proposes a task breakdown for the selected slice, checks that the slice remains suitable for execution in a fresh agent session, updates the Implementation Plan if the proposal is accepted, and indicates the next likely step.
+In a fresh session, resolves the active feature through the **Pick Up Feature** operation unless already clearly active, proposes a task breakdown for the selected slice, checks that the slice remains suitable for execution in a fresh agent session, updates the Implementation Plan if the proposal is accepted, and indicates the next likely step.
 
 **User**  
 Selects the slice, reviews and adjusts the proposed tasks, and confirms updating the Implementation Plan.
@@ -1198,7 +1195,22 @@ Reviews the proposed decision record, adjusts it if needed, and confirms storing
 
 ---
 
-#### 10. Update PRD
+#### 10. Finish Slice
+**Description**  
+Validate that a slice is complete and mark it as done in the Implementation Plan.
+
+**Responsible role**  
+Developer
+
+**AI Agent**  
+Summarizes completed tasks and resulting functionality, confirms whether the slice is complete within its intended boundary, and updates the slice state if the developer confirms completion. It should treat committed approved batches as the expected precondition for closing the slice.
+
+**User**  
+Reviews the implemented slice outcome, validates that the slice goal has been met, and confirms marking the slice complete.
+
+---
+
+#### 11. Update PRD
 **Description**  
 Add a new PRD Specification Update or continue refining an existing draft PRD update until it remains `draft` or is marked `ready`.
 
@@ -1213,7 +1225,7 @@ Confirms that the issue should be formalized, adjusts the proposal if needed, an
 
 ---
 
-#### 11. Update Technical Concept
+#### 12. Update Technical Concept
 **Description**  
 Add a new Technical Concept Specification Update or continue refining an existing draft Technical Concept update until it remains `draft` or is marked `ready`.
 
@@ -1225,21 +1237,6 @@ Summarizes the issue, proposes the Specification Update content in append-only f
 
 **User**  
 Confirms that the issue should be formalized, adjusts the proposal if needed, and decides whether the result remains `draft` or becomes `ready`.
-
----
-
-#### 12. Finish Slice
-**Description**  
-Validate that a slice is complete and mark it as done in the Implementation Plan.
-
-**Responsible role**  
-Developer
-
-**AI Agent**  
-Summarizes completed tasks and resulting functionality, confirms whether the slice is complete within its intended boundary, and updates the slice state if the developer confirms completion. It should treat committed approved batches as the expected precondition for closing the slice.
-
-**User**  
-Reviews the implemented slice outcome, validates that the slice goal has been met, and confirms marking the slice complete.
 
 ---
 
@@ -1522,20 +1519,6 @@ The agent should be able to understand:
 - how responsibilities are typically split
 - which decisions should remain consistent across features
 
-#### Delivery and workflow expectations
-The agent should be able to understand:
-
-- Shape artifact conventions
-- where PRD, Technical Concept, and Implementation Plan files live
-- how append-only updates are handled
-- how implementation work is expected to proceed in slices and batches
-- that each new Slice should normally begin in a fresh agent session
-- that fresh execution sessions should normally begin by resolving the active feature unless it is already unambiguous
-- that Slice sizing should account for practical agent context limits
-- that Batch sizing should account for practical developer review limits
-- that an approved batch should normally be committed before the next batch begins
-- where the agent should be conservative and ask for confirmation
-
 ---
 
 ### 11.3 Readiness Levels
@@ -1551,7 +1534,6 @@ Typical characteristics:
 - validation commands are available
 - coding conventions are documented
 - architectural direction is at least partially clear
-- Shape artifact locations and workflow expectations are discoverable
 
 This is the preferred operating condition.
 
