@@ -27,22 +27,22 @@ It gives both the human and the agent a shared operational model for how a featu
 
 ## Core idea
 
-Shape uses a **feature** as the main delivery unit. Each feature is supported by three core artifacts:
+Shape is an AI-assisted software delivery workflow built around a **feature** as its main unit of delivery.
 
-- a **PRD** describing what should be built
+For each feature, Shape keeps a small set of core artifacts, created and maintained by the AI agent under human guidance, that act as shared working memory for both the human and the agent:
+
+- a **Product Requirements Description** describing what should be built
 - a **Technical Concept** describing how it should be built
 - an **Implementation Plan** describing how implementation is split into executable steps
 
-These artifacts are not disposable notes. They are the shared working memory of the feature.
+These artifacts are not disposable notes. They preserve intent, design, and execution structure in a form that can be reused, updated, and reviewed throughout delivery.
 
-Implementation then progresses through two deliberately different execution boundaries:
+For feature delivery, Shape defines two deliberately different execution boundaries for implementation tasks:
 
 - a **Slice** is a unit of work sized to fit within a focused AI execution session
 - a **Batch** is a unit of completed work sized to fit within a focused developer review step
 
-This distinction is central to Shape.
-
-AI agents and human reviewers do not operate well at the same granularity. Shape treats this as a workflow design constraint rather than something to work around informally.
+This distinction is central to Shape. AI agents and human reviewers do not operate well at the same granularity. Shape treats this as a workflow design constraint rather than something to work around informally.
 
 ## What is different about Shape
 
