@@ -749,13 +749,24 @@ rather than stricter separation of artifacts by role or document type.
 
 ---
 
-## 8. Documents Inventory & Schemas
+## 8. Documents Inventory & Templates
 
-This section defines the three core documents used in Shape:
+Shape uses three core documents:
 
 - Product Requirements Definition (PRD)
 - Technical Concept
 - Implementation Plan
+
+These documents define the baseline specification and execution structure for a feature.
+
+The design document explains the **intent**, **role**, and **minimum expected structure** of each document.  
+The full canonical templates live in:
+
+- `/templates/prd-template.md`
+- `/templates/technical-concept-template.md`
+- `/templates/implementation-plan-template.md`
+
+Those template files should be treated as the authoritative starting point when creating new feature documents.
 
 Each document has a clear purpose, minimal structure, and a defined evolution model.
 
@@ -763,7 +774,7 @@ Each document has a clear purpose, minimal structure, and a defined evolution mo
 
 ### General Rules (applies to all documents)
 
-All documents in Shape follow these principles:
+All Shape documents follow these principles:
 
 - **Minimal and skimmable**  
   Structure is intentionally small. Content can expand inside sections as needed.
@@ -772,13 +783,14 @@ All documents in Shape follow these principles:
   Documents are created and extended through AI-human collaboration.
 
 - **Baseline + Updates (PRD, Technical Concept)**  
-  Documents are created, accepted as ready, and then extended via **Specification Updates** (append-only).
+  PRD and Technical Concept are created as baseline documents, accepted as ready, and later extended only through **Specification Updates** using an append-only model.
 
 - **Live document (Implementation Plan)**  
   The Implementation Plan evolves directly during execution and is not append-only.
 
 - **Required status and date**  
-  All documents and Updates must include a document-type-specific status and:
+  All documents and Specification Updates must include:
+  - a document-type-specific `status`
   - `date: YYYY-MM-DD`
 
 - **Status model by document type**
@@ -795,86 +807,70 @@ All documents in Shape follow these principles:
 
 #### Purpose
 
-Defines what is being built and why, from a product and user perspective.
+The PRD defines **what** is being built and **why**, from a product and user perspective.
 
-Focus:
+It focuses on:
 - user value
 - expected behavior
 - constraints
 
-Avoid:
+It avoids:
 - technical design
 - internal system structure
 
----
+The full template is defined in:
+- `/templates/prd-template.md`
 
-#### Structure
+#### Expected Structure
 
-##### Header
-- Title
-- Status: `draft | ready`
-- Date
+The PRD should contain:
 
----
+- **Header**
+  - Title
+  - Status: `draft | ready`
+  - Date
 
-##### Goal
-- Problem
-- User value
-- Expected outcome
+- **Goal**
+  - Problem
+  - User value
+  - Expected outcome
 
----
+- **Flow**
+  - Main flow (happy path)
+  - Key alternative / error paths
+  - Final states
 
-##### Flow
-- Main flow (happy path)
-- Key alternative / error paths
-- Final states
+- **Requirements**
+  - Functional requirements (observable behavior)
+  - Business rules / constraints
 
----
+- **Acceptance Criteria**
+  - Conditions that must be met for the feature to be considered correct
+  - Outcome-oriented and testable at a high level
 
-##### Requirements
-- Functional requirements (observable behavior)
-- Business rules / constraints
+- **UX Notes**
+  - Inputs / interactions
+  - Feedback (success / error)
+  - Optional link to detailed UX
 
----
+- **Non-Functional Requirements**
+  - Performance / latency
+  - Reliability
+  - Dependencies (if product-relevant)
 
-##### Acceptance Criteria
-- Conditions that must be met for the feature to be considered correct
-- Outcome-oriented and testable at a high level
+- **Notes**
+  - Assumptions
+  - Open questions
+  - Optional / stretch ideas
 
----
+- **Out of Scope**
+  - Explicit exclusions
+  - Known non-goals for this feature
 
-##### UX Notes
-- Inputs / interactions
-- Feedback (success / error)
-- Optional link to detailed UX
+- **Updates**
+  - Append-only Specification Updates added after baseline readiness
 
----
-
-##### Non-Functional Requirements
-- Performance / latency
-- Reliability
-- Dependencies (if product-relevant)
-
----
-
-##### Notes
-- Assumptions
-- Open questions
-- Optional / stretch ideas
-
----
-
-##### Out of Scope
-- Explicit exclusions
-- Known non-goals for this feature
-
----
-
-##### Updates
-
-Append-only list of Specification Updates after baseline readiness.
-
-Each Update includes:
+Each PRD Update includes:
 - Name
 - Status: `draft | ready`
 - Date
@@ -890,9 +886,9 @@ Only ready Updates are considered effective.
 
 #### Purpose
 
-Defines how the feature will be built at design level.
+The Technical Concept defines **how** the feature will be built at design level.
 
-Focus:
+It focuses on:
 - architecture
 - responsibilities
 - interfaces
@@ -900,99 +896,77 @@ Focus:
 - implementation direction
 - alignment with repository-specific architectural guidance and local engineering conventions
 
-Avoid:
+It avoids:
 - task-level planning
 - code-level decisions unless architecturally relevant
 
----
+The full template is defined in:
+- `/templates/technical-concept-template.md`
 
-#### Structure
+#### Expected Structure
 
-##### Header
-- Title
-- Status: `draft | ready`
-- Date
+The Technical Concept should contain:
 
----
+- **Header**
+  - Title
+  - Status: `draft | ready`
+  - Date
 
-##### Overview
-- Technical summary
-- Key constraints
-- Core design principle
+- **Overview**
+  - Technical summary
+  - Key constraints
+  - Core design principle
 
----
+- **Repository Alignment**
+  - Relevant repository guidance used during design
+  - Important architectural or organizational constraints from agent-facing instructions
+  - Local conventions or preferred patterns that materially shape the solution
 
-##### Repository Alignment
-- Relevant repository guidance used during design
-- Important architectural or organizational constraints from agent-facing instructions
-- Local conventions or preferred patterns that materially shape the solution
+- **Architecture**
+  - Main components / units
+  - Responsibility split
+  - System boundaries
 
----
+- **Flow**
+  - End-to-end technical flow
+  - Key processing steps
 
-##### Architecture
-- Main components / units
-- Responsibility split
-- System boundaries
+- **Interfaces**
+  - External APIs / contracts
+  - Key internal interfaces (if relevant)
 
----
+- **Data & Validation**
+  - Core data structures (high-level)
+  - Validation rules
+  - Error model
 
-##### Flow
-- End-to-end technical flow
-- Key processing steps
+- **Frontend / Backend Notes**
+  - Key frontend behavior (if relevant)
+  - Backend responsibilities / orchestration
 
----
+- **Testing Notes**
+  - Integration testing expectations
+  - Manual testing considerations
+  - Performance / load testing considerations
+  - Known risk areas requiring validation
 
-##### Interfaces
-- External APIs / contracts
-- Key internal interfaces (if relevant)
+- **Risks & Trade-offs**
+  - Major risks
+  - Important decisions
 
----
+- **Notes**
+  - Assumptions
+  - Non-goals
+  - Deferred decisions
 
-##### Data & Validation
-- Core data structures (high-level)
-- Validation rules
-- Error model
+- **Out of Scope**
+  - Explicit technical exclusions
+  - Known non-goals at design level
 
----
+- **Updates**
+  - Append-only Specification Updates added after baseline readiness
 
-##### Frontend / Backend Notes
-- Key frontend behavior (if relevant)
-- Backend responsibilities / orchestration
-
----
-
-##### Testing Notes
-- Integration testing expectations
-- Manual testing considerations
-- Performance / load testing considerations
-- Known risk areas requiring validation
-
----
-
-##### Risks & Trade-offs
-- Major risks
-- Important decisions
-
----
-
-##### Notes
-- Assumptions
-- Non-goals
-- Deferred decisions
-
----
-
-##### Out of Scope
-- Explicit technical exclusions
-- Known non-goals at design level
-
----
-
-##### Updates
-
-Append-only list of Specification Updates after baseline readiness.
-
-Each Update includes:
+Each Technical Concept Update includes:
 - Name
 - Status: `draft | ready`
 - Date
@@ -1008,83 +982,65 @@ Only ready Updates are considered effective.
 
 #### Purpose
 
-Controls how the feature is executed.
+The Implementation Plan controls **how the feature is executed**.
 
-Focus:
+It focuses on:
 - slices
 - tasks
 - progress
 - decisions made during execution
 
-This is a live document, updated continuously during implementation.
+This is a live document and is updated continuously during implementation.
 
----
+The full template is defined in:
+- `/templates/implementation-plan-template.md`
 
-#### Structure
+#### Expected Structure
 
-##### Header
-- Title
-- Status: `draft | ready | in progress | done`
-- Date
+The Implementation Plan should contain:
 
----
+- **Header**
+  - Title
+  - Status: `draft | ready | in progress | done`
+  - Date
 
-##### Objective
-- What is being delivered
-- Key constraints
+- **Objective**
+  - What is being delivered
+  - Key constraints
 
----
+- **Slices**
+  - High-level execution structure
+  - Represented with checkboxes
+  - New slices may be appended during implementation
 
-##### Slices
+  Each Slice should remain small enough to fit within a single focused agent session, and each new Slice should normally be executed in a fresh agent session. Fresh execution sessions should normally begin by resolving the active feature through **Pick Up Feature** unless the active feature is already unambiguous.
 
-Defines the high-level structure of execution.
+- **Execution Order**
+  - Central execution workspace
+  - Structure:
+    - Slice
+    - Implementation Tasks under the Slice
 
-- [ ] Slice Name — Goal
+  Rules:
+  - Slices and Tasks use checkboxes to indicate progress (`done / not done`)
+  - Implementation Tasks are appended continuously during execution
+  - Developer selects tasks for execution in batches (batches are not explicitly represented)
+  - This is the only place where sequencing exists
+  - Progress is reflected inline
+  - Batches should remain small enough for a single high-quality developer review step
+  - Tasks should be marked done only after developer approval of the implemented batch
+  - An approved batch should be committed before the next batch begins so that review boundaries remain clean
 
-(Slices are represented with checkboxes. New slices may be appended during implementation.)
+- **Important Decisions**
+  - Implementation-time decisions made during execution
+  - Clarifications not worth updating Technical Concept
+  - Trade-offs discovered during coding
+  - Cross-slice implications
 
-Each Slice should remain small enough to fit within a single focused agent session, and each new Slice should normally be executed in a fresh agent session. Fresh execution sessions should normally begin by resolving the active feature through Pick Up Feature unless the active feature is already unambiguous.
-
----
-
-##### Execution Order
-
-This is the central workspace of the Implementation Plan.
-
-Structure:
-
-- [ ] Slice Name
-  - [ ] Implementation Task
-  - [ ] Implementation Task
-
-Rules:
-- Slices and Tasks use checkboxes to indicate progress (`done / not done`)
-- Implementation Tasks are appended continuously during execution
-- Developer selects tasks for execution in batches (batches are not explicitly represented)
-- This is the only place where sequencing exists
-- Progress is reflected inline
-- Batches should remain small enough for a single high-quality developer review step
-- Tasks should be marked done only after developer approval of the implemented batch
-- An approved batch should be committed before the next batch begins so that review boundaries remain clean
-
----
-
-##### Important Decisions
-
-Captures implementation-time decisions made during execution.
-
-Use for:
-- clarifications not worth updating Technical Concept
-- trade-offs discovered during coding
-- cross-slice implications
-
----
-
-##### Notes
-
-- Additional observations
-- Clarifications
-- Suggested next step when useful for keeping execution flow obvious
+- **Notes**
+  - Additional observations
+  - Clarifications
+  - Suggested next step when useful for keeping execution flow obvious
 
 ---
 
