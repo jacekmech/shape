@@ -308,6 +308,27 @@ The `.shape/` configuration and feature layout remain the same as in the generic
 
 ## Codex-Specific Installation Steps
 
+### Scripted installation
+
+Where Bash is available, Shape installation for Codex can be bootstrapped with:
+
+```bash
+bin/install-codex.sh <shape-root> <target-root>
+```
+
+This script:
+- installs the generic Shape layer into the target repository
+- copies workflow templates into `.shape/workflow-templates/`
+- installs Codex-native skills into `.codex/skills/`
+- generates a pasteable `AGENTS.md` snippet under `.shape/generated/`
+
+It does not:
+- patch `AGENTS.md`
+- commit changes
+- overwrite existing files silently
+
+The rest of this section describes the equivalent manual installation process.
+
 ### 1. Install the generic Shape layer first
 
 Complete all steps from **Generic Installation Steps** before adding Codex-specific files.
