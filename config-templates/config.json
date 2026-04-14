@@ -1,0 +1,9 @@
+{
+  "version": 1,
+  "featuresRoot": "features",
+  "artifacts": {
+    "prd": "01-prd.md",
+    "technicalConcept": "02-tech-concept.md",
+    "implementationPlan": "03-implementation-plan.md"
+  }
+}
