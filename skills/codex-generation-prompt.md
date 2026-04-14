@@ -24,9 +24,9 @@ Before generating skills, use the following repository sources as the source of 
 1. the Shape specification document
    - `design.md`
 2. the artifact templates:
-   - `templates/prd-template.md`
-   - `templates/technical-concept-template.md`
-   - `templates/implementation-plan-template.md`
+   - `workflow-templates/prd-template.md`
+   - `workflow-templates/technical-concept-template.md`
+   - `workflow-templates/implementation-plan-template.md`
 3. the skill design standard:
    - `skills/README.md`
 4. approved example skills already present in:

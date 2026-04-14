@@ -764,9 +764,9 @@ These documents define the baseline specification and execution structure for a 
 The design document explains the **intent**, **role**, and **minimum expected structure** of each document.  
 The full canonical templates live in:
 
-- `/templates/prd-template.md`
-- `/templates/technical-concept-template.md`
-- `/templates/implementation-plan-template.md`
+- `/workflow-templates/prd-template.md`
+- `/workflow-templates/technical-concept-template.md`
+- `/workflow-templates/implementation-plan-template.md`
 
 Those template files should be treated as the authoritative starting point when creating new feature documents.
 
@@ -821,7 +821,7 @@ It avoids:
 - internal system structure
 
 The full template is defined in:
-- `/templates/prd-template.md`
+- `/workflow-templates/prd-template.md`
 
 #### Expected Structure
 
@@ -903,7 +903,7 @@ It avoids:
 - code-level decisions unless architecturally relevant
 
 The full template is defined in:
-- `/templates/technical-concept-template.md`
+- `/workflow-templates/technical-concept-template.md`
 
 #### Expected Structure
 
@@ -996,7 +996,7 @@ It focuses on:
 This is a live document and is updated continuously during implementation.
 
 The full template is defined in:
-- `/templates/implementation-plan-template.md`
+- `/workflow-templates/implementation-plan-template.md`
 
 #### Expected Structure
 
