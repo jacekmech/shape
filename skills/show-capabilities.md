@@ -24,10 +24,10 @@ Helpful but optional:
 
 ## Preconditions
 Before presenting capabilities:
-- inspect the repository for installed Shape skill files under `skills/`
+- inspect `.shape/config.json` for the repository-declared Shape skill inventory
 - inspect the active feature context if one is already resolved or can be inferred cheaply
 - inspect current artifact availability where needed to avoid suggesting impossible next steps
-- prefer the canonical Shape skill inventory from `design.md` over ad hoc repository guesses
+- prefer the repository-declared Shape skill inventory over ad hoc repository guesses
 
 If no active feature is resolved, this skill should still be usable.
 
@@ -53,22 +53,21 @@ The goal is orientation and workflow discoverability, not exhaustive theory.
 
 ## Artifact Rules
 This skill may read:
-- `design.md` for the canonical skill inventory
-- `skills/` to see which skill files are present in the repository
+- `.shape/config.json` for the repository-declared Shape skill inventory and local artifact conventions
 - `01-prd.md`, `02-tech-concept.md`, and `03-implementation-plan.md` for relevance cues when an active feature is available
 
 This skill must not:
 - create or modify any Shape artifact
-- invent unsupported operations not present in the workflow inventory
-- imply that a missing skill file is implemented if it is not present in `skills/`
+- invent unsupported operations not present in the declared Shape skill inventory
+- imply support for Shape skills that are not declared in `.shape/config.json`
 
-When the repository skill set is incomplete, distinguish clearly between:
-- workflow operations defined by Shape
-- skill files currently present in this repository
+When the declared Shape skill set is intentionally partial, distinguish clearly between:
+- Shape skills declared for this repository
+- additional workflow operations that may exist in the broader Shape model but are not declared here
 
 ## Outputs
 This skill should produce:
-- a compact list of currently supported Shape skills in the repository
+- a compact list of repository-declared Shape skills
 - optional grouping by stage when that improves readability
 - a short note on the most relevant current actions
 - a clear likely next step
@@ -76,14 +75,14 @@ This skill should produce:
 ## Completion Signals
 This skill is complete when:
 - the user can quickly see what Shape operations are available here
-- the distinction between available skills and merely possible future workflow operations is clear
+- the distinction between declared repository skills and broader possible workflow operations is clear
 - the currently most relevant actions are easy to identify
 - the next likely step is stated plainly
 
 ## Guardrails
 - Do not dump a raw directory listing without interpretation
-- Do not invent new operations or aliases that are not grounded in Shape
-- Do not hide missing skill coverage when the repository only implements part of the inventory
+- Do not invent new operations or aliases that are not grounded in the declared Shape skill inventory
+- Do not hide that the declared repository inventory may be only a subset of the broader Shape model
 - Do not present every operation as equally relevant when workflow state makes the next step obvious
 - Do not end with capabilities alone; connect them to the current state when possible
 

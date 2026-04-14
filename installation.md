@@ -139,6 +139,7 @@ This file should be committed.
 Purpose:
 - define where feature folders live
 - define the canonical artifact filenames
+- declare the Shape skill inventory expected by the repository
 - provide a stable repository-level Shape contract
 
 Default v1 example:
@@ -151,9 +152,18 @@ Default v1 example:
     "prd": "01-prd.md",
     "technicalConcept": "02-tech-concept.md",
     "implementationPlan": "03-implementation-plan.md"
+  },
+  "skills": {
+    "managed": [
+      "initiate-feature",
+      ...
+    ]
   }
 }
 ```
+
+`skills.managed` declares the Shape skills supported by the repository.
+It is the repository-local inventory used for workflow orientation features such as `show capabilities`.
 
 ### `.shape/workspace.json`
 
@@ -333,6 +343,7 @@ The exact directory layout should follow the Codex-native skill model, for examp
 Ensure that `AGENTS.md` makes the following discoverable to Codex:
 - the repository uses Shape
 - `.shape/config.json` defines the feature root and artifact filenames
+- `.shape/config.json` declares the repository Shape skill inventory
 - `.shape/workspace.json` is transient local state
 - `.shape/workflow-templates/` contains the canonical workflow templates
 - feature artifacts live under the configured feature root
@@ -377,6 +388,7 @@ features/
 ## Notes
 
 - `.shape/config.json` is intentionally small in v1
+- `.shape/config.json` may also declare the repository-supported Shape skill inventory
 - `.shape/workspace.json` should remain lightweight and local
 - actual feature artifacts are not stored under `.shape/`
 - agent-specific integration should be documented in separate sections rather than mixed into the generic Shape layer

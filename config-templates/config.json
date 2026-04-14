@@ -5,5 +5,26 @@
     "prd": "01-prd.md",
     "technicalConcept": "02-tech-concept.md",
     "implementationPlan": "03-implementation-plan.md"
+  },
+  "skills": {
+    "managed": [
+      "initiate-feature",
+      "pick-up-feature",
+      "show-status",
+      "show-capabilities",
+      "create-prd",
+      "update-prd",
+      "create-technical-concept",
+      "update-technical-concept",
+      "initiate-implementation",
+      "update-implementation-plan",
+      "prepare-slice",
+      "implement-batch",
+      "review-batch",
+      "commit-batch",
+      "record-implementation-decision",
+      "finish-slice",
+      "finish-implementation"
+    ]
   }
 }
