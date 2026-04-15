@@ -2,7 +2,7 @@
 
 This document explains how to install Shape into a target repository.
 
-It covers the installation structure, the minimal repository-level Shape configuration, and the agent-specific integration layer required to make Shape usable in practice.
+It covers the installation structure, the minimal repository-level Shape configuration, and the agent-specific integration layers required to make Shape usable in practice.
 
 This is an installation and configuration manual, not a workflow usage manual.
 
@@ -21,6 +21,7 @@ shape/
 │   ├── README.md
 │   ├── skill-design-principles.md
 │   ├── codex-generation-prompt.md
+│   ├── claude-generation-prompt.md
 │   └── *.md
 ├── workflow-templates/
 │   ├── prd-template.md
@@ -38,14 +39,9 @@ shape/
 - `skills/` contains Shape skill definitions and skill-related guidance used to prepare agent-specific installations
 - `skills/README.md` is a **source-repository-only artifact** describing how the skills folder is organized and how skills relate to Shape operations
 - `skills/codex-generation-prompt.md` is a **source-repository-only artifact** used to help generate or extend Codex-oriented skill files consistently
+- `skills/claude-generation-prompt.md` is a **source-repository-only artifact** used to help generate or extend Claude-oriented skill files consistently
 - `skills/skill-design-principles.md` is a **source-repository-only artifact** describing how to create and review skill files in the Shape repository
 - the individual skill files under `skills/` are the actual skill-definition artifacts that may later be adapted into agent-specific installed formats
-- `workflow-templates/` contains the canonical workflow artifact templates
-- `config-templates/` contains starter repository-level Shape configuration files for the target repository `.shape/` folder
-
-### Purpose of these areas
-
-- `skills/` contains Shape skill definitions and skill-related guidance used to prepare agent-specific installations
 - `workflow-templates/` contains the canonical workflow artifact templates
 - `config-templates/` contains starter repository-level Shape configuration files for the target repository `.shape/` folder
 
@@ -76,8 +72,8 @@ It includes:
 - the skill packaging format expected by the agent
 - any agent-specific conventions required for discovery and execution
 
-This document currently defines the Codex-specific integration layer.
-Additional agent-specific sections, such as Claude Code, can be added later without changing the generic Shape layer.
+This document currently defines Codex-specific and Claude-specific integration layers.
+Additional agent-specific sections can be added later without changing the generic Shape layer.
 
 ---
 
@@ -156,7 +152,7 @@ Default v1 example:
   "skills": {
     "managed": [
       "initiate-feature",
-      ...
+      "..."
     ]
   }
 }
@@ -214,7 +210,7 @@ Copy these files from the Shape repository into the target repository `.shape/` 
 
 ```text
 config-templates/README.md      -> .shape/README.md
-config-templates/gitignore     -> .shape/.gitignore
+config-templates/gitignore      -> .shape/.gitignore
 config-templates/config.json    -> .shape/config.json
 config-templates/workspace.json -> .shape/workspace.json
 ```
@@ -317,10 +313,10 @@ bin/install-codex.sh <shape-root> <target-root>
 ```
 
 This script:
-- installs the generic Shape layer into the target repository
+- installs the generic Shape layer into `.shape/`
 - copies workflow templates into `.shape/workflow-templates/`
 - installs Codex-native skills into `.codex/skills/`
-- generates a pasteable `AGENTS.md` snippet under `.shape/generated/`
+- generates a pasteable Shape snippet under `.shape/generated/`
 
 It does not:
 - patch `AGENTS.md`
@@ -386,6 +382,130 @@ The normal next actions are:
 
 ---
 
+## Claude-Specific Integration
+
+Claude Code uses its own persistent project instruction file and skill packaging model.
+
+For Claude, Shape should be integrated through:
+
+- a repository-level `CLAUDE.md`
+- Claude-native skills packaged in the layout expected by Claude
+- the generic `.shape/` installation described above
+
+The generic Shape skill markdown files in the Shape repository are design-level skill definitions.
+For Claude installation, they should be adapted into Claude's native skill packaging rather than copied as flat markdown files unchanged.
+
+### Claude-specific repository additions
+
+A Claude-oriented target repository will therefore typically include:
+
+```text
+target-repo/
+├── CLAUDE.md
+├── .shape/
+│   ├── README.md
+│   ├── .gitignore
+│   ├── config.json
+│   ├── workspace.json
+│   └── workflow-templates/
+├── .claude/
+│   └── skills/
+│       └── <skill-name>/
+│           └── SKILL.md
+├── features/
+└── ...
+```
+
+This section describes the Claude-specific additions only.
+The `.shape/` configuration and feature layout remain the same as in the generic installation model.
+
+---
+
+## Claude-Specific Installation Steps
+
+### Scripted installation
+
+Where Bash is available, Shape installation for Claude can be bootstrapped with:
+
+```bash
+bin/install-claude.sh <shape-root> <target-root>
+```
+
+This script:
+- installs the generic Shape layer into `.shape/`
+- copies workflow templates into `.shape/workflow-templates/`
+- installs Claude-native skills into `.claude/skills/`
+- generates a pasteable Shape snippet under `.shape/generated/`
+
+It does not:
+- patch `CLAUDE.md`
+- commit changes
+- overwrite existing files silently
+
+The rest of this section describes the equivalent manual installation process.
+
+### 1. Install the generic Shape layer first
+
+Complete all steps from **Generic Installation Steps** before adding Claude-specific files.
+
+### 2. Add `CLAUDE.md`
+
+Create a repository-level `CLAUDE.md` file for Claude.
+
+Its role is to:
+- tell Claude that the repository uses Shape
+- point Claude to the `.shape/` configuration
+- point Claude to the feature artifact conventions
+- point Claude to the installed Claude-native skills when relevant
+
+If the repository already uses a shared `AGENTS.md` file, `CLAUDE.md` may import it and then add the Shape-specific Claude guidance below it.
+
+### 3. Prepare Claude-native skills
+
+Do not assume the flat markdown files in the Shape repository can be used directly as installed Claude skills.
+
+Instead, adapt the approved Shape skill definitions into the Claude-native skill structure expected by Claude.
+This adaptation includes both:
+- the Claude skill directory layout
+- the `SKILL.md` internal structure expected by Claude
+
+### 4. Install Claude-native skills
+
+Install the Claude-formatted skills into the repository location used for Claude skill discovery.
+
+The exact directory layout should follow the Claude-native skill model, for example:
+
+```text
+.claude/skills/<skill-name>/SKILL.md
+```
+
+### 5. Reference Shape from `CLAUDE.md`
+
+Ensure that `CLAUDE.md` makes the following discoverable to Claude:
+- the repository uses Shape
+- `.shape/config.json` defines the feature root and artifact filenames
+- `.shape/config.json` declares the repository Shape skill inventory
+- `.shape/workspace.json` is transient local state
+- `.shape/workflow-templates/` contains the canonical workflow templates
+- feature artifacts live under the configured feature root
+- Claude-native skills are installed in the configured Claude skill location
+
+### 6. Start using Shape with Claude
+
+Once both layers are installed:
+- the generic Shape layer
+- the Claude-specific integration layer
+
+the repository is ready for Shape-driven work with Claude.
+
+The normal next actions are:
+- inspect the installed Claude guidance
+- inspect available skills
+- initiate a feature
+- or pick up an existing feature
+
+---
+
 ## Minimal Generic Installation
 
 The smallest practical generic Shape installation is:
@@ -413,4 +533,5 @@ features/
 - `.shape/workspace.json` should remain lightweight and local
 - actual feature artifacts are not stored under `.shape/`
 - agent-specific integration should be documented in separate sections rather than mixed into the generic Shape layer
-- future versions of this document may add agent-specific sections for Claude Code and other supported tools
+- Codex support uses `AGENTS.md` and `.codex/skills/`
+- Claude support uses `CLAUDE.md` and `.claude/skills/`
