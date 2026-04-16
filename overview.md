@@ -11,19 +11,15 @@ The goal is not to replace engineering judgment. The goal is to make human inten
 
 ## Why Shape exists
 
-AI coding agents can generate useful code quickly, but software delivery breaks down when the surrounding workflow is vague.
+The problem is no longer that AI coding is unavailable. The problem is that in many teams it is being adopted faster than the surrounding delivery model.
 
-In practice, the failure modes are familiar:
+The result is familiar: people use capable tools, sometimes with impressive local results, but without a repeatable way to turn that into reliable team execution. Requirements drift, design decisions disappear into chat history, sessions become too large, reviews become awkward, and important changes fail to propagate cleanly through the work.
 
-- requirements drift while implementation moves ahead
-- design decisions remain implicit or disappear into chat history
-- agent sessions grow too large and lose focus
-- code lands in chunks that are awkward for a developer to review
-- late changes create silent divergence between intent, design, and implementation
+This creates a gap that many organizations already feel but often describe indirectly. The issue is usually framed as governance, scaling, trust, workflow redesign, or tool sprawl. But underneath, the problem is simpler: companies are adopting AI assistance, yet many still lack a practical workflow that makes the work repeatable, reviewable, and traceable.
 
-Shape addresses this by making the workflow explicit, lightweight, and artifact-driven.
+Shape is a response to that gap.
 
-It gives both the human and the agent a shared operational model for how a feature moves from idea to reviewed implementation.
+It does not try to solve it with more process, heavier control, or larger planning rituals. It solves it by making the workflow explicit, lightweight, and artifact-driven.
 
 ## Core idea
 
@@ -42,37 +38,41 @@ For feature delivery, Shape defines two deliberately different execution boundar
 - a **Slice** is a unit of work sized to fit within a focused AI execution session
 - a **Batch** is a unit of completed work sized to fit within a focused developer review step
 
-This distinction is central to Shape. AI agents and human reviewers do not operate well at the same granularity. Shape treats this as a workflow design constraint rather than something to work around informally.
+This distinction is central to Shape. AI agents and human reviewers do not operate well at the same granularity. Shape treats this as a workflow design constraint instead of leaving it to improvisation.
 
 ## What is different about Shape
 
-### 1. Append-only artifact updates
+### 1. It treats AI delivery as a workflow problem, not only a tooling problem
+
+Better models and better agents help, but they do not by themselves create reliable delivery. Shape starts from the assumption that the missing piece in many teams is not capability, but operating structure.
+
+Its focus is therefore not on the agent alone, but on the delivery model around the agent: how intent is recorded, how work is split, how changes are tracked, and how results are reviewed.
+
+### 2. Append-only artifact updates
 
 Shape treats feature documents as persistent, evolving delivery artifacts rather than static specs that must always be rewritten into a clean final form.
 
 When new learnings appear, they are incorporated through explicit updates instead of silent replacement. This makes changes traceable, preserves earlier intent, and reduces the risk of hidden drift across requirements, design, and implementation.
 
-This approach became much more practical with AI assistance.
+This approach becomes far more practical with AI assistance. Maintaining structured artifacts used to feel too heavy for the speed of delivery. With AI, updates can be drafted, aligned, and compressed with much less manual effort.
 
-Without AI, maintaining structured append-only artifacts often felt too heavy for the speed of delivery. With AI, the cost drops significantly: updates can be drafted quickly, aligned across documents faster, and kept readable with less manual effort.
+That makes append-only evolution not only possible, but useful.
 
-That makes append-only evolution not just practical, but useful. It improves traceability while also giving the agent better context about how and why the feature changed.
-
-### 2. Explicit care for LLM context: the Slice
+### 3. Explicit care for LLM context: the Slice
 
 Shape assumes that reliable AI execution depends on keeping work inside a manageable context boundary.
 
-A **Slice** is the unit used for this. It is intentionally small enough to be handled in a single focused agent session with a clear objective, limited ambiguity, and bounded implementation scope.
+A **Slice** is intentionally small enough to be handled in a single focused agent session with a clear objective, limited ambiguity, and bounded implementation scope.
 
 This is one of Shape’s core ideas: workflow quality improves when execution units are designed around practical agent context limits instead of pretending that an entire feature should be implemented in one continuous conversation.
 
-### 3. Explicit care for developer context: the Batch
+### 4. Explicit care for developer context: the Batch
 
 Shape also assumes that human review quality depends on bounded cognitive load.
 
 A **Batch** groups completed implementation work into a reviewable unit that a developer can validate without diff fatigue, context switching overload, or blurred acceptance decisions.
 
-This is the second key boundary in the workflow. Slices optimize for agent execution. Batches optimize for human validation.
+Slices optimize for agent execution. Batches optimize for human validation.
 
 Together, they let implementation move fast without forcing either the AI or the developer to work in units that are too large for reliable judgment.
 
@@ -88,7 +88,7 @@ At a high level, Shape follows a simple flow:
 6. review, approve, and commit accepted batches
 7. reflect important discoveries back into the artifacts through explicit updates
 
-The workflow is intentionally lightweight, but it is not casual. It aims to keep the structure just strong enough that both the user and the agent stay oriented.
+The workflow is intentionally lightweight, but it is not casual. It aims to keep the structure just strong enough that both the human and the agent stay oriented throughout delivery.
 
 Shape also assumes that repository context matters. Good feature artifacts improve feature-level intent, but agent-facing repository guidance improves implementation consistency, validation reliability, and alignment with local engineering conventions.
 
@@ -111,8 +111,8 @@ Shape structures and amplifies human intent. Clear thinking in — clear softwar
 
 Shape is currently in specification phase and is initially designed around greenfield feature delivery, with broader delivery scenarios to follow.
 
-The workflow is being prepared for public use incrementally. Support is intended for Codex, Claude Code, and Gemini, with Codex planned first and soon. Core workflow concepts and document templates come first. Skills, local Shape configuration, and working-state conventions are planned as follow-up layers.
+The workflow is being prepared for public use incrementally. Support is intended for Codex, Claude Code, and Gemini. Core workflow concepts and document templates come first. Skills, local Shape configuration, and working-state conventions are planned as follow-up layers.
 
 ## In one sentence
 
-Shape is a lightweight workflow for AI-assisted software delivery that uses evolving feature artifacts, AI-sized execution slices, and human-sized review batches to make delivery faster without making it chaotic.
+Shape is a lightweight workflow for AI-assisted software delivery that uses evolving feature artifacts, AI-sized execution slices, and human-sized review batches to make delivery faster, more repeatable, and more traceable without making it chaotic.
