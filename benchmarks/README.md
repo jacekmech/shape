@@ -46,8 +46,8 @@ It uses:
 
 The initial benchmark models are:
 
-- OpenAI: `gpt-5.4`
-- Anthropic: `Claude Opus 4.6`
+- OpenAI: `GPT 5.4 Medium`
+- Anthropic: `Claude 4.6 Sonnet`
 - Google: `Gemini 2.5 Pro`
 
 These are treated as the main comparison set for the first Shape benchmark runs.
