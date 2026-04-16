@@ -22,6 +22,7 @@ shape/
 │   ├── skill-design-principles.md
 │   ├── codex-generation-prompt.md
 │   ├── claude-generation-prompt.md
+│   ├── gemini-generation-prompt.md
 │   └── *.md
 ├── workflow-templates/
 │   ├── prd-template.md
@@ -40,6 +41,7 @@ shape/
 - `skills/README.md` is a **source-repository-only artifact** describing how the skills folder is organized and how skills relate to Shape operations
 - `skills/codex-generation-prompt.md` is a **source-repository-only artifact** used to help generate or extend Codex-oriented skill files consistently
 - `skills/claude-generation-prompt.md` is a **source-repository-only artifact** used to help generate or extend Claude-oriented skill files consistently
+- `skills/gemini-generation-prompt.md` is a **source-repository-only artifact** used to help generate or extend Gemini-oriented skill files consistently
 - `skills/skill-design-principles.md` is a **source-repository-only artifact** describing how to create and review skill files in the Shape repository
 - the individual skill files under `skills/` are the actual skill-definition artifacts that may later be adapted into agent-specific installed formats
 - `workflow-templates/` contains the canonical workflow artifact templates
@@ -72,7 +74,7 @@ It includes:
 - the skill packaging format expected by the agent
 - any agent-specific conventions required for discovery and execution
 
-This document currently defines Codex-specific and Claude-specific integration layers.
+This document currently defines Codex-specific, Claude-specific, and Gemini-specific integration layers.
 Additional agent-specific sections can be added later without changing the generic Shape layer.
 
 ---
@@ -506,25 +508,102 @@ The normal next actions are:
 
 ---
 
-## Minimal Generic Installation
+## Gemini-Specific Integration
 
-The smallest practical generic Shape installation is:
+Gemini CLI uses its own persistent project instruction file and a native Agent Skills mechanism.
 
-```text
-.shape/
-├── .gitignore
-├── config.json
-├── workspace.json
-└── workflow-templates/
+For Gemini, Shape should be integrated through:
+
+- a repository-level `GEMINI.md`
+- Gemini-native skills installed in the layout expected by Gemini
+- the generic `.shape/` installation described above
+
+The generic Shape skill markdown files in the Shape repository are design-level skill definitions.
+For Gemini installation, they should be adapted into Gemini's native skill packaging rather than copied as flat markdown files unchanged.
+
+## Gemini-Specific Installation Steps
+
+### Scripted installation
+
+Where Bash is available, Shape installation for Gemini can be bootstrapped with:
+
+```bash
+bin/install-gemini.sh <shape-root> <target-root>
 ```
 
-with actual feature artifacts stored outside `.shape/`, typically under:
+This script:
+- installs the generic Shape layer into `.shape/`
+- copies workflow templates into `.shape/workflow-templates/`
+- installs Gemini-native skills into `.agents/skills/`
+- generates a pasteable Shape snippet under `.shape/generated/`
+
+It does not:
+- patch `GEMINI.md`
+- commit changes
+- overwrite existing files silently
+
+The rest of this section describes the equivalent manual installation process.
+
+### 1. Install the generic Shape layer first
+
+Complete all steps from **Generic Installation Steps** before adding Gemini-specific files.
+
+### 2. Add `GEMINI.md`
+
+Create a repository-level `GEMINI.md` file for Gemini.
+
+Its role is to:
+- tell Gemini that the repository uses Shape
+- point Gemini to the `.shape/` configuration
+- point Gemini to the feature artifact conventions
+- point Gemini to the installed Gemini-native skills when relevant
+
+### 3. Prepare Gemini-native skills
+
+Do not assume the flat markdown files in the Shape repository can be used directly as installed Gemini skills.
+
+Instead, adapt the approved Shape skill definitions into the Gemini-native skill structure expected by Gemini.
+
+### 4. Install Gemini-native skills
+
+Install the Gemini-formatted skills into the repository location used for Gemini skill discovery.
+
+The preferred cross-agent installation root is:
 
 ```text
-features/
+.agents/skills/<skill-name>/SKILL.md
 ```
 
----
+An alternative Gemini-specific layout is:
+
+```text
+.gemini/skills/<skill-name>/SKILL.md
+```
+
+### 5. Reference Shape from `GEMINI.md`
+
+Ensure that `GEMINI.md` makes the following discoverable to Gemini:
+- the repository uses Shape
+- `.shape/config.json` defines the feature root and artifact filenames
+- `.shape/config.json` declares the repository Shape skill inventory
+- `.shape/workspace.json` is transient local state
+- `.shape/workflow-templates/` contains the canonical workflow templates
+- feature artifacts live under the configured feature root
+- Gemini-native skills are installed in the configured Gemini skill location
+
+### 6. Start using Shape with Gemini
+
+Once both layers are installed:
+- the generic Shape layer
+- the Gemini-specific integration layer
+
+the repository is ready for Shape-driven work with Gemini.
+
+The normal next actions are:
+- inspect the installed Gemini guidance
+- inspect available skills
+- initiate a feature
+- or pick up an existing feature
 
 ## Notes
 
@@ -535,3 +614,4 @@ features/
 - agent-specific integration should be documented in separate sections rather than mixed into the generic Shape layer
 - Codex support uses `AGENTS.md` and `.codex/skills/`
 - Claude support uses `CLAUDE.md` and `.claude/skills/`
+- Gemini support uses `GEMINI.md` and `.agents/skills/` or `.gemini/skills/`
