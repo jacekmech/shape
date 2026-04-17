@@ -74,7 +74,7 @@ It includes:
 - the skill packaging format expected by the agent
 - any agent-specific conventions required for discovery and execution
 
-This document currently defines Codex-specific, Claude-specific, and Gemini-specific integration layers.
+This document currently defines Codex-specific, Claude-specific, Gemini-specific, and OpenCode-specific integration layers.
 Additional agent-specific sections can be added later without changing the generic Shape layer.
 
 ---
@@ -605,6 +605,132 @@ The normal next actions are:
 - initiate a feature
 - or pick up an existing feature
 
+---
+
+## OpenCode-Specific Integration
+
+OpenCode uses its own persistent project guidance and native skill packaging model.
+
+For OpenCode, Shape should be integrated through:
+
+- a repository-level `AGENTS.md`
+- OpenCode-native skills packaged in the layout expected by OpenCode
+- the generic `.shape/` installation described above
+
+The generic Shape skill markdown files in the Shape repository are design-level skill definitions.
+For OpenCode installation, they should be adapted into OpenCode's native skill packaging rather than copied as flat markdown files unchanged.
+
+### OpenCode-specific repository additions
+
+An OpenCode-oriented target repository will therefore typically include:
+
+```text
+target-repo/
+├── AGENTS.md
+├── .shape/
+│   ├── README.md
+│   ├── .gitignore
+│   ├── config.json
+│   ├── workspace.json
+│   └── workflow-templates/
+├── .opencode/
+│   └── skills/
+│       └── <skill-name>/
+│           └── SKILL.md
+├── features/
+└── ...
+```
+
+This section describes the OpenCode-specific additions only.
+The `.shape/` configuration and feature layout remain the same as in the generic installation model.
+
+---
+
+## OpenCode-Specific Installation Steps
+
+### Scripted installation
+
+Where Bash is available, Shape installation for OpenCode can be bootstrapped with:
+
+```bash
+bin/install-opencode.sh <shape-root> <target-root>
+```
+
+This script:
+- installs the generic Shape layer into `.shape/`
+- copies workflow templates into `.shape/workflow-templates/`
+- installs OpenCode-native skills into `.opencode/skills/`
+- generates a pasteable Shape snippet under `.shape/generated/`
+
+It does not:
+- patch `AGENTS.md`
+- configure model or provider settings
+- commit changes
+- overwrite existing files silently
+
+The rest of this section describes the equivalent manual installation process.
+
+### 1. Install the generic Shape layer first
+
+Complete all steps from **Generic Installation Steps** before adding OpenCode-specific files.
+
+### 2. Add `AGENTS.md`
+
+Create a repository-level `AGENTS.md` file for OpenCode.
+
+Its role is to:
+- tell OpenCode that the repository uses Shape
+- point OpenCode to the `.shape/` configuration
+- point OpenCode to the feature artifact conventions
+- point OpenCode to the installed OpenCode-native skills when relevant
+
+If the repository already uses `AGENTS.md` for another agent, add the Shape-specific OpenCode guidance to that same file rather than creating a second repository guidance file.
+
+### 3. Prepare OpenCode-native skills
+
+Do not assume the flat markdown files in the Shape repository can be used directly as installed OpenCode skills.
+
+Instead, adapt the approved Shape skill definitions into the OpenCode-native skill structure expected by OpenCode.
+This adaptation includes both:
+- the OpenCode skill directory layout
+- the `SKILL.md` internal structure expected by OpenCode
+
+### 4. Install OpenCode-native skills
+
+Install the OpenCode-formatted skills into the repository location used for OpenCode skill discovery.
+
+The exact directory layout should follow the OpenCode-native skill model, for example:
+
+```text
+.opencode/skills/<skill-name>/SKILL.md
+```
+
+### 5. Reference Shape from `AGENTS.md`
+
+Ensure that `AGENTS.md` makes the following discoverable to OpenCode:
+- the repository uses Shape
+- `.shape/config.json` defines the feature root and artifact filenames
+- `.shape/config.json` declares the repository Shape skill inventory
+- `.shape/workspace.json` is transient local state
+- `.shape/workflow-templates/` contains the canonical workflow templates
+- feature artifacts live under the configured feature root
+- OpenCode-native skills are installed in the configured OpenCode skill location
+- model and provider selection remain part of the user's OpenCode setup rather than the repository Shape installation
+
+### 6. Start using Shape with OpenCode
+
+Once both layers are installed:
+- the generic Shape layer
+- the OpenCode-specific integration layer
+
+the repository is ready for Shape-driven work with OpenCode.
+
+The normal next actions are:
+- inspect the installed OpenCode guidance
+- inspect available skills
+- initiate a feature
+- or pick up an existing feature
+
 ## Notes
 
 - `.shape/config.json` is intentionally small in v1
@@ -615,3 +741,4 @@ The normal next actions are:
 - Codex support uses `AGENTS.md` and `.codex/skills/`
 - Claude support uses `CLAUDE.md` and `.claude/skills/`
 - Gemini support uses `GEMINI.md` and `.agents/skills/` or `.gemini/skills/`
+- OpenCode support uses `AGENTS.md` and `.opencode/skills/`
