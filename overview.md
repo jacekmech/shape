@@ -89,12 +89,6 @@ The workflow is intentionally lightweight. It aims to keep the structure just st
 
 Shape also assumes that repository context matters. Good feature artifacts improve feature-level intent, but agent-facing repository guidance improves implementation consistency, validation reliability, and alignment with local engineering conventions.
 
-## Current status
-
-Shape is currently in beta for v0.1. The current version is designed around greenfield feature delivery, with broader delivery scenarios to follow.
-
-Support has been implemented for Codex, Claude Code, Gemini CLI, and OpenCode. The first round of reference feature implementation has been completed, and the move from beta to final version is coming soon.
-
 ## In one sentence
 
 Shape is a lightweight workflow for AI-assisted software delivery that uses evolving feature artifacts, AI-sized execution slices, and human-sized review batches to make delivery faster, more repeatable, and more traceable without turning it into chaos.

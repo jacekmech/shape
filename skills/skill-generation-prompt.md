@@ -1,6 +1,6 @@
-# Codex Prompt for Generating Shape Skill Files
+# Prompt for Generating Shape Skill Files
 
-Use this prompt when asking Codex to generate additional Shape skill files for the Shape workflow.
+Use this prompt when asking agent to generate additional Shape skill files for the Shape workflow.
 
 ---
 
