@@ -53,13 +53,11 @@ Late changes are inherently expensive to coordinate. Shape keeps the mechanism f
 
 ### Out of Scope
 
-Shape v1 focuses on the core artifact-driven workflow for delivering a feature within an already chosen branch and repository context. It does not define branching strategy or prescribe a specific coding agent vendor, integration mechanism, or mandatory agent instruction filename.
+Shape v0.1 focuses on the core artifact-driven workflow for delivering a feature within an already chosen branch and repository context. It does not define branching strategy or prescribe a specific coding agent vendor, integration mechanism, or mandatory agent instruction filename.
 
 Shape does define repository readiness expectations for agent-assisted delivery, but it does not standardize the full setup or installation model for agent tooling across repositories.
 
-It also does not yet define a streamed or continuous delivery mode beyond the standard document update flow described in this specification.
-
-The following areas are intentionally out of scope for Shape v1:
+The following areas are intentionally out of scope for Shape v0.1:
 - document review workflows
 - pull request review workflows
 - CI/CD design and automation
@@ -77,12 +75,12 @@ This section defines a precise and shared terminology for the system. The goal i
 Atomic delivery unit of the workflow. A feature represents a complete unit of functionality delivered from ideation through design and implementation into working software.
 
 ### Stage  
-A distinct phase of the workflow with a defined purpose and output. The core stages are: Product definition (PRD), Technical design (Tech Concept), and Implementation.
+A distinct phase of the workflow with a defined purpose and output. The core stages are: Product definition (PRD), Technical design (Technical Concept), and Implementation.
 
 ### Product Requirements Definition (PRD)  
 Markdown document specifying functional and non-functional requirements for a feature.
 
-### Technical Concept (Tech Concept)  
+### Technical Concept
 Markdown document specifying technical design and initial implementation direction for a feature. It serves as the design baseline for implementation.
 
 ### Implementation Plan  
@@ -397,7 +395,7 @@ Implementation begins by creating an Implementation Plan from the ready PRD and 
 **State**
 - PRD status is `ready`
 - Technical Concept status is `ready`
-- Implementation Plan is created
+- Implementation Plan is created with its status updated to `ready`
 - Initial Slices are defined
 - Tasks are not yet specified
 - No execution has occurred
@@ -416,7 +414,7 @@ A selected Implementation Slice is expanded into **Implementation Tasks**.
 - Developer reviews and requests adjustment if needed
 - Tasks are added to the Implementation Plan
 - Slice scope is checked against practical agent context limits
-- Implementation Plan status changes from `ready` to `in progress` when active execution begins
+- Implementation Plan status changes from `ready` to `in progress`
 
 **Output**
 - Slice with a defined set of Implementation Tasks
@@ -456,7 +454,7 @@ The AI Agent executes the selected Batch.
 - AI Agent does not select or reorder Tasks
 - AI Agent does **not** mark the batch as approved merely because implementation completed
 - AI Agent may update temporary execution state in the Implementation Plan if needed, but task completion should be finalized only after developer approval during review
-- AI Agent may prepare a proposed update to the **Relevant Files** section of the Implementation Plan based on the files and code areas touched by the batch, but this should be finalized only after developer review so that the working file map reflects accepted implementation state rather than temporary execution output
+- AI Agent may prepare a proposed update to the **Relevant Files** or **Important Decision** section of the Implementation Plan based on the files and code areas touched by the batch, but this should be finalized only after developer review so that these sections reflect accepted implementation state rather than temporary execution output
 
 **Constraints**
 - AI Agent operates strictly within Batch scope
@@ -480,18 +478,15 @@ Approval and commit form a single normal progression boundary. Once a batch is a
 - Developer reviews code diff
 - Developer verifies alignment with selected Tasks and Slice intent
 - Developer may request one or more adjustment iterations
-- Developer may ask the AI Agent to record relevant implementation decisions
+- Developer may ask the AI Agent to record relevant implementation decisions or relevant files
 - Developer may reshape future tasking or slice boundaries if implementation reveals a better plan
 - Once satisfied, the Developer explicitly confirms the batch is approved
 - After approval, the AI Agent marks relevant tasks as completed in the Implementation Plan so that the workflow continues to minimize direct document editing by the Developer
-- After approval, the AI Agent updates the **Relevant Files** section of the Implementation Plan when needed, keeping it as a compact working file map for upcoming slices and fresh-session pickup
-- When maintaining **Relevant Files**, the AI Agent may add, adjust, or remove entries based on current relevance, but should avoid turning this section into a full file inventory or historical changelog
-- The **Relevant Files** section should reflect accepted implementation state and likely future usefulness, not every file touched during exploratory or rejected work
-- Developer commits the approved batch before the next batch begins
+- Developer commits or asks the agent to commit the approved batch before the next batch begins
 
 **Outcome**
-- Approved and committed changes become part of the codebase
 - Relevant tasks are marked done by the AI Agent in the Implementation Plan
+- Approved and committed changes become part of the codebase
 - Batch is finalized
 
 **Notes on agent-assisted review**
@@ -515,6 +510,7 @@ After all Tasks within a Slice are completed and their approved batches have bee
 - Functional and technical expectations are confirmed
 - Slice is confirmed as complete within the intended session-sized boundary
 - Developer may confirm that the **Relevant Files** section still reflects the files and directories most useful for subsequent slices; the AI Agent should prune or refresh entries when slice completion changes what is worth carrying forward
+- Developer may confirm that the **Important Decisions** section still reflects the changes introduced in the implementation step for subsequent slices;
 
 **Output**
 - Slice marked as completed in Implementation Plan
@@ -1082,10 +1078,13 @@ Create the initial feature workspace and establish the feature as a deliverable 
 Product Owner, Architect, or Developer
 
 **AI Agent**  
-Proposes feature identifier and slug if needed, scaffolds the feature folder and core artifact files according to Shape conventions, evaluates repository readiness, and indicates the most likely next step after setup.
+Proposes feature identifier and slug if needed, scaffolds the feature folder and core artifact files according to Shape conventions, evaluates repository readiness, and indicates the most likely next step after setup but does not fill in the artifacts beyond the default template content.
 
 **User**  
-Provides or approves the feature identity and confirms creation of the feature workspace.
+Provides or approves the feature identity, confirms creation of the feature workspace, commits the changes or asks the Agent to commit.
+
+**Ends with**  
+**Feature workspace created and committed.**
 
 ---
 
@@ -1097,10 +1096,13 @@ Draft and iteratively refine the Product Requirements Definition until it is rea
 Product Owner
 
 **AI Agent**  
-Guides the discussion, explicitly invites any larger existing requirement draft if available, identifies gaps and ambiguities, drafts and revises the PRD, and updates the document until it is ready. It should conclude each interaction turn with the clearest next step. It may briefly signal that work is proceeding under Shape when entering workflow mode or when that orientation materially helps, but should avoid repetitive reminder phrasing on every exchange.
+Guides the discussion, explicitly invites any larger existing requirement draft if available, identifies gaps and ambiguities, drafts and revises the PRD, and updates the document until it is ready. It should conclude each interaction turn with the clearest next step. It may briefly signal that work is proceeding under Shape when entering workflow mode or when that orientation materially helps, but should avoid repetitive reminder phrasing on every exchange. It must not mark document as ready without explicit approval from the user. It must not move on to the next workflow operation without explicit approval from the user.
 
 **User**  
-Provides product intent, optionally provides existing requirement material, answers clarification questions, reviews the draft, and marks the PRD as ready.
+Provides product intent, optionally provides existing requirement material, answers clarification questions, reviews the draft, approves the PRD as ready, commits the changes or asks the Agent to commit.
+
+**Ends with**  
+**PRD approved as ready and committed.**
 
 ---
 
@@ -1112,10 +1114,13 @@ Draft and iteratively refine the Technical Concept from the ready PRD until it i
 Architect
 
 **AI Agent**  
-Validates the PRD as input, explicitly invites any larger existing technical draft if available, analyzes the codebase and repository guidance, aligns the proposed design with repository structure and local architectural patterns, drafts and revises the Technical Concept, and updates the document until it is ready. It should conclude each interaction turn with the clearest next step.
+Validates the PRD as input, explicitly invites any larger existing technical draft if available, analyzes the codebase and repository guidance, aligns the proposed design with repository structure and local architectural patterns, drafts and revises the Technical Concept, and updates the document until it is ready. It should conclude each interaction turn with the clearest next step. It must not mark document as ready without explicit approval from the user. It must not move on to the next workflow operation without explicit approval from the user.
 
 **User**  
-Provides technical guidance and constraints, optionally provides existing technical design material, reviews design decisions, and marks the Technical Concept as ready.
+Provides technical guidance and constraints, optionally provides existing technical design material, reviews design decisions, approves the Technical Concept as ready, commits the changes or asks the Agent to commit.
+
+**Ends with**  
+**Technical Concept approved as ready and committed.**
 
 ---
 
@@ -1127,89 +1132,122 @@ Create the initial Implementation Plan from the ready PRD and Technical Concept 
 Developer
 
 **AI Agent**  
-Validates that PRD and Technical Concept are ready, proposes the initial Implementation Plan structure and initial slices, checks that slices are shaped for fresh-session execution, and creates the document.
+Validates that PRD and Technical Concept are ready, proposes the initial Implementation Plan structure and initial slices, checks that slices are shaped for fresh-session execution, and creates the document. It does not create implementation tasks - slices remain empty. It must not mark document as ready without explicit approval from the user. It must not move on to the next workflow operation without explicit approval from the user.
 
 **User**  
-Reviews the proposed implementation structure, adjusts it if needed, and approves the Implementation Plan as ready.
+Reviews the proposed implementation structure, asks for adjustments if needed, approves the Implementation Plan as ready, commits the changes in the Implementation Plan or asks the agent to commit.
+
+**Ends with**  
+**Implementation Plan approved as ready and committed.**
 
 ---
 
 #### 5. Prepare Slice
 **Description**  
-Expand a selected implementation slice into executable implementation tasks while keeping the slice within practical agent context limits.
+Turn a selected implementation slice into a concrete, reviewable execution proposal and record the approved planning changes in the Implementation Plan.
 
 **Responsible role**  
 Developer
 
 **AI Agent**  
-In a fresh session, resolves the active feature through the **Pick Up Feature** operation unless already clearly active, proposes a task breakdown for the selected slice, checks that the slice remains suitable for execution in a fresh agent session, updates the Implementation Plan if the proposal is accepted, and indicates the next likely step.
+In a fresh session, resolves the active feature through the **Pick Up Feature** operation unless already clearly active. For the selected slice, it:
+- asks clarifying questions if needed
+- proposes the **Implementation Tasks**
+- proposes any **Important Decisions** that should be made before execution
+- checks whether the slice is still sized appropriately for a focused execution session
+
+Once the proposals are approved, it updates the Implementation Plan with the agreed Implementation Tasks and any agreed Important Decisions. It then indicates the next likely step. It does not proceed to implementation without explicit approval.
 
 **User**  
-Selects the slice, reviews and adjusts the proposed tasks, and confirms updating the Implementation Plan.
+Selects the slice, reviews the proposed tasks and decisions, iterates if needed, explicitly approves the planning changes to the Implementation Plan, commits the updates in the Implementation Plan or asks the agent to commit.
+
+**Ends with**  
+**Approved changes recorded in the Implementation Plan and committed.**
 
 ---
 
 #### 6. Implement Batch
 **Description**  
-Execute a selected batch of implementation tasks in code and prepare the result for developer review.
+Execute an approved batch of implementation tasks in code and prepare the result for developer review.
 
 **Responsible role**  
 Developer
 
 **AI Agent**  
-Implements the selected tasks, keeps within batch scope, summarizes what changed, and explicitly asks the Developer for **review** and **approval**. It should not treat implementation completion as batch approval.
+Starts implementation **only after explicit Developer approval** for the selected batch. During execution, it:
+- asks clarifying questions if needed
+- implements the selected tasks in code
+- stays within the approved batch scope
+- updates the **Relevant Files** list in the Implementation Plan to reflect the resulting implementation state
+- updates **Important Decisions** in the Implementation Plan when implementation introduces decisions worth preserving
+
+When the batch is complete, the AI Agent gives a **very brief summary** of what changed and explicitly asks the Developer to review the batch. It does **not** treat implementation completion as approval. It does **not** mark tasks as done during this step.
 
 **User**  
-Selects the tasks for the batch and provides any execution constraints or corrections.
+Selects the tasks for the batch, provides any execution constraints or corrections, and decides when the implemented batch is ready for review.
+
+**Ends with**  
+**Code and any resulting Implementation Plan updates are ready for review, not approved, not committed.**
 
 ---
 
 #### 7. Review Batch
 **Description**  
-Validate that the implemented batch matches the selected tasks and intended slice outcome.
+Review an implemented batch, iterate if needed, and approve the batch for completion in the Implementation Plan.
 
 **Responsible role**  
 Developer
 
 **AI Agent**  
-Summarizes what changed, explains how the batch maps to the selected tasks, highlights notable decisions or risks, supports iterative adjustment requests, records implementation decisions when asked, marks tasks as done only after explicit Developer approval, clearly distinguishes between “awaiting review,” “awaiting approval,” and “approved but awaiting commit,” and indicates whether the batch is ready to commit.
+Supports Developer review by:
+- summarizing what changed
+- explaining how the implemented batch maps to the selected tasks
+- highlighting notable decisions, gaps, or risks
+- applying requested adjustments during review iteration
+
+The AI Agent **must not mark tasks as done without explicit Developer approval**. Once approval is given, it updates the Implementation Plan to mark the approved tasks as done. It should clearly distinguish between:
+- **awaiting review**
+- **under review / iterating**
+- **approved and marked done**
+
+It indicates whether the batch is ready to review. It does not proceed to commit as part of this operation.
 
 **User**  
-Reviews the diff and explanation, requests adjustments if needed, validates correctness and scope, decides whether the batch is approved, and lets the AI Agent update the Implementation Plan accordingly.
+Reviews the diff and explanation, requests adjustments if needed, validates correctness and scope, and explicitly approves the batch as done when satisfied.
+
+**Ends with**  
+**Tasks approved and marked as done in the Implementation Plan, not committed.**
 
 ---
 
 #### 8. Commit Batch
 **Description**  
-Persist an approved implementation batch as an explicit repository checkpoint.
+Create the repository checkpoint for a reviewed and approved batch before any new batch starts.
 
 **Responsible role**  
 Developer
 
 **AI Agent**  
-Proposes a commit message if needed, identifies the reviewed and approved batch boundary to be committed, and confirms the next likely step after commit. This commit is the normal required boundary before any subsequent batch begins.
+After the batch has been reviewed and approved, the AI Agent may:
+- propose a commit message or commit summary
+- identify the approved batch boundary to be committed
+- create the commit itself **if explicitly asked by the Developer**
+- propose the next likely step after commit
+
+The AI Agent does not assume who will perform the commit. It may suggest committing, but it does not move to the next batch or workflow operation without explicit approval.
 
 **User**  
-Confirms the batch has been approved and creates the commit.
+Decides how the commit is handled. The Developer may:
+- commit the batch directly
+- ask the AI Agent for a commit summary and commit manually
+- ask the AI Agent for a commit summary and ask the AI Agent to create the commit
+
+**Ends with**  
+**Approved diff committed.** This repository checkpoint is the normal required boundary before any new batch starts.
 
 ---
 
-#### 9. Record Implementation Decision
-**Description**  
-Record an implementation-time decision or clarification that should remain visible during execution.
-
-**Responsible role**  
-Developer
-
-**AI Agent**  
-Identifies decisions worth recording, proposes a concise entry for the Implementation Plan, and inserts it if accepted.
-
-**User**  
-Reviews the proposed decision record, adjusts it if needed, and confirms storing it in the Implementation Plan.
-
----
-
-#### 10. Finish Slice
+#### 9. Finish Slice
 **Description**  
 Validate that a slice is complete and mark it as done in the Implementation Plan.
 
@@ -1217,14 +1255,17 @@ Validate that a slice is complete and mark it as done in the Implementation Plan
 Developer
 
 **AI Agent**  
-Summarizes completed tasks and resulting functionality, confirms whether the slice is complete within its intended boundary, and updates the slice state if the developer confirms completion. It should treat committed approved batches as the expected precondition for closing the slice.
+Summarizes completed tasks and resulting functionality, confirms whether the slice is complete within its intended boundary, and updates the slice state only if the Developer explicitly confirms completion. It should treat committed approved batches as the expected precondition for closing the slice. It must not mark the slice as done without explicit Developer approval.
 
 **User**  
-Reviews the implemented slice outcome, validates that the slice goal has been met, and confirms marking the slice complete.
+Reviews the implemented slice outcome, validates that the slice goal has been met, confirms marking the slice complete, commits the updated Implementation Plan or asks the agent to commit.
+
+**Ends with**  
+**Slice approved as complete, marked as done in the Implementation Plan, and committed.**
 
 ---
 
-#### 11. Update PRD
+#### 10. Update PRD
 **Description**  
 Add a new PRD Specification Update or continue refining an existing draft PRD update until it remains `draft` or is marked `ready`.
 
@@ -1235,11 +1276,14 @@ Product Owner, Architect, or Developer
 Summarizes the issue, proposes the Specification Update content in append-only form, and updates the relevant PRD update entry.
 
 **User**  
-Confirms that the issue should be formalized, adjusts the proposal if needed, and decides whether the result remains `draft` or becomes `ready`.
+Confirms that the issue should be formalized, adjusts the proposal if needed, decides whether the result remains `draft` or becomes `ready`, commits the changes or asks the Agent to commit.
+
+**Ends with**  
+**PRD Specification Update recorded with its selected status and committed.**
 
 ---
 
-#### 12. Update Technical Concept
+#### 11. Update Technical Concept
 **Description**  
 Add a new Technical Concept Specification Update or continue refining an existing draft Technical Concept update until it remains `draft` or is marked `ready`.
 
@@ -1250,11 +1294,14 @@ Product Owner, Architect, or Developer
 Summarizes the issue, proposes the Specification Update content in append-only form, aligns the update with repository guidance and local architectural patterns when relevant, and updates the relevant Technical Concept update entry.
 
 **User**  
-Confirms that the issue should be formalized, adjusts the proposal if needed, and decides whether the result remains `draft` or becomes `ready`.
+Confirms that the issue should be formalized, adjusts the proposal if needed, decides whether the result remains `draft` or becomes `ready`, commits the changes or asks the Agent to commit.
+
+**Ends with**  
+**Technical Concept Specification Update recorded with its selected status and committed.**
 
 ---
 
-#### 13. Update Implementation Plan
+#### 12. Update Implementation Plan
 **Description**  
 Apply relevant ready updates from the PRD and/or Technical Concept to the Implementation Plan.
 
@@ -1265,11 +1312,14 @@ Developer
 Identifies which ready PRD or Technical Concept updates affect execution planning, summarizes their implementation impact, and proposes corresponding inline changes to the Implementation Plan. It may add new Slices or update existing open Slices, but does not modify closed Slices, Slices already in progress, or any Implementation Tasks.
 
 **User**  
-Confirms that the specification updates should be reflected in the Implementation Plan, reviews the proposed planning changes, adjusts them if needed, and approves updating the document.
+Confirms that the specification updates should be reflected in the Implementation Plan, reviews the proposed planning changes, adjusts them if needed, approves updating the document, commits the changes or asks the Agent to commit.
+
+**Ends with**  
+**Implementation Plan updated to reflect ready specification changes and committed.**
 
 ---
 
-#### 14. Finish Implementation
+#### 13. Finish Implementation
 **Description**  
 Conclude implementation by verifying completion state, repository readiness, and final Implementation Plan status.
 
@@ -1280,13 +1330,16 @@ Developer
 Checks that all slices are marked complete, confirms the Implementation Plan reflects execution state, checks for unresolved draft updates, proposes final status updates, and indicates completion clearly.
 
 **User**  
-Verifies repository cleanliness and completion readiness, then confirms marking the Implementation Plan as done.
+Verifies repository cleanliness and completion readiness, confirms marking the Implementation Plan as done, commits the change or asks the Agent to commit.
+
+**Ends with**  
+**Implementation Plan marked as done, repository confirmed clean, and completion committed.**
 
 ---
 
 ### 9.2 Supporting Operations
 
-#### 15. Pick Up Feature
+#### 14. Pick Up Feature
 **Description**  
 Select the feature to work on and make it the active local Shape context.
 
@@ -1301,7 +1354,7 @@ Identifies or chooses the feature to work on and confirms the selection if neede
 
 ---
 
-#### 16. Show Status
+#### 15. Show Status
 **Description**  
 Display the current Shape configuration, active feature context, resolved artifacts, structural warnings, and likely next actions.
 
@@ -1316,7 +1369,7 @@ Requests the current workflow state and uses the result to decide what to do nex
 
 ---
 
-#### 17. Show Capabilities
+#### 16. Show Capabilities
 **Description**  
 Display the currently supported Shape operations or skills in a user-friendly form so that the workflow is easy to operate without memorization.
 
@@ -1369,15 +1422,77 @@ The inventory should also be easy to surface to the user on demand. Shape assume
 - **initiate feature**
   - **Purpose:** create the initial feature workspace according to Shape repository conventions
   - **Triggers on:** request to start a new feature
-  - **Outcome:** feature folder and core artifact files exist for the new feature
+  - **Outcome:** feature folder and core artifact files exist for the new feature and the workspace is ready for use
+
+- **create prd**
+  - **Purpose:** draft and iteratively refine the PRD baseline until it is approved as ready
+  - **Triggers on:** request to start or continue PRD definition
+  - **Outcome:** PRD is updated and can reach `ready` state for downstream use
+
+- **create technical concept**
+  - **Purpose:** draft and iteratively refine the Technical Concept baseline from the ready PRD, codebase, repository guidance, and technical context until it is approved as ready
+  - **Triggers on:** request to start or continue technical design
+  - **Outcome:** Technical Concept is updated and can reach `ready` state for implementation use
+
+- **initiate implementation**
+  - **Purpose:** create the initial Implementation Plan from the ready PRD and Technical Concept and prepare execution to begin
+  - **Triggers on:** request to begin implementation planning
+  - **Outcome:** Implementation Plan exists with initial slices and can reach `ready` state for execution
+
+- **prepare slice**
+  - **Purpose:** turn a selected implementation slice into a concrete, reviewable execution proposal by defining Implementation Tasks and recording any agreed Important Decisions
+  - **Triggers on:** request to refine a slice for execution
+  - **Outcome:** approved planning changes are recorded in the Implementation Plan for the selected slice
+
+- **implement batch**
+  - **Purpose:** execute an approved batch of implementation tasks in code and prepare the result for Developer review
+  - **Triggers on:** request to implement one or more approved implementation tasks
+  - **Outcome:** code changes and any resulting Implementation Plan updates are ready for review, but not yet approved and not committed
+
+- **review batch**
+  - **Purpose:** review an implemented batch, iterate if needed, and mark approved tasks as done in the Implementation Plan
+  - **Triggers on:** request to review completed batch work
+  - **Outcome:** approved tasks are marked as done in the Implementation Plan, but the result is not yet committed
+
+- **commit batch**
+  - **Purpose:** create the repository checkpoint for a reviewed and approved batch before any new batch starts
+  - **Triggers on:** request to commit reviewed batch changes
+  - **Outcome:** approved batch diff is committed in the repository
+
+- **finish slice**
+  - **Purpose:** validate that a slice is complete and mark it as done in the Implementation Plan
+  - **Triggers on:** request to close a slice whose tasks have been completed through approved and committed batches
+  - **Outcome:** selected slice is marked as done in the Implementation Plan and can be committed as complete
+
+- **update prd**
+  - **Purpose:** add a new PRD Specification Update or continue refining an existing draft PRD update until it remains `draft` or is marked `ready`
+  - **Triggers on:** request to record, continue, or finalize a requirement-level change, correction, or newly discovered information
+  - **Outcome:** PRD contains a newly added or updated Specification Update in `draft` or `ready` state
+
+- **update technical concept**
+  - **Purpose:** add a new Technical Concept Specification Update or continue refining an existing draft Technical Concept update until it remains `draft` or is marked `ready`
+  - **Triggers on:** request to record, continue, or finalize a design-level change, correction, or newly discovered information
+  - **Outcome:** Technical Concept contains a newly added or updated Specification Update in `draft` or `ready` state
+
+- **update implementation plan**
+  - **Purpose:** apply relevant ready updates from the PRD and/or Technical Concept to the Implementation Plan
+  - **Triggers on:** request to propagate ready specification updates into execution planning
+  - **Outcome:** Implementation Plan is updated inline to reflect ready specification changes without changing closed slices, in-progress slices, or any Implementation Tasks
+
+- **finish implementation**
+  - **Purpose:** conclude implementation by verifying completion state, repository readiness, and final Implementation Plan status
+  - **Triggers on:** request to finalize feature implementation
+  - **Outcome:** Implementation Plan can be marked as `done`, with repository state confirmed clean and complete
+
+### 10.2 Supporting Skills
 
 - **pick up feature**
   - **Purpose:** resolve and select an existing feature as the active Shape context
-  - **Triggers on:** request to work on an existing feature
+  - **Triggers on:** request to work on an existing feature or continue work in a fresh session
   - **Outcome:** active feature context is set to the selected feature
 
 - **show status**
-  - **Purpose:** display the current Shape context, resolved artifacts, statuses, structural warnings, and likely next step
+  - **Purpose:** display the current Shape configuration, active feature context, resolved artifacts, structural warnings, and likely next actions
   - **Triggers on:** request to inspect current workflow state
   - **Outcome:** current workflow state is visible to the user
 
@@ -1386,74 +1501,9 @@ The inventory should also be easy to surface to the user on demand. Shape assume
   - **Triggers on:** request to see what Shape can currently do
   - **Outcome:** user can understand available workflow actions without memorizing internal operation names
 
-- **create prd**
-  - **Purpose:** create or refine the PRD baseline until it reaches a usable state
-  - **Triggers on:** request to start or continue PRD definition
-  - **Outcome:** PRD exists in `draft` or `ready` state
-
-- **update prd**
-  - **Purpose:** add a new PRD Specification Update or continue refining an existing draft PRD update until it remains `draft` or is marked `ready`
-  - **Triggers on:** request to record, continue, or finalize a requirement-level change, correction, or newly discovered information
-  - **Outcome:** PRD contains a newly added or updated Specification Update in `draft` or `ready` state
-
-- **create technical concept**
-  - **Purpose:** create or refine the Technical Concept baseline from the PRD, codebase, repository guidance, and technical context
-  - **Triggers on:** request to start or continue technical design
-  - **Outcome:** Technical Concept exists in `draft` or `ready` state
-
-- **update technical concept**
-  - **Purpose:** add a new Technical Concept Specification Update or continue refining an existing draft Technical Concept update until it remains `draft` or is marked `ready`
-  - **Triggers on:** request to record, continue, or finalize a design-level change, correction, or newly discovered information
-  - **Outcome:** Technical Concept contains a newly added or updated Specification Update in `draft` or `ready` state
-
-- **initiate implementation**
-  - **Purpose:** create the initial Implementation Plan from the ready PRD and Technical Concept
-  - **Triggers on:** request to begin implementation planning
-  - **Outcome:** Implementation Plan exists with initial slices and is ready for execution
-
-- **update implementation plan**
-  - **Purpose:** apply relevant ready updates from the PRD and/or Technical Concept to the Implementation Plan by adding new Slices or updating existing open Slices
-  - **Triggers on:** request to propagate ready specification updates into execution planning
-  - **Outcome:** Implementation Plan is updated inline to reflect the new execution shape, without changing closed Slices, in-progress Slices, or any Implementation Tasks
-  
-- **prepare slice**
-  - **Purpose:** expand a selected implementation slice into executable implementation tasks while keeping the slice within practical agent context limits and suitable for fresh-session execution
-  - **Triggers on:** request to refine a slice for execution
-  - **Outcome:** selected slice has implementation tasks added to the Implementation Plan
-
-- **implement batch**
-  - **Purpose:** execute a selected batch of implementation tasks in code and hand the result off for Developer **review** and **approval**
-  - **Triggers on:** request to implement one or more selected implementation tasks
-  - **Outcome:** code changes exist for the selected batch and are ready for review
-
-- **review batch**
-  - **Purpose:** summarize and inspect the implemented batch against the selected tasks while preserving Developer-led **review** and **approval**
-  - **Triggers on:** request to review completed batch work
-  - **Outcome:** implemented batch is visible and understandable for Developer review, and tasks can be marked done by the AI Agent once the batch is explicitly approved
-
-- **commit batch**
-  - **Purpose:** persist an accepted implementation batch as a repository checkpoint
-  - **Triggers on:** request to commit reviewed batch changes
-  - **Outcome:** accepted batch is committed to the repository
-
-- **record implementation decision**
-  - **Purpose:** capture an implementation-time decision in the Implementation Plan
-  - **Triggers on:** request to document a relevant implementation clarification or trade-off
-  - **Outcome:** Implementation Plan contains the recorded decision
-
-- **finish slice**
-  - **Purpose:** validate a completed slice and mark it as done
-  - **Triggers on:** request to close a slice whose tasks are completed
-  - **Outcome:** selected slice is marked as done in the Implementation Plan
-
-- **finish implementation**
-  - **Purpose:** conclude implementation after all slices are completed and validated
-  - **Triggers on:** request to finalize feature implementation
-  - **Outcome:** Implementation Plan is marked as `done`
-
 ---
 
-### 10.2 Inventory Notes
+### 10.3 Inventory Notes
 
 - Skills should remain aligned with workflow operations, not with arbitrary prompt phrasing.
 - Skills should operate on explicit artifacts and repository state.

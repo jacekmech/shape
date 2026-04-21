@@ -26,6 +26,8 @@ A normal Shape flow looks like this:
 
 At the beginning of the workflow, Shape creates the feature workspace. As the work moves forward, the workflow produces the **Product Requirements Definition (PRD)**, the **Technical Concept**, the **Implementation Plan**, and the code delivered through implementation batches. Together, these are the outputs of the workflow: structured feature artifacts that define and guide the work, and the code generated along the way.
 
+The workflow also keeps repository and artifact boundaries explicit. Baseline artifacts are created and approved deliberately. Implementation work is reviewed before it is treated as complete. Approved implementation is committed before new batch work begins. This keeps both the feature artifacts and the repository in a clean, understandable state as the work moves forward.
+
 When something changes after the PRD or Technical Concept is already ready:
 - **update prd**
 - **update technical concept**
@@ -106,6 +108,7 @@ Expected result:
 - PRD file created
 - Technical Concept file created
 - Implementation Plan file created
+- repository ready for the feature to be committed as an explicit starting boundary
 
 Use this when:
 - starting a new feature
@@ -141,7 +144,7 @@ A PRD is ready when:
 - out-of-scope items are visible
 - important ambiguities are resolved or clearly listed
 
-Then mark the PRD `ready`.
+Then mark the PRD `ready` and commit it as the accepted baseline.
 
 Typical prompts:
 - Create a PRD for this feature from the notes below
@@ -170,7 +173,7 @@ A Technical Concept is ready when:
 - important risks and trade-offs are visible
 - implementation planning can start without guessing the design
 
-Then mark the Technical Concept `ready`.
+Then mark the Technical Concept `ready` and commit it as the accepted design baseline.
 
 Typical prompts:
 - Create a Technical Concept for the active feature using the repository guidance
@@ -191,7 +194,7 @@ The first version should include:
 - a first execution structure
 - `status: ready`
 
-Do not try to fully task the entire feature upfront. Shape works better when detailed tasking happens slice by slice.
+Do not try to fully task the entire feature upfront. Shape works better when detailed tasking happens slice by slice. At this stage the Implementation Plan is created and approved, but slices remain untasked until they are prepared.
 
 Typical prompts:
 - Initiate implementation for the active feature
@@ -235,6 +238,8 @@ A good task list:
 - is easy to batch selectively
 - does not mix unrelated work excessively
 
+This step records approved planning changes in the Implementation Plan, but does not start coding yet.
+
 When real execution begins, the Implementation Plan typically moves to `in progress`.
 
 Typical prompts:
@@ -254,6 +259,8 @@ Important:
 - the developer decides the batch boundary
 - the batch should stay small enough for one focused review
 - implementation completion is not the same as approval
+- code changes may be accompanied by Implementation Plan updates such as `Relevant Files` or important implementation decisions
+- the result at the end of this step is ready for review, not approved and not committed
 
 Typical prompts:
 - Implement tasks 1 and 2 from the prepared slice as one batch
@@ -277,19 +284,17 @@ Review the result against:
 During review you may:
 - request corrections
 - ask for clarification
-- use **`record implementation decision`** if a coding-time decision should remain visible in the plan
 - adjust future tasking if the result reveals a better path
 
 Only after explicit approval should the agent:
-- mark tasks done
-- update `Relevant Files` if needed
-- treat the batch as complete
+- mark tasks done in the Implementation Plan
+
+At the end of this step, the batch is approved in the Implementation Plan but still not committed.
 
 Typical prompts:
 - Review the current batch against the selected tasks
 - Summarize what changed and what still needs checking
-- Record this implementation decision in the plan
-- Mark the approved tasks done and update Relevant Files
+- Mark the approved tasks done
 
 ---
 
@@ -304,6 +309,7 @@ This keeps:
 - history easy to understand
 - rollback easier
 - the next review step smaller
+- the repository at a normal checkpoint before any new batch begins
 
 Typical prompts:
 - Propose a commit message for the approved batch
@@ -321,8 +327,9 @@ Confirm that:
 - the slice goal is met
 - the resulting behavior works
 - the implementation still matches the intended boundary
+- the approved batch work for the slice is already committed
 
-Then mark the slice complete.
+Then mark the slice complete and commit the updated Implementation Plan.
 
 Typical prompts:
 - Finish the current slice
@@ -356,6 +363,7 @@ At this point, confirm that:
 - the Implementation Plan matches the actual state of the work
 - there are no unresolved execution gaps
 - draft updates are not being mistaken for accepted changes
+- the repository is in a clean completed state for the feature
 
 Then mark the Implementation Plan `done`.
 
@@ -440,6 +448,9 @@ The agent implementing a batch does not mean the batch is approved.
 ### 8. Commit before the next batch
 Do not stack approved work without a commit boundary.
 
+### 9. Keep artifact and repository boundaries explicit
+Approved baselines, reviewed batches, and committed checkpoints should stay clearly separated.
+
 If a team keeps only these rules, Shape already works well.
 
 ---
@@ -455,7 +466,7 @@ Shape gets much of its value from session discipline.
 - select batches deliberately
 - stop for review after implementation
 - commit approved work before moving on
-- record important implementation decisions in the plan
+- keep approved artifacts and repository checkpoints clean and explicit
 
 ### Weak practice
 - relying on long chat history instead of the documents
@@ -492,7 +503,7 @@ Concrete navigation skills are also available whenever needed:
 - request adjustments if needed
 - approve explicitly only when satisfied
 - mark tasks done only after approval
-- commit the approved batch
+- commit the approved batch before starting another one
 
 ### When something new is learned
 - use **`update prd`** if it changes requirements
@@ -501,6 +512,7 @@ Concrete navigation skills are also available whenever needed:
 
 ### Closing a slice
 - confirm the slice goal is actually complete
+- confirm the approved work is already committed
 - start the next slice in a fresh session
 
 ---
@@ -517,6 +529,7 @@ It works when you keep a few things disciplined:
 - batch-by-batch review
 - fresh sessions for new slices
 - human approval as the real control boundary
+- explicit commit boundaries before new batch work
 - concrete skills that keep the conversation aligned with known workflow guardrails
 
 Use it this way and Shape stays easy to operate while still giving you structure, traceability, and better AI-assisted delivery quality.

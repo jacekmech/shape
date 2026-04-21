@@ -22,7 +22,6 @@
       "implement-batch",
       "review-batch",
       "commit-batch",
-      "record-implementation-decision",
       "finish-slice",
       "finish-implementation"
     ]
