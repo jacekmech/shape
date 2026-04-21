@@ -3,15 +3,20 @@
 set -euo pipefail
 
 SCRIPT_NAME="$(basename "$0")"
+OVERWRITE=0
 
 usage() {
     cat <<'USAGE'
 Usage:
-  install-opencode.sh <shape-root> <target-root>
+  install-opencode.sh [--overwrite] <shape-root> <target-root>
 
 Arguments:
   <shape-root>   Path to the Shape source repository
   <target-root>  Path to the target repository where Shape should be installed
+
+Options:
+  --overwrite    Replace the existing Shape installation in <target-root> while
+                 preserving feature folders and .shape/workspace.json
 
 What this script does:
   1. Installs the generic Shape layer into <target-root>/.shape/
@@ -24,7 +29,7 @@ What this script does NOT do:
   - It does not patch AGENTS.md
   - It does not configure model or provider settings
   - It does not commit any changes
-  - It does not overwrite existing files silently
+  - It does not overwrite existing files unless --overwrite is provided
 
 Expected Shape source layout:
   <shape-root>/
@@ -39,6 +44,7 @@ Expected Shape source layout:
 Examples:
   install-opencode.sh ~/src/shape ~/src/my-app
   install-opencode.sh . ../demo-repo
+  install-opencode.sh --overwrite . ../demo-repo
 USAGE
 }
 
@@ -78,6 +84,69 @@ copy_if_missing() {
         cp "$src" "$dest"
         info "Copied: $dest"
     fi
+}
+
+copy_managed_file() {
+    local src="$1"
+    local dest="$2"
+    local preserve_existing="${3:-0}"
+
+    if [[ -e "$dest" ]]; then
+        if [[ "$preserve_existing" -eq 1 ]]; then
+            warn "Preserving existing file: $dest"
+            return
+        fi
+
+        if [[ "$OVERWRITE" -eq 1 ]]; then
+            mkdir -p "$(dirname "$dest")"
+            cp "$src" "$dest"
+            info "Overwritten: $dest"
+        else
+            warn "Skipping existing file: $dest"
+        fi
+    else
+        mkdir -p "$(dirname "$dest")"
+        cp "$src" "$dest"
+        info "Copied: $dest"
+    fi
+}
+
+remove_path_if_exists() {
+    local path="$1"
+    local label="$2"
+
+    if [[ -e "$path" ]]; then
+        rm -rf "$path"
+        info "Removed existing $label: $path"
+    fi
+}
+
+list_managed_skills() {
+    local config_file="$1"
+
+    [[ -f "$config_file" ]] || return 0
+
+    awk '
+        /"managed"[[:space:]]*:[[:space:]]*\[/ {
+            in_managed = 1
+        }
+
+        in_managed {
+            line = $0
+
+            while (match(line, /"([^"]+)"/)) {
+                value = substr(line, RSTART + 1, RLENGTH - 2)
+                if (value != "managed") {
+                    print value
+                }
+                line = substr(line, RSTART + RLENGTH)
+            }
+
+            if ($0 ~ /\]/) {
+                exit
+            }
+        }
+    ' "$config_file"
 }
 
 trim() {
@@ -253,15 +322,35 @@ SNIPPET
 }
 
 main() {
-    if [[ "${1:-}" == "-h" || "${1:-}" == "--help" ]]; then
-        usage
-        exit 0
-    fi
+    while [[ $# -gt 0 ]]; do
+        case "$1" in
+            -h|--help)
+                usage
+                exit 0
+                ;;
+            --overwrite)
+                OVERWRITE=1
+                shift
+                ;;
+            --)
+                shift
+                break
+                ;;
+            -*)
+                usage
+                echo >&2
+                fail "Unknown option: $1"
+                ;;
+            *)
+                break
+                ;;
+        esac
+    done
 
     [[ $# -eq 2 ]] || {
         usage
         echo >&2
-        fail "Expected exactly 2 arguments: <shape-root> <target-root>"
+        fail "Expected <shape-root> and <target-root>"
     }
 
     local shape_root target_root
@@ -288,15 +377,37 @@ main() {
     local target_shape_generated="$target_shape/generated"
     local target_shape_workflow_templates="$target_shape/workflow-templates"
     local target_opencode_skills="$target_root/.opencode/skills"
+    local target_shape_config="$target_shape/config.json"
+
+    if [[ "$OVERWRITE" -eq 1 ]]; then
+        info "Preparing overwrite of existing Shape + OpenCode installation"
+        remove_path_if_exists "$target_shape/README.md" "Shape file"
+        remove_path_if_exists "$target_shape/.gitignore" "Shape file"
+        remove_path_if_exists "$target_shape/config.json" "Shape file"
+        remove_path_if_exists "$target_shape_workflow_templates" "workflow templates"
+        remove_path_if_exists "$target_shape_generated" "generated snippets"
+
+        while IFS= read -r skill_name; do
+            [[ -n "$skill_name" ]] || continue
+            remove_path_if_exists "$target_opencode_skills/$(sanitize_opencode_skill_slug "$skill_name")" "OpenCode skill"
+        done < <(
+            {
+                list_managed_skills "$target_shape_config"
+                list_managed_skills "$shape_config_templates/config.json"
+                find "$shape_skills" -maxdepth 1 -type f -name '*.md' -printf '%f\n' \
+                    | sed -E 's/\.md$//'
+            } | grep -vE '^(README|skill-design-principles|codex-generation-prompt|claude-generation-prompt|gemini-generation-prompt|opencode-generation-prompt)$' | sort -u
+        )
+    fi
 
     info "Installing generic Shape layer"
     mkdir -p "$target_shape"
     mkdir -p "$target_shape_workflow_templates"
 
-    copy_if_missing "$shape_config_templates/README.md" "$target_shape/README.md"
-    copy_if_missing "$shape_config_templates/gitignore" "$target_shape/.gitignore"
-    copy_if_missing "$shape_config_templates/config.json" "$target_shape/config.json"
-    copy_if_missing "$shape_config_templates/workspace.json" "$target_shape/workspace.json"
+    copy_managed_file "$shape_config_templates/README.md" "$target_shape/README.md"
+    copy_managed_file "$shape_config_templates/gitignore" "$target_shape/.gitignore"
+    copy_managed_file "$shape_config_templates/config.json" "$target_shape/config.json"
+    copy_managed_file "$shape_config_templates/workspace.json" "$target_shape/workspace.json" 1
 
     info "Installing workflow templates"
     while IFS= read -r -d '' template_file; do
