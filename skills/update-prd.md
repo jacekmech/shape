@@ -1,7 +1,7 @@
 # update prd
 
 ## Purpose
-Add a new PRD Specification Update or continue refining an existing draft PRD update after the PRD baseline is already `ready`, while preserving append-only change handling and Product Owner ownership of requirement-level changes.
+Add a new PRD Specification Update or continue refining an existing draft update after the PRD baseline is already `ready`, while preserving append-only change handling and Product Owner ownership of requirement-level changes.
 
 ## When to Use
 Use this skill when the user needs to record a requirement change, correction, clarification, or newly discovered information after the PRD baseline is already ready.
@@ -88,6 +88,7 @@ This skill should produce:
 - a new or refined PRD Specification Update under `## Updates`
 - an accurate update status of `draft` or `ready`
 - a short note on likely downstream implications when relevant
+- a repository state that is ready to be committed once the selected PRD update state is accepted
 - a clear likely next step
 
 ## Completion Signals
@@ -96,7 +97,8 @@ This skill is complete when:
 - it is clear whether the update is still `draft` or already `ready`
 - baseline immutability has been preserved
 - any meaningful downstream consequence is visible rather than implied
-- the next likely workflow action is stated plainly
+- the resulting PRD update state is clear enough to serve as a commit checkpoint before downstream propagation continues
+- the next likely workflow step is stated plainly
 
 ## Guardrails
 - Do not rewrite the ready PRD baseline
@@ -104,10 +106,12 @@ This skill is complete when:
 - Do not create multiple competing draft updates when one should be continued
 - Do not mark an update `ready` without explicit Product Owner acceptance
 - Do not imply that Technical Concept or Implementation Plan already reflect the update unless that propagation step has happened
+- Do not proceed to the next workflow step without explicit approval
 
 ## Likely Next Step
-Usually suggest one of:
+Usually suggest:
 - continue `update prd` if the change is still incomplete or awaiting acceptance
+- commit changes if moving to another workflow step
 - `update technical concept` if the ready PRD update has design implications
 - `show status` if the user needs orientation on downstream impact
 

@@ -47,6 +47,7 @@ During refinement:
 - suggest clearer wording when the requirement intent is unstable
 - keep the document operational and downstream-usable rather than verbose for its own sake
 - distinguish unresolved questions from accepted baseline content
+- follow PRD structure when clarifying requirements
 
 The responsible role remains the Product Owner.
 The agent may structure, suggest, and refine, but should not silently decide uncertain requirement intent on the user’s behalf.
@@ -91,6 +92,7 @@ This skill should produce:
 - a PRD baseline in `01-prd.md` aligned to the PRD template
 - updated PRD status of `draft` or `ready`
 - surfaced gaps or open questions when readiness is not yet justified
+- a repository state that is ready to be committed when the Product Owner accepts the current PRD change set
 - a clear likely next step
 
 ## Completion Signals
@@ -99,6 +101,7 @@ This skill is complete when:
 - the current baseline content is coherent enough for its current status
 - the document status accurately reflects whether the PRD is still being refined or is accepted as ready
 - any unresolved questions are visible rather than hidden in vague wording
+- the resulting PRD state is clear enough that the current document change can be committed without ambiguity
 - the next likely workflow action is stated plainly
 
 ## Guardrails
@@ -107,10 +110,12 @@ This skill is complete when:
 - Do not leave the PRD detached from the canonical section structure
 - Do not bury open questions inside definitive-looking requirements
 - Do not drift into technical design; keep this artifact requirement-focused
+- Do not proceed to the next workflow step without explicit approval
 
 ## Likely Next Step
-Usually suggest one of:
+Usually suggest:
 - continue `create prd` if material gaps remain
+- commit changes if moving to another workflow step
 - `create technical concept` if the PRD is `ready`
 - `show status` if the user needs orientation before moving downstream
 

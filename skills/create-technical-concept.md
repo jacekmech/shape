@@ -16,7 +16,7 @@ Typical triggers:
 ## Inputs
 Expected inputs:
 - active feature reference or resolved feature folder
-- ready or near-ready PRD in `01-prd.md`
+- ready PRD in `01-prd.md`
 - relevant codebase context
 - repository guidance
 
@@ -28,11 +28,12 @@ Helpful but optional:
 ## Preconditions
 Before editing the Technical Concept baseline:
 - resolve the active feature and locate `01-prd.md` and `02-tech-concept.md`
-- inspect the PRD and confirm the current requirement baseline or ready updates that materially affect design
+- inspect the PRD and confirm the requirement baseline is `ready`, including any ready updates that materially affect design
 - inspect repository guidance that shapes architecture, structure, commands, and preferred boundaries
 - inspect the current Technical Concept content and status
 
 This skill should operate on the Technical Concept baseline only while its status is `draft`.
+If the PRD is not yet `ready`, this skill should not proceed and should redirect upstream to `create prd` or `update prd` as appropriate.
 If the Technical Concept baseline is already `ready`, this skill should not rewrite it and should redirect design changes to `update technical concept`.
 
 ## Behavior
@@ -49,6 +50,7 @@ During refinement:
 - explicitly align the design with repository guidance and local code organization
 - surface requirement-level gaps that may require a PRD update rather than silently compensating for them
 - keep the design operational enough to guide implementation planning rather than drifting into vague architecture prose
+- follow Technical Concept structure when clarifying the technical design
 
 The responsible role remains the Architect.
 The agent may structure, suggest, and refine, but should not silently finalize uncertain design intent on the user’s behalf.
@@ -97,6 +99,7 @@ This skill should produce:
 - a Technical Concept baseline in `02-tech-concept.md` aligned to the Technical Concept template
 - updated Technical Concept status of `draft` or `ready`
 - surfaced design gaps, risks, or PRD misalignments when readiness is not yet justified
+- a repository state that is ready to be committed when the Architect accepts the current Technical Concept change set
 - a clear likely next step
 
 ## Completion Signals
@@ -105,6 +108,7 @@ This skill is complete when:
 - the current baseline content is coherent enough for its current status
 - repository guidance is explicitly reflected in `## Repository Alignment`
 - the document status accurately reflects whether the Technical Concept is still being refined or is accepted as ready
+- the resulting Technical Concept state is clear enough that the current document change can be committed without ambiguity
 - the next likely workflow action is stated plainly
 
 ## Guardrails
@@ -113,10 +117,12 @@ This skill is complete when:
 - Do not skip repository alignment when local guidance materially affects the solution
 - Do not silently absorb requirement-level uncertainty that should be pushed back to the PRD
 - Do not drift into implementation task planning; keep this artifact at the design baseline level
+- Do not proceed to the next workflow step without explicit approval
 
 ## Likely Next Step
-Usually suggest one of:
+Usually suggest:
 - continue `create technical concept` if material design gaps remain
+- commit changes if moving to another workflow step
 - `update prd` if requirement-level issues were discovered
 - `initiate implementation` if the Technical Concept is `ready`
 

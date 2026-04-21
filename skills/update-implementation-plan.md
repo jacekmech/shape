@@ -92,6 +92,7 @@ This skill should produce:
 - an updated Implementation Plan aligned to ready upstream changes
 - any new or revised open slices needed for execution
 - surfaced warnings when propagation is constrained by in-progress or completed work
+- a repository state that is ready to be committed as the planning-update checkpoint
 - a clear likely next step
 
 ## Completion Signals
@@ -100,7 +101,8 @@ This skill is complete when:
 - any new work is visible through slices rather than implied in prose alone
 - protected boundaries around in-progress work, closed work, and tasks were preserved
 - any propagation constraints are surfaced clearly
-- the next likely workflow action is stated plainly
+- the resulting plan update is clear enough to be committed before further execution planning continues
+- the next likely workflow step is stated plainly
 
 ## Guardrails
 - Do not propagate draft PRD or Technical Concept updates as if they were effective
@@ -108,10 +110,12 @@ This skill is complete when:
 - Do not silently reinterpret closed or in-progress slices
 - Do not use `## Relevant Files` as a substitute for actual slice updates when execution shape changed
 - Do not hide conflicts between ready updates and already-started work
+- Do not proceed to the next workflow step without explicit approval
 
 ## Likely Next Step
-Usually suggest one of:
+Usually suggest:
 - `prepare slice` if the updated plan now has a clear next open slice
+- commit changes if moving to another workflow step
 - continue `update implementation plan` if propagation impact is still being resolved
 - `update technical concept` or `update prd` if the upstream change is still incomplete
 

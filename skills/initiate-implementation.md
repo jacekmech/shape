@@ -43,16 +43,16 @@ During initialization:
 - summarize the delivery objective from the ready PRD and Technical Concept
 - define an initial set of slices small enough for focused execution sessions
 - keep slices reviewable and practical rather than overly broad
-- avoid adding implementation tasks yet unless the user is explicitly moving straight into slice refinement
+- do not add implementation tasks
 
 This skill should reinforce Shape’s execution discipline:
 - each new Slice should normally begin in a fresh agent session
 - fresh execution sessions should normally begin with `pick up feature` unless the active feature is already unambiguous
-- execution will later proceed through developer-selected batches
+- execution will later proceed through slices and developer-selected batches
 - approved batches should be committed before the next batch begins
 
 The responsible role remains the Developer.
-The agent may propose slices, execution order, and relevant files, but should not silently decide implementation strategy where the developer needs to choose trade-offs or sequencing.
+The agent may propose slices, and execution order, but should not silently decide implementation strategy where the developer needs to choose trade-offs or sequencing.
 
 Set the Implementation Plan to `ready` when the initial slices and execution framing are accepted as ready for execution.
 Do not set it to `in progress` merely because planning work occurred; that transition belongs when active execution begins.
@@ -72,7 +72,7 @@ Use the canonical Implementation Plan section structure:
 Apply these rules:
 - the Implementation Plan is a live inline document rather than an append-only update artifact
 - `## Slices` should define the initial high-level execution structure using slice checkboxes
-- `## Execution Order` should establish slice ordering, but implementation tasks may remain empty until `prepare slice`
+- `## Execution Order` should establish slice ordering, but implementation tasks must remain empty until `prepare slice`
 - `## Relevant Files` should stay selective and useful for fresh-session pickup rather than becoming a full file inventory
 - no explicit batch representation should be added to the document
 
@@ -84,16 +84,17 @@ This skill may:
 - change plan status between `draft` and `ready` based on explicit developer acceptance
 
 This skill must not:
-- start marking slices or tasks done
+- start marking slices
 - treat batch boundaries as document structure
 - rewrite the PRD or Technical Concept as part of implementation kickoff
-- mark the plan `in progress` or `done` before execution state actually justifies it
+- mark the plan `in progress` or `done`
 
 ## Outputs
 This skill should produce:
 - an Implementation Plan in `03-implementation-plan.md` aligned to the Implementation Plan template
 - initial slices ready for later refinement
 - updated plan status of `draft` or `ready`
+- a repository state that is ready to be committed once the Developer accepts the initial plan structure
 - a clear likely next step
 
 ## Completion Signals
@@ -102,7 +103,8 @@ This skill is complete when:
 - initial slices exist and are small enough to support focused execution sessions
 - `## Execution Order` contains the execution skeleton without prematurely turning into task-level detail
 - the plan status accurately reflects whether execution planning is still being refined or is accepted as ready
-- the next likely workflow action is stated plainly
+- the resulting planning state is clear enough to serve as a repository checkpoint before slice refinement begins
+- the next likely workflow step is stated plainly
 
 ## Guardrails
 - Do not initiate implementation planning from draft upstream artifacts
@@ -110,10 +112,12 @@ This skill is complete when:
 - Do not add implementation tasks so early that slice boundaries become unclear
 - Do not turn `## Relevant Files` into a historical changelog or full repository inventory
 - Do not mark the plan `in progress` merely because the plan now exists
+- Do not proceed to the next workflow step without explicit approval
 
 ## Likely Next Step
-Usually suggest one of:
+Usually suggest:
 - continue `initiate implementation` if slice structure is still unstable
+- commit changes if moving to another workflow step
 - `prepare slice` if the Implementation Plan is `ready`
 - `update technical concept` or `update prd` if implementation planning exposed a real upstream gap
 

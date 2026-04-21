@@ -90,6 +90,7 @@ This skill is complete when:
 - Do not treat commit as a substitute for review
 - Do not begin the next batch before this commit boundary is established
 - Do not rewrite workflow state to make an unclean batch look clean
+- Do not proceed to the next workflow action without explicit approval
 
 ## Likely Next Step
 Usually suggest one of:

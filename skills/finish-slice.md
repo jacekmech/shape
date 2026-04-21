@@ -82,6 +82,7 @@ This skill must not:
 This skill should produce:
 - a validated slice marked as done in the Implementation Plan
 - any helpful `## Relevant Files` or note updates for the next slice
+- a repository state that is ready to be committed as the slice-completion checkpoint
 - a clear likely next step
 
 ## Completion Signals
@@ -89,6 +90,7 @@ This skill is complete when:
 - the selected slice is validated against its objective
 - the slice is marked done only after task completion and commit boundaries are satisfied
 - the Implementation Plan reflects the closed slice clearly
+- the slice-closure state is ready to be committed before the workflow moves on
 - the next likely workflow action is stated plainly
 
 ## Guardrails

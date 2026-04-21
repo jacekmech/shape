@@ -102,3 +102,4 @@ This skill is complete when:
 - Do not pretend a broken feature structure is valid; surface warnings clearly
 - Do not force a complex selection flow when one obvious in-progress feature exists
 - Do not stop at “feature selected”; always orient the user toward the next likely step
+- Do not start with the next workflow step without explicit approval

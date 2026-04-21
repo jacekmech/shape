@@ -66,7 +66,6 @@ Work against these sections when approval is explicit:
 
 Apply these rules:
 - tasks should be marked done only after developer approval of the implemented batch
-- approved batches should be committed before the next batch begins
 - `## Relevant Files` should reflect accepted implementation state and likely future usefulness
 - `## Relevant Files` should not become a full file inventory or historical changelog
 
@@ -102,11 +101,11 @@ This skill is complete when:
 - Do not hide scope drift or missing task coverage
 - Do not let the workflow advance to the next batch before commit
 - Do not end review support without stating the current review state clearly
+- Do not proceed to the next workflow action without explicit approval
 
 ## Likely Next Step
 Usually suggest one of:
 - `commit batch` if the batch is approved but not yet committed
 - continue `implement batch` if adjustments are still needed on the same selected tasks
-- `record implementation decision` if review surfaced a clarification or trade-off worth capturing
 
 Prefer `commit batch` once the Developer has explicitly approved the batch.

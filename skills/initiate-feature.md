@@ -41,6 +41,7 @@ This skill should produce:
 - `02-tech-concept.md`
 - `03-implementation-plan.md`
 - A concise repository readiness assessment
+- A repository state that is ready to be committed as the feature-initiation checkpoint
 - A clear likely next step
 
 ## Repository and Naming Rules
@@ -157,15 +158,8 @@ This skill is complete when:
 - all three core artifact files exist
 - each file starts in `draft`
 - repository readiness has been assessed and reported
+- the workspace is clearly ready for the user or agent to create the feature-initiation commit
 - the user can immediately proceed to the next meaningful Shape step
-
-## Likely Next Steps
-Usually suggest one of:
-- `create prd`
-- `show status`
-- `show capabilities`
-
-Prefer `create prd` as the default next step unless the user first needs orientation or repository issues need attention.
 
 ## Guardrails
 - Do not overwrite an existing feature folder silently
@@ -173,3 +167,12 @@ Prefer `create prd` as the default next step unless the user first needs orienta
 - Do not skip repository readiness reporting
 - Do not invent non-Shape artifact filenames unless repository constraints require it
 - Do not bury the next step; state it plainly
+- Do not proceed to the next workflow step without explicit approval
+
+## Likely Next Steps
+Usually suggest committing changes and then one of:
+- `create prd`
+- `show status`
+- `show capabilities`
+
+Prefer `create prd` as the default next step unless the user first needs orientation or repository issues need attention.
