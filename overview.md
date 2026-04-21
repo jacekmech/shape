@@ -15,7 +15,7 @@ The goal is not to replace engineering judgment. The goal is to make human inten
 
 The problem is no longer that AI coding is unavailable. The problem is that, in many teams, it is being adopted faster than the surrounding delivery model can absorb.
 
-The result is familiar: capable tools produce promising results locally, but without a repeatable way to turn that into reliable team execution. Requirements drift, design decisions disappear into chat history, sessions grow too large, reviews become unmanageable, and important changes fail to propagate cleanly.
+The result is familiar: capable tools produce promising results locally, but without a repeatable way to turn that into reliable team execution. Requirements drift, design decisions disappear into chat history, work loses continuity across sessions, reviews become unmanageable, and important changes fail to propagate cleanly.
 
 The gap is not in the tooling. It is in the workflow around it — the work of making AI-assisted delivery repeatable, reviewable, and traceable.
 Shape is a response to that gap. Not more process, heavier control, or larger planning rituals — but a workflow that is explicit, lightweight, and artifact-driven.
@@ -30,7 +30,7 @@ For each feature, Shape maintains a small set of core artifacts, created and upd
 - a **Technical Concept** describing how it should be built
 - an **Implementation Plan** describing how implementation is split into executable steps
 
-These are not disposable notes. They preserve intent, design, and execution structure in a form that can be reused, updated, and reviewed throughout delivery.
+These are not disposable notes. They preserve intent, design, and execution structure in a form that survives individual sessions and can be reused, updated, and reviewed throughout delivery.
 
 Shape also defines two deliberately different execution boundaries:
 
@@ -55,9 +55,9 @@ When new learnings appear, they are incorporated through explicit updates instea
 
 AI makes this far more practical. Maintaining structured artifacts used to feel too heavy for the speed of delivery. With AI, updates can be drafted, aligned, and compressed with much less manual effort.
 
-### 3. Explicit care for LLM context: the Slice
+### 3. Explicit care for LLM context and session boundaries: the Slice
 
-Shape assumes that reliable AI execution depends on keeping work inside a manageable context boundary.
+Shape assumes that reliable AI execution depends on keeping work inside a manageable context boundary and ensuring progress does not depend on a single live session.
 
 A **Slice** is intentionally small enough to be handled in a single focused agent session with a clear objective, limited ambiguity, and bounded implementation scope.
 
