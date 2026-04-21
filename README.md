@@ -26,7 +26,15 @@ Shape is currently in beta for v0.1. This version is focused on correctness and 
 
 Support has been implemented for Codex, Claude Code, Gemini CLI, and OpenCode. The first round of reference feature implementation has been completed, and the move from beta to final version is coming soon.
 
-The next versions are expected to expand Shape in several important directions: smoother installation and integration through more polished agent-specific setup or plugin-style support where that makes sense, broader workflow coverage for more real-world delivery situations such as work on existing features, iterative enhancement, and refactoring, and tighter control of context usage so that the workflow adds as little overhead as possible while still preserving its structure and guidance.
+## Next version
+
+The next planned step is v0.2. Its focus will be on two practical areas: better context management and more standard installation mechanisms.
+
+On the context side, the goal is to reduce workflow overhead and save tokens by keeping the Shape footprint as small as possible while preserving clear guidance, artifact continuity, and reliable execution.
+
+On the installation side, the goal is to make adoption more standardized and easier to operationalize through cleaner agent-specific setup patterns and more consistent installation mechanisms where that makes sense.
+
+Beyond v0.2, Shape is expected to expand into broader real-world delivery scenarios such as work on existing features, iterative enhancement, and refactoring.
 
 ## License
 
