@@ -1,7 +1,7 @@
 # finish implementation
 
 ## Purpose
-Conclude implementation for the active feature after all slices are completed and validated by verifying repository readiness for completion, marking the Implementation Plan as `done`, and making the finished state explicit.
+Conclude implementation for the active feature after all slices are `done` and validated by verifying repository readiness for completion, marking the Implementation Plan as `done`, and making the finished state explicit.
 
 ## When to Use
 Use this skill when the user wants to finalize feature implementation, close the Implementation Plan after all slice work is complete, or confirm that implementation has actually reached the `done` state.
@@ -25,7 +25,7 @@ Helpful but optional:
 ## Preconditions
 Before finishing implementation:
 - resolve the active feature and locate `03-implementation-plan.md`
-- verify that all slices are marked completed
+- verify that all slices are marked `done`
 - verify that slice validation is complete
 - verify that the Implementation Plan reflects full execution progress
 - inspect whether unresolved draft Specification Updates remain in `01-prd.md` or `02-tech-concept.md`
@@ -39,7 +39,7 @@ If unfinished slices, unresolved draft updates, unclean repository state, or unr
 Validate overall implementation completion and close the Implementation Plan.
 
 During completion:
-- confirm all slices are completed and validated
+- confirm all slices are `done` and validated
 - confirm the plan status should now move to `done`
 - confirm unresolved draft updates are either absent or explicitly surfaced as blockers
 - confirm repository state is clean enough for completion to be trusted
@@ -58,7 +58,7 @@ Work against these sections:
 - `## Notes`
 
 Apply these rules:
-- implementation ends when all slices are completed and validated
+- implementation ends when all slices are `done` and validated
 - the Implementation Plan status is set to `done` only at that point
 - the plan should reflect full progress at completion
 - unresolved draft Specification Updates should block clean completion until the user explicitly decides how to handle them
@@ -71,12 +71,12 @@ This skill may:
 - surface any remaining mismatch if completion is not yet justified
 
 This skill must not:
-- mark the plan `done` while any slice remains open
+- mark the plan `done` while any slice remains unfinished
 - ignore unresolved draft updates that keep completion ambiguous
 - hide unfinished review, approval, or commit boundaries
 - claim completion while repository state is still not clean enough to support a completion checkpoint
 - use finalization to compensate for stale or inaccurate plan state
-- reopen completed slices as part of completion unless a real inconsistency must be surfaced first
+- reopen `done` slices as part of completion unless a real inconsistency must be surfaced first
 
 ## Outputs
 This skill should produce:
@@ -87,14 +87,14 @@ This skill should produce:
 
 ## Completion Signals
 This skill is complete when:
-- all slices are complete and validated
+- all slices are `done` and validated
 - the Implementation Plan status is correctly set to `done`
 - repository state is confirmed clean enough for final completion
 - the finished implementation state is explicit and not ambiguous
 - the next likely workflow action is stated plainly
 
 ## Guardrails
-- Do not mark implementation done with open slices
+- Do not mark implementation done with unfinished slices
 - Do not ignore unresolved batch, review, approval, or commit boundaries
 - Do not use finalization to paper over inaccurate plan state
 - Do not confuse “mostly complete” with `done`

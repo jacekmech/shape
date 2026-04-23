@@ -44,6 +44,7 @@ Read or infer where practical:
 When an Implementation Plan exists, inspect where practical:
 - overall plan status: `draft | ready | in progress | done`
 - whether slices exist
+- per-slice status where available: `draft | ready | in progress | done`
 - whether unfinished slices remain
 - whether execution tasks exist
 - whether there are obvious signs that review, approval, commit, or slice closure is the likely next step
@@ -81,10 +82,14 @@ Examples:
 - feature exists but PRD is missing or draft → `create prd`
 - PRD ready and Technical Concept not ready → `create technical concept`
 - PRD and Technical Concept ready but Implementation Plan missing or draft → `plan implementation`
-- plan ready and slice not yet broken down → `plan slice`
+- plan ready and next slice still `draft` → `plan slice`
+- slice `ready` and ready for coding → `implement batch`
+- slice `in progress` with implemented but unapproved work → `review batch`
+- slice `in progress` with approved but uncommitted work → `commit batch`
+- slice `in progress` with all tasks done and committed → `finish slice`
 - code appears implemented for a selected batch but not yet validated → `review batch`
 - approved batch appears uncommitted → `commit batch`
-- all slices complete but plan not closed → `finish implementation`
+- all slices `done` but plan not closed → `finish implementation`
 
 ## Behavior Principles
 - Optimize for orientation, not exhaustiveness

@@ -50,6 +50,8 @@ If the batch does not yet satisfy the selected tasks:
 
 If the Developer explicitly approves the batch:
 - mark the relevant tasks done in `## Execution Order`
+- if approval marks the first completed task in a `ready` slice, transition that slice to `in progress`
+- if this is the first slice entering `in progress`, update the Implementation Plan status to `in progress`
 - update `## Relevant Files` when accepted implementation changed the working file map for upcoming slices
 - make it clear that commit is now the normal required next boundary
 
@@ -66,6 +68,8 @@ Work against these sections when approval is explicit:
 
 Apply these rules:
 - tasks should be marked done only after developer approval of the implemented batch
+- the first approved completed task in a `ready` slice moves that slice to `in progress`
+- the Implementation Plan moves to `in progress` only when execution has actually begun through approved task completion
 - `## Relevant Files` should reflect accepted implementation state and likely future usefulness
 - `## Relevant Files` should not become a full file inventory or historical changelog
 
@@ -73,6 +77,7 @@ This skill may:
 - summarize the implemented batch against the selected tasks
 - surface risks, gaps, and scope deviations
 - mark approved tasks done after explicit developer approval
+- transition the selected slice to `in progress` when the approved task state makes that true
 - refresh `## Relevant Files` after approval when the accepted batch changed what matters next
 
 This skill must not:
@@ -86,6 +91,7 @@ This skill should produce:
 - a compact review-oriented summary of the batch
 - explicit status such as awaiting review, awaiting approval, or approved but awaiting commit
 - any Implementation Plan updates that become valid only after explicit approval
+- slice status updates when approved task completion changes the slice lifecycle
 - a clear likely next step
 
 ## Completion Signals
@@ -93,6 +99,7 @@ This skill is complete when:
 - the implemented batch is understandable against the selected tasks
 - approval state is explicit
 - approved tasks are marked done only when the developer explicitly approved the batch
+- slice state is updated correctly when approval starts execution on that slice
 - the next likely workflow action is stated plainly
 
 ## Guardrails

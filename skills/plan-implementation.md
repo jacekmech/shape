@@ -42,6 +42,7 @@ Create or refine the Implementation Plan into an execution-ready control documen
 During initialization:
 - summarize the delivery objective from the ready PRD and Technical Concept
 - define an initial set of slices small enough for focused execution sessions
+- create initial slices in `draft`
 - keep slices reviewable and practical rather than overly broad
 - do not add implementation tasks
 
@@ -71,7 +72,8 @@ Use the canonical Implementation Plan section structure:
 
 Apply these rules:
 - the Implementation Plan is a live inline document rather than an append-only update artifact
-- `## Slices` should define the initial high-level execution structure using slice checkboxes
+- `## Slices` should define the initial high-level execution structure using explicit slice status entries
+- initial slices created by this skill should start in `draft`
 - `## Execution Order` should establish slice ordering, but implementation tasks must remain empty until `plan slice`
 - `## Relevant Files` should stay selective and useful for fresh-session pickup rather than becoming a full file inventory
 - no explicit batch representation should be added to the document
@@ -92,7 +94,7 @@ This skill must not:
 ## Outputs
 This skill should produce:
 - an Implementation Plan in `03-implementation-plan.md` aligned to the Implementation Plan template
-- initial slices ready for later refinement
+- initial slices in `draft` ready for later refinement
 - updated plan status of `draft` or `ready`
 - a repository state that is ready to be committed once the Developer accepts the initial plan structure
 - a clear likely next step

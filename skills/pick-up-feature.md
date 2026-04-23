@@ -81,8 +81,11 @@ Examples:
 - PRD missing or still early → `create prd`
 - PRD ready, Technical Concept draft or missing → `create technical concept`
 - PRD and Technical Concept ready, Implementation Plan missing or draft → `plan implementation`
-- Implementation Plan ready or in progress with unfinished slices → `plan slice`, `review batch`, or other implementation continuation step
-- All slices done and plan nearly complete → `finish implementation`
+- next slice is still `draft` → `plan slice`
+- slice is `ready` and waiting for execution selection → `implement batch`
+- slice is `in progress` and active work is awaiting validation or commit → `review batch` or `commit batch`
+- slice is `in progress` with all tasks done and committed → `finish slice`
+- all slices are `done` and plan nearly complete → `finish implementation`
 
 ## Fresh-Session Behavior
 Shape expects each new Slice to normally begin in a fresh agent session.
