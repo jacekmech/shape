@@ -130,12 +130,12 @@ This section defines how a **Feature** progresses from idea to implemented code 
 
 The flow is:
 
-- **Linear but non-blocking**
+- **Linear stage progression with non-blocking feedback**
 - **Driven by document handovers**
 - **Extended through append-only feedback loops**
 - **Guided by explicit next steps and visible workflow state**
 
-Each stage produces a well-defined artifact that becomes the input to the next stage.
+Each stage produces a well-defined artifact that becomes the input to the next stage. Stage entry still follows explicit readiness conditions for upstream artifacts; the non-blocking aspect applies to how later discoveries are captured and propagated through Specification Updates rather than forcing immediate stage rewrites or synchronous rollback.
 
 ---
 
@@ -252,7 +252,7 @@ When an implementation step finishes, the AI Agent should clearly indicate the n
   Changes to PRD and Technical Concept are recorded as Specification Updates, preserving full traceability
 
 - **Optimistically Concurrent**  
-  Stages do not block each other; discrepancies are resolved asynchronously through explicit update handling
+  Stage progression still follows readiness-gated handoffs, but discrepancies discovered later do not force synchronous rework before execution can continue; they are handled through explicit Specification Updates and downstream propagation when relevant
 
 - **Traceable Execution**  
   Progression from PRD to code is fully reconstructable via documents, diffs, commits, and approved batch boundaries
@@ -361,7 +361,9 @@ Specification Updates may originate during Technical Concept creation, slice pla
   - PRD
 - Specification Updates may also be created independently of the main stage flow
 - Propagation to downstream artifacts is handled explicitly when relevant
-- Implementation Plan is updated inline; only `draft` or `ready` slices may be edited, and new slices may be added
+- Implementation Plan is updated inline; slice definition and planning content may be edited only while a slice is `draft` or `ready`
+- Execution-progress content for a slice, such as task completion state and status transitions, may continue to update while the slice is `in progress`
+- New slices may be added during implementation
 
 **Characteristics**
 - Non-blocking
@@ -402,7 +404,7 @@ A fresh session should normally begin by resolving the active feature context th
 **Slice transition rules**
 - **Plan Implementation** creates initial slices in `draft`
 - **Plan Slice** transitions the selected slice from `draft` to `ready`
-- **Review Batch** transitions a `ready` slice to `in progress` when the first approved task in that slice is marked done
+- **Implement Batch** transitions a `ready` slice to `in progress` when the first approved task in that slice is marked done during its internal review-and-approval flow
 - **Finish Slice** transitions a validated `in progress` slice to `done`
 
 Task checkboxes track task completion.
@@ -489,10 +491,10 @@ When a batch finishes implementing, the AI Agent should clearly ask the Develope
 
 ---
 
-### 6.5 Review and Commit
+### 6.5 Review, Approval, and Commit
 
 **Summary**  
-The Developer validates the result of the Batch.
+The Developer validates the result of the Batch as part of the same **Implement Batch** operation.
 
 This is a developer-led review step centered on the diff and intended batch outcome. The Developer may request adjustments, ask for clarifications, record implementation decisions, or even adjust upcoming Slice structure before approving the batch. These actions should occur through prompting the AI Agent rather than by directly editing workflow artifacts outside Shape.
 
@@ -523,7 +525,7 @@ Approval and commit form a single normal progression boundary. Once a batch is a
 - Human developer validation remains the trusted approval boundary
 
 **Guidance to user**  
-When review support is provided, the AI Agent should clearly state whether the batch is awaiting **review**, awaiting **approval**, approved but still awaiting commit, or fully ready for the next step.
+When review support is provided, the AI Agent should clearly state whether the batch is awaiting **review**, under **review / iteration**, awaiting **approval**, approved but still awaiting commit, or fully ready for the next step.
 
 ---
 
@@ -1061,6 +1063,8 @@ The Implementation Plan should contain:
   - Slice entries in `## Execution Order` have their status indicated in parentheses after Slice name
   - Implementation Tasks use checkboxes to indicate progress (`done / not done`)
   - Implementation Tasks are appended continuously during execution
+  - Slice definition and planning content should be changed only while the slice is `draft` or `ready`
+  - Execution-progress content may continue to update while the slice is `in progress`
   - Developer selects tasks for execution in batches (batches are not explicitly represented)
   - This is the only place where sequencing exists
   - Progress is reflected inline through task completion and slice status
@@ -1206,89 +1210,38 @@ Selects the slice, reviews the proposed tasks and decisions, iterates if needed,
 
 #### 6. Implement Batch
 **Description**  
-Execute an approved batch of implementation tasks in code and prepare the result for developer review.
+Execute an approved batch of implementation tasks through its full internal lifecycle: user input, agent execution, developer review and iteration, approval-driven plan updates, and optional commit.
 
 **Responsible role**  
 Developer
 
 **AI Agent**  
-Starts implementation **only after explicit Developer approval** for the selected batch. During execution, it:
+Starts implementation **only after explicit Developer approval** for the selected batch. Within this single operation, it:
+- accepts the selected task batch and any execution constraints from the Developer
 - asks clarifying questions if needed
 - implements the selected tasks in code
 - stays within the approved batch scope
 - updates the **Relevant Files** list in the Implementation Plan to reflect the resulting implementation state
 - updates **Important Decisions** in the Implementation Plan when implementation introduces decisions worth preserving
+- gives a **very brief summary** of what changed and explicitly asks the Developer to review the batch
+- supports review iteration by explaining task-to-diff mapping, highlighting notable decisions, gaps, or risks, and applying requested adjustments
+- marks tasks as done in the Implementation Plan **only after explicit Developer approval**
+- transitions the slice to `in progress` if approval marks the first completed task within a `ready` slice
+- transitions the Implementation Plan status from `ready` to `in progress` if this is the first slice entering `in progress`
+- proposes a commit message or commit summary when useful
+- creates the commit itself **only if explicitly asked by the Developer**
 
-When the batch is complete, the AI Agent gives a **very brief summary** of what changed and explicitly asks the Developer to review the batch. It does **not** treat implementation completion as approval. It does **not** mark tasks as done during this step.
+The AI Agent does **not** treat implementation completion as approval. It does **not** mark tasks as done until approval is explicit. It does **not** assume who performs the commit, and it does not move to the next batch or workflow operation without explicit approval.
 
 **User**  
-Selects the tasks for the batch, provides any execution constraints or corrections, and decides when the implemented batch is ready for review.
+Selects the tasks for the batch, provides execution constraints or corrections, reviews the resulting diff, requests any needed iterations, explicitly approves the batch when satisfied, and decides whether to commit directly or ask the Agent to create the commit.
 
 **Ends with**  
-**Code and any resulting Implementation Plan updates are ready for review, not approved, not committed.**
+**Selected batch carried through implementation, developer review, approval-driven plan updates, and optional commit.** If not yet committed, the batch remains approved but cannot be followed by a new batch until committed.
 
 ---
 
-#### 7. Review Batch
-**Description**  
-Review an implemented batch, iterate if needed, and approve the batch for completion in the Implementation Plan.
-
-**Responsible role**  
-Developer
-
-**AI Agent**  
-Supports Developer review by:
-- summarizing what changed
-- explaining how the implemented batch maps to the selected tasks
-- highlighting notable decisions, gaps, or risks
-- applying requested adjustments during review iteration
-
-The AI Agent **must not mark tasks as done without explicit Developer approval**. Once approval is given, it updates the Implementation Plan to mark the approved tasks as done. It should clearly distinguish between:
-- **awaiting review**
-- **under review / iterating**
-- **approved and marked done**
-
-If approval marks the first completed task within a `ready` slice, that slice transitions to `in progress`.
-If this is the first slice entering `in progress`, the Implementation Plan status also transitions from `ready` to `in progress`.
-
-It indicates whether the batch is ready to review. It does not proceed to commit as part of this operation.
-
-**User**  
-Reviews the diff and explanation, requests adjustments if needed, validates correctness and scope, and explicitly approves the batch as done when satisfied.
-
-**Ends with**  
-**Tasks approved and marked as done in the Implementation Plan, with slice state advanced to `in progress` when applicable, not committed.**
-
----
-
-#### 8. Commit Batch
-**Description**  
-Create the repository checkpoint for a reviewed and approved batch before any new batch starts.
-
-**Responsible role**  
-Developer
-
-**AI Agent**  
-After the batch has been reviewed and approved, the AI Agent may:
-- propose a commit message or commit summary
-- identify the approved batch boundary to be committed
-- create the commit itself **if explicitly asked by the Developer**
-- propose the next likely step after commit
-
-The AI Agent does not assume who will perform the commit. It may suggest committing, but it does not move to the next batch or workflow operation without explicit approval.
-
-**User**  
-Decides how the commit is handled. The Developer may:
-- commit the batch directly
-- ask the AI Agent for a commit summary and commit manually
-- ask the AI Agent for a commit summary and ask the AI Agent to create the commit
-
-**Ends with**  
-**Approved diff committed.** This repository checkpoint is the normal required boundary before any new batch starts.
-
----
-
-#### 9. Finish Slice
+#### 7. Finish Slice
 **Description**  
 Validate that an `in progress` slice is complete and transition it to `done` in the Implementation Plan.
 
@@ -1306,7 +1259,7 @@ Reviews the implemented slice outcome, validates that the slice goal has been me
 
 ---
 
-#### 10. Update PRD
+#### 8. Update PRD
 **Description**  
 Add a new PRD Specification Update or continue refining an existing draft PRD update until it remains `draft` or is marked `ready`.
 
@@ -1324,7 +1277,7 @@ Confirms that the issue should be formalized, adjusts the proposal if needed, de
 
 ---
 
-#### 11. Update Technical Concept
+#### 9. Update Technical Concept
 **Description**  
 Add a new Technical Concept Specification Update or continue refining an existing draft Technical Concept update until it remains `draft` or is marked `ready`.
 
@@ -1342,7 +1295,7 @@ Confirms that the issue should be formalized, adjusts the proposal if needed, de
 
 ---
 
-#### 12. Update Implementation Plan
+#### 10. Update Implementation Plan
 **Description**  
 Apply relevant ready updates from the PRD and/or Technical Concept to the Implementation Plan.
 
@@ -1360,7 +1313,7 @@ Confirms that the specification updates should be reflected in the Implementatio
 
 ---
 
-#### 13. Finish Feature
+#### 11. Finish Feature
 **Description**  
 Conclude implementation by verifying completion state, repository readiness, and final Implementation Plan status.
 
@@ -1380,7 +1333,7 @@ Verifies repository cleanliness and completion readiness, confirms marking the I
 
 ### 9.2 Supporting Operations
 
-#### 14. Pick Up Feature
+#### 12. Pick Up Feature
 **Description**  
 Select the feature to work on and make it the active local Shape context.
 
@@ -1395,7 +1348,7 @@ Identifies or chooses the feature to work on and confirms the selection if neede
 
 ---
 
-#### 15. Show Status
+#### 13. Show Status
 **Description**  
 Display the current Shape configuration, active feature context, resolved artifacts, structural warnings, and likely next actions.
 
@@ -1410,7 +1363,7 @@ Requests the current workflow state and uses the result to decide what to do nex
 
 ---
 
-#### 16. Show Capabilities
+#### 14. Show Capabilities
 **Description**  
 Display the currently supported Shape operations or skills in a user-friendly form so that the workflow is easy to operate without memorization.
 
@@ -1486,9 +1439,9 @@ The inventory should also be easy to surface to the user on demand. Shape assume
   - **Outcome:** approved planning changes are recorded in the Implementation Plan and the selected slice can move from `draft` to `ready`
 
 - **implement batch**
-  - **Purpose:** execute an approved batch of implementation tasks in code, carry the batch through review handoff and revision if needed, update plan state only after explicit approval, and optionally commit when explicitly instructed
+  - **Purpose:** execute an approved batch of implementation tasks through its full internal lifecycle of input, execution, review and iteration, approval-driven plan updates, and optional commit
   - **Triggers on:** request to implement one or more approved implementation tasks
-  - **Outcome:** the selected batch can move through awaiting review, revision, approval, task completion updates, and optional commit without crossing approval or commit consent boundaries implicitly
+  - **Outcome:** the selected batch can move through execution, developer review, revision, approval, task completion updates, and optional commit without splitting into separate workflow operations or crossing approval or commit consent boundaries implicitly
 
 - **finish slice**
   - **Purpose:** validate that an `in progress` slice is complete and transition it to `done` in the Implementation Plan
