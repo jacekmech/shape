@@ -87,7 +87,7 @@ This example follows the update path only:
 
 **User:** Update the Implementation Plan.
 
-**Agent:** I would apply the ready PRD and Technical Concept updates to the Implementation Plan inline. Since the original implementation was already complete, I would not rewrite closed work. Instead I’d add new open slices for the attachment functionality.
+**Agent:** I would apply the ready PRD and Technical Concept updates to the Implementation Plan inline. Since the original implementation was already complete, I would not rewrite `done` work. Instead I’d add new `draft` slices for the attachment functionality.
 
 **User:** What slices would you add?
 
@@ -98,7 +98,7 @@ This example follows the update path only:
 
 **User:** That works.
 
-**Agent:** I’d also refresh the relevant file map to bring the contact form component, submission endpoint, validation layer, and mail integration files back into focus. The next step is to prepare the first new slice rather than trying to fully task all new slices up front.
+**Agent:** I’d also refresh the relevant file map to bring the contact form component, submission endpoint, validation layer, and mail integration files back into focus. The next step is to prepare the first new slice, move it from `draft` to `ready`, and only then start execution.
 
 **User:** Plan Slice 5.
 
@@ -111,11 +111,11 @@ This example follows the update path only:
 
 **User:** Good. First batch should cover the file input and client-side validation only.
 
-**Agent:** Good boundary. I’ll execute only that batch and return for review.
+**Agent:** Good boundary. Since Slice 5 is now planned and `ready`, I’ll execute only that batch and return for review.
 
 **User:** I reviewed it. Approved.
 
-**Agent:** I’d mark those tasks done, update the Implementation Plan, and stop at the commit boundary.
+**Agent:** I’d mark those tasks done, update the Implementation Plan, note that Slice 5 is now `in progress`, and stop at the commit boundary.
 
 **User:** Commit it and continue.
 
@@ -128,11 +128,11 @@ This example follows the update path only:
 
 **User:** Use that breakdown. First batch should cover multipart handling and backend validation.
 
-**Agent:** Good. I’ll implement only that batch and return it for review.
+**Agent:** Good. Slice 6 is now `ready`, so I’ll implement only that batch and return it for review.
 
 **User:** I reviewed it. Approved.
 
-**Agent:** I’d mark the approved tasks done, update the plan, and stop at the commit boundary before moving on.
+**Agent:** I’d mark the approved tasks done, update the plan, note that Slice 6 is now `in progress`, and stop at the commit boundary before moving on.
 
 **User:** Commit it and continue.
 
@@ -145,11 +145,11 @@ This example follows the update path only:
 
 **User:** First batch: extend the mail service and wire the backend to it.
 
-**Agent:** Good. I’ll execute that batch and return it for review.
+**Agent:** Good. Slice 7 is now `ready`, so I’ll execute that batch and return it for review.
 
 **User:** Approved. Also record that attachments remain request-scoped only and are not stored after submission.
 
-**Agent:** I’d record that as an implementation decision, mark the approved tasks done, and stop at the commit boundary.
+**Agent:** I’d record that as an implementation decision, mark the approved tasks done, note that Slice 7 is now `in progress`, and stop at the commit boundary.
 
 **User:** Commit it. Then finish the remaining end-to-end checks.
 
@@ -159,7 +159,7 @@ This example follows the update path only:
 
 **User:** I reviewed it. Approved.
 
-**Agent:** I’d mark the remaining tasks complete, validate the new slices, and set the Implementation Plan back to done once the added work is fully integrated. At that point the feature and its later updates are aligned again across requirements, design, and implementation.
+**Agent:** I’d mark the remaining tasks complete, explicitly validate the new slices so they move from `in progress` to `done`, and set the Implementation Plan back to `done` once the added work is fully integrated. At that point the feature and its later updates are aligned again across requirements, design, and implementation.
 
 ## What This Shows About Shape
 
@@ -167,7 +167,7 @@ This example highlights how Shape handles late change after a feature was alread
 - the new requirement is not silently folded into the old baseline
 - PRD and Technical Concept evolve through append-only updates
 - the Implementation Plan is updated inline to reflect new execution work
-- previously completed work is not rewritten just because new scope appeared later
+- previously `done` work is not rewritten just because new scope appeared later
 - the workflow remains explicit about what changed at the requirement level, design level, and implementation level
-- execution resumes through new slices, tasks, batches, review, approval, and commit boundaries
+- execution resumes through new slices moving through `draft -> ready -> in progress -> done`, plus tasks, batches, review, approval, and commit boundaries
 - the same person can wear all roles, while the workflow still preserves the role boundaries in the artifact flow

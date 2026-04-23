@@ -47,7 +47,7 @@ Examples:
 - `show-capabilities.md`
 - `create-prd.md`
 - `update-prd.md`
-- `prepare-slice.md`
+- `plan-slice.md`
 
 Each file should represent exactly one Shape skill.
 

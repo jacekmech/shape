@@ -85,7 +85,7 @@ Feature used in this example:
 
 **User:** Reasonable.
 
-**Agent:** I’d keep those as initial slices only. Tasks should be added when we prepare each slice, rather than planning the entire feature in task detail up front. The next step is to prepare the first unfinished slice.
+**Agent:** I’d keep those as initial slices only, starting in `draft`. Tasks should be added when we prepare each slice, rather than planning the entire feature in task detail up front. The next step is to prepare the first unfinished slice and move it to `ready`.
 
 **User:** Prepare the first slice.
 
@@ -98,7 +98,7 @@ Feature used in this example:
 
 **User:** That is the right breakdown.
 
-**Agent:** I’m keeping submission wiring out of this slice so the frontend work stays reviewable on its own. The slice is still bounded and small enough for a focused execution session. The next step is for you to choose a small execution batch.
+**Agent:** I’m keeping submission wiring out of this slice so the frontend work stays reviewable on its own. The slice is still bounded and small enough for a focused execution session. Once you approve this breakdown, Slice 1 moves from `draft` to `ready`. The next step is for you to choose a small execution batch.
 
 **User:** First batch: build the form UI and client validation. Leave submission behavior for later.
 
@@ -116,11 +116,11 @@ Feature used in this example:
 
 **User:** After the adjustment, approve it.
 
-**Agent:** Good. I’d mark the corresponding tasks as done in the Implementation Plan, update the relevant working file map if useful, and stop at the commit boundary. The next step is commit before any new batch begins.
+**Agent:** Good. I’d mark the corresponding tasks as done in the Implementation Plan, update the relevant working file map if useful, and stop at the commit boundary. The approved task completion also means Slice 1 has now moved to `in progress`, and the Implementation Plan is now `in progress`. The next step is commit before any new batch begins.
 
 **User:** Commit the approved batch and continue.
 
-**Agent:** Done. Slice 1 is complete, so the next step is to pick up the feature in a fresh session and prepare the next slice.
+**Agent:** Done. The batch is committed. Slice 1 is still `in progress` until we explicitly validate and close it through `finish slice`. Once that happens, Slice 1 becomes `done`, and the next step is to pick up the feature in a fresh session and prepare the next slice.
 
 ### 6. Next Slice
 
@@ -137,7 +137,7 @@ Feature used in this example:
 
 **User:** I reviewed it. Looks fine. Approved.
 
-**Agent:** I’d mark those batch tasks done, update the Implementation Plan, and stop again at the commit boundary before continuing.
+**Agent:** I’d mark those batch tasks done, update the Implementation Plan, note that Slice 2 is now `in progress`, and stop again at the commit boundary before continuing.
 
 **User:** Commit it. Then continue.
 
@@ -159,7 +159,7 @@ Feature used in this example:
 
 **User:** Review result: approved, but please record the implementation decision that the recipient is backend-owned configuration and not request data.
 
-**Agent:** I’d record that in the Implementation Plan as an implementation-time decision, mark the approved tasks done, and stop at the commit boundary.
+**Agent:** I’d record that in the Implementation Plan as an implementation-time decision, mark the approved tasks done, note that Slice 3 is now `in progress`, and stop at the commit boundary.
 
 **User:** Commit and continue with the final batch.
 
@@ -173,11 +173,11 @@ Feature used in this example:
 
 **User:** I reviewed it. Approved.
 
-**Agent:** I’d mark the remaining tasks complete, refresh the relevant file map if needed, and stop at the commit boundary.
+**Agent:** I’d mark the remaining tasks complete, refresh the relevant file map if needed, and stop at the commit boundary. The final slice remains `in progress` until we explicitly validate it.
 
 **User:** Commit it and finish the feature.
 
-**Agent:** At this point I’d validate the final slice, confirm that all slices are complete, set the Implementation Plan status to done, and report the feature as implemented. No PRD or Technical Concept updates were needed because the feature was delivered without late requirement or design changes.
+**Agent:** At this point I’d validate the final slice, move it from `in progress` to `done`, confirm that all earlier slices were also explicitly closed to `done`, set the Implementation Plan status to `done`, and report the feature as implemented. No PRD or Technical Concept updates were needed because the feature was delivered without late requirement or design changes.
 
 ## What This Shows About Shape
 
@@ -185,6 +185,7 @@ This example highlights the parts of Shape that are easy to miss in a shorter su
 - the user and agent do not jump straight from idea to code
 - PRD readiness and Technical Concept readiness are explicit handoff points
 - the Implementation Plan becomes the live control document for execution
+- slices move through `draft -> ready -> in progress -> done`
 - slices are prepared before execution, but tasks are refined incrementally
 - the developer selects each batch
 - the agent executes within batch scope and does not self-approve
