@@ -84,7 +84,7 @@ Markdown document specifying functional and non-functional requirements for a fe
 Markdown document specifying technical design and initial implementation direction for a feature. It serves as the design baseline for implementation.
 
 ### Implementation Plan  
-Markdown document driving execution. It is created at implementation kickoff and evolves during implementation by defining Implementation Slices, adding detailed Implementation Tasks, and tracking progress.
+Markdown document driving execution. Its file is scaffolded during feature initiation and then filled in at implementation kickoff by defining initial Implementation Slices. It continues to evolve during implementation by adding detailed Implementation Tasks and tracking progress.
 
 ### Implementation Slice  
 Coarse-grained execution unit of delivery that can be reviewed, integrated, and validated independently. Slices are defined in the Implementation Plan and may be added or adjusted during implementation. A Slice should be small enough to fit into a single focused agent session without relying on long-running conversational carryover.
@@ -480,7 +480,7 @@ The AI Agent executes the selected Batch.
 - AI Agent does not select or reorder Tasks
 - AI Agent does **not** mark the batch as approved merely because implementation completed
 - AI Agent may update temporary execution state in the Implementation Plan if needed, but task completion should be finalized only after developer approval during review
-- AI Agent may prepare a proposed update to the **Relevant Files** or **Important Decision** section of the Implementation Plan based on the files and code areas touched by the batch, but this should be finalized only after developer review so that these sections reflect accepted implementation state rather than temporary execution output
+- AI Agent may update the **Relevant Files** and **Important Decisions** sections of the Implementation Plan during implementation so that the working execution context stays current as code changes are made
 
 **Constraints**
 - AI Agent operates strictly within Batch scope
@@ -1120,7 +1120,7 @@ Create the initial feature workspace and establish the feature as a deliverable 
 Product Owner, Architect, or Developer
 
 **AI Agent**  
-Proposes feature identifier and slug if needed, scaffolds the feature folder and core artifact files according to Shape conventions, evaluates repository readiness, and indicates the most likely next step after setup but does not fill in the artifacts beyond the default template content.
+Proposes feature identifier and slug if needed, scaffolds the feature folder and core artifact files according to Shape conventions, evaluates repository readiness, and indicates the most likely next step after setup. This includes scaffolding an initial `03-implementation-plan.md` file from the default template, but it does not fill in execution content such as slices or tasks beyond that starting structure.
 
 **User**  
 Provides or approves the feature identity, confirms creation of the feature workspace, commits the changes or asks the Agent to commit.
@@ -1168,13 +1168,13 @@ Provides technical guidance and constraints, optionally provides existing techni
 
 #### 4. Plan Implementation
 **Description**  
-Create the initial Implementation Plan from the ready PRD and Technical Concept and prepare execution to begin.
+Fill in the scaffolded Implementation Plan from the ready PRD and Technical Concept and prepare execution to begin.
 
 **Responsible role**  
 Developer
 
 **AI Agent**  
-Validates that PRD and Technical Concept are ready, proposes the initial Implementation Plan structure and initial slices, checks that slices are shaped for fresh-session execution, and creates the document. It does not create implementation tasks, and initial slices are created in `draft`. It must not mark document as ready without explicit approval from the user. It must not move on to the next workflow operation without explicit approval from the user.
+Validates that PRD and Technical Concept are ready, fills in the scaffolded Implementation Plan by proposing the initial execution structure and initial slices, checks that slices are shaped for fresh-session execution, and updates the document accordingly. It does not create implementation tasks, and initial slices are created in `draft`. It must not mark document as ready without explicit approval from the user. It must not move on to the next workflow operation without explicit approval from the user.
 
 **User**  
 Reviews the proposed implementation structure, asks for adjustments if needed, approves the Implementation Plan as ready, commits the changes in the Implementation Plan or asks the agent to commit.
