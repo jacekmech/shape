@@ -269,7 +269,7 @@ Typical prompts:
 
 **Skill:** `implement batch`
 
-This step is for executing a deliberately small piece of prepared work and carrying that same batch through review handoff, revision if needed, approval handling, task completion updates, and optional commit.
+This step is for executing a deliberately small piece of prepared work and carrying that same batch through review handoff, revision if needed, approval handling, task completion updates, and commit.
 
 Important:
 - the developer decides the batch boundary
@@ -280,9 +280,10 @@ Important:
 - only after explicit approval should the agent mark the selected tasks done in the Implementation Plan
 - if approval marks the first done task in a `ready` slice, that slice becomes `in progress`
 - if this is the first slice entering `in progress`, the Implementation Plan also becomes `in progress`
-- commit remains optional and requires explicit user instruction even when it happens in the same skill flow
+- commit requires explicit user instruction if the agent is to create it, but commit is still part of completing the batch workflow before the next batch begins
 - code changes may be accompanied by Implementation Plan updates such as `Relevant Files` or important implementation decisions
-- implementation may end in one of several explicit states: awaiting review, under revision, approved and marked done, or committed when explicitly requested
+- within the same operation, implementation may temporarily be in one of several explicit states: awaiting review, under revision, awaiting approval, or approved but still awaiting commit
+- the operation is not complete until the approved batch is committed, either by the user or by the agent on explicit instruction
 
 Typical prompts:
 - Implement tasks 1 and 2 from the prepared slice as one batch
@@ -320,7 +321,7 @@ For each new slice:
 - start a fresh session
 - pick up feature
 - plan slice so the slice becomes `ready`
-- implement batch through review, approval, plan-state update, and optional commit
+- implement batch through review, approval, plan-state update, and commit
 - finish slice so it explicitly moves to `done`
 
 That repeated microcycle is the heart of Shape.
