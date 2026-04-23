@@ -289,7 +289,7 @@ Default Shape step order:
 1. initiate feature
 2. create prd
 3. create technical concept
-4. initiate implementation
+4. plan implementation
 5. prepare slice
 6. implement batch
 7. review batch

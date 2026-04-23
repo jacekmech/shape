@@ -1,4 +1,4 @@
-# initiate implementation
+# plan implementation
 
 ## Purpose
 Create the initial Implementation Plan from the ready PRD and ready Technical Concept, define the first set of execution slices, and set up implementation so that execution can continue through small, reviewable batches.
@@ -7,7 +7,7 @@ Create the initial Implementation Plan from the ready PRD and ready Technical Co
 Use this skill when the user wants to begin implementation planning for a feature whose PRD and Technical Concept are already ready, or when the existing Implementation Plan is still only a scaffold and needs to become a real execution document.
 
 Typical triggers:
-- “initiate implementation”
+- “plan implementation”
 - “start implementation planning”
 - “create the implementation plan”
 - “begin implementation”
@@ -107,7 +107,7 @@ This skill is complete when:
 - the next likely workflow step is stated plainly
 
 ## Guardrails
-- Do not initiate implementation planning from draft upstream artifacts
+- Do not start planning implementation from draft upstream artifacts
 - Do not collapse slice planning into immediate batch execution
 - Do not add implementation tasks so early that slice boundaries become unclear
 - Do not turn `## Relevant Files` into a historical changelog or full repository inventory
@@ -116,7 +116,7 @@ This skill is complete when:
 
 ## Likely Next Step
 Usually suggest:
-- continue `initiate implementation` if slice structure is still unstable
+- continue `plan implementation` if slice structure is still unstable
 - commit changes if moving to another workflow step
 - `prepare slice` if the Implementation Plan is `ready`
 - `update technical concept` or `update prd` if implementation planning exposed a real upstream gap

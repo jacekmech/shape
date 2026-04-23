@@ -80,7 +80,7 @@ Examples:
 - no feature selected but one obvious in-progress feature exists → `pick up feature`
 - feature exists but PRD is missing or draft → `create prd`
 - PRD ready and Technical Concept not ready → `create technical concept`
-- PRD and Technical Concept ready but Implementation Plan missing or draft → `initiate implementation`
+- PRD and Technical Concept ready but Implementation Plan missing or draft → `plan implementation`
 - plan ready and slice not yet broken down → `prepare slice`
 - code appears implemented for a selected batch but not yet validated → `review batch`
 - approved batch appears uncommitted → `commit batch`

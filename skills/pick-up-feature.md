@@ -80,7 +80,7 @@ Use current artifact state to suggest the next likely step.
 Examples:
 - PRD missing or still early → `create prd`
 - PRD ready, Technical Concept draft or missing → `create technical concept`
-- PRD and Technical Concept ready, Implementation Plan missing or draft → `initiate implementation`
+- PRD and Technical Concept ready, Implementation Plan missing or draft → `plan implementation`
 - Implementation Plan ready or in progress with unfinished slices → `prepare slice`, `review batch`, or other implementation continuation step
 - All slices done and plan nearly complete → `finish implementation`
 

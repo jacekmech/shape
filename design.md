@@ -1124,7 +1124,7 @@ Provides technical guidance and constraints, optionally provides existing techni
 
 ---
 
-#### 4. Initiate Implementation
+#### 4. Plan Implementation
 **Description**  
 Create the initial Implementation Plan from the ready PRD and Technical Concept and prepare execution to begin.
 
@@ -1434,7 +1434,7 @@ The inventory should also be easy to surface to the user on demand. Shape assume
   - **Triggers on:** request to start or continue technical design
   - **Outcome:** Technical Concept is updated and can reach `ready` state for implementation use
 
-- **initiate implementation**
+- **plan implementation**
   - **Purpose:** create the initial Implementation Plan from the ready PRD and Technical Concept and prepare execution to begin
   - **Triggers on:** request to begin implementation planning
   - **Outcome:** Implementation Plan exists with initial slices and can reach `ready` state for execution
@@ -1514,7 +1514,7 @@ The inventory should also be easy to surface to the user on demand. Shape assume
 - `update prd` and `update technical concept` should clearly support both creating a new update and continuing an existing draft update.
 - Shape strongly prefers at most one draft Specification Update per target document at a time. Multiple concurrent draft updates in the same document are discouraged because they increase ambiguity and drift risk. Skills should warn about this situation and prefer continuing an existing draft, but should not assume they can fully prevent manual divergence.
 - `prepare slice` should explicitly account for practical agent context limits.
-- `prepare slice` and `initiate implementation` should both reinforce that each new Slice should normally begin in a fresh agent session.
+- `prepare slice` and `plan implementation` should both reinforce that each new Slice should normally begin in a fresh agent session.
 - `prepare slice` should normally begin a fresh execution session by resolving the active feature through `pick up feature`, unless the active feature is already unambiguous.
 - `implement batch` and `review batch` should preserve batch sizes that remain reviewable by a developer in one focused step.
 - `review batch` should support Developer-led review and approval, not replace them.

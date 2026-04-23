@@ -15,7 +15,7 @@ A normal Shape flow looks like this:
 1. **initiate feature**
 2. **create prd**
 3. **create technical concept**
-4. **initiate implementation**
+4. **plan implementation**
 5. **prepare slice**
 6. **implement batch**
 7. **review batch**
@@ -182,11 +182,11 @@ Typical prompts:
 
 ---
 
-### 4.4 Initiate implementation
+### 4.4 Plan implementation
 
-**Skill:** `initiate implementation`
+**Skill:** `plan implementation`
 
-This step is for creating the first usable execution structure. The user should ask the agent to initiate implementation only after the PRD and Technical Concept are ready.
+This step is for creating the first usable execution structure. The user should ask the agent to plan implementation only after the PRD and Technical Concept are ready.
 
 The first version should include:
 - the objective
@@ -197,7 +197,7 @@ The first version should include:
 Do not try to fully task the entire feature upfront. Shape works better when detailed tasking happens slice by slice. At this stage the Implementation Plan is created and approved, but slices remain untasked until they are prepared.
 
 Typical prompts:
-- Initiate implementation for the active feature
+- Plan implementation for the active feature
 - Create the initial Implementation Plan from the ready PRD and Technical Concept
 
 ---

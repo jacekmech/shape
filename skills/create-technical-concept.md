@@ -124,6 +124,6 @@ Usually suggest:
 - continue `create technical concept` if material design gaps remain
 - commit changes if moving to another workflow step
 - `update prd` if requirement-level issues were discovered
-- `initiate implementation` if the Technical Concept is `ready`
+- `plan implementation` if the Technical Concept is `ready`
 
-Prefer `initiate implementation` once both the PRD and Technical Concept are explicitly accepted as `ready`.
+Prefer `plan implementation` once both the PRD and Technical Concept are explicitly accepted as `ready`.
