@@ -111,7 +111,7 @@ This example follows the update path only:
 
 **User:** Good. First batch should cover the file input and client-side validation only.
 
-**Agent:** Good boundary. Since Slice 5 is now planned and `ready`, I’ll execute only that batch and return for review.
+**Agent:** Good boundary. Since Slice 5 is now planned and `ready`, I’ll execute only that batch and return for review, then wait for explicit approval before marking anything done.
 
 **User:** I reviewed it. Approved.
 
@@ -169,5 +169,5 @@ This example highlights how Shape handles late change after a feature was alread
 - the Implementation Plan is updated inline to reflect new execution work
 - previously `done` work is not rewritten just because new scope appeared later
 - the workflow remains explicit about what changed at the requirement level, design level, and implementation level
-- execution resumes through new slices moving through `draft -> ready -> in progress -> done`, plus tasks, batches, review, approval, and commit boundaries
+- execution resumes through new slices moving through `draft -> ready -> in progress -> done`, plus tasks, batches, review, approval, and optional commit boundaries
 - the same person can wear all roles, while the workflow still preserves the role boundaries in the artifact flow

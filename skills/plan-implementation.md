@@ -50,7 +50,7 @@ This skill should reinforce Shape’s execution discipline:
 - each new Slice should normally begin in a fresh agent session
 - fresh execution sessions should normally begin with `pick up feature` unless the active feature is already unambiguous
 - execution will later proceed through slices and developer-selected batches
-- approved batches should be committed before the next batch begins
+- approved batches may be committed within `implement batch`, but only on explicit developer instruction before the next batch begins
 
 The responsible role remains the Developer.
 The agent may propose slices, and execution order, but should not silently decide implementation strategy where the developer needs to choose trade-offs or sequencing.

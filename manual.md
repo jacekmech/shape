@@ -18,15 +18,13 @@ A normal Shape flow looks like this:
 4. **plan implementation**
 5. **plan slice**
 6. **implement batch**
-7. **review batch**
-8. **commit batch**
-9. **finish slice**
-10. Repeat until done
-11. **finish feature**
+7. **finish slice**
+8. Repeat until done
+9. **finish feature**
 
 At the beginning of the workflow, Shape creates the feature workspace. As the work moves forward, the workflow produces the **Product Requirements Definition (PRD)**, the **Technical Concept**, the **Implementation Plan**, and the code delivered through implementation batches. Together, these are the outputs of the workflow: structured feature artifacts that define and guide the work, and the code generated along the way.
 
-The workflow also keeps repository and artifact boundaries explicit. Baseline artifacts are created and approved deliberately. Implementation work is reviewed before it is treated as complete. Approved implementation is committed before new batch work begins. This keeps both the feature artifacts and the repository in a clean, understandable state as the work moves forward.
+The workflow also keeps repository and artifact boundaries explicit. Baseline artifacts are created and approved deliberately. Implementation work is reviewed before it is treated as complete. Approved implementation is committed only on explicit instruction before new batch work begins. This keeps both the feature artifacts and the repository in a clean, understandable state as the work moves forward.
 
 When something changes after the PRD or Technical Concept is already ready:
 - **update prd**
@@ -271,78 +269,34 @@ Typical prompts:
 
 **Skill:** `implement batch`
 
-This step is for executing a deliberately small piece of prepared work. The user should select a small subset of prepared tasks and ask the agent to implement only that subset, then stop.
+This step is for executing a deliberately small piece of prepared work and carrying that same batch through review handoff, revision if needed, approval handling, task completion updates, and optional commit.
 
 Important:
 - the developer decides the batch boundary
 - the batch should stay small enough for one focused review
 - implementation completion is not the same as approval
+- after implementation, the agent should ask for review rather than treating the work as accepted
+- revisions may happen within the same selected batch without opening a new batch
+- only after explicit approval should the agent mark the selected tasks done in the Implementation Plan
+- if approval marks the first done task in a `ready` slice, that slice becomes `in progress`
+- if this is the first slice entering `in progress`, the Implementation Plan also becomes `in progress`
+- commit remains optional and requires explicit user instruction even when it happens in the same skill flow
 - code changes may be accompanied by Implementation Plan updates such as `Relevant Files` or important implementation decisions
-- the result at the end of this step is ready for review, not approved and not committed
+- implementation may end in one of several explicit states: awaiting review, under revision, approved and marked done, or committed when explicitly requested
 
 Typical prompts:
 - Implement tasks 1 and 2 from the prepared slice as one batch
 - Implement only the selected tasks and stop for review
+- Implement this batch, then wait for my approval before marking anything done
+- Implement this batch and commit it only if I explicitly approve and ask you to commit
 
 ---
 
-### 4.8 Review batch
-
-**Skill:** `review batch`
-
-This step is for deciding whether the implemented batch is acceptable. The user should review the result against the selected tasks and ask the agent to summarize, correct, or record decisions as needed before giving explicit approval.
-
-Review the result against:
-- the selected tasks
-- the slice intent
-- the PRD
-- the Technical Concept
-- repository conventions
-
-During review you may:
-- request corrections
-- ask for clarification
-- adjust future tasking if the result reveals a better path
-
-Only after explicit approval should the agent:
-- mark tasks done in the Implementation Plan
-
-If approval marks the first done task in a `ready` slice, that slice becomes `in progress`.
-If this is the first slice entering `in progress`, the Implementation Plan also becomes `in progress`.
-
-At the end of this step, the batch is approved in the Implementation Plan but still not committed.
-
-Typical prompts:
-- Review the current batch against the selected tasks
-- Summarize what changed and what still needs checking
-- Mark the approved tasks done
-
----
-
-### 4.9 Commit batch
-
-**Skill:** `commit batch`
-
-This step is for closing the approved review boundary before more work starts. The user should ask the agent to prepare the commit boundary only after the batch is reviewed and explicitly approved.
-
-This keeps:
-- the diff boundary clean
-- history easy to understand
-- rollback easier
-- the next review step smaller
-- the repository at a normal checkpoint before any new batch begins
-
-Typical prompts:
-- Propose a commit message for the approved batch
-- We approved this batch, prepare the commit boundary summary
-
----
-
-### 4.10 Finish slice
+### 4.8 Finish slice
 
 **Skill:** `finish slice`
 
-This step is for closing the current slice after all of its tasks have been implemented, reviewed, and committed. The user should ask the agent to finish the slice only when the slice objective is actually complete.
+This step is for closing the current slice after all of its tasks have been implemented, explicitly approved, and committed where needed. The user should ask the agent to finish the slice only when the slice objective is actually complete.
 
 The normal precondition is that the slice is already `in progress`.
 
@@ -350,7 +304,7 @@ Confirm that:
 - the slice goal is met
 - the resulting behavior works
 - the implementation still matches the intended boundary
-- the approved batch work for the slice is already committed
+- the approved batch work for the slice that should be committed is already committed
 
 Then explicitly transition the slice from `in progress` to `done` and commit the updated Implementation Plan.
 
@@ -360,22 +314,20 @@ Typical prompts:
 
 ---
 
-### 4.11 Repeat slice by slice
+### 4.9 Repeat slice by slice
 
 For each new slice:
 - start a fresh session
 - pick up feature
 - plan slice so the slice becomes `ready`
-- implement batch
-- review batch until approved tasks are marked done and the slice enters `in progress`
-- commit batch
+- implement batch through review, approval, plan-state update, and optional commit
 - finish slice so it explicitly moves to `done`
 
 That repeated microcycle is the heart of Shape.
 
 ---
 
-### 4.12 Finish feature
+### 4.10 Finish feature
 
 **Skill:** `finish feature`
 

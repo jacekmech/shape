@@ -65,8 +65,7 @@ Do not merge adjacent operations unless explicitly instructed.
 ### 2. Preserve Shape workflow boundaries
 Examples:
 - `implement batch` must not imply approval
-- `review batch` must not replace developer approval
-- `commit batch` remains a distinct step
+- `implement batch` may include review handling and optional commit, but explicit developer approval and explicit commit consent must remain separate
 - PRD and Technical Concept updates remain append-only after readiness
 
 ### 3. Be artifact-aware
@@ -142,7 +141,7 @@ Examples:
 
 ### Respect implementation review boundaries
 - tasks are marked done only after explicit developer approval
-- approved batches should be committed before the next batch begins
+- approved batches may be committed within `implement batch`, but only on explicit developer instruction before the next batch begins
 
 ### Keep tone operational
 Avoid:

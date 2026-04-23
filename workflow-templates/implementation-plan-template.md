@@ -53,7 +53,7 @@ Rules:
 - Progress is reflected inline through task completion and slice status.
 - Batches should remain small enough for a single high-quality developer review step.
 - Tasks should be marked done only after developer approval of the implemented batch.
-- An approved batch should be committed before the next batch begins so that review boundaries remain clean.
+- An approved batch should be committed only on explicit developer instruction before the next batch begins so that review boundaries remain clean.
 
 ---
 

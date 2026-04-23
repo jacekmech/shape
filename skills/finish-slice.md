@@ -1,10 +1,10 @@
 # finish slice
 
 ## Purpose
-Validate an `in progress` slice and transition it to `done` in the Implementation Plan once its tasks are completed, approved, and committed.
+Validate an `in progress` slice and transition it to `done` in the Implementation Plan once its tasks are completed, explicitly approved, and committed where needed.
 
 ## When to Use
-Use this skill when the user wants to close an `in progress` slice whose tasks are completed, confirm that the slice objective was actually met, or transition the slice to `done` in the Implementation Plan after its approved batches have been committed.
+Use this skill when the user wants to close an `in progress` slice whose tasks are completed, confirm that the slice objective was actually met, or transition the slice to `done` in the Implementation Plan after its approved batches have been committed where needed.
 
 Typical triggers:
 - “finish slice”
@@ -17,7 +17,7 @@ Typical triggers:
 Expected inputs:
 - active feature reference or resolved feature folder
 - active slice or selected slice in `03-implementation-plan.md`
-- completed and committed work for that slice
+- completed approved work for that slice, committed where needed
 
 Helpful but optional:
 - specific slice objective to validate against
@@ -30,11 +30,11 @@ Before finishing a slice:
 - identify the selected slice, defaulting to the active `in progress` slice when the context is clear
 - verify that the slice is currently `in progress`
 - verify that the slice tasks are completed
-- verify that any approved batches for the slice have already been committed
+- verify that any approved batches for the slice that should be committed have already been committed
 - inspect whether the slice objective appears satisfied
 
 This skill should close only validated slices.
-If the slice is still `draft` or `ready`, if tasks remain open, or if approved work is still uncommitted, surface that clearly instead of marking the slice `done`.
+If the slice is still `draft` or `ready`, if tasks remain open, or if approved work that should be committed is still uncommitted, surface that clearly instead of marking the slice `done`.
 
 ## Behavior
 Validate the selected slice against its intended objective and task completion state.
@@ -50,7 +50,7 @@ If slice completion changes what future work should focus on:
 - keep the section selective and forward-looking rather than historical
 
 The responsible role remains the Developer.
-The agent may help validate and update the plan, but should not silently close a slice that still has unresolved work or uncommitted approved changes.
+The agent may help validate and update the plan, but should not silently close a slice that still has unresolved work or approved changes that should be committed but are still uncommitted.
 
 ## Artifact Rules
 Update only the Implementation Plan in `03-implementation-plan.md`.
@@ -62,7 +62,7 @@ Work against these sections:
 - `## Notes`
 
 Apply these rules:
-- slice completion happens only after its tasks are completed and approved batches are committed
+- slice completion happens only after its tasks are completed and approved batches that should be committed are committed
 - the slice status in `## Slices` should change from `in progress` to `done` only after validated completion
 - the corresponding slice line in `## Execution Order` should already reflect completed tasks before closure
 - `## Relevant Files` may be pruned or refreshed when slice completion changes what is useful for subsequent slices
@@ -76,7 +76,7 @@ This skill may:
 This skill must not:
 - mark a slice `done` while tasks are still open
 - close a slice that has not yet reached `in progress`
-- close a slice before approved batches are committed
+- close a slice before approved batches that should be committed are committed
 - use slice closure to hide incomplete work
 - mark the whole implementation done unless all slices are `done`
 
@@ -97,7 +97,7 @@ This skill is complete when:
 
 ## Guardrails
 - Do not close a slice with open tasks
-- Do not close a slice before approved work is committed
+- Do not close a slice before approved work that should be committed is committed
 - Do not use slice closure as a shortcut for unresolved review or approval state
 - Do not leave the next execution step implicit once a slice is closed
 - Do not mark implementation done unless all slices are `done` and validated

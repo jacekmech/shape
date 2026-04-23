@@ -52,12 +52,11 @@ Each Shape operation should normally map to one skill file.
 Examples:
 - `create prd` -> `create-prd.md`
 - `plan slice` -> `plan-slice.md`
-- `review batch` -> `review-batch.md`
+- `implement batch` -> `implement-batch.md`
 
 ### Do not merge adjacent operations without a strong reason
 For example:
-- `implement batch` should not absorb `review batch`
-- `review batch` should not absorb `commit batch`
+- `implement batch` may absorb adjacent batch review and commit handling only when Shape explicitly defines that combined microcycle
 - `create technical concept` should not absorb `update technical concept`
 
 Shape deliberately separates these boundaries. Skill boundaries should preserve them.
@@ -99,7 +98,7 @@ Examples:
 - PRD and Technical Concept updates are append-only after readiness
 - only ready updates are effective
 - implementation tasks are marked done only after explicit developer approval
-- approved batches should be committed before the next batch begins
+- approved batches may be committed within `implement batch`, but only on explicit developer instruction before the next batch begins
 
 ### Anchor to real artifacts and sections
 Where relevant, the skill should refer to:
@@ -204,14 +203,16 @@ A skill must not imply approval merely because work is completed.
 
 Examples:
 - `implement batch` does not approve the batch
-- `review batch` supports review but does not replace developer approval
+- `implement batch` supports review handling but does not replace developer approval
 - `finish slice` should not assume completion without developer confirmation
 
 ### Make review state explicit
 Where relevant, skills should distinguish clearly between:
 - awaiting review
+- under revision
 - awaiting approval
 - approved but awaiting commit
+- approved and marked done
 - ready for next step
 
 ---

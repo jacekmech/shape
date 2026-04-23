@@ -84,11 +84,11 @@ Examples:
 - PRD and Technical Concept ready but Implementation Plan missing or draft → `plan implementation`
 - plan ready and next slice still `draft` → `plan slice`
 - slice `ready` and ready for coding → `implement batch`
-- slice `in progress` with implemented but unapproved work → `review batch`
-- slice `in progress` with approved but uncommitted work → `commit batch`
+- slice `in progress` with implemented but unapproved work → continue `implement batch` for review and approval handling
+- slice `in progress` with approved but uncommitted work → continue `implement batch` if the user wants to commit that approved batch
 - slice `in progress` with all tasks done and committed → `finish slice`
-- code appears implemented for a selected batch but not yet validated → `review batch`
-- approved batch appears uncommitted → `commit batch`
+- code appears implemented for a selected batch but not yet validated → continue `implement batch`
+- approved batch appears uncommitted → continue `implement batch` if commit is desired
 - all slices `done` but plan not closed → `finish feature`
 
 ## Behavior Principles

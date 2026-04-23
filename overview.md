@@ -91,4 +91,4 @@ Shape also assumes that repository context matters. Good feature artifacts impro
 
 ## In one sentence
 
-Shape is a lightweight workflow for AI-assisted software delivery that uses evolving feature artifacts, AI-sized execution slices, and human-sized review batches to make delivery faster, more repeatable, and more traceable without turning it into chaos.
+Shape is a lightweight workflow for AI-assisted software delivery that uses evolving feature artifacts, AI-sized execution slices, and human-sized reviewable batches to make delivery faster, more repeatable, and more traceable without turning it into chaos.

@@ -102,25 +102,25 @@ Feature used in this example:
 
 **User:** First batch: build the form UI and client validation. Leave submission behavior for later.
 
-**Agent:** Good boundary. I’ll execute only those tasks and then return for review.
+**Agent:** Good boundary. I’ll execute only those tasks, return for review, and wait for explicit approval before marking anything done.
 
-### 5. Batch Execution and Review
+### 5. Batch Execution, Review, and Optional Commit
 
 **User:** Execute the batch.
 
-**Agent:** I’ve implemented the selected frontend tasks and stopped at the review boundary. This batch is now awaiting review and approval.
+**Agent:** I’ve implemented the selected frontend tasks and stopped at the review boundary. This batch is now awaiting review.
 
 **User:** I reviewed it. The direction is right, but I want clearer error messages and disabled submit when required fields are empty.
 
-**Agent:** That still fits within the current batch, so I’d adjust it without opening a new batch. After the revision I’d return it for review again.
+**Agent:** That still fits within the current batch, so I’d adjust it without opening a new batch. After the revision I’d return it for review again and wait for explicit approval.
 
 **User:** After the adjustment, approve it.
 
-**Agent:** Good. I’d mark the corresponding tasks as done in the Implementation Plan, update the relevant working file map if useful, and stop at the commit boundary. The approved task completion also means Slice 1 has now moved to `in progress`, and the Implementation Plan is now `in progress`. The next step is commit before any new batch begins.
+**Agent:** Good. I’d mark the corresponding tasks as done in the Implementation Plan, update the relevant working file map if useful, and stop at the commit boundary. The approved task completion also means Slice 1 has now moved to `in progress`, and the Implementation Plan is now `in progress`. The next step is commit before any new batch begins if you want to continue cleanly from this approved boundary.
 
 **User:** Commit the approved batch and continue.
 
-**Agent:** Done. The batch is committed. Slice 1 is still `in progress` until we explicitly validate and close it through `finish slice`. Once that happens, Slice 1 becomes `done`, and the next step is to pick up the feature in a fresh session and prepare the next slice.
+**Agent:** Done. The approved batch is committed. Slice 1 is still `in progress` until we explicitly validate and close it through `finish slice`. Once that happens, Slice 1 becomes `done`, and the next step is to pick up the feature in a fresh session and prepare the next slice.
 
 ### 6. Next Slice
 
@@ -133,7 +133,7 @@ Feature used in this example:
 
 **User:** Use that breakdown. First batch should cover the endpoint and validation only.
 
-**Agent:** Good. That keeps the review narrow. I’ll implement only the endpoint and validation, then return for review and approval.
+**Agent:** Good. That keeps the review narrow. I’ll implement only the endpoint and validation, then return for review and approval handling within the same batch flow.
 
 **User:** I reviewed it. Looks fine. Approved.
 
@@ -169,7 +169,7 @@ Feature used in this example:
 
 **User:** Execute it.
 
-**Agent:** That batch is implemented. It is now awaiting review. Once you approve it, the next required step is commit before anything else continues.
+**Agent:** That batch is implemented. It is now awaiting review. Once you explicitly approve it, I can mark the tasks done and, if you instruct me to, commit before anything else continues.
 
 **User:** I reviewed it. Approved.
 
@@ -189,5 +189,5 @@ This example highlights the parts of Shape that are easy to miss in a shorter su
 - slices are prepared before execution, but tasks are refined incrementally
 - the developer selects each batch
 - the agent executes within batch scope and does not self-approve
-- review, approval, and commit are explicit workflow boundaries
+- review, approval, task completion, and optional commit remain explicit workflow boundaries inside the batch microcycle
 - the agent keeps orienting the user toward the next valid step

@@ -83,7 +83,7 @@ Examples:
 - PRD and Technical Concept ready, Implementation Plan missing or draft → `plan implementation`
 - next slice is still `draft` → `plan slice`
 - slice is `ready` and waiting for execution selection → `implement batch`
-- slice is `in progress` and active work is awaiting validation or commit → `review batch` or `commit batch`
+- slice is `in progress` and active work is awaiting review, approval handling, revision, or commit → continue `implement batch`
 - slice is `in progress` with all tasks done and committed → `finish slice`
 - all slices are `done` and plan nearly complete → `finish feature`
 

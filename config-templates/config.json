@@ -20,8 +20,6 @@
       "update-implementation-plan",
       "plan-slice",
       "implement-batch",
-      "review-batch",
-      "commit-batch",
       "finish-slice",
       "finish-feature"
     ]

@@ -1486,23 +1486,13 @@ The inventory should also be easy to surface to the user on demand. Shape assume
   - **Outcome:** approved planning changes are recorded in the Implementation Plan and the selected slice can move from `draft` to `ready`
 
 - **implement batch**
-  - **Purpose:** execute an approved batch of implementation tasks in code and prepare the result for Developer review
+  - **Purpose:** execute an approved batch of implementation tasks in code, carry the batch through review handoff and revision if needed, update plan state only after explicit approval, and optionally commit when explicitly instructed
   - **Triggers on:** request to implement one or more approved implementation tasks
-  - **Outcome:** code changes and any resulting Implementation Plan updates are ready for review, but not yet approved and not committed
-
-- **review batch**
-  - **Purpose:** review an implemented batch, iterate if needed, and mark approved tasks as done in the Implementation Plan
-  - **Triggers on:** request to review completed batch work
-  - **Outcome:** approved tasks are marked as done in the Implementation Plan, and the selected slice may move from `ready` to `in progress`, but the result is not yet committed
-
-- **commit batch**
-  - **Purpose:** create the repository checkpoint for a reviewed and approved batch before any new batch starts
-  - **Triggers on:** request to commit reviewed batch changes
-  - **Outcome:** approved batch diff is committed in the repository
+  - **Outcome:** the selected batch can move through awaiting review, revision, approval, task completion updates, and optional commit without crossing approval or commit consent boundaries implicitly
 
 - **finish slice**
   - **Purpose:** validate that an `in progress` slice is complete and transition it to `done` in the Implementation Plan
-  - **Triggers on:** request to close a slice whose tasks have been completed through approved and committed batches
+  - **Triggers on:** request to close a slice whose tasks have been completed through approved batches and any explicitly requested commits
   - **Outcome:** selected slice is transitioned to `done` in the Implementation Plan and can be committed as complete
 
 - **update prd**
@@ -1557,9 +1547,9 @@ The inventory should also be easy to surface to the user on demand. Shape assume
 - `plan slice` should explicitly account for practical agent context limits.
 - `plan slice` and `plan implementation` should both reinforce that each new Slice should normally begin in a fresh agent session.
 - `plan slice` should normally begin a fresh execution session by resolving the active feature through `pick up feature`, unless the active feature is already unambiguous.
-- `implement batch` and `review batch` should preserve batch sizes that remain reviewable by a developer in one focused step.
-- `review batch` should support Developer-led review and approval, not replace them.
-- `commit batch` should be treated as the normal required boundary after approval and before the next batch begins.
+- `implement batch` should preserve batch sizes that remain reviewable by a developer in one focused step.
+- `implement batch` should support Developer-led review and approval, not replace them.
+- `implement batch` should keep explicit approval and explicit commit consent as separate boundaries even when commit happens within the same skill flow.
 - Workflow-mode reminder phrasing should be used selectively for orientation, not repeated mechanically on every exchange.
 - Skills should normally end by indicating the most likely next valid workflow action.
 

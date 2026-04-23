@@ -53,7 +53,7 @@ This skill should reinforce Shape’s execution discipline:
 - each new Slice should normally begin in a fresh agent session
 - the next likely step after slice preparation is selecting a small execution batch
 - approved planning transitions the selected slice from `draft` to `ready`
-- Implementation Plan status moves from `ready` to `in progress` when active execution begins, not merely because tasks were drafted
+- Implementation Plan status moves from `ready` to `in progress` when the first approved task is marked done during execution, not merely because tasks were drafted
 
 The responsible role remains the Developer.
 The agent may propose task breakdowns and pre-execution decisions, but should not silently over-expand scope or reorder execution without developer confirmation when the change is material.
