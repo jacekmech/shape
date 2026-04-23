@@ -17,11 +17,17 @@
 
 Defines the high-level structure of execution.
 
-- [ ] Slice Name — Goal
+- **Slice 1:**
+  - **Goal:** ...
+  - **Status:** `draft | ready | in progress | done`
 
 Rules:
-- Slices are represented with checkboxes.
+- Slices use explicit lifecycle status rather than checkboxes.
 - New slices may be appended during implementation.
+- Initial slices created during `plan implementation` start as `draft`.
+- A selected slice moves to `ready` after approved planning in `plan slice`.
+- A `ready` slice moves to `in progress` when the first approved task in that slice is marked done.
+- A slice moves to `done` only through explicit validation in `finish slice`.
 - Each Slice should remain small enough to fit within a single focused agent session.
 - Each new Slice should normally be executed in a fresh agent session.
 - Fresh execution sessions should normally begin by resolving the active feature through **Pick Up Feature** unless the active feature is already unambiguous.
@@ -34,16 +40,17 @@ This is the central workspace of the Implementation Plan.
 
 Structure:
 
-- [ ] Slice Name
+- Slice Name (slice status)
   - [ ] Implementation Task
   - [ ] Implementation Task
 
 Rules:
-- Slices and Tasks use checkboxes to indicate progress (`done / not done`).
+- Slice entries here correspond to the explicit slice definitions in `## Slices`.
+- Implementation Tasks use checkboxes to indicate progress (`done / not done`).
 - Implementation Tasks are appended continuously during execution.
 - Developer selects tasks for execution in batches (batches are not explicitly represented).
 - This is the only place where sequencing exists.
-- Progress is reflected inline.
+- Progress is reflected inline through task completion and slice status.
 - Batches should remain small enough for a single high-quality developer review step.
 - Tasks should be marked done only after developer approval of the implemented batch.
 - An approved batch should be committed before the next batch begins so that review boundaries remain clean.
