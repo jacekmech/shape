@@ -1142,7 +1142,7 @@ Reviews the proposed implementation structure, asks for adjustments if needed, a
 
 ---
 
-#### 5. Prepare Slice
+#### 5. Plan Slice
 **Description**  
 Turn a selected implementation slice into a concrete, reviewable execution proposal and record the approved planning changes in the Implementation Plan.
 
@@ -1439,7 +1439,7 @@ The inventory should also be easy to surface to the user on demand. Shape assume
   - **Triggers on:** request to begin implementation planning
   - **Outcome:** Implementation Plan exists with initial slices and can reach `ready` state for execution
 
-- **prepare slice**
+- **plan slice**
   - **Purpose:** turn a selected implementation slice into a concrete, reviewable execution proposal by defining Implementation Tasks and recording any agreed Important Decisions
   - **Triggers on:** request to refine a slice for execution
   - **Outcome:** approved planning changes are recorded in the Implementation Plan for the selected slice
@@ -1513,9 +1513,9 @@ The inventory should also be easy to surface to the user on demand. Shape assume
 - `create technical concept` should explicitly use repository guidance and local architectural conventions as inputs to design work.
 - `update prd` and `update technical concept` should clearly support both creating a new update and continuing an existing draft update.
 - Shape strongly prefers at most one draft Specification Update per target document at a time. Multiple concurrent draft updates in the same document are discouraged because they increase ambiguity and drift risk. Skills should warn about this situation and prefer continuing an existing draft, but should not assume they can fully prevent manual divergence.
-- `prepare slice` should explicitly account for practical agent context limits.
-- `prepare slice` and `plan implementation` should both reinforce that each new Slice should normally begin in a fresh agent session.
-- `prepare slice` should normally begin a fresh execution session by resolving the active feature through `pick up feature`, unless the active feature is already unambiguous.
+- `plan slice` should explicitly account for practical agent context limits.
+- `plan slice` and `plan implementation` should both reinforce that each new Slice should normally begin in a fresh agent session.
+- `plan slice` should normally begin a fresh execution session by resolving the active feature through `pick up feature`, unless the active feature is already unambiguous.
 - `implement batch` and `review batch` should preserve batch sizes that remain reviewable by a developer in one focused step.
 - `review batch` should support Developer-led review and approval, not replace them.
 - `commit batch` should be treated as the normal required boundary after approval and before the next batch begins.

@@ -290,7 +290,7 @@ Default Shape step order:
 2. create prd
 3. create technical concept
 4. plan implementation
-5. prepare slice
+5. plan slice
 6. implement batch
 7. review batch
 8. commit batch

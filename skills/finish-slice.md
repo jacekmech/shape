@@ -102,8 +102,8 @@ This skill is complete when:
 
 ## Likely Next Step
 Usually suggest one of:
-- `prepare slice` for the next open slice
+- `plan slice` for the next open slice
 - `finish implementation` if all slices are now completed and validated
 - `update implementation plan` if slice completion exposed a needed execution reshaping
 
-Prefer `prepare slice` when more slices remain and the next one is ready to refine.
+Prefer `plan slice` when more slices remain and the next one is ready to refine.

@@ -1,4 +1,4 @@
-# prepare slice
+# plan slice
 
 ## Purpose
 Turn a selected implementation slice into a concrete, reviewable execution proposal by defining executable implementation tasks, recording any agreed pre-execution decisions, and preserving developer control over task scope and sequencing.
@@ -7,7 +7,7 @@ Turn a selected implementation slice into a concrete, reviewable execution propo
 Use this skill when the user wants to refine a slice for execution, break an open slice into implementation tasks, or make the next slice ready for a small developer-selected execution batch.
 
 Typical triggers:
-- “prepare slice”
+- “plan slice”
 - “break down the next slice”
 - “refine this slice into tasks”
 - “make the slice ready for execution”
@@ -117,7 +117,7 @@ This skill is complete when:
 
 ## Likely Next Step
 Usually suggest:
-- continue `prepare slice` if the breakdown is still too broad or unclear
+- continue `plan slice` if the breakdown is still too broad or unclear
 - commit changes if moving to another workflow step
 - `implement batch` after the developer selects a small subset of tasks
 - `update implementation plan` if the plan no longer matches effective upstream changes

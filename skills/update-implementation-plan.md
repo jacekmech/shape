@@ -114,9 +114,9 @@ This skill is complete when:
 
 ## Likely Next Step
 Usually suggest:
-- `prepare slice` if the updated plan now has a clear next open slice
+- `plan slice` if the updated plan now has a clear next open slice
 - commit changes if moving to another workflow step
 - continue `update implementation plan` if propagation impact is still being resolved
 - `update technical concept` or `update prd` if the upstream change is still incomplete
 
-Prefer `prepare slice` once the updated plan has a clear next slice ready for refinement.
+Prefer `plan slice` once the updated plan has a clear next slice ready for refinement.

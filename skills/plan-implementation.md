@@ -72,7 +72,7 @@ Use the canonical Implementation Plan section structure:
 Apply these rules:
 - the Implementation Plan is a live inline document rather than an append-only update artifact
 - `## Slices` should define the initial high-level execution structure using slice checkboxes
-- `## Execution Order` should establish slice ordering, but implementation tasks must remain empty until `prepare slice`
+- `## Execution Order` should establish slice ordering, but implementation tasks must remain empty until `plan slice`
 - `## Relevant Files` should stay selective and useful for fresh-session pickup rather than becoming a full file inventory
 - no explicit batch representation should be added to the document
 
@@ -118,7 +118,7 @@ This skill is complete when:
 Usually suggest:
 - continue `plan implementation` if slice structure is still unstable
 - commit changes if moving to another workflow step
-- `prepare slice` if the Implementation Plan is `ready`
+- `plan slice` if the Implementation Plan is `ready`
 - `update technical concept` or `update prd` if implementation planning exposed a real upstream gap
 
-Prefer `prepare slice` once the Implementation Plan is explicitly accepted as `ready`.
+Prefer `plan slice` once the Implementation Plan is explicitly accepted as `ready`.

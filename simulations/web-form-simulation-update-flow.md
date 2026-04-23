@@ -100,7 +100,7 @@ This example follows the update path only:
 
 **Agent:** I’d also refresh the relevant file map to bring the contact form component, submission endpoint, validation layer, and mail integration files back into focus. The next step is to prepare the first new slice rather than trying to fully task all new slices up front.
 
-**User:** Prepare Slice 5.
+**User:** Plan Slice 5.
 
 ### 5. Missing Implementation
 

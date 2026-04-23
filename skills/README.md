@@ -51,7 +51,7 @@ Each Shape operation should normally map to one skill file.
 
 Examples:
 - `create prd` -> `create-prd.md`
-- `prepare slice` -> `prepare-slice.md`
+- `plan slice` -> `plan-slice.md`
 - `review batch` -> `review-batch.md`
 
 ### Do not merge adjacent operations without a strong reason

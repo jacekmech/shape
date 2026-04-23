@@ -94,7 +94,7 @@ This skill is complete when:
 
 ## Likely Next Step
 Usually suggest one of:
-- `prepare slice` if the current slice still has open work that needs refinement
+- `plan slice` if the current slice still has open work that needs refinement
 - `implement batch` if prepared tasks remain and the next small batch is already clear
 - `finish slice` if all tasks in the slice are now done and committed
 

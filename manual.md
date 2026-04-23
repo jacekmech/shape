@@ -16,7 +16,7 @@ A normal Shape flow looks like this:
 2. **create prd**
 3. **create technical concept**
 4. **plan implementation**
-5. **prepare slice**
+5. **plan slice**
 6. **implement batch**
 7. **review batch**
 8. **commit batch**
@@ -221,9 +221,9 @@ Typical prompts:
 
 ---
 
-### 4.6 Prepare slice
+### 4.6 Plan slice
 
-**Skill:** `prepare slice`
+**Skill:** `plan slice`
 
 This step is for turning the next slice into concrete executable implementation tasks. The user should ask the agent to prepare only the next unfinished slice, not the whole remaining feature.
 
@@ -342,7 +342,7 @@ Typical prompts:
 For each new slice:
 - start a fresh session
 - pick up feature
-- prepare slice
+- plan slice
 - implement batch
 - review batch
 - commit batch
