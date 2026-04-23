@@ -416,7 +416,7 @@ These are related, but they are not the same mechanism.
 ### 6.1 Initialization
 
 **Summary**  
-Implementation begins by creating an Implementation Plan from the ready PRD and Technical Concept.
+Implementation begins by filling in the scaffolded Implementation Plan from the ready PRD and Technical Concept.
 
 **State**
 - PRD status is `ready`
@@ -1210,7 +1210,7 @@ Selects the slice, reviews the proposed tasks and decisions, iterates if needed,
 
 #### 6. Implement Batch
 **Description**  
-Execute an approved batch of implementation tasks through its full internal lifecycle: user input, agent execution, developer review and iteration, approval-driven plan updates, and optional commit.
+Execute an approved batch of implementation tasks through its full internal lifecycle: user input, agent execution, developer review and iteration, approval-driven plan updates, and commit.
 
 **Responsible role**  
 Developer
@@ -1231,13 +1231,13 @@ Starts implementation **only after explicit Developer approval** for the selecte
 - proposes a commit message or commit summary when useful
 - creates the commit itself **only if explicitly asked by the Developer**
 
-The AI Agent does **not** treat implementation completion as approval. It does **not** mark tasks as done until approval is explicit. It does **not** assume who performs the commit, and it does not move to the next batch or workflow operation without explicit approval.
+The AI Agent does **not** treat implementation completion as approval. It does **not** mark tasks as done until approval is explicit. It does **not** assume who performs the commit, but it does treat commit as part of completing the operation, and it does not move to the next batch or workflow operation without explicit approval.
 
 **User**  
-Selects the tasks for the batch, provides execution constraints or corrections, reviews the resulting diff, requests any needed iterations, explicitly approves the batch when satisfied, and decides whether to commit directly or ask the Agent to create the commit.
+Selects the tasks for the batch, provides execution constraints or corrections, reviews the resulting diff, requests any needed iterations, explicitly approves the batch when satisfied, and then commits the approved batch directly or asks the Agent to create the commit.
 
 **Ends with**  
-**Selected batch carried through implementation, developer review, approval-driven plan updates, and optional commit.** If not yet committed, the batch remains approved but cannot be followed by a new batch until committed.
+**Selected batch carried through implementation, developer review, approval-driven plan updates, and commit.**
 
 ---
 
@@ -1439,9 +1439,9 @@ The inventory should also be easy to surface to the user on demand. Shape assume
   - **Outcome:** approved planning changes are recorded in the Implementation Plan and the selected slice can move from `draft` to `ready`
 
 - **implement batch**
-  - **Purpose:** execute an approved batch of implementation tasks through its full internal lifecycle of input, execution, review and iteration, approval-driven plan updates, and optional commit
+  - **Purpose:** execute an approved batch of implementation tasks through its full internal lifecycle of input, execution, review and iteration, approval-driven plan updates, and commit
   - **Triggers on:** request to implement one or more approved implementation tasks
-  - **Outcome:** the selected batch can move through execution, developer review, revision, approval, task completion updates, and optional commit without splitting into separate workflow operations or crossing approval or commit consent boundaries implicitly
+  - **Outcome:** the selected batch can move through execution, developer review, revision, approval, task completion updates, and commit without splitting into separate workflow operations or crossing approval or commit consent boundaries implicitly
 
 - **finish slice**
   - **Purpose:** validate that an `in progress` slice is complete and transition it to `done` in the Implementation Plan
