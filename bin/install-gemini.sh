@@ -293,6 +293,7 @@ When working in this repository:
 - After a Shape operation updates workflow artifacts, stop and let the user review and commit the result, or explicitly ask you to commit it.
 - `implement batch` is the special exception: it may continue through review handoff, revision, approval handling, task completion updates, and optional commit, but only with explicit user approval and explicit commit instruction.
 - Do not mark tasks done before explicit approval, and do not commit without explicit user instruction.
+- Never deviate from the workflow, e.g. by skipping a step, combining two steps or implementing two slices in one go.
 
 Default Shape step order:
 1. initiate feature
