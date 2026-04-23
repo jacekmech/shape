@@ -22,7 +22,7 @@ A normal Shape flow looks like this:
 8. **commit batch**
 9. **finish slice**
 10. Repeat until done
-11. **finish implementation**
+11. **finish feature**
 
 At the beginning of the workflow, Shape creates the feature workspace. As the work moves forward, the workflow produces the **Product Requirements Definition (PRD)**, the **Technical Concept**, the **Implementation Plan**, and the code delivered through implementation batches. Together, these are the outputs of the workflow: structured feature artifacts that define and guide the work, and the code generated along the way.
 
@@ -375,11 +375,11 @@ That repeated microcycle is the heart of Shape.
 
 ---
 
-### 4.12 Finish implementation
+### 4.12 Finish feature
 
-**Skill:** `finish implementation`
+**Skill:** `finish feature`
 
-This step is for closing the full implementation workflow once all slices are done. The user should ask the agent to finish implementation only when the Implementation Plan reflects reality and there are no unresolved execution gaps.
+This step is for closing the full implementation workflow once all slices are done. The user should ask the agent to finish the feature only when the Implementation Plan reflects reality and there are no unresolved execution gaps.
 
 At this point, confirm that:
 - all slices are `done`
@@ -391,7 +391,7 @@ At this point, confirm that:
 Then mark the Implementation Plan `done`.
 
 Typical prompts:
-- Finish implementation for the active feature
+- Finish the active feature
 - Check completion state and mark the Implementation Plan done if everything is complete
 
 ---

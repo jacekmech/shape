@@ -89,7 +89,7 @@ Examples:
 - slice `in progress` with all tasks done and committed → `finish slice`
 - code appears implemented for a selected batch but not yet validated → `review batch`
 - approved batch appears uncommitted → `commit batch`
-- all slices `done` but plan not closed → `finish implementation`
+- all slices `done` but plan not closed → `finish feature`
 
 ## Behavior Principles
 - Optimize for orientation, not exhaustiveness

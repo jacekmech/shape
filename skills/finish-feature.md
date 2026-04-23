@@ -1,13 +1,13 @@
-# finish implementation
+# finish feature
 
 ## Purpose
 Conclude implementation for the active feature after all slices are `done` and validated by verifying repository readiness for completion, marking the Implementation Plan as `done`, and making the finished state explicit.
 
 ## When to Use
-Use this skill when the user wants to finalize feature implementation, close the Implementation Plan after all slice work is complete, or confirm that implementation has actually reached the `done` state.
+Use this skill when the user wants to finish the feature, close the Implementation Plan after all slice work is complete, or confirm that implementation has actually reached the `done` state.
 
 Typical triggers:
-- “finish implementation”
+- “finish feature”
 - “finalize implementation”
 - “mark the plan done”
 - “close out this feature implementation”

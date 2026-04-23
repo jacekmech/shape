@@ -1360,7 +1360,7 @@ Confirms that the specification updates should be reflected in the Implementatio
 
 ---
 
-#### 13. Finish Implementation
+#### 13. Finish Feature
 **Description**  
 Conclude implementation by verifying completion state, repository readiness, and final Implementation Plan status.
 
@@ -1520,7 +1520,7 @@ The inventory should also be easy to surface to the user on demand. Shape assume
   - **Triggers on:** request to propagate ready specification updates into execution planning
   - **Outcome:** Implementation Plan is updated inline to reflect ready specification changes without changing `in progress` slices, `done` slices, or any Implementation Tasks
 
-- **finish implementation**
+- **finish feature**
   - **Purpose:** conclude implementation by verifying completion state, repository readiness, and final Implementation Plan status
   - **Triggers on:** request to finalize feature implementation
   - **Outcome:** Implementation Plan can be marked as `done`, with repository state confirmed clean and complete

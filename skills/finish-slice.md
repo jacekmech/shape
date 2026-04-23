@@ -105,7 +105,7 @@ This skill is complete when:
 ## Likely Next Step
 Usually suggest one of:
 - `plan slice` for the next `draft` slice
-- `finish implementation` if all slices are now `done` and validated
+- `finish feature` if all slices are now `done` and validated
 - `update implementation plan` if slice completion exposed a needed execution reshaping
 
 Prefer `plan slice` when more slices remain and the next one is ready to refine.

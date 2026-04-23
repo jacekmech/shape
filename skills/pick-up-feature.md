@@ -85,7 +85,7 @@ Examples:
 - slice is `ready` and waiting for execution selection → `implement batch`
 - slice is `in progress` and active work is awaiting validation or commit → `review batch` or `commit batch`
 - slice is `in progress` with all tasks done and committed → `finish slice`
-- all slices are `done` and plan nearly complete → `finish implementation`
+- all slices are `done` and plan nearly complete → `finish feature`
 
 ## Fresh-Session Behavior
 Shape expects each new Slice to normally begin in a fresh agent session.

@@ -295,7 +295,7 @@ Default Shape step order:
 7. review batch
 8. commit batch
 9. finish slice
-10. finish implementation
+10. finish feature
 
 Before acting:
 

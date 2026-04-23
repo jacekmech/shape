@@ -23,7 +23,7 @@
       "review-batch",
       "commit-batch",
       "finish-slice",
-      "finish-implementation"
+      "finish-feature"
     ]
   }
 }
