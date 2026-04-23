@@ -1,7 +1,7 @@
 # implement batch
 
 ## Purpose
-Execute an explicitly approved developer-selected batch of implementation tasks in code, support review and revision on that same batch, update execution state only after explicit developer approval, and optionally commit on explicit developer instruction without silently expanding scope or collapsing approval boundaries.
+Execute an explicitly approved developer-selected batch of implementation tasks in code, support review and revision on that same batch, update execution state only after explicit developer approval, and carry the batch through commit without silently expanding scope or collapsing approval boundaries.
 
 ## When to Use
 Use this skill when the user wants to implement one or more selected implementation tasks from the active slice, produce the code changes for a small batch, and prepare the result for developer review.
@@ -36,7 +36,7 @@ This skill should work from an explicit batch definition.
 If the next tasks are not selected yet, redirect to developer batch selection rather than silently choosing scope.
 
 ## Behavior
-Implement only the selected batch in code, then keep the workflow inside that same batch until the Developer either requests revision, explicitly approves it, or explicitly asks for commit.
+Implement only the selected batch in code, then keep the workflow inside that same batch until the Developer either requests revision, explicitly approves it, or completes the commit boundary for that approved batch.
 
 During execution:
 - stay within the selected task scope
@@ -63,20 +63,26 @@ Only after the Developer explicitly approves the batch may this skill:
 - if this is the first slice entering `in progress`, update the Implementation Plan status to `in progress`
 - refresh `## Relevant Files` when accepted implementation changed what matters next
 - update `## Important Decisions` when accepted implementation introduced decisions worth preserving
-- state clearly that the batch is `approved and marked done`
+- state clearly that the batch is `approved but awaiting commit`
 
 Commit remains a separate consent boundary inside the same skill flow:
 - do not commit merely because the batch was approved
 - commit only if the Developer explicitly instructs you to commit
 - keep the commit scoped to the approved batch
 - surface unrelated-change contamination before committing
+- state clearly when the batch is `approved but awaiting commit`
 - state clearly when the batch is `committed`
+
+Treat commit as part of completing this operation:
+- do not treat `approved and marked done` as the final completion state of `implement batch`
+- do not move to the next batch or workflow operation until the approved batch has been committed, either by the Developer or by the agent on explicit instruction
 
 This skill may update the live Implementation Plan during execution and approval handling, but it must preserve the approval boundary:
 - do not mark tasks done merely because code was written
 - do not treat the batch as approved
 - do not treat implementation completion as approval
 - do not treat approval as commit
+- do not treat approved-but-uncommitted work as a completed `implement batch` outcome
 
 The responsible role remains the Developer.
 The agent implements the selected work, supports review, and can perform the commit, but approval and commit consent still come from the Developer.
@@ -117,7 +123,7 @@ This skill should produce:
 - any resulting `03-implementation-plan.md` updates needed to reflect implementation state or approved task completion
 - a clear summary of what was implemented against the selected tasks
 - any checks run and their results
-- an explicit current state such as awaiting review, under revision, approved and marked done, or committed
+- an explicit current state such as awaiting review, under revision, awaiting approval, approved but awaiting commit, or committed
 - an explicit review request until approval happens
 - a clear likely next step
 
@@ -127,7 +133,8 @@ This skill is complete when:
 - the result is described clearly enough for focused developer review
 - approval state is still shown correctly until explicit approval happens
 - any approved task completion updates occur only after explicit approval
-- any commit happens only after explicit user instruction
+- any commit happens only after explicit user instruction when the agent is the one creating it
+- the approved batch has crossed its commit boundary before the workflow moves on
 - the next likely workflow action is stated plainly
 
 ## Guardrails
@@ -135,7 +142,8 @@ This skill is complete when:
 - Do not mark tasks done before explicit approval
 - Do not present same-session implementation as approval
 - Do not present approval as commit
-- Do not start a new batch before the current approved batch is committed or the Developer explicitly decides otherwise
+- Do not treat approved-but-uncommitted work as a finished `implement batch`
+- Do not start a new batch before the current approved batch is committed
 - Do not end without clearly asking for review and approval
 - Do not proceed to the next workflow step without explicit approval
 

@@ -98,7 +98,8 @@ Examples:
 - PRD and Technical Concept updates are append-only after readiness
 - only ready updates are effective
 - implementation tasks are marked done only after explicit developer approval
-- approved batches may be committed within `implement batch`, but only on explicit developer instruction before the next batch begins
+- `implement batch` includes commit as part of completing the operation, even when the developer performs the commit directly
+- the agent may create that commit only on explicit developer instruction
 
 ### Anchor to real artifacts and sections
 Where relevant, the skill should refer to:
@@ -212,7 +213,6 @@ Where relevant, skills should distinguish clearly between:
 - under revision
 - awaiting approval
 - approved but awaiting commit
-- approved and marked done
 - ready for next step
 
 ---

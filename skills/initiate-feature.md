@@ -132,12 +132,13 @@ Proceed normally.
 Summarize the useful guidance found.
 
 ### Degraded
-Proceed only after clearly warning the user that delivery quality and predictability are reduced.
+Proceed only after clearly warning the user that delivery quality and predictability are reduced and the user explicitly confirms continuing.
 State the most important gaps.
 
 ### High risk
 Give a stronger warning.
 State that agent-assisted delivery is materially less reliable.
+Proceed only after explicit user confirmation.
 Do not pretend the repository is prepared if it is not.
 
 This skill should not hard-block feature initiation solely because readiness is incomplete, but it should make the consequences explicit.
