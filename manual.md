@@ -83,6 +83,12 @@ If these concepts are clear, the rest of Shape is straightforward.
 - `in progress`
 - `done`
 
+### Slices
+- `draft`
+- `ready`
+- `in progress`
+- `done`
+
 ### Specification Updates
 - `draft`
 - `ready`
@@ -92,6 +98,16 @@ Use them literally:
 - `ready` means accepted for downstream use
 - `in progress` means implementation is actively underway
 - `done` means the implementation workflow is complete
+
+For slices, use them literally as well:
+- `draft` means the slice exists but has not yet been planned in enough detail for execution
+- `ready` means the slice was planned in `plan slice` and is ready for execution
+- `in progress` means the slice has at least one approved task marked done
+- `done` means the slice was explicitly reviewed and closed in `finish slice`
+
+Keep plan status and slice status separate:
+- the Implementation Plan status tracks the overall execution state of the feature
+- slice status tracks the lifecycle of each individual slice
 
 ---
 
@@ -194,7 +210,7 @@ The first version should include:
 - a first execution structure
 - `status: ready`
 
-Do not try to fully task the entire feature upfront. Shape works better when detailed tasking happens slice by slice. At this stage the Implementation Plan is created and approved, but slices remain untasked until they are prepared.
+Do not try to fully task the entire feature upfront. Shape works better when detailed tasking happens slice by slice. At this stage the Implementation Plan is created and approved, but slices remain untasked and start in `draft` until they are prepared.
 
 Typical prompts:
 - Plan implementation for the active feature
@@ -240,7 +256,9 @@ A good task list:
 
 This step records approved planning changes in the Implementation Plan, but does not start coding yet.
 
-When real execution begins, the Implementation Plan typically moves to `in progress`.
+When this step is approved, the selected slice moves from `draft` to `ready`.
+The Implementation Plan does not move to `in progress` merely because planning happened.
+It typically moves to `in progress` when the first slice enters `in progress` after approved execution actually begins.
 
 Typical prompts:
 - Prepare the next slice
@@ -289,6 +307,9 @@ During review you may:
 Only after explicit approval should the agent:
 - mark tasks done in the Implementation Plan
 
+If approval marks the first done task in a `ready` slice, that slice becomes `in progress`.
+If this is the first slice entering `in progress`, the Implementation Plan also becomes `in progress`.
+
 At the end of this step, the batch is approved in the Implementation Plan but still not committed.
 
 Typical prompts:
@@ -323,17 +344,19 @@ Typical prompts:
 
 This step is for closing the current slice after all of its tasks have been implemented, reviewed, and committed. The user should ask the agent to finish the slice only when the slice objective is actually complete.
 
+The normal precondition is that the slice is already `in progress`.
+
 Confirm that:
 - the slice goal is met
 - the resulting behavior works
 - the implementation still matches the intended boundary
 - the approved batch work for the slice is already committed
 
-Then mark the slice complete and commit the updated Implementation Plan.
+Then explicitly transition the slice from `in progress` to `done` and commit the updated Implementation Plan.
 
 Typical prompts:
 - Finish the current slice
-- Check whether the slice objective is complete and mark it done if confirmed
+- Check whether the slice objective is complete and move it to done if confirmed
 
 ---
 
@@ -342,11 +365,11 @@ Typical prompts:
 For each new slice:
 - start a fresh session
 - pick up feature
-- plan slice
+- plan slice so the slice becomes `ready`
 - implement batch
-- review batch
+- review batch until approved tasks are marked done and the slice enters `in progress`
 - commit batch
-- finish slice
+- finish slice so it explicitly moves to `done`
 
 That repeated microcycle is the heart of Shape.
 
@@ -359,7 +382,7 @@ That repeated microcycle is the heart of Shape.
 This step is for closing the full implementation workflow once all slices are done. The user should ask the agent to finish implementation only when the Implementation Plan reflects reality and there are no unresolved execution gaps.
 
 At this point, confirm that:
-- all slices are complete
+- all slices are `done`
 - the Implementation Plan matches the actual state of the work
 - there are no unresolved execution gaps
 - draft updates are not being mistaken for accepted changes
@@ -405,7 +428,7 @@ Each update contains:
 ### Update Implementation Plan when ready spec changes affect execution
 Typical examples:
 - add a new slice
-- adjust an open slice
+- adjust a `draft` or `ready` slice
 - change execution order
 - refresh notes or relevant files
 
@@ -432,6 +455,10 @@ Do not silently rewrite them. Use Specification Updates.
 
 ### 3. Use the Implementation Plan as the live execution document
 This is the document that should reflect current work.
+
+It should reflect both:
+- overall plan status
+- explicit slice lifecycle status
 
 ### 4. Start each new slice in a fresh session
 This is one of the most important Shape disciplines.
@@ -463,6 +490,7 @@ Shape gets much of its value from session discipline.
 - start by resolving the active feature
 - read the current documents before acting
 - begin each new slice in a fresh session
+- move slices through `draft -> ready -> in progress -> done` explicitly
 - select batches deliberately
 - stop for review after implementation
 - commit approved work before moving on
@@ -495,7 +523,7 @@ Concrete navigation skills are also available whenever needed:
 
 ### Before implementation
 - confirm PRD and Technical Concept are ready
-- prepare only the next slice
+- prepare only the next slice and move it to `ready`
 - choose only a small batch
 
 ### After implementation
@@ -503,6 +531,7 @@ Concrete navigation skills are also available whenever needed:
 - request adjustments if needed
 - approve explicitly only when satisfied
 - mark tasks done only after approval
+- expect the slice to move to `in progress` once approved execution has actually begun
 - commit the approved batch before starting another one
 
 ### When something new is learned
@@ -513,6 +542,7 @@ Concrete navigation skills are also available whenever needed:
 ### Closing a slice
 - confirm the slice goal is actually complete
 - confirm the approved work is already committed
+- explicitly move the slice from `in progress` to `done`
 - start the next slice in a fresh session
 
 ---
