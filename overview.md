@@ -5,7 +5,7 @@
 
 Shape is a workflow for building software features with an AI coding agent in a way that stays structured, reviewable, and usable in real engineering work.
 
-It is designed for teams or individuals who want AI assistance to be productive without turning delivery into prompt chaos, oversized sessions, or hard-to-review output. Shape gives the work a simple structure: a feature is defined through a small set of documents, implementation is broken into execution units that fit AI context, and delivered code is grouped into review units that fit developer attention.
+It is designed for teams or individuals who want AI assistance to be productive without turning delivery into prompt chaos, oversized sessions, or hard-to-review output. Shape gives the work a simple structure: a **feature** is defined through a small set of documents, implementation is broken into execution units that fit AI context, and delivered code is grouped into review units that fit developer attention.
 
 The goal is not to replace engineering judgment. The goal is to make human intent clearer, agent execution more reliable, and iteration faster without losing control.
 
@@ -32,10 +32,26 @@ For each feature, Shape maintains a small set of core artifacts, created and upd
 
 These are not disposable notes. They preserve intent, design, and execution structure in a form that survives individual sessions and can be reused, updated, and reviewed throughout delivery.
 
+<div style="padding-top: 20px; padding-bottom: 20px;">
+  <img src="assets/shape-lifecycle.png" 
+       alt="The Shape Workflow Diagram" 
+       width="75%" 
+       style="border: 1px solid #d0d7de; border-radius: 10px;">
+  <p><em>Figure 1: The Shape Workflow Diagram — transforming intent into working feature.</em></p>
+</div>
+
 Shape also defines two deliberately different execution boundaries:
 
 - a **Slice** is a unit of work sized to fit a focused AI execution session
 - a **Batch** is a unit of completed work sized to fit a focused developer review step
+
+<div style="padding-top: 20px; padding-bottom: 20px;">
+  <img src="assets/implementation-microcycle.png" 
+       alt="The Implementation Microcycle Diagram" 
+       width="75%" 
+       style="border: 1px solid #d0d7de; border-radius: 10px;">
+  <p><em>Figure 2: The Implementation Microcycle Diagram — transforming isolated chunk of functionality into validated code.</em></p>
+</div>
 
 This distinction is central to Shape. AI agents and human reviewers do not work well at the same granularity. Shape treats that as a workflow design constraint instead of leaving it to improvisation.
 
