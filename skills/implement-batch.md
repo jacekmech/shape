@@ -148,10 +148,11 @@ This skill is complete when:
 - Do not proceed to the next workflow step without explicit approval
 
 ## Likely Next Step
-Usually suggest one of:
+Usually suggest:
 - continue `implement batch` if the developer requests a revision of the same selected tasks
 - explicit approval review on the current batch
 - explicit commit instruction for the approved batch
+- commit changes if commit instruction approved and moving to another workflow step
 - `finish slice` if the slice is fully complete and the approved work has been committed
 
 Prefer continuing `implement batch` as the same-batch review and revision loop until approval is explicit.
