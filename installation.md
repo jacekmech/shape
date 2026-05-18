@@ -213,6 +213,7 @@ Purpose:
 - track the active local feature context
 - support fresh-session pickup
 - keep local Shape state small and explicit
+- support clearing the active feature after a completed feature is closed
 
 Default v1 example:
 

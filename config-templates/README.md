@@ -12,6 +12,8 @@ Contents:
 
 This folder supports the workflow, but it does not contain the actual feature artifacts.
 
+`workspace.json` may legitimately contain `"activeFeature": null`, including as the normal state after `finish feature` closes a completed feature.
+
 Feature artifacts should live under the configured feature root, for example:
 
 ```text

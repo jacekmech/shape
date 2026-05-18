@@ -27,6 +27,7 @@ Inspect the following where available:
 - currently active feature, if one is already resolved
 - likely candidate feature if active context is not yet set
 - feature folder path
+- whether no active feature is currently selected because the last feature was completed
 
 ### Core artifacts
 For the resolved feature, inspect:
@@ -47,6 +48,7 @@ When an Implementation Plan exists, inspect where practical:
 - per-slice status where available: `draft | planned | in progress | done`
 - whether unfinished slices remain
 - whether execution tasks exist
+- whether the feature is completed because the Implementation Plan is `done`
 - whether there are obvious signs that review, approval, commit, or slice closure is the likely next step
 
 ### Repository readiness
@@ -79,6 +81,7 @@ Suggest the next likely step based on the best available evidence.
 
 Examples:
 - no feature selected but one obvious in-progress feature exists → `pick up feature`
+- no feature selected and only completed features are visible → `initiate feature` or explicitly inspect a completed feature
 - feature exists but PRD is missing or draft → `create prd`
 - PRD ready and Technical Concept not ready → `create technical concept`
 - PRD and Technical Concept ready but Implementation Plan missing or draft → `plan implementation`
@@ -90,6 +93,7 @@ Examples:
 - code appears implemented for a selected batch but not yet validated → continue `implement batch`
 - approved batch appears uncommitted → continue `implement batch` if commit is desired
 - all slices `done` but plan not closed → `finish feature`
+- Implementation Plan is `done` and no further change flow is requested → `initiate feature` or explicit update flow on the completed feature
 
 ## Behavior Principles
 - Optimize for orientation, not exhaustiveness
@@ -97,6 +101,7 @@ Examples:
 - Surface missing prerequisites explicitly
 - Prefer plain language over internal jargon when possible
 - Make the next step obvious
+- Treat Implementation Plan `done` as the canonical signal that a feature is completed
 
 ## Completion Criteria
 This skill is complete when the user can answer all of the following quickly:

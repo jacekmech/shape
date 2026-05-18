@@ -45,19 +45,27 @@ Prefer deterministic resolution in this order:
 1. Exact user-provided feature folder match
 2. Exact match on feature ID
 3. Exact or near-exact match on slug
-4. Single in-progress feature that is the obvious candidate
-5. Most likely candidate based on current workflow state
+4. Single unfinished feature that is the obvious candidate
+5. Most likely unfinished candidate based on current workflow state
 
-When a single in-progress feature is the obvious candidate, resolve it with minimal friction.
+For default resume behavior, treat a feature as unfinished only when its Implementation Plan is missing, `draft`, `planned`, or `in progress`.
+Treat a feature whose Implementation Plan is `done` as completed rather than resumable by default.
+
+When a single unfinished feature is the obvious candidate, resolve it with minimal friction.
 Prefer a short confirmation over a heavy selection ritual.
 
 Example:
-- “I found one in-progress feature: `202604-contact-form`. I’ll use that.”
+- “I found one unfinished feature: `202604-contact-form`. I’ll use that.”
 
 When multiple plausible candidates exist:
 - present a short, clean choice
 - keep the list compact
 - avoid forcing the user through unnecessary detail
+
+When all candidate features appear completed:
+- do not silently reactivate one
+- state that there is no active unfinished feature to resume by default
+- ask whether the user wants to inspect a completed feature or start a new one
 
 ## What to Validate
 After resolving a candidate feature, inspect:
@@ -65,6 +73,7 @@ After resolving a candidate feature, inspect:
 - whether `02-tech-concept.md` exists
 - whether `03-implementation-plan.md` exists
 - current document statuses when easily available
+- whether the Implementation Plan is already `done`
 - whether the folder appears structurally valid for Shape
 
 ## Output
@@ -86,6 +95,7 @@ Examples:
 - slice is `in progress` and active work is awaiting review, approval handling, revision, or commit → continue `implement batch`
 - slice is `in progress` with all tasks done and committed → `finish slice`
 - all slices are `done` and plan nearly complete → `finish feature`
+- Implementation Plan is `done` → treat the feature as completed unless the user explicitly wants to inspect completed work
 
 ## Fresh-Session Behavior
 Shape expects each new Slice to normally begin in a fresh agent session.
@@ -102,7 +112,8 @@ This skill is complete when:
 
 ## Guardrails
 - Do not silently pick an ambiguous feature when multiple strong candidates exist
+- Do not silently reactivate a completed feature as the default resume target
 - Do not pretend a broken feature structure is valid; surface warnings clearly
-- Do not force a complex selection flow when one obvious in-progress feature exists
+- Do not force a complex selection flow when one obvious unfinished feature exists
 - Do not stop at “feature selected”; always orient the user toward the next likely step
 - Do not start with the next workflow step without explicit approval

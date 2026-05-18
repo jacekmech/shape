@@ -1321,13 +1321,13 @@ Conclude implementation by verifying completion state, repository readiness, and
 Developer
 
 **AI Agent**  
-Checks that all slices are marked `done`, confirms the Implementation Plan reflects execution state, checks for unresolved draft updates, proposes final status updates, and indicates completion clearly.
+Checks that all slices are marked `done`, confirms the Implementation Plan reflects execution state, treats the Implementation Plan as the canonical feature-completion artifact, checks for unresolved draft updates, proposes final status updates, clears local workspace state so `activeFeature` becomes `null`, and indicates completion clearly.
 
 **User**  
 Verifies repository cleanliness and completion readiness, confirms marking the Implementation Plan as done, commits the change or asks the Agent to commit.
 
 **Ends with**  
-**Implementation Plan marked as done, repository confirmed clean, and completion committed.**
+**Implementation Plan marked as done, active workspace feature cleared, repository confirmed clean, and completion committed.**
 
 ---
 
@@ -1466,7 +1466,7 @@ The inventory should also be easy to surface to the user on demand. Shape assume
 - **finish feature**
   - **Purpose:** conclude implementation by verifying completion state, repository readiness, and final Implementation Plan status
   - **Triggers on:** request to finalize feature implementation
-  - **Outcome:** Implementation Plan can be marked as `done`, with repository state confirmed clean and complete
+  - **Outcome:** Implementation Plan can be marked as `done`, active workspace feature context can be cleared, and repository state can be confirmed clean and complete
 
 ### 10.2 Supporting Skills
 

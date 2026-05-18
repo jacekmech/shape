@@ -341,11 +341,14 @@ At this point, confirm that:
 - draft updates are not being mistaken for accepted changes
 - the repository is in a clean completed state for the feature
 
-Then mark the Implementation Plan `done`.
+Then mark the Implementation Plan `done` and clear `.shape/workspace.json` so `activeFeature` becomes `null`.
 
 Typical prompts:
 - Finish the active feature
 - Check completion state and mark the Implementation Plan done if everything is complete
+
+The Implementation Plan is the canonical feature-completion artifact.
+PRD and Technical Concept remain `ready` after completion; they do not gain a separate `done` state.
 
 ---
 
