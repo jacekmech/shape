@@ -77,13 +77,13 @@ If these concepts are clear, the rest of Shape is straightforward.
 
 ### Implementation Plan
 - `draft`
-- `ready`
+- `planned`
 - `in progress`
 - `done`
 
 ### Slices
 - `draft`
-- `ready`
+- `planned`
 - `in progress`
 - `done`
 
@@ -99,7 +99,7 @@ Use them literally:
 
 For slices, use them literally as well:
 - `draft` means the slice exists but has not yet been planned in enough detail for execution
-- `ready` means the slice was planned in `plan slice` and is ready for execution
+- `planned` means the slice was planned in `plan slice` and is ready for execution
 - `in progress` means the slice has at least one approved task marked done
 - `done` means the slice was explicitly reviewed and closed in `finish slice`
 
@@ -206,7 +206,7 @@ The first version should include:
 - the objective
 - initial slices
 - a first execution structure
-- `status: ready`
+- `status: planned`
 
 Do not try to fully task the entire feature upfront. Shape works better when detailed tasking happens slice by slice. At this stage the Implementation Plan is created and approved, but slices remain untasked and start in `draft` until they are prepared.
 
@@ -254,7 +254,7 @@ A good task list:
 
 This step records approved planning changes in the Implementation Plan, but does not start coding yet.
 
-When this step is approved, the selected slice moves from `draft` to `ready`.
+When this step is approved, the selected slice moves from `draft` to `planned`.
 The Implementation Plan does not move to `in progress` merely because planning happened.
 It typically moves to `in progress` when the first slice enters `in progress` after approved execution actually begins.
 
@@ -278,7 +278,7 @@ Important:
 - after implementation, the agent should ask for review rather than treating the work as accepted
 - revisions may happen within the same selected batch without opening a new batch
 - only after explicit approval should the agent mark the selected tasks done in the Implementation Plan
-- if approval marks the first done task in a `ready` slice, that slice becomes `in progress`
+- if approval marks the first done task in a `planned` slice, that slice becomes `in progress`
 - if this is the first slice entering `in progress`, the Implementation Plan also becomes `in progress`
 - commit requires explicit user instruction if the agent is to create it, but commit is still part of completing the batch workflow before the next batch begins
 - code changes may be accompanied by Implementation Plan updates such as `Relevant Files` or important implementation decisions
@@ -320,7 +320,7 @@ Typical prompts:
 For each new slice:
 - start a fresh session
 - pick up feature
-- plan slice so the slice becomes `ready`
+- plan slice so the slice becomes `planned`
 - implement batch through review, approval, plan-state update, and commit
 - finish slice so it explicitly moves to `done`
 
@@ -381,7 +381,7 @@ Each update contains:
 ### Update Implementation Plan when ready spec changes affect execution
 Typical examples:
 - add a new slice
-- adjust a `draft` or `ready` slice
+- adjust a `draft` or `planned` slice
 - change execution order
 - refresh notes or relevant files
 
@@ -443,7 +443,7 @@ Shape gets much of its value from session discipline.
 - start by resolving the active feature
 - read the current documents before acting
 - begin each new slice in a fresh session
-- move slices through `draft -> ready -> in progress -> done` explicitly
+- move slices through `draft -> planned -> in progress -> done` explicitly
 - select batches deliberately
 - stop for review after implementation
 - commit approved work before moving on
@@ -476,7 +476,7 @@ Concrete navigation skills are also available whenever needed:
 
 ### Before implementation
 - confirm PRD and Technical Concept are ready
-- prepare only the next slice and move it to `ready`
+- prepare only the next slice and move it to `planned`
 - choose only a small batch
 
 ### After implementation
