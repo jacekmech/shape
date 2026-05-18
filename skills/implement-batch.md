@@ -59,7 +59,7 @@ After implementation:
 
 Only after the Developer explicitly approves the batch may this skill:
 - mark the relevant tasks done in `## Execution Order`
-- if approval marks the first completed task in a `ready` slice, transition that slice to `in progress`
+- if approval marks the first completed task in a `planned` slice, transition that slice to `in progress`
 - if this is the first slice entering `in progress`, update the Implementation Plan status to `in progress`
 - refresh `## Relevant Files` when accepted implementation changed what matters next
 - update `## Important Decisions` when accepted implementation introduced decisions worth preserving
@@ -97,7 +97,7 @@ Apply these rules:
 - `## Relevant Files` should reflect resulting implementation state rather than becoming a historical changelog
 - `## Important Decisions` should capture implementation-time decisions that matter for subsequent slices or future review
 - these implementation-plan updates do not by themselves imply approval of the batch
-- the first approved completed task in a `ready` slice moves that slice to `in progress`
+- the first approved completed task in a `planned` slice moves that slice to `in progress`
 - the Implementation Plan moves to `in progress` only when approved execution has actually begun through task completion
 
 This skill may:

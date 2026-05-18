@@ -55,7 +55,7 @@ This skill should reinforce Shape’s execution discipline:
 The responsible role remains the Developer.
 The agent may propose slices, and execution order, but should not silently decide implementation strategy where the developer needs to choose trade-offs or sequencing.
 
-Set the Implementation Plan to `ready` when the initial slices and execution framing are accepted as ready for execution.
+Set the Implementation Plan to `planned` when the initial slices and execution framing are accepted as ready for execution.
 Do not set it to `in progress` merely because planning work occurred; that transition belongs when active execution begins.
 
 ## Artifact Rules
@@ -83,7 +83,7 @@ This skill may:
 - define initial slices in `## Slices`
 - establish corresponding slice entries in `## Execution Order`
 - seed `## Relevant Files` with a compact working file map when useful
-- change plan status between `draft` and `ready` based on explicit developer acceptance
+- change plan status between `draft` and `planned` based on explicit developer acceptance
 
 This skill must not:
 - start marking slices
@@ -95,7 +95,7 @@ This skill must not:
 This skill should produce:
 - an Implementation Plan in `03-implementation-plan.md` aligned to the Implementation Plan template
 - initial slices in `draft` ready for later refinement
-- updated plan status of `draft` or `ready`
+- updated plan status of `draft` or `planned`
 - a repository state that is ready to be committed once the Developer accepts the initial plan structure
 - a clear likely next step
 
@@ -104,7 +104,7 @@ This skill is complete when:
 - `03-implementation-plan.md` reflects the ready PRD and ready Technical Concept
 - initial slices exist and are small enough to support focused execution sessions
 - `## Execution Order` contains the execution skeleton without prematurely turning into task-level detail
-- the plan status accurately reflects whether execution planning is still being refined or is accepted as ready
+- the plan status accurately reflects whether execution planning is still being refined or is accepted as planned
 - the resulting planning state is clear enough to serve as a repository checkpoint before slice refinement begins
 - the next likely workflow step is stated plainly
 
@@ -120,7 +120,7 @@ This skill is complete when:
 Usually suggest:
 - continue `plan implementation` if slice structure is still unstable
 - commit changes if moving to another workflow step
-- `plan slice` if the Implementation Plan is `ready`
+- `plan slice` if the Implementation Plan is `planned`
 - `update technical concept` or `update prd` if implementation planning exposed a real upstream gap
 
-Prefer `plan slice` once the Implementation Plan is explicitly accepted as `ready`.
+Prefer `plan slice` once the Implementation Plan is explicitly accepted as `planned`.

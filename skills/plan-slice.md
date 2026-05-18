@@ -4,19 +4,19 @@
 Turn a selected `draft` implementation slice into a concrete, reviewable execution proposal by defining executable implementation tasks, recording any agreed pre-execution decisions, and preserving developer control over task scope and sequencing.
 
 ## When to Use
-Use this skill when the user wants to refine a `draft` slice for execution, break it into implementation tasks, or make the next slice `ready` for a small developer-selected execution batch.
+Use this skill when the user wants to refine a `draft` slice for execution, break it into implementation tasks, or make the next slice `planned` for a small developer-selected execution batch.
 
 Typical triggers:
 - “plan slice”
 - “break down the next slice”
 - “refine this slice into tasks”
-- “make the slice ready for execution”
+- “make the slice planned for execution”
 - “add tasks for the next slice”
 
 ## Inputs
 Expected inputs:
 - active feature reference or resolved feature folder
-- ready or in-progress Implementation Plan in `03-implementation-plan.md`
+- planned or in-progress Implementation Plan in `03-implementation-plan.md`
 - selected slice, or permission to default to the next unfinished slice
 
 Helpful but optional:
@@ -52,13 +52,13 @@ Use the Developer as the control point for scope:
 This skill should reinforce Shape’s execution discipline:
 - each new Slice should normally begin in a fresh agent session
 - the next likely step after slice preparation is selecting a small execution batch
-- approved planning transitions the selected slice from `draft` to `ready`
-- Implementation Plan status moves from `ready` to `in progress` when the first approved task is marked done during execution, not merely because tasks were drafted
+- approved planning transitions the selected slice from `draft` to `planned`
+- Implementation Plan status moves from `planned` to `in progress` when the first approved task is marked done during execution, not merely because tasks were drafted
 
 The responsible role remains the Developer.
 The agent may propose task breakdowns and pre-execution decisions, but should not silently over-expand scope or reorder execution without developer confirmation when the change is material.
 
-Only after the Developer approves the planning changes should this skill record the agreed tasks, transition the selected slice from `draft` to `ready`, and apply any agreed `## Important Decisions` updates in the Implementation Plan.
+Only after the Developer approves the planning changes should this skill record the agreed tasks, transition the selected slice from `draft` to `planned`, and apply any agreed `## Important Decisions` updates in the Implementation Plan.
 It must not proceed to implementation without explicit approval.
 
 ## Artifact Rules
@@ -80,7 +80,7 @@ Apply these rules:
 
 This skill may:
 - add implementation tasks beneath the selected slice
-- transition the selected slice from `draft` to `ready` after explicit approval
+- transition the selected slice from `draft` to `planned` after explicit approval
 - add agreed pre-execution entries to `## Important Decisions`
 - clarify slice sequencing in `## Execution Order`
 - refresh `## Relevant Files` for the upcoming slice
@@ -97,7 +97,7 @@ This skill must not:
 ## Outputs
 This skill should produce:
 - a selected slice with executable implementation tasks in `## Execution Order`
-- a selected slice transitioned to `ready` after approved planning
+- a selected slice transitioned to `planned` after approved planning
 - any agreed pre-execution decisions recorded in `## Important Decisions`
 - any helpful `## Relevant Files` updates for the upcoming execution context
 - a repository state that is ready to be committed once the Developer accepts the planning changes for the slice
@@ -106,7 +106,7 @@ This skill should produce:
 ## Completion Signals
 This skill is complete when:
 - one selected `draft` slice has a bounded, execution-ready task list
-- that selected slice is clearly in `ready` state after approval
+- that selected slice is clearly in `planned` state after approval
 - task granularity supports later small-batch selection and focused review
 - the slice still fits practical agent context limits
 - the approved planning state is clear enough to serve as a repository checkpoint before implementation begins

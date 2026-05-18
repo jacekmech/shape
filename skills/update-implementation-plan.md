@@ -4,7 +4,7 @@
 Apply relevant ready updates from the PRD and/or Technical Concept to the Implementation Plan so that execution stays aligned with effective upstream changes without rewriting `done` work or blurring execution boundaries.
 
 ## When to Use
-Use this skill when the user wants to propagate ready specification updates into execution planning, add new slices required by ready updates, or adjust `draft` or `ready` slices before the affected work has started.
+Use this skill when the user wants to propagate ready specification updates into execution planning, add new slices required by ready updates, or adjust `draft` or `planned` slices before the affected work has started.
 
 Typical triggers:
 - “update implementation plan”
@@ -16,7 +16,7 @@ Typical triggers:
 ## Inputs
 Expected inputs:
 - active feature reference or resolved feature folder
-- ready Implementation Plan in `03-implementation-plan.md`
+- planned or in-progress Implementation Plan in `03-implementation-plan.md`
 - one or more ready updates in `01-prd.md` and/or `02-tech-concept.md`
 
 Helpful but optional:
@@ -29,7 +29,7 @@ Before updating the Implementation Plan:
 - resolve the active feature and locate `01-prd.md`, `02-tech-concept.md`, and `03-implementation-plan.md`
 - inspect ready updates in the PRD and Technical Concept that materially affect execution
 - inspect current plan status and slice state
-- identify whether the affected work is still `draft` or `ready`, already `in progress`, or already `done`
+- identify whether the affected work is still `draft` or `planned`, already `in progress`, or already `done`
 
 This skill should only propagate effective upstream changes.
 Draft specification updates should not be treated as execution truth.
@@ -39,7 +39,7 @@ Update the Implementation Plan inline to reflect ready upstream changes.
 
 When a ready update changes execution shape:
 - add new slices if new work is required
-- adjust existing `draft` or `ready` slices when their scope or ordering must change
+- adjust existing `draft` or `planned` slices when their scope or ordering must change
 - keep the execution model small, explicit, and reviewable
 
 Respect Shape’s execution boundaries:
@@ -70,13 +70,13 @@ Apply these rules:
 - the Implementation Plan is updated inline rather than through append-only updates
 - only ready PRD or Technical Concept updates are effective for propagation
 - new slices may be appended during implementation
-- only `draft` or `ready` slices may be updated
+- only `draft` or `planned` slices may be updated
 - `in progress` slices, `done` slices, and any Implementation Tasks must not be rewritten by this skill
 - `## Relevant Files` may be refreshed when upcoming execution areas changed
 
 This skill may:
 - append new slices
-- update existing `draft` or `ready` slice descriptions
+- update existing `draft` or `planned` slice descriptions
 - adjust execution order for work that has not started
 - refresh `## Relevant Files` to reflect upcoming execution reality
 - add clarifying notes when propagation creates constraints or sequencing implications
@@ -90,7 +90,7 @@ This skill must not:
 ## Outputs
 This skill should produce:
 - an updated Implementation Plan aligned to ready upstream changes
-- any new or revised `draft` or `ready` slices needed for execution
+- any new or revised `draft` or `planned` slices needed for execution
 - surfaced warnings when propagation is constrained by `in progress` or `done` work
 - a repository state that is ready to be committed as the planning-update checkpoint
 - a clear likely next step
@@ -119,4 +119,4 @@ Usually suggest:
 - continue `update implementation plan` if propagation impact is still being resolved
 - `update technical concept` or `update prd` if the upstream change is still incomplete
 
-Prefer `plan slice` once the updated plan has a clear next slice ready for refinement.
+Prefer `plan slice` once the updated plan has a clear next `draft` slice to refine.

@@ -34,7 +34,7 @@ Before finishing a slice:
 - inspect whether the slice objective appears satisfied
 
 This skill should close only validated slices.
-If the slice is still `draft` or `ready`, if tasks remain open, or if approved work that should be committed is still uncommitted, surface that clearly instead of marking the slice `done`.
+If the slice is still `draft` or `planned`, if tasks remain open, or if approved work that should be committed is still uncommitted, surface that clearly instead of marking the slice `done`.
 
 ## Behavior
 Validate the selected slice against its intended objective and task completion state.
@@ -108,4 +108,4 @@ Usually suggest one of:
 - `finish feature` if all slices are now `done` and validated
 - `update implementation plan` if slice completion exposed a needed execution reshaping
 
-Prefer `plan slice` when more slices remain and the next one is ready to refine.
+Prefer `plan slice` when more slices remain and the next one is still `draft`.
