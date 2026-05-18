@@ -160,6 +160,7 @@ This skill is complete when:
 - each file starts in `draft`
 - repository readiness has been assessed and reported
 - the workspace is clearly ready for the user or agent to create the feature-initiation commit
+- a commit can be proposed cleanly as the feature-initiation checkpoint
 - the user can immediately proceed to the next meaningful Shape step
 
 ## Guardrails
@@ -171,7 +172,8 @@ This skill is complete when:
 - Do not proceed to the next workflow step without explicit approval
 
 ## Likely Next Steps
-Usually suggest committing changes and then one of:
+Usually suggest:
+- propose a commit message and offer to create the feature-initiation commit if the user wants to checkpoint the new workspace now
 - `create prd`
 - `show status`
 - `show capabilities`

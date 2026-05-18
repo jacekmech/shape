@@ -85,6 +85,7 @@ This skill should produce:
 - a validated slice transitioned to `done` in the Implementation Plan
 - any helpful `## Relevant Files` or note updates for the next slice
 - a repository state that is ready to be committed as the slice-completion checkpoint
+- a proposed commit message when the accepted slice-closure state is suitable for checkpointing
 - a clear likely next step
 
 ## Completion Signals
@@ -93,6 +94,7 @@ This skill is complete when:
 - the slice is transitioned from `in progress` to `done` only after task completion and commit boundaries are satisfied
 - the Implementation Plan reflects the closed slice clearly
 - the slice-closure state is ready to be committed before the workflow moves on
+- the accepted checkpoint is clear enough that the agent can propose a commit cleanly
 - the next likely workflow action is stated plainly
 
 ## Guardrails
@@ -104,6 +106,7 @@ This skill is complete when:
 
 ## Likely Next Step
 Usually suggest one of:
+- propose a commit message and offer to create the commit if the slice-closure checkpoint is accepted and the user wants to record it now
 - `plan slice` for the next `draft` slice
 - `finish feature` if all slices are now `done` and validated
 - `update implementation plan` if slice completion exposed a needed execution reshaping

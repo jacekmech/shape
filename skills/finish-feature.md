@@ -90,6 +90,7 @@ This skill should produce:
 - an Implementation Plan marked `done`
 - workspace state with `activeFeature` cleared to `null` when workspace state exists
 - confirmation that repository state is clean enough for final completion
+- a proposed commit message when the accepted feature-completion state is suitable for checkpointing
 - a clear statement that implementation is complete, or a clear warning if it is not yet justified
 - a clear likely next step
 
@@ -99,6 +100,7 @@ This skill is complete when:
 - the Implementation Plan status is correctly set to `done`
 - `.shape/workspace.json` no longer points to the completed feature when local workspace state is available
 - repository state is confirmed clean enough for final completion
+- the accepted checkpoint is clear enough that the agent can propose a commit cleanly
 - the finished implementation state is explicit and not ambiguous
 - the next likely workflow action is stated plainly
 
@@ -111,6 +113,7 @@ This skill is complete when:
 
 ## Likely Next Step
 Usually suggest one of:
+- propose a commit message and offer to create the completion commit if the user wants to checkpoint final completion now
 - `show status` if the user wants a final workflow snapshot
 - `pick up feature` only if the user intends to inspect the completed feature again in a later session
 

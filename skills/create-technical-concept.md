@@ -100,6 +100,7 @@ This skill should produce:
 - updated Technical Concept status of `draft` or `ready`
 - surfaced design gaps, risks, or PRD misalignments when readiness is not yet justified
 - a repository state that is ready to be committed when the Architect accepts the current Technical Concept change set
+- a proposed commit message when the accepted Technical Concept state is suitable for checkpointing
 - a clear likely next step
 
 ## Completion Signals
@@ -109,6 +110,7 @@ This skill is complete when:
 - repository guidance is explicitly reflected in `## Repository Alignment`
 - the document status accurately reflects whether the Technical Concept is still being refined or is accepted as ready
 - the resulting Technical Concept state is clear enough that the current document change can be committed without ambiguity
+- the accepted checkpoint is clear enough that the agent can propose a commit cleanly
 - the next likely workflow action is stated plainly
 
 ## Guardrails
@@ -122,7 +124,7 @@ This skill is complete when:
 ## Likely Next Step
 Usually suggest:
 - continue `create technical concept` if material design gaps remain
-- commit changes if moving to another workflow step
+- propose a commit message and offer to create the commit if the current Technical Concept change set is accepted and the user wants a checkpoint
 - `update prd` if requirement-level issues were discovered
 - `plan implementation` if the Technical Concept is `ready`
 

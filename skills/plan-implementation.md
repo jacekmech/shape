@@ -97,6 +97,7 @@ This skill should produce:
 - initial slices in `draft` ready for later refinement
 - updated plan status of `draft` or `planned`
 - a repository state that is ready to be committed once the Developer accepts the initial plan structure
+- a proposed commit message when the accepted planning state is suitable for checkpointing
 - a clear likely next step
 
 ## Completion Signals
@@ -106,6 +107,7 @@ This skill is complete when:
 - `## Execution Order` contains the execution skeleton without prematurely turning into task-level detail
 - the plan status accurately reflects whether execution planning is still being refined or is accepted as planned
 - the resulting planning state is clear enough to serve as a repository checkpoint before slice refinement begins
+- the accepted checkpoint is clear enough that the agent can propose a commit cleanly
 - the next likely workflow step is stated plainly
 
 ## Guardrails
@@ -119,7 +121,7 @@ This skill is complete when:
 ## Likely Next Step
 Usually suggest:
 - continue `plan implementation` if slice structure is still unstable
-- commit changes if moving to another workflow step
+- propose a commit message and offer to create the commit if the current planning state is accepted and the user wants a checkpoint
 - `plan slice` if the Implementation Plan is `planned`
 - `update technical concept` or `update prd` if implementation planning exposed a real upstream gap
 

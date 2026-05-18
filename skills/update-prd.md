@@ -89,6 +89,7 @@ This skill should produce:
 - an accurate update status of `draft` or `ready`
 - a short note on likely downstream implications when relevant
 - a repository state that is ready to be committed once the selected PRD update state is accepted
+- a proposed commit message when the accepted PRD update state is suitable for checkpointing
 - a clear likely next step
 
 ## Completion Signals
@@ -98,6 +99,7 @@ This skill is complete when:
 - baseline immutability has been preserved
 - any meaningful downstream consequence is visible rather than implied
 - the resulting PRD update state is clear enough to serve as a commit checkpoint before downstream propagation continues
+- the accepted checkpoint is clear enough that the agent can propose a commit cleanly
 - the next likely workflow step is stated plainly
 
 ## Guardrails
@@ -111,7 +113,7 @@ This skill is complete when:
 ## Likely Next Step
 Usually suggest:
 - continue `update prd` if the change is still incomplete or awaiting acceptance
-- commit changes if moving to another workflow step
+- propose a commit message and offer to create the commit if the current PRD update state is accepted and the user wants a checkpoint
 - `update technical concept` if the ready PRD update has design implications
 - `show status` if the user needs orientation on downstream impact
 

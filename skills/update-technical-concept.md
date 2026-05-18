@@ -90,6 +90,7 @@ This skill should produce:
 - an accurate update status of `draft` or `ready`
 - a short note on likely downstream implications when relevant
 - a repository state that is ready to be committed once the selected Technical Concept update state is accepted
+- a proposed commit message when the accepted Technical Concept update state is suitable for checkpointing
 - a clear likely next step
 
 ## Completion Signals
@@ -99,6 +100,7 @@ This skill is complete when:
 - baseline immutability has been preserved
 - any meaningful downstream consequence for implementation planning or PRD alignment is visible rather than implied
 - the resulting Technical Concept update state is clear enough to serve as a commit checkpoint before downstream propagation continues
+- the accepted checkpoint is clear enough that the agent can propose a commit cleanly
 - the next likely workflow step is stated plainly
 
 ## Guardrails
@@ -112,7 +114,7 @@ This skill is complete when:
 ## Likely Next Step
 Usually suggest:
 - continue `update technical concept` if the change is still incomplete or awaiting acceptance
-- commit changes if moving to another workflow step
+- propose a commit message and offer to create the commit if the current Technical Concept update state is accepted and the user wants a checkpoint
 - `update implementation plan` if the ready design update changes execution planning
 - `update prd` if the design change revealed a requirement-level issue
 

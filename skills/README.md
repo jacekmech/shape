@@ -207,6 +207,14 @@ Examples:
 - `implement batch` supports review handling but does not replace developer approval
 - `finish slice` should not assume completion without developer confirmation
 
+### Propose commits proactively
+When a skill reaches an accepted repository checkpoint, it should normally:
+- propose a commit message
+- offer to create the commit
+- avoid defaulting to telling the user to perform the commit manually
+
+Explicit user consent is still required before the agent creates the commit.
+
 ### Make review state explicit
 Where relevant, skills should distinguish clearly between:
 - awaiting review

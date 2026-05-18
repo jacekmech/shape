@@ -144,6 +144,11 @@ Examples:
 - `implement batch` is not complete until the approved batch is committed
 - the agent may create that commit only on explicit developer instruction before the next batch begins
 
+### Propose commits at accepted checkpoints
+- when a skill reaches an accepted repository checkpoint, it should normally propose a commit message and offer to create the commit
+- it should not default to telling the user to perform the commit manually
+- explicit user consent is still required before the agent creates the commit
+
 ### Keep tone operational
 Avoid:
 - marketing tone

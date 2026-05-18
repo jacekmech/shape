@@ -93,6 +93,7 @@ This skill should produce:
 - any new or revised `draft` or `planned` slices needed for execution
 - surfaced warnings when propagation is constrained by `in progress` or `done` work
 - a repository state that is ready to be committed as the planning-update checkpoint
+- a proposed commit message when the accepted planning update is suitable for checkpointing
 - a clear likely next step
 
 ## Completion Signals
@@ -102,6 +103,7 @@ This skill is complete when:
 - protected boundaries around `in progress` work, `done` work, and tasks were preserved
 - any propagation constraints are surfaced clearly
 - the resulting plan update is clear enough to be committed before further execution planning continues
+- the accepted checkpoint is clear enough that the agent can propose a commit cleanly
 - the next likely workflow step is stated plainly
 
 ## Guardrails
@@ -115,7 +117,7 @@ This skill is complete when:
 ## Likely Next Step
 Usually suggest:
 - `plan slice` if the updated plan now has a clear next `draft` slice
-- commit changes if moving to another workflow step
+- propose a commit message and offer to create the commit if the current planning update is accepted and the user wants a checkpoint
 - continue `update implementation plan` if propagation impact is still being resolved
 - `update technical concept` or `update prd` if the upstream change is still incomplete
 

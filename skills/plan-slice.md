@@ -101,6 +101,7 @@ This skill should produce:
 - any agreed pre-execution decisions recorded in `## Important Decisions`
 - any helpful `## Relevant Files` updates for the upcoming execution context
 - a repository state that is ready to be committed once the Developer accepts the planning changes for the slice
+- a proposed commit message when the accepted slice-planning state is suitable for checkpointing
 - a clear likely next step
 
 ## Completion Signals
@@ -110,6 +111,7 @@ This skill is complete when:
 - task granularity supports later small-batch selection and focused review
 - the slice still fits practical agent context limits
 - the approved planning state is clear enough to serve as a repository checkpoint before implementation begins
+- the accepted checkpoint is clear enough that the agent can propose a commit cleanly
 - the next likely workflow step is stated plainly
 
 ## Guardrails
@@ -123,7 +125,7 @@ This skill is complete when:
 ## Likely Next Step
 Usually suggest:
 - continue `plan slice` if the breakdown is still too broad or unclear
-- commit changes if moving to another workflow step
+- propose a commit message and offer to create the commit if the current slice-planning state is accepted and the user wants a checkpoint
 - `implement batch` after the developer selects a small subset of tasks
 - `update implementation plan` if the plan no longer matches effective upstream changes
 

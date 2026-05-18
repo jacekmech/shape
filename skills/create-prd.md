@@ -93,6 +93,7 @@ This skill should produce:
 - updated PRD status of `draft` or `ready`
 - surfaced gaps or open questions when readiness is not yet justified
 - a repository state that is ready to be committed when the Product Owner accepts the current PRD change set
+- a proposed commit message when the accepted PRD state is suitable for checkpointing
 - a clear likely next step
 
 ## Completion Signals
@@ -102,6 +103,7 @@ This skill is complete when:
 - the document status accurately reflects whether the PRD is still being refined or is accepted as ready
 - any unresolved questions are visible rather than hidden in vague wording
 - the resulting PRD state is clear enough that the current document change can be committed without ambiguity
+- the accepted checkpoint is clear enough that the agent can propose a commit cleanly
 - the next likely workflow action is stated plainly
 
 ## Guardrails
@@ -115,7 +117,7 @@ This skill is complete when:
 ## Likely Next Step
 Usually suggest:
 - continue `create prd` if material gaps remain
-- commit changes if moving to another workflow step
+- propose a commit message and offer to create the commit if the current PRD change set is accepted and the user wants a checkpoint
 - `create technical concept` if the PRD is `ready`
 - `show status` if the user needs orientation before moving downstream
 
