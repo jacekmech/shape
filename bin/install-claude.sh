@@ -295,6 +295,7 @@ When working in this repository:
 - Treat each Shape operation as a separate boundary.
 - Do not move to the next Shape operation without explicit user approval.
 - Do not silently combine multiple Shape operations into one step.
+- Never skip the commit boundary between separate Shape workflow operations.
 - After a Shape operation updates workflow artifacts, stop and let the user review and commit the result, or explicitly ask you to commit it.
 - `implement batch` is the special exception: it may continue through review handoff, revision, approval handling, task completion updates, and optional commit, but only with explicit user approval and explicit commit instruction.
 - Do not mark tasks done before explicit approval, and do not commit without explicit user instruction.
