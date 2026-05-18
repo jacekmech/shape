@@ -5,7 +5,7 @@
 
 Shape is a workflow for building software features with an AI coding agent in a way that stays structured, reviewable, and usable in real engineering work.
 
-It is designed for teams or individuals who want AI assistance to be productive without turning delivery into prompt chaos, oversized sessions, or hard-to-review output. Shape gives the work a simple structure: a **feature** is defined through a small set of documents, implementation is broken into execution units that fit AI context, and delivered code is grouped into review units that fit developer attention.
+It is designed for teams or individuals who want AI assistance to be productive without turning delivery into prompt chaos, oversized sessions, or hard-to-review output. Shape gives the work a simple structure: a feature is defined through a small set of documents, implementation is broken into execution units that fit AI context, and delivered code is grouped into review units that fit developer attention.
 
 The goal is not to replace engineering judgment. The goal is to make human intent clearer, agent execution more reliable, and iteration faster without losing control.
 
@@ -18,11 +18,12 @@ The problem is no longer that AI coding is unavailable. The problem is that, in 
 The result is familiar: capable tools produce promising results locally, but without a repeatable way to turn that into reliable team execution. Requirements drift, design decisions disappear into chat history, work loses continuity across sessions, reviews become unmanageable, and important changes fail to propagate cleanly.
 
 The gap is not in the tooling. It is in the workflow around it — the work of making AI-assisted delivery repeatable, reviewable, and traceable.
+
 Shape is a response to that gap. Not more process, heavier control, or larger planning rituals — but a workflow that is explicit, lightweight, and artifact-driven.
 
 ## Core idea
 
-Shape is an AI-assisted software delivery workflow built around the **feature** as its main unit of delivery.
+Shape is an AI-assisted software delivery workflow built around the **feature** as its main unit of delivery. It is implemented through a small set of workflow skills that teach the AI agent how to guide the work: creating and updating artifacts, keeping delivery aligned, splitting implementation into manageable units, and preserving continuity across sessions.
 
 For each feature, Shape maintains a small set of core artifacts, created and updated by the AI agent under human guidance, that act as shared working memory for both human and agent:
 
@@ -50,7 +51,7 @@ Shape also defines two deliberately different execution boundaries:
        alt="The Implementation Microcycle Diagram" 
        width="75%" 
        style="border: 1px solid #d0d7de; border-radius: 10px;">
-  <p><em>Figure 2: The Implementation Microcycle Diagram — transforming isolated chunk of functionality into validated code.</em></p>
+  <p><em>Figure 2: The Implementation Microcycle Diagram — transforming an isolated chunk of functionality into validated code.</em></p>
 </div>
 
 This distinction is central to Shape. AI agents and human reviewers do not work well at the same granularity. Shape treats that as a workflow design constraint instead of leaving it to improvisation.
@@ -101,7 +102,9 @@ At a high level, Shape follows a simple flow:
 6. review, approve, and commit accepted batches
 7. reflect important discoveries back into the artifacts through explicit updates
 
-The workflow is intentionally lightweight. It aims to keep the structure just strong enough for both human and agent to stay oriented throughout delivery. In practice, Shape is applied through a small set of workflow skills and repository conventions installed into the agent environment, so the workflow becomes part of day-to-day execution rather than a separate document the team has to remember to follow.
+The workflow is intentionally lightweight. It aims to keep the structure just strong enough for both human and agent to stay oriented throughout delivery.
+
+In practice, those skills work together with repository conventions installed into the agent environment, so Shape becomes part of day-to-day execution rather than a separate document the team has to remember to follow.
 
 Shape also assumes that repository context matters. Good feature artifacts improve feature-level intent, but agent-facing repository guidance improves implementation consistency, validation reliability, and alignment with local engineering conventions.
 
