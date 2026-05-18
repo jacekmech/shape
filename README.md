@@ -6,7 +6,7 @@ Shape is designed to help structure software feature delivery when working with 
 
 ## Repository guide
 
-- [`overview.md`](./overview.md) — short introduction to the concept, main ideas, and why Shape exists
+- [`quick-start.md`](./quick-start.md) — short introduction to the concept, a short example explaining how Shape works
 - [`installation.md`](./installation.md) — installation and configuration guide for setting up Shape in a target repository, including the generic Shape layer and agent-specific integration sections
 - [`manual.md`](./manual.md) — practical guide for using Shape in day-to-day software delivery
 - [`design.md`](./design.md) — the full workflow specification
