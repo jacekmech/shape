@@ -24,6 +24,7 @@ features/
     01-prd.md
     02-tech-concept.md
     03-implementation-plan.md
+...
 ```
 
 These three files become the working memory for the feature development.
@@ -51,6 +52,7 @@ Users can attach one PDF, PNG, or JPG file.
 Rules:
 - maximum file size: 10 MB
 - invalid files show a clear error
+...
 ```
 
 The PRD answers:
@@ -80,6 +82,7 @@ Frontend:
 
 Backend:
 - validate and store the file
+...
 ```
 
 The Technical Concept answers:
@@ -112,6 +115,7 @@ Status: planned
 Slices:
 1. Backend upload handling
 2. Frontend file input
+...
 ```
 
 A **Slice** is a larger implementation unit sized for one focused AI session.
@@ -132,6 +136,7 @@ Tasks:
 - [ ] add multipart request handling
 - [ ] validate file type and size
 - [ ] store the file
+...
 ```
 
 Slice implementation is organized into **Batches** so that each code change stays small enough for efficient diff review.
