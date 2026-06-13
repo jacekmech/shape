@@ -1,4 +1,4 @@
-# Shape: AI-Assisted Software Development Workflow (v0.1)
+# Shape: AI-Assisted Software Development Workflow
 
 This document outlines the core primitives and design elements required to structure the first version of an AI-assisted, artifact-driven software development workflow in a monorepo setup.
 
@@ -53,11 +53,11 @@ Late changes are inherently expensive to coordinate. Shape keeps the mechanism f
 
 ### Out of Scope
 
-Shape v0.1 focuses on the core artifact-driven workflow for delivering a feature within an already chosen branch and repository context. It does not define branching strategy or prescribe a specific coding agent vendor, integration mechanism, or mandatory agent instruction filename.
+Shape focuses on the core artifact-driven workflow for delivering a feature within an already chosen branch and repository context. It does not define branching strategy or prescribe a specific coding agent vendor, integration mechanism, or mandatory agent instruction filename.
 
 Shape does define repository readiness expectations for agent-assisted development, but it does not standardize the full setup or installation model for agent tooling across repositories.
 
-The following areas are intentionally out of scope for Shape v0.1:
+The following areas are intentionally out of scope for Shape:
 - document review workflows
 - pull request review workflows
 - CI/CD design and automation

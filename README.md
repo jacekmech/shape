@@ -20,21 +20,10 @@ Shape is designed to help structure software feature development when working wi
   - [`skill-generation-prompt.md`](./skills/skill-generation-prompt.md) — prompt to generate additional Shape skill files
   - individual skill files — one file per workflow skill
 
-## Current status
+## Version History
 
-Shape is currently in beta for v0.1. This version is focused on correctness and greenfield feature development: establishing the core workflow, validating that the artifact model holds up in real use, and making the workflow reliable across supported agents.
-
-Support has been implemented for Codex, Claude Code, Gemini CLI, and OpenCode. The first round of reference feature implementation has been completed, and the move from beta to final version is coming soon.
-
-## Next version
-
-The next planned step is v0.2. Its focus will be on two practical areas: better context management and more standard installation mechanisms.
-
-On the context side, the goal is to reduce workflow overhead and save tokens by keeping the Shape footprint as small as possible while preserving clear guidance, artifact continuity, and reliable execution.
-
-On the installation side, the goal is to make adoption more standardized and easier to operationalize through cleaner agent-specific setup patterns and more consistent installation mechanisms where that makes sense.
-
-Beyond v0.2, Shape is expected to expand into broader real-world development scenarios such as work on existing features, iterative enhancement, and refactoring.
+- `v0.2` (current): terminology and documentation cleanup around software development wording, overview structure, status naming, and stronger workflow step-boundary guidance
+- `v0.1`: initial version with PRD, Technical Concept, and Implementation Plan support; basic skill set in place; fully functional
 
 ## License
 
