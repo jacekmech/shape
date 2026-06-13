@@ -1,14 +1,14 @@
 # Shape Quick Start
 
-**Shape is a small AI-assisted software delivery workflow implemented as a set of agent skills.**
+**Shape is a small AI-assisted software development workflow implemented as a set of agent skills.**
 
-The skills guide an AI coding agent through three delivery stages:
+The skills guide an AI coding agent through three workflow stages:
 
 ```text
 PRD → Technical Concept → Implementation
 ```
 
-The goal is simple: keep feature delivery grounded in persistent files instead of loose chat context.
+The goal is simple: keep feature development grounded in persistent files instead of loose chat context.
 
 ## How you work with Shape
 

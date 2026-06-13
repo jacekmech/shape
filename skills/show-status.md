@@ -52,7 +52,7 @@ When an Implementation Plan exists, inspect where practical:
 - whether there are obvious signs that review, approval, commit, or slice closure is the likely next step
 
 ### Repository readiness
-Surface repository readiness for agent-assisted delivery.
+Surface repository readiness for agent-assisted development.
 Check for:
 - agent-facing guidance files
 - development and validation commands

@@ -1,10 +1,10 @@
 # initiate feature
 
 ## Purpose
-Create the initial Shape feature workspace in the repository, scaffold the core artifact files using Shape conventions, inspect repository readiness for agent-assisted delivery, and orient the user toward the next workflow step.
+Create the initial Shape feature workspace in the repository, scaffold the core artifact files using Shape conventions, inspect repository readiness for agent-assisted development, and orient the user toward the next workflow step.
 
 ## When to Use
-Use this skill when the user wants to start a new Shape feature, create a new feature folder, scaffold the three core artifacts, or establish a feature as a new delivery unit in the repository.
+Use this skill when the user wants to start a new Shape feature, create a new feature folder, scaffold the three core artifacts, or establish a feature as a new unit of work in the repository.
 
 Typical triggers:
 - “start a new feature”
@@ -102,7 +102,7 @@ Initial state:
 Do not prematurely mark any artifact as `ready`.
 
 ## Repository Readiness Check
-This skill must inspect repository readiness for agent-assisted delivery.
+This skill must inspect repository readiness for agent-assisted development.
 
 Look for agent-facing guidance such as:
 - `AGENTS.md`
@@ -132,12 +132,12 @@ Proceed normally.
 Summarize the useful guidance found.
 
 ### Degraded
-Proceed only after clearly warning the user that delivery quality and predictability are reduced and the user explicitly confirms continuing.
+Proceed only after clearly warning the user that development quality and predictability are reduced and the user explicitly confirms continuing.
 State the most important gaps.
 
 ### High risk
 Give a stronger warning.
-State that agent-assisted delivery is materially less reliable.
+State that agent-assisted development is materially less reliable.
 Proceed only after explicit user confirmation.
 Do not pretend the repository is prepared if it is not.
 

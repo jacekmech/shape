@@ -1,12 +1,12 @@
-# Shape: AI-Assisted Software Delivery Workflow (v0.1)
+# Shape: AI-Assisted Software Development Workflow (v0.1)
 
-This document outlines the core primitives and design elements required to structure the first version of an AI-assisted, artifact-driven software delivery workflow in a monorepo setup.
+This document outlines the core primitives and design elements required to structure the first version of an AI-assisted, artifact-driven software development workflow in a monorepo setup.
 
 ---
 
 ## 1. Overview and Principles
 
-Shape is a lightweight software delivery workflow with clear roles, steps, and document-based handovers, using a **feature** as its atomic unit of delivery. It provides a minimal but sufficient set of primitives instructing an AI coding agent how to support users in creating feature specifications and working code.
+Shape is a lightweight software development workflow with clear roles, steps, and document-based handovers, using a **feature** as its atomic unit of work. It provides a minimal but sufficient set of primitives instructing an AI coding agent how to support users in creating feature specifications and working code.
 
 Shape structures and amplifies human intent. The quality of what gets delivered is bounded by the quality of the input provided. Clear thinking in — clear software out.
 
@@ -38,7 +38,7 @@ Shape observes the following principles:
   Workflow capabilities should be easy to inspect and understand so that users can operate Shape without memorizing its internal model.
 
 * **Iterative**  
-  Delivery progresses through repeated refinement across all stages.
+  Development progresses through repeated refinement across all stages.
 
 * **Discovery-Driven**  
   Learnings are fed back into PRD and Technical Concept through controlled updates.
@@ -55,7 +55,7 @@ Late changes are inherently expensive to coordinate. Shape keeps the mechanism f
 
 Shape v0.1 focuses on the core artifact-driven workflow for delivering a feature within an already chosen branch and repository context. It does not define branching strategy or prescribe a specific coding agent vendor, integration mechanism, or mandatory agent instruction filename.
 
-Shape does define repository readiness expectations for agent-assisted delivery, but it does not standardize the full setup or installation model for agent tooling across repositories.
+Shape does define repository readiness expectations for agent-assisted development, but it does not standardize the full setup or installation model for agent tooling across repositories.
 
 The following areas are intentionally out of scope for Shape v0.1:
 - document review workflows
@@ -72,7 +72,7 @@ Shape has been exercised primarily in greenfield development. It is not yet desi
 This section defines a precise and shared terminology for the system. The goal is to eliminate ambiguity so that both humans and AI operate consistently.
 
 ### Feature  
-Atomic delivery unit of the workflow. A feature represents a complete unit of functionality delivered from ideation through design and implementation into working software.
+Atomic unit of work in the workflow. A feature represents a complete unit of functionality developed from ideation through design and implementation into working software.
 
 ### Stage  
 A distinct phase of the workflow with a defined purpose and output. The core stages are: Product definition (PRD), Technical design (Technical Concept), and Implementation.
@@ -87,7 +87,7 @@ Markdown document specifying technical design and initial implementation directi
 Markdown document driving execution. Its file is scaffolded during feature initiation and then filled in at implementation kickoff by defining initial Implementation Slices. It continues to evolve during implementation by adding detailed Implementation Tasks and tracking progress.
 
 ### Implementation Slice  
-Coarse-grained execution unit of delivery that can be reviewed, integrated, and validated independently. Slices are defined in the Implementation Plan and may be added or adjusted during implementation. A Slice should be small enough to fit into a single focused agent session without relying on long-running conversational carryover.
+Coarse-grained execution unit of work that can be reviewed, integrated, and validated independently. Slices are defined in the Implementation Plan and may be added or adjusted during implementation. A Slice should be small enough to fit into a single focused agent session without relying on long-running conversational carryover.
 
 ### Implementation Task  
 Fine-grained unit of work derived from a Slice. Typically involves a small, well-defined change (e.g., a few related modifications across code or configuration). Tasks are explicitly listed in the Implementation Plan.
@@ -120,7 +120,7 @@ Responsible for technical design. Translates the PRD into a Technical Concept an
 Responsible for execution. Creates and evolves the Implementation Plan, refines Slices into Implementation Tasks, selects Implementation Batches, reviews diffs, requests adjustments, records implementation decisions, confirms task completion, commits approved batches, and validates completed Slices. Owns implementation correctness and repository changes.
 
 ### AI Agent  
-Responsible for drafting artifacts, proposing updates, implementing selected task batches, and maintaining workflow artifacts under human guidance. The AI Agent accelerates delivery, but does not replace human ownership of requirements, design, or implementation decisions. It should also keep workflow capabilities, current state, and next steps understandable to the user throughout execution. It should signal workflow mode when useful for orientation, especially when entering Shape-driven work, resuming in a fresh session, or when a workflow rule materially affects what happens next, but should avoid repetitive reminder phrasing on every exchange.
+Responsible for drafting artifacts, proposing updates, implementing selected task batches, and maintaining workflow artifacts under human guidance. The AI Agent accelerates development work, but does not replace human ownership of requirements, design, or implementation decisions. It should also keep workflow capabilities, current state, and next steps understandable to the user throughout execution. It should signal workflow mode when useful for orientation, especially when entering Shape-driven work, resuming in a fresh session, or when a workflow rule materially affects what happens next, but should avoid repetitive reminder phrasing on every exchange.
 
 ---
 
@@ -686,7 +686,7 @@ implementation-plans/
 
 That model increases separation between related artifacts of the same feature and adds unnecessary navigation overhead during iterative work.
 
-In Shape, a feature is the primary unit of delivery. The repository layout should reflect that.
+In Shape, a feature is the primary unit of work. The repository layout should reflect that.
 
 Co-locating the PRD, Technical Concept, and Implementation Plan in one folder:
 
@@ -1114,7 +1114,7 @@ Shape also assumes that a workflow is easier to use when its capabilities are vi
 
 #### 1. Initiate Feature
 **Description**  
-Create the initial feature workspace and establish the feature as a deliverable unit in the repository.
+Create the initial feature workspace and establish the feature as a concrete unit of work in the repository.
 
 **Responsible role**  
 Product Owner, Architect, or Developer
@@ -1511,13 +1511,13 @@ The inventory should also be easy to surface to the user on demand. Shape assume
 
 ---
 
-## 11. Repository Readiness for Agent-Assisted Delivery
+## 11. Repository Readiness for Agent-Assisted Development
 
-Shape assumes that artifact quality alone is not sufficient to ensure high-quality agent-assisted delivery. The surrounding repository context also matters.
+Shape assumes that artifact quality alone is not sufficient to ensure high-quality agent-assisted development. The surrounding repository context also matters.
 
 Even with a strong PRD, Technical Concept, and Implementation Plan, a coding agent will produce less reliable results if the repository does not clearly communicate how code should be written, validated, and organized.
 
-This section defines what Shape expects from the repository environment, how missing guidance affects delivery quality, and how Shape skills should behave when repository readiness is incomplete.
+This section defines what Shape expects from the repository environment, how missing guidance affects development quality, and how Shape skills should behave when repository readiness is incomplete.
 
 ---
 
@@ -1530,7 +1530,7 @@ The purpose of repository readiness guidance is to improve:
 - architectural correctness
 - validation reliability
 - predictability of agent output
-- overall delivery quality
+- overall development quality
 
 Shape does not require a specific coding agent vendor or a single mandatory instruction filename. Instead, it expects that the repository provides sufficient agent-facing guidance in a form that the coding agent can reliably consume.
 
@@ -1625,7 +1625,7 @@ Work may still proceed, but results are likely to be:
 This condition should trigger a warning, but should not automatically block work.
 
 #### High risk
-Critical guidance is missing or too unclear for reliable agent-assisted delivery.
+Critical guidance is missing or too unclear for reliable agent-assisted development.
 
 Typical characteristics:
 
@@ -1668,7 +1668,7 @@ When starting a feature, the skill should:
 - determine whether relevant guidance appears present, partial, or critically missing
 - summarize the current readiness state
 - identify the most important gaps
-- explain that lower readiness reduces delivery quality and predictability
+- explain that lower readiness reduces development quality and predictability
 - ask whether the user wants to proceed if readiness is degraded or high risk
 
 The skill should not hard-block feature creation solely because readiness is incomplete.
@@ -1678,7 +1678,7 @@ When requested, the skill should also be able to surface repository readiness in
 
 - whether agent-facing guidance appears present
 - whether major gaps were previously detected
-- whether the current repository state appears ready enough, degraded, or high risk for agent-assisted delivery
+- whether the current repository state appears ready enough, degraded, or high risk for agent-assisted development
 
 This keeps repository readiness visible beyond the initial feature setup.
 
@@ -1703,7 +1703,7 @@ For practical use, Shape strongly recommends that a repository provide at least:
 - key coding style expectations
 - important architectural constraints and preferred implementation patterns
 
-This is not intended as heavy process. It is the minimum repository context needed to reduce ambiguity and improve the quality of agent-assisted delivery.
+This is not intended as heavy process. It is the minimum repository context needed to reduce ambiguity and improve the quality of agent-assisted development.
 
 ---
 
@@ -1713,4 +1713,4 @@ Shape assumes that coding agents perform best when repository expectations are e
 
 Good artifacts improve feature-level intent. Good repository guidance improves implementation-level consistency.
 
-Both are needed for reliable agent-assisted delivery.
+Both are needed for reliable agent-assisted development.

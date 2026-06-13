@@ -1,14 +1,14 @@
 # Shape
 
-A lightweight, artifact-driven workflow for AI-assisted software delivery.
+A lightweight, artifact-driven workflow for AI-assisted software development.
 
-Shape is designed to help structure software feature delivery when working with AI coding agents. It focuses on clear feature artifacts, bounded execution units for AI, bounded review units for developers, and explicit skill-based workflow support so that work can move quickly without becoming chaotic.
+Shape is designed to help structure software feature development when working with AI coding agents. It focuses on clear feature artifacts, bounded execution units for AI, bounded review units for developers, and explicit skill-based workflow support so that work can move quickly without becoming chaotic.
 
 ## Repository guide
 
 - [`quick-start.md`](./quick-start.md) — short introduction to the concept, a short example explaining how Shape works
 - [`installation.md`](./installation.md) — installation and configuration guide for setting up Shape in a target repository, including the generic Shape layer and agent-specific integration sections
-- [`manual.md`](./manual.md) — practical guide for using Shape in day-to-day software delivery
+- [`manual.md`](./manual.md) — practical guide for using Shape in day-to-day software development
 - [`design.md`](./design.md) — the full workflow specification
 - [`workflow-templates/`](./workflow-templates/) — standalone templates for the core Shape workflow artifacts
   - [`prd-template.md`](./workflow-templates/prd-template.md)
@@ -22,7 +22,7 @@ Shape is designed to help structure software feature delivery when working with 
 
 ## Current status
 
-Shape is currently in beta for v0.1. This version is focused on correctness and greenfield feature delivery: establishing the core workflow, validating that the artifact model holds up in real use, and making the workflow reliable across supported agents.
+Shape is currently in beta for v0.1. This version is focused on correctness and greenfield feature development: establishing the core workflow, validating that the artifact model holds up in real use, and making the workflow reliable across supported agents.
 
 Support has been implemented for Codex, Claude Code, Gemini CLI, and OpenCode. The first round of reference feature implementation has been completed, and the move from beta to final version is coming soon.
 
@@ -34,7 +34,7 @@ On the context side, the goal is to reduce workflow overhead and save tokens by 
 
 On the installation side, the goal is to make adoption more standardized and easier to operationalize through cleaner agent-specific setup patterns and more consistent installation mechanisms where that makes sense.
 
-Beyond v0.2, Shape is expected to expand into broader real-world delivery scenarios such as work on existing features, iterative enhancement, and refactoring.
+Beyond v0.2, Shape is expected to expand into broader real-world development scenarios such as work on existing features, iterative enhancement, and refactoring.
 
 ## License
 

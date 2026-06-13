@@ -1,6 +1,6 @@
 # Shape Manual
 
-**Practical guide for using Shape in day-to-day software delivery**
+**Practical guide for using Shape in day-to-day software development**
 
 This document explains how to use Shape to deliver a feature with an AI coding agent.
 
@@ -38,7 +38,7 @@ That is the full workflow.
 ## 2. The only concepts you really need
 
 ### Feature
-The unit of delivery.
+The unit of work.
 
 ### PRD
 Defines what the feature should do.
@@ -518,4 +518,4 @@ It works when you keep a few things disciplined:
 - explicit commit boundaries before new batch work
 - concrete skills that keep the conversation aligned with known workflow guardrails
 
-Use it this way and Shape stays easy to operate while still giving you structure, traceability, and better AI-assisted delivery quality.
+Use it this way and Shape stays easy to operate while still giving you structure, traceability, and better AI-assisted development quality.

@@ -1,6 +1,6 @@
 # Benchmarks
 
-This folder contains lightweight benchmark runs created while testing Shape on a simple feature delivery flow.
+This folder contains lightweight benchmark runs created while testing Shape on a simple feature development flow.
 
 The main goal is to validate Shape in practice. Benchmarking is secondary and is used only to capture a practical view of cost, token usage, implementation quality, and workflow fit across different coding tools.
 

@@ -40,7 +40,7 @@ If the PRD or Technical Concept is still `draft`, surface that clearly and redir
 Create or refine the Implementation Plan into an execution-ready control document.
 
 During initialization:
-- summarize the delivery objective from the ready PRD and Technical Concept
+- summarize the development objective from the ready PRD and Technical Concept
 - define an initial set of slices small enough for focused execution sessions
 - create initial slices in `draft`
 - keep slices reviewable and practical rather than overly broad
