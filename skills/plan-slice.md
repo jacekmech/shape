@@ -61,6 +61,15 @@ The agent may propose task breakdowns and pre-execution decisions, but should no
 Only after the Developer approves the planning changes should this skill record the agreed tasks, transition the selected slice from `draft` to `planned`, and apply any agreed `## Important Decisions` updates in the Implementation Plan.
 It must not proceed to implementation without explicit approval.
 
+## Workflow Boundary Rules
+
+- YOU MUST stop for Developer review before changing a slice from `draft` to `planned`.
+- YOU MUST NOT transition a slice to `planned` unless the Developer explicitly approves the task breakdown and related planning changes.
+- After finishing this Shape operation, YOU MUST ask whether to prepare and submit a commit for the accepted slice-planning diff.
+- YOU MUST NOT create a commit unless the Developer explicitly approves committing the current diff.
+- After the commit boundary is resolved, YOU MUST ask whether to proceed to the next Shape workflow step.
+- YOU MUST NOT proceed to `implement batch` or any other next Shape workflow step unless the Developer explicitly approves proceeding.
+
 ## Artifact Rules
 Update only the Implementation Plan in `03-implementation-plan.md`.
 
@@ -120,7 +129,7 @@ This skill is complete when:
 - Do not add explicit batch representation to the document
 - Do not reorder major execution structure without surfacing that to the developer
 - Do not stop at task creation alone; orient the user toward the next batch-selection step
-- Do not proceed to the next workflow step without explicit approval
+- YOU MUST NOT proceed to the next workflow step without explicit approval
 
 ## Likely Next Step
 Usually suggest:
@@ -129,4 +138,4 @@ Usually suggest:
 - `implement batch` after the developer selects a small subset of tasks
 - `update implementation plan` if the plan no longer matches effective upstream changes
 
-Prefer `implement batch` once the slice has a clear, small, reviewable starting batch.
+Prefer `implement batch` once the slice has a clear, small, reviewable starting batch, the commit boundary is resolved, and the Developer explicitly approves proceeding.

@@ -207,13 +207,32 @@ Examples:
 - `implement batch` supports review handling but does not replace developer approval
 - `finish slice` should not assume completion without developer confirmation
 
+Skills that can move artifacts or execution state across approval boundaries should use explicit mandatory wording:
+- YOU MUST stop for human review before changing an artifact, update, slice, or plan from a draft or active state into an approved or done state.
+- YOU MUST NOT mark artifacts, updates, tasks, slices, batches, or implementation plans approved or done without explicit approval from the responsible human role.
+- YOU MUST NOT treat completed drafting, planning, implementation, validation, or revision work as approval.
+
 ### Propose commits proactively
 When a skill reaches an accepted repository checkpoint, it should normally:
 - propose a commit message
 - offer to create the commit
 - avoid defaulting to telling the user to perform the commit manually
 
-Explicit user consent is still required before the agent creates the commit.
+After finishing a Shape operation, the skill should require the agent to ask whether to prepare and submit a commit for the accepted diff.
+
+Explicit user consent is still required before the agent creates the commit:
+- YOU MUST ask whether to prepare and submit a commit after the responsible human accepts the current operation's diff.
+- YOU MUST NOT create a commit unless the responsible human explicitly approves committing the current diff.
+- YOU MUST keep the commit scoped to the accepted diff for the current Shape operation.
+- YOU MUST surface unrelated or unexpected changes before committing.
+
+### Preserve next-step boundaries
+Skills should make the next likely valid workflow action obvious, but making the next action obvious is not permission to start it.
+
+- YOU MUST ask whether to proceed to the next Shape workflow step after the commit boundary is resolved.
+- YOU MUST NOT proceed to the next Shape workflow step unless the responsible human explicitly approves proceeding.
+- YOU MUST NOT silently combine adjacent Shape operations, even when the next operation seems obvious.
+- YOU MUST NOT start implementation, a new batch, slice closure, or feature completion merely because the previous step reached review, approval, or commit readiness.
 
 ### Make review state explicit
 Where relevant, skills should distinguish clearly between:

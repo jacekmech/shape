@@ -55,6 +55,15 @@ The agent may structure, suggest, and refine, but should not silently decide unc
 The PRD may remain `draft` while gaps still matter.
 Set it to `approved` only when the Product Owner explicitly accepts the baseline for downstream use.
 
+## Workflow Boundary Rules
+
+- YOU MUST stop for Product Owner review before changing the PRD from `draft` to `approved`.
+- YOU MUST NOT mark the PRD `approved` unless the Product Owner explicitly approves that transition.
+- After finishing this Shape operation, YOU MUST ask whether to prepare and submit a commit for the accepted PRD diff.
+- YOU MUST NOT create a commit unless the Product Owner explicitly approves committing the current diff.
+- After the commit boundary is resolved, YOU MUST ask whether to proceed to the next Shape workflow step.
+- YOU MUST NOT proceed to the next Shape workflow step unless the Product Owner explicitly approves proceeding.
+
 ## Artifact Rules
 Read and update only the PRD baseline in `01-prd.md`.
 
@@ -108,11 +117,11 @@ This skill is complete when:
 
 ## Guardrails
 - Do not treat post-approval changes as baseline edits
-- Do not mark the PRD `approved` without explicit Product Owner acceptance
+- YOU MUST NOT mark the PRD `approved` without explicit Product Owner acceptance
 - Do not leave the PRD detached from the canonical section structure
 - Do not bury open questions inside definitive-looking requirements
 - Do not drift into technical design; keep this artifact requirement-focused
-- Do not proceed to the next workflow step without explicit approval
+- YOU MUST NOT proceed to the next workflow step without explicit approval
 
 ## Likely Next Step
 Usually suggest:
@@ -121,4 +130,4 @@ Usually suggest:
 - `create technical concept` if the PRD is `approved`
 - `show status` if the user needs orientation before moving downstream
 
-Prefer `create technical concept` once the PRD baseline is explicitly accepted as `approved`.
+Prefer `create technical concept` once the PRD baseline is explicitly accepted as `approved`, the commit boundary is resolved, and the Product Owner explicitly approves proceeding.

@@ -55,6 +55,15 @@ The agent may draft or refine update language, but should not silently finalize 
 
 Only mark the update `approved` when the Product Owner explicitly accepts it as effective.
 
+## Workflow Boundary Rules
+
+- YOU MUST stop for Product Owner review before changing a PRD Specification Update from `draft` to `approved`.
+- YOU MUST NOT mark a PRD Specification Update `approved` unless the Product Owner explicitly approves that transition.
+- After finishing this Shape operation, YOU MUST ask whether to prepare and submit a commit for the accepted PRD update diff.
+- YOU MUST NOT create a commit unless the Product Owner explicitly approves committing the current diff.
+- After the commit boundary is resolved, YOU MUST ask whether to proceed to the next Shape workflow step.
+- YOU MUST NOT proceed to downstream propagation or any other next Shape workflow step unless the Product Owner explicitly approves proceeding.
+
 ## Artifact Rules
 Operate only in `01-prd.md` under `## Updates`.
 
@@ -106,9 +115,9 @@ This skill is complete when:
 - Do not rewrite the approved PRD baseline
 - Do not silently modify older approved updates
 - Do not create multiple competing draft updates when one should be continued
-- Do not mark an update `approved` without explicit Product Owner acceptance
+- YOU MUST NOT mark an update `approved` without explicit Product Owner acceptance
 - Do not imply that Technical Concept or Implementation Plan already reflect the update unless that propagation step has happened
-- Do not proceed to the next workflow step without explicit approval
+- YOU MUST NOT proceed to the next workflow step without explicit approval
 
 ## Likely Next Step
 Usually suggest:
@@ -117,4 +126,4 @@ Usually suggest:
 - `update technical concept` if the approved PRD update has design implications
 - `show status` if the user needs orientation on downstream impact
 
-Prefer `update technical concept` when a newly approved PRD update changes technical design expectations.
+Prefer `update technical concept` when a newly approved PRD update changes technical design expectations, the commit boundary is resolved, and the Product Owner explicitly approves proceeding.

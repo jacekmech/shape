@@ -56,6 +56,15 @@ If an approved update affects work that has already started:
 The responsible role remains the Developer.
 The agent may propose execution reshaping, but should not silently decide how to absorb significant trade-offs without developer confirmation.
 
+## Workflow Boundary Rules
+
+- YOU MUST stop for Developer review before treating Implementation Plan propagation changes as accepted.
+- YOU MUST NOT apply accepted execution-shape changes, new slices, or revised slice descriptions as final unless the Developer explicitly approves them.
+- After finishing this Shape operation, YOU MUST ask whether to prepare and submit a commit for the accepted Implementation Plan update diff.
+- YOU MUST NOT create a commit unless the Developer explicitly approves committing the current diff.
+- After the commit boundary is resolved, YOU MUST ask whether to proceed to the next Shape workflow step.
+- YOU MUST NOT proceed to slice planning, batch implementation, or any other next Shape workflow step unless the Developer explicitly approves proceeding.
+
 ## Artifact Rules
 Read the approved PRD and Technical Concept updates as upstream inputs.
 Update only the Implementation Plan in `03-implementation-plan.md`.
@@ -112,7 +121,7 @@ This skill is complete when:
 - Do not silently reinterpret closed or in-progress slices
 - Do not use `## Relevant Files` as a substitute for actual slice updates when execution shape changed
 - Do not hide conflicts between approved updates and already-started work
-- Do not proceed to the next workflow step without explicit approval
+- YOU MUST NOT proceed to the next workflow step without explicit approval
 
 ## Likely Next Step
 Usually suggest:
@@ -121,4 +130,4 @@ Usually suggest:
 - continue `update implementation plan` if propagation impact is still being resolved
 - `update technical concept` or `update prd` if the upstream change is still incomplete
 
-Prefer `plan slice` once the updated plan has a clear next `draft` slice to refine.
+Prefer `plan slice` once the updated plan has a clear next `draft` slice to refine, the commit boundary is resolved, and the Developer explicitly approves proceeding.

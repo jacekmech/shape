@@ -56,6 +56,15 @@ The agent may draft or refine update language, but should not silently finalize 
 
 Only mark the update `approved` when the Architect explicitly accepts it as effective.
 
+## Workflow Boundary Rules
+
+- YOU MUST stop for Architect review before changing a Technical Concept Specification Update from `draft` to `approved`.
+- YOU MUST NOT mark a Technical Concept Specification Update `approved` unless the Architect explicitly approves that transition.
+- After finishing this Shape operation, YOU MUST ask whether to prepare and submit a commit for the accepted Technical Concept update diff.
+- YOU MUST NOT create a commit unless the Architect explicitly approves committing the current diff.
+- After the commit boundary is resolved, YOU MUST ask whether to proceed to the next Shape workflow step.
+- YOU MUST NOT proceed to downstream propagation or any other next Shape workflow step unless the Architect explicitly approves proceeding.
+
 ## Artifact Rules
 Operate only in `02-tech-concept.md` under `## Updates`.
 
@@ -107,9 +116,9 @@ This skill is complete when:
 - Do not rewrite the approved Technical Concept baseline
 - Do not silently modify older approved updates
 - Do not create multiple competing draft updates when one should be continued
-- Do not mark an update `approved` without explicit Architect acceptance
+- YOU MUST NOT mark an update `approved` without explicit Architect acceptance
 - Do not imply that the Implementation Plan already reflects the update unless that propagation step has happened
-- Do not proceed to the next workflow step without explicit approval
+- YOU MUST NOT proceed to the next workflow step without explicit approval
 
 ## Likely Next Step
 Usually suggest:
@@ -118,4 +127,4 @@ Usually suggest:
 - `update implementation plan` if the approved design update changes execution planning
 - `update prd` if the design change revealed a requirement-level issue
 
-Prefer `update implementation plan` when a newly approved Technical Concept update changes slices or execution intent.
+Prefer `update implementation plan` when a newly approved Technical Concept update changes slices or execution intent, the commit boundary is resolved, and the Architect explicitly approves proceeding.

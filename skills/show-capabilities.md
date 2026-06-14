@@ -51,6 +51,13 @@ Examples:
 Keep the result concise and easy to scan.
 The goal is orientation and workflow discoverability, not exhaustive theory.
 
+## Workflow Boundary Rules
+
+- YOU MUST treat capability reporting as orientation, not permission to start the next Shape workflow step.
+- YOU MUST NOT modify artifacts, mark statuses, or create commits while showing capabilities.
+- YOU MUST ask whether to proceed before starting a suggested Shape workflow step.
+- YOU MUST NOT start a suggested Shape workflow step unless the human explicitly approves proceeding.
+
 ## Artifact Rules
 This skill may read:
 - `.shape/config.json` for the repository-declared Shape skill inventory and local artifact conventions
@@ -85,6 +92,7 @@ This skill is complete when:
 - Do not hide that the declared repository inventory may be only a subset of the broader Shape model
 - Do not present every operation as equally relevant when workflow state makes the next step obvious
 - Do not end with capabilities alone; connect them to the current state when possible
+- YOU MUST NOT proceed to the next workflow step without explicit approval
 
 ## Likely Next Step
 Usually suggest one of:

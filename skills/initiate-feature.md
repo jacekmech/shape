@@ -101,6 +101,15 @@ Initial state:
 
 Do not prematurely mark any artifact as `approved`.
 
+## Workflow Boundary Rules
+
+- YOU MUST stop for human review after scaffolding the feature workspace.
+- YOU MUST NOT mark any scaffolded artifact `approved` during feature initiation.
+- After finishing this Shape operation, YOU MUST ask whether to prepare and submit a commit for the accepted feature-initiation diff.
+- YOU MUST NOT create a commit unless the human explicitly approves committing the current diff.
+- After the commit boundary is resolved, YOU MUST ask whether to proceed to the next Shape workflow step.
+- YOU MUST NOT proceed to `create prd` or any other next Shape workflow step unless the human explicitly approves proceeding.
+
 ## Repository Readiness Check
 This skill must inspect repository readiness for agent-assisted development.
 
@@ -165,11 +174,11 @@ This skill is complete when:
 
 ## Guardrails
 - Do not overwrite an existing feature folder silently
-- Do not mark documents `approved` during scaffolding
+- YOU MUST NOT mark documents `approved` during scaffolding
 - Do not skip repository readiness reporting
 - Do not invent non-Shape artifact filenames unless repository constraints require it
 - Do not bury the next step; state it plainly
-- Do not proceed to the next workflow step without explicit approval
+- YOU MUST NOT proceed to the next workflow step without explicit approval
 
 ## Likely Next Steps
 Usually suggest:
@@ -178,4 +187,4 @@ Usually suggest:
 - `show status`
 - `show capabilities`
 
-Prefer `create prd` as the default next step unless the user first needs orientation or repository issues need attention.
+Prefer `create prd` as the default next step unless the user first needs orientation or repository issues need attention, the commit boundary is resolved, and the human explicitly approves proceeding.

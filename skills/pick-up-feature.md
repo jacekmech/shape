@@ -103,6 +103,13 @@ In such sessions, this skill should usually run before implementation work unles
 
 This skill should support that behavior by making feature pickup quick, not ceremonial.
 
+## Workflow Boundary Rules
+
+- YOU MUST treat feature pickup as orientation, not permission to start the next Shape workflow step.
+- YOU MUST ask whether to proceed before starting the likely next Shape workflow step.
+- YOU MUST NOT start the likely next Shape workflow step unless the human explicitly approves proceeding.
+- YOU MUST NOT modify artifacts, mark statuses, or create commits as part of pickup unless the user explicitly requests a separate supported Shape operation.
+
 ## Completion Criteria
 This skill is complete when:
 - one feature is clearly resolved as active
@@ -116,4 +123,4 @@ This skill is complete when:
 - Do not pretend a broken feature structure is valid; surface warnings clearly
 - Do not force a complex selection flow when one obvious unfinished feature exists
 - Do not stop at “feature selected”; always orient the user toward the next likely step
-- Do not start with the next workflow step without explicit approval
+- YOU MUST NOT start the next workflow step without explicit approval

@@ -291,15 +291,19 @@ Shape is a step-by-step workflow with explicit approval boundaries.
 
 When working in this repository:
 
-- Follow the default Shape step order unless the user explicitly asks for another supported Shape operation.
-- Treat each Shape operation as a separate boundary.
-- Do not move to the next Shape operation without explicit user approval.
-- Do not silently combine multiple Shape operations into one step.
-- Never skip the commit boundary between separate Shape workflow operations.
-- After a Shape operation updates workflow artifacts, stop and let the user review and commit the result, or explicitly ask you to commit it.
-- `implement batch` is the special exception: it may continue through review handoff, revision, approval handling, task completion updates, and optional commit, but only with explicit user approval and explicit commit instruction.
-- Do not mark tasks done before explicit approval, and do not commit without explicit user instruction.
-- Never deviate from the workflow, e.g. by skipping a step, combining two steps or implementing two slices in one go.
+- YOU MUST follow the default Shape step order unless the user explicitly asks for another supported Shape operation.
+- YOU MUST treat each Shape operation as a separate workflow boundary.
+- YOU MUST NOT move to the next Shape operation without explicit human approval.
+- YOU MUST NOT silently combine multiple Shape operations into one step.
+- YOU MUST NOT skip the commit boundary between separate Shape workflow operations.
+- YOU MUST stop for human review before changing any artifact or update from `draft` to `approved`.
+- YOU MUST NOT mark artifacts, updates, tasks, slices, batches, or implementation plans approved or done without explicit approval from the responsible human role.
+- After a Shape operation produces an accepted diff, YOU MUST ask whether to prepare and submit a commit.
+- YOU MUST NOT commit without explicit human approval for the current diff.
+- After the commit boundary is resolved, YOU MUST ask whether to proceed to the next Shape workflow step.
+- YOU MUST NOT proceed to the next Shape workflow step unless the human explicitly approves proceeding.
+- `implement batch` is the special exception: it may continue through review handoff, revision, approval handling, task completion updates, and optional commit, but only with explicit human approval and explicit commit instruction.
+- YOU MUST NOT deviate from the workflow, e.g. by skipping a step, combining two steps, or implementing two slices in one go.
 
 Default Shape step order:
 1. initiate feature

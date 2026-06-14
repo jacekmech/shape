@@ -58,6 +58,15 @@ The agent may propose slices, and execution order, but should not silently decid
 Set the Implementation Plan to `approved` when the initial slices and execution framing are accepted as the execution baseline.
 Do not set it to `in progress` merely because planning work occurred; that transition belongs when active execution begins.
 
+## Workflow Boundary Rules
+
+- YOU MUST stop for Developer review before changing the Implementation Plan from `draft` to `approved`.
+- YOU MUST NOT mark the Implementation Plan `approved` unless the Developer explicitly approves that transition.
+- After finishing this Shape operation, YOU MUST ask whether to prepare and submit a commit for the accepted Implementation Plan diff.
+- YOU MUST NOT create a commit unless the Developer explicitly approves committing the current diff.
+- After the commit boundary is resolved, YOU MUST ask whether to proceed to the next Shape workflow step.
+- YOU MUST NOT proceed to the next Shape workflow step unless the Developer explicitly approves proceeding.
+
 ## Artifact Rules
 Read and update only the Implementation Plan in `03-implementation-plan.md`, using the approved PRD and approved Technical Concept as upstream inputs.
 
@@ -116,7 +125,7 @@ This skill is complete when:
 - Do not add implementation tasks so early that slice boundaries become unclear
 - Do not turn `## Relevant Files` into a historical changelog or full repository inventory
 - Do not mark the plan `in progress` merely because the plan now exists
-- Do not proceed to the next workflow step without explicit approval
+- YOU MUST NOT proceed to the next workflow step without explicit approval
 
 ## Likely Next Step
 Usually suggest:
@@ -125,4 +134,4 @@ Usually suggest:
 - `plan slice` if the Implementation Plan is `approved`
 - `update technical concept` or `update prd` if implementation planning exposed a real upstream gap
 
-Prefer `plan slice` once the Implementation Plan is explicitly accepted as `approved`.
+Prefer `plan slice` once the Implementation Plan is explicitly accepted as `approved`, the commit boundary is resolved, and the Developer explicitly approves proceeding.

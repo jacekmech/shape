@@ -58,6 +58,15 @@ The agent may structure, suggest, and refine, but should not silently finalize u
 The Technical Concept may remain `draft` while important design gaps, constraints, or trade-offs remain unresolved.
 Set it to `approved` only when the Architect explicitly accepts it for implementation planning.
 
+## Workflow Boundary Rules
+
+- YOU MUST stop for Architect review before changing the Technical Concept from `draft` to `approved`.
+- YOU MUST NOT mark the Technical Concept `approved` unless the Architect explicitly approves that transition.
+- After finishing this Shape operation, YOU MUST ask whether to prepare and submit a commit for the accepted Technical Concept diff.
+- YOU MUST NOT create a commit unless the Architect explicitly approves committing the current diff.
+- After the commit boundary is resolved, YOU MUST ask whether to proceed to the next Shape workflow step.
+- YOU MUST NOT proceed to the next Shape workflow step unless the Architect explicitly approves proceeding.
+
 ## Artifact Rules
 Read and update only the Technical Concept baseline in `02-tech-concept.md`.
 
@@ -115,11 +124,11 @@ This skill is complete when:
 
 ## Guardrails
 - Do not treat post-approval design changes as baseline edits
-- Do not mark the Technical Concept `approved` without explicit Architect acceptance
+- YOU MUST NOT mark the Technical Concept `approved` without explicit Architect acceptance
 - Do not skip repository alignment when local guidance materially affects the solution
 - Do not silently absorb requirement-level uncertainty that should be pushed back to the PRD
 - Do not drift into implementation task planning; keep this artifact at the design baseline level
-- Do not proceed to the next workflow step without explicit approval
+- YOU MUST NOT proceed to the next workflow step without explicit approval
 
 ## Likely Next Step
 Usually suggest:
@@ -128,4 +137,4 @@ Usually suggest:
 - `update prd` if requirement-level issues were discovered
 - `plan implementation` if the Technical Concept is `approved`
 
-Prefer `plan implementation` once both the PRD and Technical Concept are explicitly accepted as `approved`.
+Prefer `plan implementation` once both the PRD and Technical Concept are explicitly accepted as `approved`, the commit boundary is resolved, and the Architect explicitly approves proceeding.

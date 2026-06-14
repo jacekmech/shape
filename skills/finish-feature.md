@@ -52,6 +52,16 @@ During completion:
 The responsible role remains the Developer.
 The agent may help verify completion and update the artifact, but should not silently finalize implementation if meaningful execution work is still unresolved.
 
+## Workflow Boundary Rules
+
+- YOU MUST stop for Developer review before changing the Implementation Plan to `done` or clearing the active feature.
+- YOU MUST NOT mark the Implementation Plan `done` unless the Developer explicitly approves feature completion.
+- YOU MUST NOT clear `.shape/workspace.json` for the feature unless the Developer explicitly approves feature completion.
+- After finishing this Shape operation, YOU MUST ask whether to prepare and submit a commit for the accepted feature-completion diff.
+- YOU MUST NOT create a commit unless the Developer explicitly approves committing the current diff.
+- After the commit boundary is resolved, YOU MUST ask whether the Developer wants any further Shape workflow action.
+- YOU MUST NOT start another Shape workflow action unless the Developer explicitly approves proceeding.
+
 ## Artifact Rules
 Update the Implementation Plan in `03-implementation-plan.md` and `.shape/workspace.json` when available.
 
@@ -105,11 +115,11 @@ This skill is complete when:
 - the next likely workflow action is stated plainly
 
 ## Guardrails
-- Do not mark implementation done with unfinished slices
-- Do not ignore unresolved batch, review, approval, or commit boundaries
-- Do not use finalization to paper over inaccurate plan state
-- Do not confuse “mostly complete” with `done`
-- Do not end without stating whether implementation is truly complete
+- YOU MUST NOT mark implementation done with unfinished slices
+- YOU MUST NOT ignore unresolved batch, review, approval, or commit boundaries
+- YOU MUST NOT use finalization to paper over inaccurate plan state
+- YOU MUST NOT confuse “mostly complete” with `done`
+- YOU MUST NOT end without stating whether implementation is truly complete
 
 ## Likely Next Step
 Usually suggest one of:
@@ -117,4 +127,4 @@ Usually suggest one of:
 - `show status` if the user wants a final workflow snapshot
 - `pick up feature` only if the user intends to inspect the completed feature again in a later session
 
-Prefer `show status` as the default follow-up once implementation is finalized.
+Prefer `show status` as the default follow-up once implementation is finalized, the commit boundary is resolved, and the Developer explicitly approves proceeding.

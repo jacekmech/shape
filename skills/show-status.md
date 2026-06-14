@@ -103,6 +103,13 @@ Examples:
 - Make the next step obvious
 - Treat Implementation Plan `done` as the canonical signal that a feature is completed
 
+## Workflow Boundary Rules
+
+- YOU MUST treat status reporting as orientation, not permission to start the next Shape workflow step.
+- YOU MUST NOT modify artifacts, mark statuses, or create commits while showing status.
+- YOU MUST ask whether to proceed before starting the likely next Shape workflow step.
+- YOU MUST NOT start the likely next Shape workflow step unless the human explicitly approves proceeding.
+
 ## Completion Criteria
 This skill is complete when the user can answer all of the following quickly:
 - What feature is active?
@@ -116,3 +123,4 @@ This skill is complete when the user can answer all of the following quickly:
 - Do not hide structural problems or missing artifacts
 - Do not report repository readiness vaguely; classify it explicitly when possible
 - Do not end with status alone; always include the most likely next step
+- YOU MUST NOT proceed to the next workflow step without explicit approval

@@ -52,6 +52,15 @@ If slice completion changes what future work should focus on:
 The responsible role remains the Developer.
 The agent may help validate and update the plan, but should not silently close a slice that still has unresolved work or approved changes that should be committed but are still uncommitted.
 
+## Workflow Boundary Rules
+
+- YOU MUST stop for Developer review before changing a slice from `in progress` to `done`.
+- YOU MUST NOT mark a slice `done` unless the Developer explicitly approves closing that slice.
+- After finishing this Shape operation, YOU MUST ask whether to prepare and submit a commit for the accepted slice-closure diff.
+- YOU MUST NOT create a commit unless the Developer explicitly approves committing the current diff.
+- After the commit boundary is resolved, YOU MUST ask whether to proceed to the next Shape workflow step.
+- YOU MUST NOT proceed to planning the next slice, finishing the feature, or any other next Shape workflow step unless the Developer explicitly approves proceeding.
+
 ## Artifact Rules
 Update only the Implementation Plan in `03-implementation-plan.md`.
 
@@ -98,11 +107,11 @@ This skill is complete when:
 - the next likely workflow action is stated plainly
 
 ## Guardrails
-- Do not close a slice with open tasks
-- Do not close a slice before approved work that should be committed is committed
-- Do not use slice closure as a shortcut for unresolved review or approval state
-- Do not leave the next execution step implicit once a slice is closed
-- Do not mark implementation done unless all slices are `done` and validated
+- YOU MUST NOT close a slice with open tasks
+- YOU MUST NOT close a slice before approved work that should be committed is committed
+- YOU MUST NOT use slice closure as a shortcut for unresolved review or approval state
+- YOU MUST NOT leave the next execution step implicit once a slice is closed
+- YOU MUST NOT mark implementation done unless all slices are `done` and validated
 
 ## Likely Next Step
 Usually suggest one of:
@@ -111,4 +120,4 @@ Usually suggest one of:
 - `finish feature` if all slices are now `done` and validated
 - `update implementation plan` if slice completion exposed a needed execution reshaping
 
-Prefer `plan slice` when more slices remain and the next one is still `draft`.
+Prefer `plan slice` when more slices remain and the next one is still `draft`, the commit boundary is resolved, and the Developer explicitly approves proceeding.
