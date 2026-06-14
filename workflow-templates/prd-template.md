@@ -2,7 +2,7 @@
 
 ## Header
 - **Title:**
-- **Status:** `draft | ready`
+- **Status:** `draft | approved`
 - **Date:** `YYYY-MM-DD`
 
 ---
@@ -63,14 +63,14 @@
 
 ## Updates
 
-Append-only list of **Specification Updates** added after the baseline PRD reaches `ready`.
+Append-only list of **Specification Updates** added after the baseline PRD reaches `approved`.
 
-Only Updates with status `ready` are considered effective.
+Only Updates with status `approved` are considered effective.
 
 ### Update Template
 
 #### Update: <name>
-- **Status:** `draft | ready`
+- **Status:** `draft | approved`
 - **Date:** `YYYY-MM-DD`
 
 **Context**

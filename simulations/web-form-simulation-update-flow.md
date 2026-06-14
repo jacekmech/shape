@@ -53,7 +53,7 @@ This example follows the update path only:
 - sending valid attachments with the form submission
 - keeping the existing non-attachment flow working
 
-**User:** Yes. Mark the PRD update ready.
+**User:** Yes. Mark the PRD update approved.
 
 **Agent:** Good. The requirement-level change is now explicit. The next step is the Technical Concept update so the design matches the new requirement.
 
@@ -81,13 +81,13 @@ This example follows the update path only:
 
 **User:** Reject the whole submission. The user should correct the attachments and resubmit.
 
-**Agent:** Good. That keeps the behavior predictable. I’d mark the Technical Concept update ready with multipart submission, request-scoped file handling, authoritative backend validation, and full-request rejection on invalid attachments. The next step is to update the Implementation Plan so the new work is reflected explicitly.
+**Agent:** Good. That keeps the behavior predictable. I’d mark the Technical Concept update approved with multipart submission, request-scoped file handling, authoritative backend validation, and full-request rejection on invalid attachments. The next step is to update the Implementation Plan so the new work is reflected explicitly.
 
 ### 4. Implementation Plan Update
 
 **User:** Update the Implementation Plan.
 
-**Agent:** I would apply the ready PRD and Technical Concept updates to the Implementation Plan inline. Since the original implementation was already complete, I would not rewrite `done` work. Instead I’d add new `draft` slices for the attachment functionality.
+**Agent:** I would apply the approved PRD and Technical Concept updates to the Implementation Plan inline. Since the original implementation was already complete, I would not rewrite `done` work. Instead I’d add new `draft` slices for the attachment functionality.
 
 **User:** What slices would you add?
 
@@ -98,7 +98,7 @@ This example follows the update path only:
 
 **User:** That works.
 
-**Agent:** I’d also refresh the relevant file map to bring the contact form component, submission endpoint, validation layer, and mail integration files back into focus. The next step is to prepare the first new slice, move it from `draft` to `ready`, and only then start execution.
+**Agent:** I’d also refresh the relevant file map to bring the contact form component, submission endpoint, validation layer, and mail integration files back into focus. The next step is to prepare the first new slice, move it from `draft` to `planned`, and only then start execution.
 
 **User:** Plan Slice 5.
 
@@ -111,7 +111,7 @@ This example follows the update path only:
 
 **User:** Good. First batch should cover the file input and client-side validation only.
 
-**Agent:** Good boundary. Since Slice 5 is now planned and `ready`, I’ll execute only that batch and return for review, then wait for explicit approval before marking anything done.
+**Agent:** Good boundary. Since Slice 5 is now planned, I’ll execute only that batch and return for review, then wait for explicit approval before marking anything done.
 
 **User:** I reviewed it. Approved.
 
@@ -128,7 +128,7 @@ This example follows the update path only:
 
 **User:** Use that breakdown. First batch should cover multipart handling and backend validation.
 
-**Agent:** Good. Slice 6 is now `ready`, so I’ll implement only that batch and return it for review.
+**Agent:** Good. Slice 6 is now `planned`, so I’ll implement only that batch and return it for review.
 
 **User:** I reviewed it. Approved.
 
@@ -145,7 +145,7 @@ This example follows the update path only:
 
 **User:** First batch: extend the mail service and wire the backend to it.
 
-**Agent:** Good. Slice 7 is now `ready`, so I’ll execute that batch and return it for review.
+**Agent:** Good. Slice 7 is now `planned`, so I’ll execute that batch and return it for review.
 
 **User:** Approved. Also record that attachments remain request-scoped only and are not stored after submission.
 
@@ -169,5 +169,5 @@ This example highlights how Shape handles late change after a feature was alread
 - the Implementation Plan is updated inline to reflect new execution work
 - previously `done` work is not rewritten just because new scope appeared later
 - the workflow remains explicit about what changed at the requirement level, design level, and implementation level
-- execution resumes through new slices moving through `draft -> ready -> in progress -> done`, plus tasks, batches, review, approval, and optional commit boundaries
+- execution resumes through new slices moving through `draft -> planned -> in progress -> done`, plus tasks, batches, review, approval, and optional commit boundaries
 - the same person can wear all roles, while the workflow still preserves the role boundaries in the artifact flow

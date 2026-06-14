@@ -1,17 +1,17 @@
 # update technical concept
 
 ## Purpose
-Add a new Technical Concept Specification Update or continue refining an existing draft Technical Concept update after the baseline is already `ready`, while preserving append-only change handling and Architect ownership of design-level changes.
+Add a new Technical Concept Specification Update or continue refining an existing draft Technical Concept update after the baseline is already `approved`, while preserving append-only change handling and Architect ownership of design-level changes.
 
 ## When to Use
-Use this skill when the user needs to record a design change, correction, clarified constraint, or newly discovered technical information after the Technical Concept baseline is already ready.
+Use this skill when the user needs to record a design change, correction, clarified constraint, or newly discovered technical information after the Technical Concept baseline is already approved.
 
 Typical triggers:
 - “update technical concept”
 - “record this design change”
 - “add a tech concept update”
 - “continue the draft technical update”
-- “mark this design update ready”
+- “mark this design update approved”
 
 ## Inputs
 Expected inputs:
@@ -26,12 +26,12 @@ Helpful but optional:
 ## Preconditions
 Before updating the Technical Concept:
 - resolve the active feature and locate `02-tech-concept.md`
-- confirm the Technical Concept baseline status is already `ready`
-- inspect `## Updates` for existing draft and ready updates
+- confirm the Technical Concept baseline status is already `approved`
+- inspect `## Updates` for existing draft and approved updates
 - inspect repository guidance or codebase context when the change is driven by actual implementation or repository constraints
 - determine whether an existing draft update should be continued instead of creating a new one
 
-This skill is for post-readiness Technical Concept evolution.
+This skill is for post-approval Technical Concept evolution.
 If the Technical Concept baseline is still `draft`, design work belongs in `create technical concept` instead.
 
 ## Behavior
@@ -44,7 +44,7 @@ When no suitable draft update exists:
 - append a new update under `## Updates`
 - give it a clear name
 - set the date
-- keep its status accurate as `draft` or `ready`
+- keep its status accurate as `draft` or `approved`
 
 When refining an update:
 - explain the context that caused the design change
@@ -54,40 +54,40 @@ When refining an update:
 The responsible role remains the Architect.
 The agent may draft or refine update language, but should not silently finalize uncertain design intent without clear user confirmation.
 
-Only mark the update `ready` when the Architect explicitly accepts it as effective.
+Only mark the update `approved` when the Architect explicitly accepts it as effective.
 
 ## Artifact Rules
 Operate only in `02-tech-concept.md` under `## Updates`.
 
 Use the Technical Concept update structure already defined by the template:
 - `#### Update: <name>`
-- `- **Status:** draft | ready`
+- `- **Status:** draft | approved`
 - `- **Date:** YYYY-MM-DD`
 - `**Context**`
 - `**Change / decision**`
 - `**Impact**`
 
 Apply these lifecycle rules:
-- the ready Technical Concept baseline is immutable
-- ready updates are append-only and must not be silently rewritten
+- the approved Technical Concept baseline is immutable
+- approved updates are append-only and must not be silently rewritten
 - updates are appended in chronological order
-- only updates with status `ready` are considered effective
+- only updates with status `approved` are considered effective
 
 This skill may:
 - append a new update under `## Updates`
 - continue refining an existing draft update
-- change an update status between `draft` and `ready` based on explicit user confirmation
+- change an update status between `draft` and `approved` based on explicit user confirmation
 
 This skill must not:
-- rewrite the ready Technical Concept baseline inline
-- silently edit prior ready updates
+- rewrite the approved Technical Concept baseline inline
+- silently edit prior approved updates
 - use `## Important Decisions` in the Implementation Plan as a substitute for a real design update when the change belongs in the Technical Concept
 - imply downstream propagation has already happened unless a separate step performs it
 
 ## Outputs
 This skill should produce:
 - a new or refined Technical Concept Specification Update under `## Updates`
-- an accurate update status of `draft` or `ready`
+- an accurate update status of `draft` or `approved`
 - a short note on likely downstream implications when relevant
 - a repository state that is ready to be committed once the selected Technical Concept update state is accepted
 - a proposed commit message when the accepted Technical Concept update state is suitable for checkpointing
@@ -96,7 +96,7 @@ This skill should produce:
 ## Completion Signals
 This skill is complete when:
 - the change is recorded under `## Updates` using the canonical update structure
-- it is clear whether the update is still `draft` or already `ready`
+- it is clear whether the update is still `draft` or already `approved`
 - baseline immutability has been preserved
 - any meaningful downstream consequence for implementation planning or PRD alignment is visible rather than implied
 - the resulting Technical Concept update state is clear enough to serve as a commit checkpoint before downstream propagation continues
@@ -104,10 +104,10 @@ This skill is complete when:
 - the next likely workflow step is stated plainly
 
 ## Guardrails
-- Do not rewrite the ready Technical Concept baseline
-- Do not silently modify older ready updates
+- Do not rewrite the approved Technical Concept baseline
+- Do not silently modify older approved updates
 - Do not create multiple competing draft updates when one should be continued
-- Do not mark an update `ready` without explicit Architect acceptance
+- Do not mark an update `approved` without explicit Architect acceptance
 - Do not imply that the Implementation Plan already reflects the update unless that propagation step has happened
 - Do not proceed to the next workflow step without explicit approval
 
@@ -115,7 +115,7 @@ This skill is complete when:
 Usually suggest:
 - continue `update technical concept` if the change is still incomplete or awaiting acceptance
 - propose a commit message and offer to create the commit if the current Technical Concept update state is accepted and the user wants a checkpoint
-- `update implementation plan` if the ready design update changes execution planning
+- `update implementation plan` if the approved design update changes execution planning
 - `update prd` if the design change revealed a requirement-level issue
 
-Prefer `update implementation plan` when a newly ready Technical Concept update changes slices or execution intent.
+Prefer `update implementation plan` when a newly approved Technical Concept update changes slices or execution intent.

@@ -94,10 +94,10 @@ Shape uses small status vocabularies to keep artifact and execution state explic
 
 ### Artifacts
 
-- **PRD:** `draft`, `ready`
-- **Technical Concept:** `draft`, `ready`
-- **Implementation Plan:** `draft`, `planned`, `in progress`, `done`
-- **Specification Updates:** `draft`, `ready`
+- **PRD:** `draft`, `approved`
+- **Technical Concept:** `draft`, `approved`
+- **Implementation Plan:** `draft`, `approved`, `in progress`, `done`
+- **Specification Updates:** `draft`, `approved`
 
 ### Execution
 
@@ -105,7 +105,7 @@ Shape uses small status vocabularies to keep artifact and execution state explic
 
 Use the values literally:
 - `draft` means still being refined
-- `ready` means accepted for downstream use
-- `planned` means execution structure is accepted but implementation has not started
+- `approved` means accepted for downstream use or as the execution baseline
+- `planned` means a slice has been broken into tasks and is ready for execution
 - `in progress` means implementation is actively underway
 - `done` means the relevant workflow is complete

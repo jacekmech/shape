@@ -26,7 +26,7 @@ At the beginning of the workflow, Shape creates the feature workspace. As the wo
 
 The workflow also keeps repository and artifact boundaries explicit. Baseline artifacts are created and approved deliberately. Implementation work is reviewed before it is treated as complete. Approved implementation is committed only on explicit instruction before new batch work begins. This keeps both the feature artifacts and the repository in a clean, understandable state as the work moves forward.
 
-When something changes after the PRD or Technical Concept is already ready:
+When something changes after the PRD or Technical Concept is already approved:
 - **update prd**
 - **update technical concept**
 - **update implementation plan**
@@ -59,7 +59,7 @@ A small executable step inside a slice.
 A small selected group of tasks implemented together and then reviewed by the developer.
 
 ### Specification Update
-An append-only change added to a ready PRD or ready Technical Concept.
+An append-only change added to an approved PRD or approved Technical Concept.
 
 If these concepts are clear, the rest of Shape is straightforward.
 
@@ -69,15 +69,15 @@ If these concepts are clear, the rest of Shape is straightforward.
 
 ### PRD
 - `draft`
-- `ready`
+- `approved`
 
 ### Technical Concept
 - `draft`
-- `ready`
+- `approved`
 
 ### Implementation Plan
 - `draft`
-- `planned`
+- `approved`
 - `in progress`
 - `done`
 
@@ -89,11 +89,11 @@ If these concepts are clear, the rest of Shape is straightforward.
 
 ### Specification Updates
 - `draft`
-- `ready`
+- `approved`
 
 Use them literally:
 - `draft` means still being refined
-- `ready` means accepted for downstream use
+- `approved` means accepted for downstream use or as the execution baseline
 - `in progress` means implementation is actively underway
 - `done` means the implementation workflow is complete
 
@@ -151,19 +151,19 @@ Good input includes:
 
 Do not be artificially minimal if you already have a decent write-up. Shape works better when the agent gets substantial requirement input early.
 
-A PRD is ready when:
+A PRD is ready to approve when:
 - the goal is clear
 - the main flow is understandable
 - requirements are concrete enough for design
 - out-of-scope items are visible
 - important ambiguities are resolved or clearly listed
 
-Then mark the PRD `ready` and commit it as the accepted baseline.
+Then mark the PRD `approved` and commit it as the accepted baseline.
 
 Typical prompts:
 - Create a PRD for this feature from the notes below
 - Continue refining the PRD and tell me what is still ambiguous
-- Mark the PRD ready if it is complete enough for technical design
+- Mark the PRD approved if it is complete enough for technical design
 
 ---
 
@@ -171,7 +171,7 @@ Typical prompts:
 
 **Skill:** `create technical concept`
 
-This step is for turning the ready PRD into a repository-aware design. The user should ask the agent to create the Technical Concept from the PRD, the repository structure, and the repository guidance, then refine it until implementation can begin without guessing.
+This step is for turning the approved PRD into a repository-aware design. The user should ask the agent to create the Technical Concept from the PRD, the repository structure, and the repository guidance, then refine it until implementation can begin without guessing.
 
 The Technical Concept should be repository-aware. It should reflect:
 - current code structure
@@ -180,19 +180,19 @@ The Technical Concept should be repository-aware. It should reflect:
 - validation commands
 - implementation boundaries that already exist in the repo
 
-A Technical Concept is ready when:
+A Technical Concept is ready to approve when:
 - the solution direction is clear
 - the design is coherent
 - repository alignment is explicit enough
 - important risks and trade-offs are visible
 - implementation planning can start without guessing the design
 
-Then mark the Technical Concept `ready` and commit it as the accepted design baseline.
+Then mark the Technical Concept `approved` and commit it as the accepted design baseline.
 
 Typical prompts:
 - Create a Technical Concept for the active feature using the repository guidance
 - Continue refining the Technical Concept and call out design risks
-- Mark the Technical Concept ready if it is coherent enough for implementation planning
+- Mark the Technical Concept approved if it is coherent enough for implementation planning
 
 ---
 
@@ -200,19 +200,19 @@ Typical prompts:
 
 **Skill:** `plan implementation`
 
-This step is for creating the first usable execution structure. The user should ask the agent to plan implementation only after the PRD and Technical Concept are ready.
+This step is for creating the first usable execution structure. The user should ask the agent to plan implementation only after the PRD and Technical Concept are approved.
 
 The first version should include:
 - the objective
 - initial slices
 - a first execution structure
-- `status: planned`
+- `status: approved`
 
 Do not try to fully task the entire feature upfront. Shape works better when detailed tasking happens slice by slice. At this stage the Implementation Plan is created and approved, but slices remain untasked and start in `draft` until they are prepared.
 
 Typical prompts:
 - Plan implementation for the active feature
-- Create the initial Implementation Plan from the ready PRD and Technical Concept
+- Create the initial Implementation Plan from the approved PRD and Technical Concept
 
 ---
 
@@ -348,7 +348,7 @@ Typical prompts:
 - Check completion state and mark the Implementation Plan done if everything is complete
 
 The Implementation Plan is the canonical feature-completion artifact.
-PRD and Technical Concept remain `ready` after completion; they do not gain a separate `done` state.
+PRD and Technical Concept remain `approved` after completion; they do not gain a separate `done` state.
 
 ---
 
@@ -356,7 +356,7 @@ PRD and Technical Concept remain `ready` after completion; they do not gain a se
 
 **Skills:** `update prd`, `update technical concept`, `update implementation plan`
 
-Once the PRD or Technical Concept is ready, do not quietly rewrite the baseline.
+Once the PRD or Technical Concept is approved, do not quietly rewrite the baseline.
 
 Use a **Specification Update**.
 
@@ -381,21 +381,21 @@ Each update contains:
 - design assumptions
 - responsibility boundaries
 
-### Update Implementation Plan when ready spec changes affect execution
+### Update Implementation Plan when approved spec changes affect execution
 Typical examples:
 - add a new slice
 - adjust a `draft` or `planned` slice
 - change execution order
 - refresh notes or relevant files
 
-Only **ready** updates are effective.
+Only **approved** updates are effective.
 
 A strong default is to keep at most one draft update per target document whenever possible. Multiple drafts in the same document create confusion quickly.
 
 Typical prompts:
 - Add a PRD update for this newly discovered requirement
 - Add a Technical Concept update for the validation change
-- Apply the ready updates to the Implementation Plan
+- Apply the approved updates to the Implementation Plan
 
 ---
 
@@ -406,7 +406,7 @@ These rules matter more than any prompt wording.
 ### 1. Always work against a concrete feature
 Do not let the session drift into “some work around this area.” Use a feature folder and its documents.
 
-### 2. Keep PRD and Technical Concept stable after readiness
+### 2. Keep PRD and Technical Concept stable after approval
 Do not silently rewrite them. Use Specification Updates.
 
 ### 3. Use the Implementation Plan as the live execution document
@@ -478,7 +478,7 @@ Concrete navigation skills are also available whenever needed:
 - use **`show capabilities`** if you want a reminder of what Shape can do at this point
 
 ### Before implementation
-- confirm PRD and Technical Concept are ready
+- confirm PRD and Technical Concept are approved
 - prepare only the next slice and move it to `planned`
 - choose only a small batch
 

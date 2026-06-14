@@ -2,7 +2,7 @@
 
 ## Header
 - **Title:**
-- **Status:** `draft | ready | in progress | done`
+- **Status:** `draft | approved | in progress | done`
 - **Date:** `YYYY-MM-DD`
 
 ---
@@ -19,14 +19,14 @@ Defines the high-level structure of execution.
 
 - **Slice 1:**
   - **Goal:** ...
-  - **Status:** `draft | ready | in progress | done`
+  - **Status:** `draft | planned | in progress | done`
 
 Rules:
 - Slices use explicit lifecycle status rather than checkboxes.
 - New slices may be appended during implementation.
 - Initial slices created during `plan implementation` start as `draft`.
-- A selected slice moves to `ready` after approved planning in `plan slice`.
-- A `ready` slice moves to `in progress` when the first approved task in that slice is marked done.
+- A selected slice moves to `planned` after approved planning in `plan slice`.
+- A `planned` slice moves to `in progress` when the first approved task in that slice is marked done.
 - A slice moves to `done` only through explicit validation in `finish slice`.
 - Each Slice should remain small enough to fit within a single focused agent session.
 - Each new Slice should normally be executed in a fresh agent session.

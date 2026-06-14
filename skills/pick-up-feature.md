@@ -48,7 +48,7 @@ Prefer deterministic resolution in this order:
 4. Single unfinished feature that is the obvious candidate
 5. Most likely unfinished candidate based on current workflow state
 
-For default resume behavior, treat a feature as unfinished only when its Implementation Plan is missing, `draft`, `planned`, or `in progress`.
+For default resume behavior, treat a feature as unfinished only when its Implementation Plan is missing, `draft`, `approved`, or `in progress`.
 Treat a feature whose Implementation Plan is `done` as completed rather than resumable by default.
 
 When a single unfinished feature is the obvious candidate, resolve it with minimal friction.
@@ -88,8 +88,8 @@ Use current artifact state to suggest the next likely step.
 
 Examples:
 - PRD missing or still early → `create prd`
-- PRD ready, Technical Concept draft or missing → `create technical concept`
-- PRD and Technical Concept ready, Implementation Plan missing or draft → `plan implementation`
+- PRD approved, Technical Concept draft or missing → `create technical concept`
+- PRD and Technical Concept approved, Implementation Plan missing or draft → `plan implementation`
 - next slice is still `draft` → `plan slice`
 - slice is `planned` and waiting for execution selection → `implement batch`
 - slice is `in progress` and active work is awaiting review, approval handling, revision, or commit → continue `implement batch`

@@ -96,7 +96,7 @@ The skill should include workflow rules that materially affect behavior.
 
 Examples:
 - PRD and Technical Concept updates are append-only after readiness
-- only ready updates are effective
+- only approved updates are effective
 - implementation tasks are marked done only after explicit developer approval
 - `implement batch` includes commit as part of completing the operation, even when the developer performs the commit directly
 - the agent may create that commit only on explicit developer instruction
@@ -150,8 +150,8 @@ Skills touching PRD baseline creation should use the exact PRD template structur
 PRD updates must be appended under `## Updates` using the update structure already defined by the template.
 
 They should:
-- not rewrite ready baseline content
-- not silently edit prior ready updates
+- not rewrite approved baseline content
+- not silently edit prior approved updates
 - normally prefer continuing an existing draft update if one already exists
 
 ### Technical Concept baseline work
@@ -164,7 +164,7 @@ Technical Concept updates must be appended under `## Updates` and follow the def
 
 They should:
 - preserve baseline immutability after readiness
-- avoid silently rewriting ready content
+- avoid silently rewriting approved content
 - explicitly align with repository guidance when relevant
 
 ### Implementation Plan work

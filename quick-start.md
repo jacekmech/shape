@@ -37,7 +37,7 @@ Shape first helps you create a PRD.
 ```markdown
 # Contact Form Attachments
 
-Status: ready
+Status: approved
 
 Users can attach one PDF, PNG, or JPG file.
 
@@ -59,7 +59,7 @@ Shape then helps you create a Technical Concept.
 ```markdown
 # Contact Form Attachments - Technical Concept
 
-Status: ready
+Status: approved
 
 Frontend:
 - add file input
@@ -81,7 +81,7 @@ Shape then helps you create an Implementation Plan.
 ```markdown
 # Contact Form Attachments - Implementation Plan
 
-Status: planned
+Status: approved
 
 Slices:
 1. Backend upload handling

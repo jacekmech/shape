@@ -16,7 +16,7 @@ Typical triggers:
 ## Inputs
 Expected inputs:
 - active feature reference or resolved feature folder
-- planned or in-progress Implementation Plan in `03-implementation-plan.md`
+- approved or in-progress Implementation Plan in `03-implementation-plan.md`
 - selected slice, or permission to default to the next unfinished slice
 
 Helpful but optional:
@@ -53,7 +53,7 @@ This skill should reinforce Shape’s execution discipline:
 - each new Slice should normally begin in a fresh agent session
 - the next likely step after slice preparation is selecting a small execution batch
 - approved planning transitions the selected slice from `draft` to `planned`
-- Implementation Plan status moves from `planned` to `in progress` when the first approved task is marked done during execution, not merely because tasks were drafted
+- Implementation Plan status moves from `approved` to `in progress` when the first approved task is marked done during execution, not merely because tasks were drafted
 
 The responsible role remains the Developer.
 The agent may propose task breakdowns and pre-execution decisions, but should not silently over-expand scope or reorder execution without developer confirmation when the change is material.

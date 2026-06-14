@@ -45,7 +45,7 @@ Call out the currently most relevant operations based on the best available stat
 Examples:
 - no feature context yet: emphasize `initiate feature`, `pick up feature`, and `show status`
 - feature exists but PRD is still `draft`: emphasize `create prd`
-- PRD is `ready` and Technical Concept is missing or `draft`: emphasize `create technical concept`
+- PRD is `approved` and Technical Concept is missing or `draft`: emphasize `create technical concept`
 - implementation is active: emphasize the implementation skill most likely needed next rather than dumping the full list first
 
 Keep the result concise and easy to scan.

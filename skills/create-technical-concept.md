@@ -4,19 +4,19 @@
 Create or refine the Technical Concept baseline for the active feature from the PRD, codebase, repository guidance, and technical context so that implementation planning can begin from a stable design baseline.
 
 ## When to Use
-Use this skill when the user wants to start the Technical Concept, continue technical design work, turn existing design notes into the Shape Technical Concept structure, or decide whether the Technical Concept is ready for implementation planning.
+Use this skill when the user wants to start the Technical Concept, continue technical design work, turn existing design notes into the Shape Technical Concept structure, or decide whether the Technical Concept should be approved for implementation planning.
 
 Typical triggers:
 - “create technical concept”
 - “draft the technical concept”
 - “continue technical design”
 - “turn these design notes into the tech concept”
-- “make the technical concept ready”
+- “approve the technical concept”
 
 ## Inputs
 Expected inputs:
 - active feature reference or resolved feature folder
-- ready PRD in `01-prd.md`
+- approved PRD in `01-prd.md`
 - relevant codebase context
 - repository guidance
 
@@ -28,13 +28,13 @@ Helpful but optional:
 ## Preconditions
 Before editing the Technical Concept baseline:
 - resolve the active feature and locate `01-prd.md` and `02-tech-concept.md`
-- inspect the PRD and confirm the requirement baseline is `ready`, including any ready updates that materially affect design
+- inspect the PRD and confirm the requirement baseline is `approved`, including any approved updates that materially affect design
 - inspect repository guidance that shapes architecture, structure, commands, and preferred boundaries
 - inspect the current Technical Concept content and status
 
 This skill should operate on the Technical Concept baseline only while its status is `draft`.
-If the PRD is not yet `ready`, this skill should not proceed and should redirect upstream to `create prd` or `update prd` as appropriate.
-If the Technical Concept baseline is already `ready`, this skill should not rewrite it and should redirect design changes to `update technical concept`.
+If the PRD is not yet `approved`, this skill should not proceed and should redirect upstream to `create prd` or `update prd` as appropriate.
+If the Technical Concept baseline is already `approved`, this skill should not rewrite it and should redirect design changes to `update technical concept`.
 
 ## Behavior
 Work with the user iteratively to turn product requirements and repository context into a structured Technical Concept baseline.
@@ -56,7 +56,7 @@ The responsible role remains the Architect.
 The agent may structure, suggest, and refine, but should not silently finalize uncertain design intent on the user’s behalf.
 
 The Technical Concept may remain `draft` while important design gaps, constraints, or trade-offs remain unresolved.
-Set it to `ready` only when the Architect explicitly accepts it as ready for implementation planning.
+Set it to `approved` only when the Architect explicitly accepts it for implementation planning.
 
 ## Artifact Rules
 Read and update only the Technical Concept baseline in `02-tech-concept.md`.
@@ -78,26 +78,26 @@ Use the canonical Technical Concept section structure:
 
 Apply these lifecycle rules:
 - baseline work is mutable only while the Technical Concept status is `draft`
-- once the Technical Concept status is `ready`, baseline content becomes immutable
-- design changes after readiness belong under `## Updates` through `update technical concept`
+- once the Technical Concept status is `approved`, baseline content becomes immutable
+- design changes after approval belong under `## Updates` through `update technical concept`
 - `## Repository Alignment` must be filled from actual repository guidance, not left as a generic placeholder when repository constraints materially shape the solution
 - `## Updates` must remain present even if no updates exist yet
 
 This skill may:
 - create or refine baseline design content in `02-tech-concept.md`
 - restructure draft technical input into the template sections
-- change Technical Concept status between `draft` and `ready` based on explicit user acceptance
+- change Technical Concept status between `draft` and `approved` based on explicit user acceptance
 
 This skill must not:
-- silently rewrite a `ready` Technical Concept baseline
+- silently rewrite an `approved` Technical Concept baseline
 - hide repository constraints by omitting `## Repository Alignment`
 - convert requirement ambiguity into silent design assumptions when a PRD update is the correct response
-- mark the Technical Concept `ready` without clear user confirmation
+- mark the Technical Concept `approved` without clear user confirmation
 
 ## Outputs
 This skill should produce:
 - a Technical Concept baseline in `02-tech-concept.md` aligned to the Technical Concept template
-- updated Technical Concept status of `draft` or `ready`
+- updated Technical Concept status of `draft` or `approved`
 - surfaced design gaps, risks, or PRD misalignments when readiness is not yet justified
 - a repository state that is ready to be committed when the Architect accepts the current Technical Concept change set
 - a proposed commit message when the accepted Technical Concept state is suitable for checkpointing
@@ -108,14 +108,14 @@ This skill is complete when:
 - `02-tech-concept.md` exists and follows the canonical Technical Concept structure
 - the current baseline content is coherent enough for its current status
 - repository guidance is explicitly reflected in `## Repository Alignment`
-- the document status accurately reflects whether the Technical Concept is still being refined or is accepted as ready
+- the document status accurately reflects whether the Technical Concept is still being refined or is approved
 - the resulting Technical Concept state is clear enough that the current document change can be committed without ambiguity
 - the accepted checkpoint is clear enough that the agent can propose a commit cleanly
 - the next likely workflow action is stated plainly
 
 ## Guardrails
-- Do not treat post-readiness design changes as baseline edits
-- Do not mark the Technical Concept `ready` without explicit Architect acceptance
+- Do not treat post-approval design changes as baseline edits
+- Do not mark the Technical Concept `approved` without explicit Architect acceptance
 - Do not skip repository alignment when local guidance materially affects the solution
 - Do not silently absorb requirement-level uncertainty that should be pushed back to the PRD
 - Do not drift into implementation task planning; keep this artifact at the design baseline level
@@ -126,6 +126,6 @@ Usually suggest:
 - continue `create technical concept` if material design gaps remain
 - propose a commit message and offer to create the commit if the current Technical Concept change set is accepted and the user wants a checkpoint
 - `update prd` if requirement-level issues were discovered
-- `plan implementation` if the Technical Concept is `ready`
+- `plan implementation` if the Technical Concept is `approved`
 
-Prefer `plan implementation` once both the PRD and Technical Concept are explicitly accepted as `ready`.
+Prefer `plan implementation` once both the PRD and Technical Concept are explicitly accepted as `approved`.

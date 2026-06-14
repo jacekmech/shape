@@ -1,10 +1,10 @@
 # plan implementation
 
 ## Purpose
-Create the initial Implementation Plan from the ready PRD and ready Technical Concept, define the first set of execution slices, and set up implementation so that execution can continue through small, reviewable batches.
+Create the initial Implementation Plan from the approved PRD and approved Technical Concept, define the first set of execution slices, and set up implementation so that execution can continue through small, reviewable batches.
 
 ## When to Use
-Use this skill when the user wants to begin implementation planning for a feature whose PRD and Technical Concept are already ready, or when the existing Implementation Plan is still only a scaffold and needs to become a real execution document.
+Use this skill when the user wants to begin implementation planning for a feature whose PRD and Technical Concept are already approved, or when the existing Implementation Plan is still only a scaffold and needs to become a real execution document.
 
 Typical triggers:
 - “plan implementation”
@@ -16,8 +16,8 @@ Typical triggers:
 ## Inputs
 Expected inputs:
 - active feature reference or resolved feature folder
-- ready PRD in `01-prd.md`
-- ready Technical Concept in `02-tech-concept.md`
+- approved PRD in `01-prd.md`
+- approved Technical Concept in `02-tech-concept.md`
 - relevant codebase context
 
 Helpful but optional:
@@ -28,9 +28,9 @@ Helpful but optional:
 ## Preconditions
 Before initiating implementation:
 - resolve the active feature and locate `01-prd.md`, `02-tech-concept.md`, and `03-implementation-plan.md`
-- confirm the PRD status is `ready`
-- confirm the Technical Concept status is `ready`
-- inspect any ready updates in the PRD or Technical Concept that materially affect execution
+- confirm the PRD status is `approved`
+- confirm the Technical Concept status is `approved`
+- inspect any approved updates in the PRD or Technical Concept that materially affect execution
 - inspect the codebase enough to shape realistic initial slices
 
 Implementation planning should not begin from unstable upstream artifacts.
@@ -40,7 +40,7 @@ If the PRD or Technical Concept is still `draft`, surface that clearly and redir
 Create or refine the Implementation Plan into an execution-ready control document.
 
 During initialization:
-- summarize the development objective from the ready PRD and Technical Concept
+- summarize the development objective from the approved PRD and Technical Concept
 - define an initial set of slices small enough for focused execution sessions
 - create initial slices in `draft`
 - keep slices reviewable and practical rather than overly broad
@@ -55,11 +55,11 @@ This skill should reinforce Shape’s execution discipline:
 The responsible role remains the Developer.
 The agent may propose slices, and execution order, but should not silently decide implementation strategy where the developer needs to choose trade-offs or sequencing.
 
-Set the Implementation Plan to `planned` when the initial slices and execution framing are accepted as ready for execution.
+Set the Implementation Plan to `approved` when the initial slices and execution framing are accepted as the execution baseline.
 Do not set it to `in progress` merely because planning work occurred; that transition belongs when active execution begins.
 
 ## Artifact Rules
-Read and update only the Implementation Plan in `03-implementation-plan.md`, using the ready PRD and ready Technical Concept as upstream inputs.
+Read and update only the Implementation Plan in `03-implementation-plan.md`, using the approved PRD and approved Technical Concept as upstream inputs.
 
 Use the canonical Implementation Plan section structure:
 - `## Header`
@@ -83,7 +83,7 @@ This skill may:
 - define initial slices in `## Slices`
 - establish corresponding slice entries in `## Execution Order`
 - seed `## Relevant Files` with a compact working file map when useful
-- change plan status between `draft` and `planned` based on explicit developer acceptance
+- change plan status between `draft` and `approved` based on explicit developer acceptance
 
 This skill must not:
 - start marking slices
@@ -95,17 +95,17 @@ This skill must not:
 This skill should produce:
 - an Implementation Plan in `03-implementation-plan.md` aligned to the Implementation Plan template
 - initial slices in `draft` ready for later refinement
-- updated plan status of `draft` or `planned`
+- updated plan status of `draft` or `approved`
 - a repository state that is ready to be committed once the Developer accepts the initial plan structure
 - a proposed commit message when the accepted planning state is suitable for checkpointing
 - a clear likely next step
 
 ## Completion Signals
 This skill is complete when:
-- `03-implementation-plan.md` reflects the ready PRD and ready Technical Concept
+- `03-implementation-plan.md` reflects the approved PRD and approved Technical Concept
 - initial slices exist and are small enough to support focused execution sessions
 - `## Execution Order` contains the execution skeleton without prematurely turning into task-level detail
-- the plan status accurately reflects whether execution planning is still being refined or is accepted as planned
+- the plan status accurately reflects whether execution planning is still being refined or is approved as the execution baseline
 - the resulting planning state is clear enough to serve as a repository checkpoint before slice refinement begins
 - the accepted checkpoint is clear enough that the agent can propose a commit cleanly
 - the next likely workflow step is stated plainly
@@ -122,7 +122,7 @@ This skill is complete when:
 Usually suggest:
 - continue `plan implementation` if slice structure is still unstable
 - propose a commit message and offer to create the commit if the current planning state is accepted and the user wants a checkpoint
-- `plan slice` if the Implementation Plan is `planned`
+- `plan slice` if the Implementation Plan is `approved`
 - `update technical concept` or `update prd` if implementation planning exposed a real upstream gap
 
-Prefer `plan slice` once the Implementation Plan is explicitly accepted as `planned`.
+Prefer `plan slice` once the Implementation Plan is explicitly accepted as `approved`.

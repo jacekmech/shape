@@ -1,17 +1,17 @@
 # update prd
 
 ## Purpose
-Add a new PRD Specification Update or continue refining an existing draft update after the PRD baseline is already `ready`, while preserving append-only change handling and Product Owner ownership of requirement-level changes.
+Add a new PRD Specification Update or continue refining an existing draft update after the PRD baseline is already `approved`, while preserving append-only change handling and Product Owner ownership of requirement-level changes.
 
 ## When to Use
-Use this skill when the user needs to record a requirement change, correction, clarification, or newly discovered information after the PRD baseline is already ready.
+Use this skill when the user needs to record a requirement change, correction, clarification, or newly discovered information after the PRD baseline is already approved.
 
 Typical triggers:
 - “update prd”
 - “record this requirement change”
 - “add a PRD update”
 - “continue the draft PRD update”
-- “mark this PRD change ready”
+- “mark this PRD change approved”
 
 ## Inputs
 Expected inputs:
@@ -26,11 +26,11 @@ Helpful but optional:
 ## Preconditions
 Before updating the PRD:
 - resolve the active feature and locate `01-prd.md`
-- confirm the PRD baseline status is already `ready`
-- inspect `## Updates` for existing draft and ready updates
+- confirm the PRD baseline status is already `approved`
+- inspect `## Updates` for existing draft and approved updates
 - determine whether an existing draft update should be continued instead of creating a new one
 
-This skill is for post-readiness PRD evolution.
+This skill is for post-approval PRD evolution.
 If the PRD baseline is still `draft`, requirement work belongs in `create prd` instead.
 
 ## Behavior
@@ -43,7 +43,7 @@ When no suitable draft update exists:
 - append a new update under `## Updates`
 - give it a clear name
 - set the date
-- keep its status accurate as `draft` or `ready`
+- keep its status accurate as `draft` or `approved`
 
 When refining an update:
 - clarify the context that caused the change
@@ -53,40 +53,40 @@ When refining an update:
 The responsible role remains the Product Owner.
 The agent may draft or refine update language, but should not silently finalize requirement intent without clear user confirmation.
 
-Only mark the update `ready` when the Product Owner explicitly accepts it as effective.
+Only mark the update `approved` when the Product Owner explicitly accepts it as effective.
 
 ## Artifact Rules
 Operate only in `01-prd.md` under `## Updates`.
 
 Use the PRD update structure already defined by the template:
 - `#### Update: <name>`
-- `- **Status:** draft | ready`
+- `- **Status:** draft | approved`
 - `- **Date:** YYYY-MM-DD`
 - `**Context**`
 - `**Change / decision**`
 - `**Impact**`
 
 Apply these lifecycle rules:
-- the ready PRD baseline is immutable
-- ready updates are append-only and must not be silently rewritten
+- the approved PRD baseline is immutable
+- approved updates are append-only and must not be silently rewritten
 - updates are appended in chronological order
-- only updates with status `ready` are considered effective
+- only updates with status `approved` are considered effective
 
 This skill may:
 - append a new update under `## Updates`
 - continue refining an existing draft update
-- change an update status between `draft` and `ready` based on explicit user confirmation
+- change an update status between `draft` and `approved` based on explicit user confirmation
 
 This skill must not:
-- rewrite the ready PRD baseline inline
-- silently edit prior ready updates
+- rewrite the approved PRD baseline inline
+- silently edit prior approved updates
 - create a generic note outside the update structure
 - imply downstream propagation has already happened unless a separate step performs it
 
 ## Outputs
 This skill should produce:
 - a new or refined PRD Specification Update under `## Updates`
-- an accurate update status of `draft` or `ready`
+- an accurate update status of `draft` or `approved`
 - a short note on likely downstream implications when relevant
 - a repository state that is ready to be committed once the selected PRD update state is accepted
 - a proposed commit message when the accepted PRD update state is suitable for checkpointing
@@ -95,7 +95,7 @@ This skill should produce:
 ## Completion Signals
 This skill is complete when:
 - the change is recorded under `## Updates` using the canonical update structure
-- it is clear whether the update is still `draft` or already `ready`
+- it is clear whether the update is still `draft` or already `approved`
 - baseline immutability has been preserved
 - any meaningful downstream consequence is visible rather than implied
 - the resulting PRD update state is clear enough to serve as a commit checkpoint before downstream propagation continues
@@ -103,10 +103,10 @@ This skill is complete when:
 - the next likely workflow step is stated plainly
 
 ## Guardrails
-- Do not rewrite the ready PRD baseline
-- Do not silently modify older ready updates
+- Do not rewrite the approved PRD baseline
+- Do not silently modify older approved updates
 - Do not create multiple competing draft updates when one should be continued
-- Do not mark an update `ready` without explicit Product Owner acceptance
+- Do not mark an update `approved` without explicit Product Owner acceptance
 - Do not imply that Technical Concept or Implementation Plan already reflect the update unless that propagation step has happened
 - Do not proceed to the next workflow step without explicit approval
 
@@ -114,7 +114,7 @@ This skill is complete when:
 Usually suggest:
 - continue `update prd` if the change is still incomplete or awaiting acceptance
 - propose a commit message and offer to create the commit if the current PRD update state is accepted and the user wants a checkpoint
-- `update technical concept` if the ready PRD update has design implications
+- `update technical concept` if the approved PRD update has design implications
 - `show status` if the user needs orientation on downstream impact
 
-Prefer `update technical concept` when a newly ready PRD update changes technical design expectations.
+Prefer `update technical concept` when a newly approved PRD update changes technical design expectations.

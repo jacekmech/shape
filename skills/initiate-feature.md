@@ -99,7 +99,7 @@ Initial state:
 - title set from the feature name
 - empty or placeholder execution content is acceptable at this stage
 
-Do not prematurely mark any artifact as `ready`.
+Do not prematurely mark any artifact as `approved`.
 
 ## Repository Readiness Check
 This skill must inspect repository readiness for agent-assisted development.
@@ -165,7 +165,7 @@ This skill is complete when:
 
 ## Guardrails
 - Do not overwrite an existing feature folder silently
-- Do not mark documents `ready` during scaffolding
+- Do not mark documents `approved` during scaffolding
 - Do not skip repository readiness reporting
 - Do not invent non-Shape artifact filenames unless repository constraints require it
 - Do not bury the next step; state it plainly

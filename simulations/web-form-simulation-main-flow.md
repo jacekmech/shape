@@ -28,7 +28,7 @@ Feature used in this example:
 
 **User:** Yes.
 
-**Agent:** I need a few product-level clarifications before I call the PRD ready:
+**Agent:** I need a few product-level clarifications before I call the PRD approved:
 - What fields are required?
 - Do we need persistence, admin visibility, or tracking?
 - Do we care about anti-spam protections in this feature?
@@ -39,7 +39,7 @@ Feature used in this example:
 
 **User:** Makes sense.
 
-**Agent:** Good. The PRD is ready for handoff. The next step is the Technical Concept unless you want to refine requirements further.
+**Agent:** Good. The PRD is approved for handoff. The next step is the Technical Concept unless you want to refine requirements further.
 
 **User:** Move to Technical Concept.
 
@@ -63,13 +63,13 @@ Feature used in this example:
 
 **User:** That sounds right.
 
-**Agent:** I want to confirm two things before I mark the Technical Concept ready:
+**Agent:** I want to confirm two things before I mark the Technical Concept approved:
 - frontend validation is for UX, but the backend remains authoritative
 - the recipient must not come from the client and must be backend configuration only
 
 **User:** Correct on both points.
 
-**Agent:** Good. That closes the main design decisions. The Technical Concept is ready. The next step is implementation planning.
+**Agent:** Good. That closes the main design decisions. The Technical Concept is approved. The next step is implementation planning.
 
 **User:** Proceed.
 
@@ -77,7 +77,7 @@ Feature used in this example:
 
 **User:** Start implementation planning.
 
-**Agent:** I’ll create the Implementation Plan from the ready PRD and Technical Concept. I want the slices small enough for focused execution sessions and clean review boundaries. For this feature I’d start with:
+**Agent:** I’ll create the Implementation Plan from the approved PRD and Technical Concept. I want the slices small enough for focused execution sessions and clean review boundaries. For this feature I’d start with:
 - Slice 1: frontend form UI and client validation
 - Slice 2: backend submission endpoint and server-side validation
 - Slice 3: email integration and submission wiring
@@ -85,7 +85,7 @@ Feature used in this example:
 
 **User:** Reasonable.
 
-**Agent:** I’d keep those as initial slices only, starting in `draft`. Tasks should be added when we prepare each slice, rather than planning the entire feature in task detail up front. The next step is to prepare the first unfinished slice and move it to `ready`.
+**Agent:** I’d keep those as initial slices only, starting in `draft`. Tasks should be added when we prepare each slice, rather than planning the entire feature in task detail up front. The next step is to prepare the first unfinished slice and move it to `planned`.
 
 **User:** Prepare the first slice.
 
@@ -98,7 +98,7 @@ Feature used in this example:
 
 **User:** That is the right breakdown.
 
-**Agent:** I’m keeping submission wiring out of this slice so the frontend work stays reviewable on its own. The slice is still bounded and small enough for a focused execution session. Once you approve this breakdown, Slice 1 moves from `draft` to `ready`. The next step is for you to choose a small execution batch.
+**Agent:** I’m keeping submission wiring out of this slice so the frontend work stays reviewable on its own. The slice is still bounded and small enough for a focused execution session. Once you approve this breakdown, Slice 1 moves from `draft` to `planned`. The next step is for you to choose a small execution batch.
 
 **User:** First batch: build the form UI and client validation. Leave submission behavior for later.
 
@@ -185,7 +185,7 @@ This example highlights the parts of Shape that are easy to miss in a shorter su
 - the user and agent do not jump straight from idea to code
 - PRD readiness and Technical Concept readiness are explicit handoff points
 - the Implementation Plan becomes the live control document for execution
-- slices move through `draft -> ready -> in progress -> done`
+- slices move through `draft -> planned -> in progress -> done`
 - slices are prepared before execution, but tasks are refined incrementally
 - the developer selects each batch
 - the agent executes within batch scope and does not self-approve

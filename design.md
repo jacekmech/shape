@@ -143,7 +143,7 @@ Each stage produces a well-defined artifact that becomes the input to the next s
 
 **Summary**  
 Transforms an initial feature idea into a structured **Product Requirements Definition (PRD)**.  
-The AI Agent collaborates with the user to iteratively refine input until the document is complete, consistent, and ready for downstream use.
+The AI Agent collaborates with the user to iteratively refine input until the document is complete, consistent, and approved for downstream use.
 
 Shape should treat larger user-provided requirement input as a first-class starting point. In many cases, the user will already have a draft PRD, ticket text, notes, or a rough feature brief prepared outside the workflow. The AI Agent should explicitly invite such input before switching to narrower clarification questions.
 
@@ -157,7 +157,7 @@ Unstructured or semi-structured feature description, optionally including an exi
 PRD markdown document, structured according to a predefined template and **reviewed for completeness and clarity**.
 
 **Completion Condition**  
-PRD is accepted as ready for the feature scope to be handed over downstream.
+PRD is approved for the feature scope to be handed over downstream.
 
 **Feedback Loop**  
 - **Inbound**  
@@ -166,7 +166,7 @@ PRD is accepted as ready for the feature scope to be handed over downstream.
   None
 
 **Guidance to user**  
-When a PRD interaction step finishes, the AI Agent should clearly indicate the most likely next step, typically continuing PRD refinement or marking the PRD as `ready` when appropriate. Workflow-mode reminders should be used only when they improve orientation, not as repetitive turn prefixes.
+When a PRD interaction step finishes, the AI Agent should clearly indicate the most likely next step, typically continuing PRD refinement or marking the PRD as `approved` when appropriate. Workflow-mode reminders should be used only when they improve orientation, not as repetitive turn prefixes.
 
 ---
 
@@ -192,7 +192,7 @@ Architect
 Technical Concept markdown document (design baseline)
 
 **Completion Condition**  
-Technical Concept is accepted as ready for implementation planning to begin.
+Technical Concept is approved for implementation planning to begin.
 
 **Feedback Loop**  
 - **Inbound**  
@@ -201,7 +201,7 @@ Technical Concept is accepted as ready for implementation planning to begin.
   May append Specification Updates to PRD when requirement-level issues are identified
 
 **Guidance to user**  
-When a Technical Concept interaction step finishes, the AI Agent should clearly indicate the most likely next step, typically continuing Technical Concept refinement, marking it `ready`, or initiating implementation planning.
+When a Technical Concept interaction step finishes, the AI Agent should clearly indicate the most likely next step, typically continuing Technical Concept refinement, marking it `approved`, or initiating implementation planning.
 
 ---
 
@@ -291,7 +291,7 @@ The user may also begin by supplying a larger draft or semi-structured write-up.
 - Document is incrementally structured according to its template
 - Gaps, ambiguities, and inconsistencies are resolved during this phase
 - Document metadata is set explicitly, including:
-  - `status: draft | ready`
+  - `status: draft | approved`
   - `date: YYYY-MM-DD`
 
 **Output**  
@@ -299,7 +299,7 @@ Version 1 of the document (baseline)
 
 **Completion Condition**
 - Document is explicitly reviewed and accepted by the responsible role
-- Document status is set to `ready`
+- Document status is set to `approved`
 - Document is considered stable for downstream use
 
 ---
@@ -307,7 +307,7 @@ Version 1 of the document (baseline)
 ### 5.2 Baseline Immutability
 
 **Summary**  
-Once ready, the baseline PRD or Technical Concept is **not modified directly**.
+Once approved, the baseline PRD or Technical Concept is **not modified directly**.
 
 **Rules**
 - Existing content is not edited, removed, or rewritten
@@ -329,7 +329,7 @@ All changes after baseline readiness are recorded as **Specification Updates**, 
 **Structure**
 Each Specification Update includes:
 - Name
-- Status: `draft | ready`
+- Status: `draft | approved`
 - Date
 - Context
 - Change / decision
@@ -337,9 +337,9 @@ Each Specification Update includes:
 
 **Rules**
 - Updates are appended in chronological order
-- Existing ready Updates are not modified
+- Existing approved Updates are not modified
 - Updates do not rewrite baseline content; they extend it
-- Only **ready** Updates are considered effective for downstream work
+- Only **approved** Updates are considered effective for downstream work
 
 **Usage**
 - Captures discoveries during later stages
@@ -416,12 +416,12 @@ These are related, but they are not the same mechanism.
 ### 6.1 Initialization
 
 **Summary**  
-Implementation begins by filling in the scaffolded Implementation Plan from the ready PRD and Technical Concept.
+Implementation begins by filling in the scaffolded Implementation Plan from the approved PRD and Technical Concept.
 
 **State**
-- PRD status is `ready`
-- Technical Concept status is `ready`
-- Implementation Plan is created with its status updated to `planned`
+- PRD status is `approved`
+- Technical Concept status is `approved`
+- Implementation Plan is created with its status updated to `approved`
 - Initial Slices are defined in `draft`
 - Tasks are not yet specified
 - No execution has occurred
@@ -509,7 +509,7 @@ Approval and commit form a single normal progression boundary. Once a batch is a
 - Once satisfied, the Developer explicitly confirms the batch is approved
 - After approval, the AI Agent marks relevant tasks as completed in the Implementation Plan so that the workflow continues to minimize direct document editing by the Developer
 - If this is the first approved completed task within a `planned` Slice, that Slice transitions to `in progress`
-- If this is the first Slice entering `in progress`, the Implementation Plan status also transitions from `planned` to `in progress`
+- If this is the first Slice entering `in progress`, the Implementation Plan status also transitions from `approved` to `in progress`
 - Developer commits or asks the agent to commit the approved batch before the next batch begins
 
 **Outcome**
@@ -583,7 +583,7 @@ Discoveries during Implementation may require requirement-level or design-level 
 - Design-level issues may trigger draft Specification Updates to Technical Concept
 - Implementation Plan is updated inline as a live document, including adding new slices, updating eligible `draft` or `planned` slices, and maintaining the **Relevant Files** section as a compact working file map for subsequent execution
 - Downstream propagation is handled explicitly when relevant
-- Ready updates do not silently reinterpret already executed work
+- Approved updates do not silently reinterpret already executed work
 
 **Characteristics**
 - Non-blocking
@@ -811,7 +811,7 @@ All Shape documents follow these principles:
   Documents are created and extended through AI-human collaboration.
 
 - **Baseline + Updates (PRD, Technical Concept)**  
-  PRD and Technical Concept are created as baseline documents, accepted as ready, and later extended only through **Specification Updates** using an append-only model.
+  PRD and Technical Concept are created as baseline documents, approved, and later extended only through **Specification Updates** using an append-only model.
 
 - **Live document (Implementation Plan)**  
   The Implementation Plan evolves directly during execution and is not append-only.
@@ -822,15 +822,15 @@ All Shape documents follow these principles:
   - `date: YYYY-MM-DD`
 
 - **Status model by document type**
-  - PRD: `draft | ready`
-  - Technical Concept: `draft | ready`
-  - Implementation Plan: `draft | planned | in progress | done`
+  - PRD: `draft | approved`
+  - Technical Concept: `draft | approved`
+  - Implementation Plan: `draft | approved | in progress | done`
 
 - **Status model for Slices**
   - `draft | planned | in progress | done`
 
 - **Status model for Specification Updates**
-  - `draft | ready`
+  - `draft | approved`
 
 ---
 
@@ -858,7 +858,7 @@ The PRD should contain:
 
 - **Header**
   - Title
-  - Status: `draft | ready`
+  - Status: `draft | approved`
   - Date
 
 - **Goal**
@@ -903,13 +903,13 @@ The PRD should contain:
 
 Each PRD Update includes:
 - Name
-- Status: `draft | ready`
+- Status: `draft | approved`
 - Date
 - Context
 - Change / decision
 - Impact
 
-Only ready Updates are considered effective.
+Only approved Updates are considered effective.
 
 ---
 
@@ -940,7 +940,7 @@ The Technical Concept should contain:
 
 - **Header**
   - Title
-  - Status: `draft | ready`
+  - Status: `draft | approved`
   - Date
 
 - **Overview**
@@ -999,13 +999,13 @@ The Technical Concept should contain:
 
 Each Technical Concept Update includes:
 - Name
-- Status: `draft | ready`
+- Status: `draft | approved`
 - Date
 - Context
 - Change / decision
 - Impact
 
-Only ready Updates are considered effective.
+Only approved Updates are considered effective.
 
 ---
 
@@ -1104,7 +1104,7 @@ Shape distinguishes between:
 - **Primary workflow operations** — actions that advance a feature through definition, design, and implementation
 - **Supporting operations** — actions that establish or inspect local workflow context
 
-Specification change handling is intentionally explicit. Shape does not attempt to make late changes look cheap or effortless. Instead, it provides a small operational model for drafting and readying them without silently rewriting requirements, design, or execution state.
+Specification change handling is intentionally explicit. Shape does not attempt to make late changes look cheap or effortless. Instead, it provides a small operational model for drafting and approving them without silently rewriting requirements, design, or execution state.
 
 Shape also assumes that a workflow is easier to use when its capabilities are visible. Supporting operations should therefore make it possible to inspect current workflow state and available capabilities without requiring the user to memorize internal operation names.
 
@@ -1132,55 +1132,55 @@ Provides or approves the feature identity, confirms creation of the feature work
 
 #### 2. Create PRD
 **Description**  
-Draft and iteratively refine the Product Requirements Definition until it is ready for downstream use.
+Draft and iteratively refine the Product Requirements Definition until it is approved for downstream use.
 
 **Responsible role**  
 Product Owner
 
 **AI Agent**  
-Guides the discussion, explicitly invites any larger existing requirement draft if available, identifies gaps and ambiguities, drafts and revises the PRD, and updates the document until it is ready. It should conclude each interaction turn with the clearest next step. It may briefly signal that work is proceeding under Shape when entering workflow mode or when that orientation materially helps, but should avoid repetitive reminder phrasing on every exchange. It must not mark document as ready without explicit approval from the user. It must not move on to the next workflow operation without explicit approval from the user.
+Guides the discussion, explicitly invites any larger existing requirement draft if available, identifies gaps and ambiguities, drafts and revises the PRD, and updates the document until it is approved. It should conclude each interaction turn with the clearest next step. It may briefly signal that work is proceeding under Shape when entering workflow mode or when that orientation materially helps, but should avoid repetitive reminder phrasing on every exchange. It must not mark the document as approved without explicit approval from the user. It must not move on to the next workflow operation without explicit approval from the user.
 
 **User**  
-Provides product intent, optionally provides existing requirement material, answers clarification questions, reviews the draft, approves the PRD as ready, commits the changes or asks the Agent to commit.
+Provides product intent, optionally provides existing requirement material, answers clarification questions, reviews the draft, approves the PRD, commits the changes or asks the Agent to commit.
 
 **Ends with**  
-**PRD approved as ready and committed.**
+**PRD approved and committed.**
 
 ---
 
 #### 3. Create Technical Concept
 **Description**  
-Draft and iteratively refine the Technical Concept from the ready PRD until it is ready for implementation.
+Draft and iteratively refine the Technical Concept from the approved PRD until it is approved for implementation.
 
 **Responsible role**  
 Architect
 
 **AI Agent**  
-Validates the PRD as input, explicitly invites any larger existing technical draft if available, analyzes the codebase and repository guidance, aligns the proposed design with repository structure and local architectural patterns, drafts and revises the Technical Concept, and updates the document until it is ready. It should conclude each interaction turn with the clearest next step. It must not mark document as ready without explicit approval from the user. It must not move on to the next workflow operation without explicit approval from the user.
+Validates the PRD as input, explicitly invites any larger existing technical draft if available, analyzes the codebase and repository guidance, aligns the proposed design with repository structure and local architectural patterns, drafts and revises the Technical Concept, and updates the document until it is approved. It should conclude each interaction turn with the clearest next step. It must not mark the document as approved without explicit approval from the user. It must not move on to the next workflow operation without explicit approval from the user.
 
 **User**  
-Provides technical guidance and constraints, optionally provides existing technical design material, reviews design decisions, approves the Technical Concept as ready, commits the changes or asks the Agent to commit.
+Provides technical guidance and constraints, optionally provides existing technical design material, reviews design decisions, approves the Technical Concept, commits the changes or asks the Agent to commit.
 
 **Ends with**  
-**Technical Concept approved as ready and committed.**
+**Technical Concept approved and committed.**
 
 ---
 
 #### 4. Plan Implementation
 **Description**  
-Fill in the scaffolded Implementation Plan from the ready PRD and Technical Concept and prepare execution to begin.
+Fill in the scaffolded Implementation Plan from the approved PRD and Technical Concept and prepare execution to begin.
 
 **Responsible role**  
 Developer
 
 **AI Agent**  
-Validates that PRD and Technical Concept are ready, fills in the scaffolded Implementation Plan by proposing the initial execution structure and initial slices, checks that slices are shaped for fresh-session execution, and updates the document accordingly. It does not create implementation tasks, and initial slices are created in `draft`. It must not mark the Implementation Plan as planned without explicit approval from the user. It must not move on to the next workflow operation without explicit approval from the user.
+Validates that PRD and Technical Concept are approved, fills in the scaffolded Implementation Plan by proposing the initial execution structure and initial slices, checks that slices are shaped for fresh-session execution, and updates the document accordingly. It does not create implementation tasks, and initial slices are created in `draft`. It must not mark the Implementation Plan as approved without explicit approval from the user. It must not move on to the next workflow operation without explicit approval from the user.
 
 **User**  
-Reviews the proposed implementation structure, asks for adjustments if needed, approves the Implementation Plan as planned, commits the changes in the Implementation Plan or asks the agent to commit.
+Reviews the proposed implementation structure, asks for adjustments if needed, approves the Implementation Plan as the execution baseline, commits the changes in the Implementation Plan or asks the agent to commit.
 
 **Ends with**  
-**Implementation Plan approved as planned and committed.**
+**Implementation Plan approved as the execution baseline and committed.**
 
 ---
 
@@ -1227,7 +1227,7 @@ Starts implementation **only after explicit Developer approval** for the selecte
 - supports review iteration by explaining task-to-diff mapping, highlighting notable decisions, gaps, or risks, and applying requested adjustments
 - marks tasks as done in the Implementation Plan **only after explicit Developer approval**
 - transitions the slice to `in progress` if approval marks the first completed task within a `planned` slice
-- transitions the Implementation Plan status from `planned` to `in progress` if this is the first slice entering `in progress`
+- transitions the Implementation Plan status from `approved` to `in progress` if this is the first slice entering `in progress`
 - proposes a commit message or commit summary when useful
 - creates the commit itself **only if explicitly asked by the Developer**
 
@@ -1261,7 +1261,7 @@ Reviews the implemented slice outcome, validates that the slice goal has been me
 
 #### 8. Update PRD
 **Description**  
-Add a new PRD Specification Update or continue refining an existing draft PRD update until it remains `draft` or is marked `ready`.
+Add a new PRD Specification Update or continue refining an existing draft PRD update until it remains `draft` or is marked `approved`.
 
 **Responsible role**  
 Product Owner, Architect, or Developer
@@ -1270,7 +1270,7 @@ Product Owner, Architect, or Developer
 Summarizes the issue, proposes the Specification Update content in append-only form, and updates the relevant PRD update entry.
 
 **User**  
-Confirms that the issue should be formalized, adjusts the proposal if needed, decides whether the result remains `draft` or becomes `ready`, commits the changes or asks the Agent to commit.
+Confirms that the issue should be formalized, adjusts the proposal if needed, decides whether the result remains `draft` or becomes `approved`, commits the changes or asks the Agent to commit.
 
 **Ends with**  
 **PRD Specification Update recorded with its selected status and committed.**
@@ -1279,7 +1279,7 @@ Confirms that the issue should be formalized, adjusts the proposal if needed, de
 
 #### 9. Update Technical Concept
 **Description**  
-Add a new Technical Concept Specification Update or continue refining an existing draft Technical Concept update until it remains `draft` or is marked `ready`.
+Add a new Technical Concept Specification Update or continue refining an existing draft Technical Concept update until it remains `draft` or is marked `approved`.
 
 **Responsible role**  
 Product Owner, Architect, or Developer
@@ -1288,7 +1288,7 @@ Product Owner, Architect, or Developer
 Summarizes the issue, proposes the Specification Update content in append-only form, aligns the update with repository guidance and local architectural patterns when relevant, and updates the relevant Technical Concept update entry.
 
 **User**  
-Confirms that the issue should be formalized, adjusts the proposal if needed, decides whether the result remains `draft` or becomes `ready`, commits the changes or asks the Agent to commit.
+Confirms that the issue should be formalized, adjusts the proposal if needed, decides whether the result remains `draft` or becomes `approved`, commits the changes or asks the Agent to commit.
 
 **Ends with**  
 **Technical Concept Specification Update recorded with its selected status and committed.**
@@ -1297,19 +1297,19 @@ Confirms that the issue should be formalized, adjusts the proposal if needed, de
 
 #### 10. Update Implementation Plan
 **Description**  
-Apply relevant ready updates from the PRD and/or Technical Concept to the Implementation Plan.
+Apply relevant approved updates from the PRD and/or Technical Concept to the Implementation Plan.
 
 **Responsible role**  
 Developer
 
 **AI Agent**  
-Identifies which ready PRD or Technical Concept updates affect execution planning, summarizes their implementation impact, and proposes corresponding inline changes to the Implementation Plan. It may add new Slices or update existing `draft` or `planned` Slices, but does not modify `in progress` Slices, `done` Slices, or any Implementation Tasks.
+Identifies which approved PRD or Technical Concept updates affect execution planning, summarizes their implementation impact, and proposes corresponding inline changes to the Implementation Plan. It may add new Slices or update existing `draft` or `planned` Slices, but does not modify `in progress` Slices, `done` Slices, or any Implementation Tasks.
 
 **User**  
 Confirms that the specification updates should be reflected in the Implementation Plan, reviews the proposed planning changes, adjusts them if needed, approves updating the document, commits the changes or asks the Agent to commit.
 
 **Ends with**  
-**Implementation Plan updated to reflect ready specification changes and committed.**
+**Implementation Plan updated to reflect approved specification changes and committed.**
 
 ---
 
@@ -1383,8 +1383,8 @@ Requests guidance on what Shape can do and uses the result to choose the next ac
 Shape keeps change handling intentionally small:
 
 - Specification Updates are append-only
-- Specification Update status is limited to `draft | ready`
-- Only ready updates are considered effective
+- Specification Update status is limited to `draft | approved`
+- Only approved updates are considered effective
 - Downstream propagation is handled explicitly when relevant
 - Shape does not require formal lineage tracking between related updates across artifacts
 
@@ -1419,19 +1419,19 @@ The inventory should also be easy to surface to the user on demand. Shape assume
   - **Outcome:** feature folder and core artifact files exist for the new feature and the workspace is ready for use
 
 - **create prd**
-  - **Purpose:** draft and iteratively refine the PRD baseline until it is approved as ready
+  - **Purpose:** draft and iteratively refine the PRD baseline until it is approved
   - **Triggers on:** request to start or continue PRD definition
-  - **Outcome:** PRD is updated and can reach `ready` state for downstream use
+  - **Outcome:** PRD is updated and can reach `approved` state for downstream use
 
 - **create technical concept**
-  - **Purpose:** draft and iteratively refine the Technical Concept baseline from the ready PRD, codebase, repository guidance, and technical context until it is approved as ready
+  - **Purpose:** draft and iteratively refine the Technical Concept baseline from the approved PRD, codebase, repository guidance, and technical context until it is approved
   - **Triggers on:** request to start or continue technical design
-  - **Outcome:** Technical Concept is updated and can reach `ready` state for implementation use
+  - **Outcome:** Technical Concept is updated and can reach `approved` state for implementation use
 
 - **plan implementation**
-  - **Purpose:** create the initial Implementation Plan from the ready PRD and Technical Concept and prepare execution to begin
+  - **Purpose:** create the initial Implementation Plan from the approved PRD and Technical Concept and prepare execution to begin
   - **Triggers on:** request to begin implementation planning
-  - **Outcome:** Implementation Plan exists with initial slices and can reach `planned` state for execution
+  - **Outcome:** Implementation Plan exists with initial slices and can reach `approved` state as the execution baseline
 
 - **plan slice**
   - **Purpose:** turn a selected implementation slice into a concrete, reviewable execution proposal by defining Implementation Tasks and recording any agreed Important Decisions
@@ -1449,19 +1449,19 @@ The inventory should also be easy to surface to the user on demand. Shape assume
   - **Outcome:** selected slice is transitioned to `done` in the Implementation Plan and can be committed as complete
 
 - **update prd**
-  - **Purpose:** add a new PRD Specification Update or continue refining an existing draft PRD update until it remains `draft` or is marked `ready`
+  - **Purpose:** add a new PRD Specification Update or continue refining an existing draft PRD update until it remains `draft` or is marked `approved`
   - **Triggers on:** request to record, continue, or finalize a requirement-level change, correction, or newly discovered information
-  - **Outcome:** PRD contains a newly added or updated Specification Update in `draft` or `ready` state
+  - **Outcome:** PRD contains a newly added or updated Specification Update in `draft` or `approved` state
 
 - **update technical concept**
-  - **Purpose:** add a new Technical Concept Specification Update or continue refining an existing draft Technical Concept update until it remains `draft` or is marked `ready`
+  - **Purpose:** add a new Technical Concept Specification Update or continue refining an existing draft Technical Concept update until it remains `draft` or is marked `approved`
   - **Triggers on:** request to record, continue, or finalize a design-level change, correction, or newly discovered information
-  - **Outcome:** Technical Concept contains a newly added or updated Specification Update in `draft` or `ready` state
+  - **Outcome:** Technical Concept contains a newly added or updated Specification Update in `draft` or `approved` state
 
 - **update implementation plan**
-  - **Purpose:** apply relevant ready updates from the PRD and/or Technical Concept to the Implementation Plan
-  - **Triggers on:** request to propagate ready specification updates into execution planning
-  - **Outcome:** Implementation Plan is updated inline to reflect ready specification changes without changing `in progress` slices, `done` slices, or any Implementation Tasks
+  - **Purpose:** apply relevant approved updates from the PRD and/or Technical Concept to the Implementation Plan
+  - **Triggers on:** request to propagate approved specification updates into execution planning
+  - **Outcome:** Implementation Plan is updated inline to reflect approved specification changes without changing `in progress` slices, `done` slices, or any Implementation Tasks
 
 - **finish feature**
   - **Purpose:** conclude implementation by verifying completion state, repository readiness, and final Implementation Plan status

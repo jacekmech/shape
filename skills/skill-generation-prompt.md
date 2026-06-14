@@ -136,7 +136,7 @@ Examples:
 - PRD baseline becomes immutable after readiness
 - Technical Concept baseline becomes immutable after readiness
 - updates are append-only
-- only ready updates are effective
+- only approved updates are effective
 - Implementation Plan is updated inline
 
 ### Respect implementation review boundaries
