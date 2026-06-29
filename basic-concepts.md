@@ -10,46 +10,49 @@ The goal is not to replace engineering judgment. The goal is to make human inten
 
 ## Core idea
 
-Shape is built around the **feature** as its main unit of work. Each feature is guided by persistent artifacts and implemented through small execution boundaries.
+Shape is built around the **feature** as its main unit of work. Each feature is guided by persistent artifacts and implemented through small execution units.
 
 ### 1. Feature artifacts
 
-For each feature, Shape maintains three core artifacts:
+For each feature, Shape maintains four core artifact types:
 
 - **Product Requirements Definition (PRD)** describing what should be built
 - **Technical Concept** describing how it should be built
-- **Implementation Plan** describing how implementation is split into executable steps
+- **Implementation Plan** describing how implementation is split into session-sized plans
+- **Slice Plan** describing one focused implementation slice in executable task detail
 
 These are created and updated by the AI agent under human guidance. They are not disposable notes; they preserve intent, design, and execution structure in a form that survives individual sessions and can be reused, updated, and reviewed throughout development.
 
 ```text
-Idea -> PRD -> Technical Concept -> Implementation -> Done
+Idea -> PRD -> Technical Concept -> Implementation Plan -> Slice Plans -> Done
 ```
 
 Feedback loops:
 - Technical Concept may reveal PRD updates
-- Implementation may reveal PRD or Technical Concept updates
+- Slice planning or implementation may reveal PRD or Technical Concept updates
 
-### 2. Execution boundaries
+### 2. Execution units
 
-Shape also defines two deliberately different execution boundaries:
+Shape keeps implementation execution separate from the artifacts that describe and control it.
 
-- **Slice** is a unit of work sized to fit a focused AI execution session
-- **Batch** is a unit of completed work sized to fit a focused developer review step
+- **Task** is a concrete implementation step inside an approved Slice Plan
+- **Batch** is a selected group of Tasks implemented together and sized for focused developer review
 
 ```text
-Implementation Plan -> Slice (n) -> Tasks -> Batch (m) -> Review and commit -> Slice done
+Implementation Plan -> Slice Plan (n) -> Tasks -> Batch (m) -> Review and commit -> Slice Plan done
 ```
 
 Development loops:
-- Slices iterate over functional pieces of the feature. Each slice should have a coherent implementation goal and be small enough for one focused agent session.
-- Batches iterate over reviewable pieces inside a slice. Each batch should produce a diff small enough for the developer to understand, review, approve, and commit.
+- Slice Plans iterate over functional pieces of the feature. Each Slice Plan should have a coherent implementation goal and be small enough for one focused agent session.
+- Tasks and Batches execute an approved Slice Plan. When the Tasks are implemented, reviewed, approved, committed where needed, and validated against the slice goal, the Slice Plan becomes `done`.
+- Done Slice Plans collectively make the Implementation Plan `done`.
+- Batches iterate over reviewable pieces inside a Slice Plan. Each Batch should produce a diff small enough for the developer to understand, review, approve, and commit.
 
 ### 3. Agent and developer attention
 
-Shape uses different boundaries for agent work and developer review:
+Shape uses different units for agent work and developer review:
 
-- **Slices** are shaped around AI attention: agent context, session continuity, and the amount of implementation work that can be handled reliably in one focused run.
+- **Slice Plans** are shaped around AI attention: agent context, session continuity, and the amount of implementation work that can be handled reliably in one focused run.
 - **Batches** are shaped around developer attention: review diffs, approval decisions, and commit boundaries.
 
 ## What is different about Shape
@@ -68,13 +71,13 @@ When new learnings appear, they are incorporated through explicit updates instea
 
 AI makes this far more practical. Maintaining structured artifacts used to feel too heavy for the speed of development. With AI, updates can be drafted, aligned, and compressed with much less manual effort.
 
-### 3. Explicit care for LLM context and session boundaries: the Slice
+### 3. Explicit care for LLM context and session boundaries: the Slice Plan
 
 Shape assumes that reliable AI execution depends on keeping work inside a manageable context boundary and ensuring progress does not depend on a single live session.
 
-A **Slice** is intentionally small enough to be handled in a single focused agent session with a clear objective, limited ambiguity, and bounded implementation scope.
+A **Slice Plan** is intentionally small enough to guide a single focused agent session with a clear objective, limited ambiguity, and bounded implementation scope.
 
-One of Shape's core ideas is that workflow quality improves when execution units are designed around practical agent context limits instead of pretending that an entire feature should be implemented in one continuous conversation.
+One of Shape's core ideas is that workflow quality improves when implementation planning artifacts are shaped around practical agent context limits instead of pretending that an entire feature should be implemented in one continuous conversation.
 
 ### 4. Explicit care for developer context: the Batch
 
@@ -82,7 +85,7 @@ Shape also assumes that review quality depends on bounded cognitive load.
 
 A **Batch** groups completed implementation work into a reviewable unit that a developer can validate without diff fatigue, context switching overload, or blurred acceptance decisions.
 
-Slices optimize for agent execution. Batches optimize for human validation.
+Slice Plans optimize for agent execution. Batches optimize for human validation.
 
 Together, they let implementation move fast without forcing either the AI or the developer to work in units that are too large for reliable judgment.
 
@@ -90,22 +93,33 @@ Shape also assumes that repository context matters. Good feature artifacts impro
 
 ## Status vocabulary
 
-Shape uses small status vocabularies to keep artifact and execution state explicit.
+Shape uses small status vocabularies to keep artifact and execution state explicit. Artifact status describes the state of a document or plan as a control artifact. It does not mean the execution work described by that artifact has already happened.
 
 ### Artifacts
 
 - **PRD:** `draft`, `approved`
 - **Technical Concept:** `draft`, `approved`
-- **Implementation Plan:** `draft`, `approved`, `in progress`, `done`
+- **Implementation Plan:** `draft`, `approved`, `done`
+- **Slice Plan:** `draft`, `approved`, `done`
 - **Specification Updates:** `draft`, `approved`
 
 ### Execution
 
-- **Slices:** `draft`, `planned`, `in progress`, `done`
+- **Tasks:** not done, done
+- **Batches:** selected, implemented, reviewed, approved, committed
 
 Use the values literally:
 - `draft` means still being refined
 - `approved` means accepted for downstream use or as the execution baseline
-- `planned` means a slice has been broken into tasks and is ready for execution
-- `in progress` means implementation is actively underway
-- `done` means the relevant workflow is complete
+- `done` means the execution described by the artifact has been completed, reviewed, committed where needed, and validated
+
+For the implementation artifacts:
+- an approved Implementation Plan means the overall slice structure is accepted
+- an approved Slice Plan means the task breakdown is accepted and ready for execution
+- a done Slice Plan means its Tasks and Batches have completed the implementation described by that Slice Plan
+- a done Implementation Plan means all Slice Plans are done
+
+Implementation progress is inferred from execution units:
+- an approved Slice Plan with no completed Tasks is ready to start
+- an approved Slice Plan with some completed Tasks is actively being implemented
+- a Slice Plan becomes `done` only after the slice objective is validated
