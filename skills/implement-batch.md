@@ -4,7 +4,7 @@
 Execute an explicitly approved developer-selected batch of implementation tasks in code, support review and revision on that same batch, update execution state only after explicit developer approval, and carry the batch through commit without silently expanding scope or collapsing approval boundaries.
 
 ## When to Use
-Use this skill when the user wants to implement one or more selected implementation tasks from the active slice, produce the code changes for a small batch, and prepare the result for developer review.
+Use this skill when the user wants to implement one or more selected implementation tasks from the active Slice Plan, produce the code changes for a small batch, and prepare the result for developer review.
 
 Typical triggers:
 - “implement batch”
@@ -28,7 +28,8 @@ Helpful but optional:
 ## Preconditions
 Before implementing a batch:
 - resolve the active feature and locate `03-implementation-plan.md`
-- inspect the selected slice and tasks in `## Execution Order`
+- inspect the selected Slice Plan and tasks in `## Execution Order`
+- confirm the selected Slice Plan is `approved`
 - confirm the batch is explicitly selected and approved by the Developer
 - confirm the previous approved batch, if any, has already been committed before starting a new one
 
@@ -59,8 +60,7 @@ After implementation:
 
 Only after the Developer explicitly approves the batch may this skill:
 - mark the relevant tasks done in `## Execution Order`
-- if approval marks the first completed task in a `planned` slice, transition that slice to `in progress`
-- if this is the first slice entering `in progress`, update the Implementation Plan status to `in progress`
+- leave Slice Plan and Implementation Plan artifact status unchanged unless a separate validation step moves the Slice Plan to `done`
 - refresh `## Relevant Files` when accepted implementation changed what matters next
 - update `## Important Decisions` when accepted implementation introduced decisions worth preserving
 - state clearly that the batch is `approved but awaiting commit`
@@ -107,8 +107,8 @@ Apply these rules:
 - `## Relevant Files` should reflect resulting implementation state rather than becoming a historical changelog
 - `## Important Decisions` should capture implementation-time decisions that matter for subsequent slices or future review
 - these implementation-plan updates do not by themselves imply approval of the batch
-- the first approved completed task in a `planned` slice moves that slice to `in progress`
-- the Implementation Plan moves to `in progress` only when approved execution has actually begun through task completion
+- implementation progress is inferred from approved task completion under an approved Slice Plan
+- the Implementation Plan remains `approved` until all Slice Plans are `done` and the feature is finished
 
 This skill may:
 - change repository code and related files needed to complete the selected batch
@@ -116,7 +116,6 @@ This skill may:
 - update `## Relevant Files` in `03-implementation-plan.md`
 - update `## Important Decisions` in `03-implementation-plan.md`
 - mark approved tasks done in `## Execution Order` after explicit approval
-- transition slice and plan status after explicit approval when the lifecycle rules require it
 - create a repository commit for the approved batch after explicit user instruction
 - prepare a concise mapping from selected tasks to implemented changes
 

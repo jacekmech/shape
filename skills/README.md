@@ -174,14 +174,14 @@ They should work against the actual sections:
 
 - `## Header`
 - `## Objective`
-- `## Slices`
+- `## Slice Plans`
 - `## Execution Order`
 - `## Important Decisions`
 - `## Relevant Files`
 - `## Notes`
 
 Implementation Plan skills must respect:
-- slice and task checkboxes
+- Slice Plan status and task checkboxes
 - inline progress updates
 - no explicit batch representation in the document
 - selective maintenance of `## Relevant Files`
@@ -209,7 +209,7 @@ Examples:
 
 Skills that can move artifacts or execution state across approval boundaries should use explicit mandatory wording:
 - YOU MUST stop for human review before changing an artifact, update, slice, or plan from a draft or active state into an approved or done state.
-- YOU MUST NOT mark artifacts, updates, tasks, slices, batches, or implementation plans approved or done without explicit approval from the responsible human role.
+- YOU MUST NOT mark artifacts or updates approved or done, or mark tasks or batches complete, without explicit approval from the responsible human role.
 - YOU MUST NOT treat completed drafting, planning, implementation, validation, or revision work as approval.
 
 ### Propose commits proactively
@@ -250,7 +250,7 @@ Shape treats fresh-session execution as a quality discipline, especially in impl
 
 Skills should reinforce that:
 
-- each new Slice should normally begin in a fresh agent session
+- each new slice should normally begin in a fresh agent session
 - fresh execution sessions should normally begin with `pick up feature` unless the active feature is already unambiguous
 - slices should remain small enough for focused execution without relying on long conversational carryover
 

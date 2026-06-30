@@ -95,14 +95,14 @@ Shape then helps you move from design into controlled implementation.
 
 Implementation has two planning levels:
 
-1. **Overall implementation planning** — creates the Implementation Plan and proposes the main Slices.
-2. **Slice planning** — prepares one selected Slice in detail by defining its Tasks and important decisions.
+1. **Overall implementation planning** — creates the Implementation Plan by breaking feature implementation into deliverable slices.
+2. **Slice planning** — prepares one selected slice in detail by breaking slice implementation into Tasks and important decisions.
 
 At the beginning of overall implementation planning, the agent should use the ready PRD and Technical Concept to propose the implementation structure. For example:
 
 ```text
 I’ll create the Implementation Plan from the ready PRD and Technical Concept.
-First, I’ll propose the main implementation slices, each sized for one focused AI session.
+First, I’ll propose the main deliverable slices, each sized for one focused AI session.
 ```
 
 Example Implementation Plan:
@@ -112,25 +112,26 @@ Example Implementation Plan:
 
 Status: approved
 
-Slices:
-1. Backend upload handling
-2. Frontend file input
+Slice Plans:
+1. Backend upload handling — draft
+2. Frontend file input — draft
 ...
 ```
 
-A **Slice** is a larger implementation unit sized for one focused AI session.
+A **Slice Plan** breaks one slice into implementation tasks and tracks execution of that slice.
 
-Before implementing a Slice, Shape plans that Slice in more detail. For example:
+Before implementing a Slice Plan, Shape plans it in more detail. For example:
 
 ```text
 I’ll prepare Slice 1: Backend upload handling. I’ll break it into reviewable tasks,
 call out important implementation decisions, and wait for your approval before changing code.
 ```
 
-Example Slice:
+Example Slice Plan:
 
 ```markdown
-Slice 1: Backend upload handling
+Slice Plan 1: Backend upload handling
+Status: approved
 
 Tasks:
 - [ ] add multipart request handling
@@ -144,7 +145,7 @@ Slice implementation is organized into **Batches** so that each code change stay
 Example Batch prompt:
 
 ```text
-Implement only this batch from Slice 1:
+Implement only this batch from Slice Plan 1:
 
 - add multipart request handling
 - validate file type and size
@@ -157,7 +158,8 @@ The agent implements the Batch, stops, and asks for review.
 After approval, the plan is updated:
 
 ```markdown
-Slice 1: Backend upload handling
+Slice Plan 1: Backend upload handling
+Status: approved
 
 Tasks:
 - [x] add multipart request handling
@@ -174,7 +176,7 @@ Shape connects the whole feature flow:
 PRD  
 → Technical Concept  
 → Implementation Plan  
-→ Slice  
+→ Slice Plan  
 → Batch  
 → Review  
 → Commit
@@ -184,7 +186,7 @@ Each boundary has a job:
 - **PRD** keeps product intent stable.
 - **Technical Concept** keeps design decisions visible.
 - **Implementation Plan** turns the feature into executable delivery structure.
-- **Slice** bounds one focused agent session.
+- **Slice Plan** bounds one focused agent session.
 - **Batch** bounds one developer-reviewable diff.
 
 Shape moves the agent from **unclear feature idea** to **reviewable, committed code** using persistent artifacts and small execution steps.

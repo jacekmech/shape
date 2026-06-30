@@ -127,4 +127,4 @@ Usually suggest:
 - `update implementation plan` if the approved design update changes execution planning
 - `update prd` if the design change revealed a requirement-level issue
 
-Prefer `update implementation plan` when a newly approved Technical Concept update changes slices or execution intent, the commit boundary is resolved, and the Architect explicitly approves proceeding.
+Prefer `update implementation plan` when a newly approved Technical Concept update changes Slice Plans or execution intent, the commit boundary is resolved, and the Architect explicitly approves proceeding.

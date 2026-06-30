@@ -2,7 +2,7 @@
 
 ## Header
 - **Title:**
-- **Status:** `draft | approved | in progress | done`
+- **Status:** `draft | approved | done`
 - **Date:** `YYYY-MM-DD`
 
 ---
@@ -13,23 +13,23 @@
 
 ---
 
-## Slices
+## Slice Plans
 
-Defines the high-level structure of execution.
+Defines the feature implementation breakdown into deliverable slices.
 
-- **Slice 1:**
+- **Slice Plan 1:**
   - **Goal:** ...
-  - **Status:** `draft | planned | in progress | done`
+  - **Status:** `draft | approved | done`
 
 Rules:
-- Slices use explicit lifecycle status rather than checkboxes.
-- New slices may be appended during implementation.
-- Initial slices created during `plan implementation` start as `draft`.
-- A selected slice moves to `planned` after approved planning in `plan slice`.
-- A `planned` slice moves to `in progress` when the first approved task in that slice is marked done.
-- A slice moves to `done` only through explicit validation in `finish slice`.
-- Each Slice should remain small enough to fit within a single focused agent session.
-- Each new Slice should normally be executed in a fresh agent session.
+- Slice Plans use explicit artifact status rather than checkboxes.
+- New Slice Plans may be appended during implementation.
+- Initial Slice Plans created during `plan implementation` start as `draft`.
+- A selected Slice Plan moves to `approved` after approved planning in `plan slice`.
+- Slice implementation progress is inferred from task completion, not from a separate Slice Plan `in progress` status.
+- A Slice Plan moves to `done` only through explicit validation in `finish slice`.
+- Each slice should remain small enough to fit within a single focused agent session.
+- Each new slice should normally be executed in a fresh agent session.
 - Fresh execution sessions should normally begin by resolving the active feature through **Pick Up Feature** unless the active feature is already unambiguous.
 
 ---
@@ -40,17 +40,18 @@ This is the central workspace of the Implementation Plan.
 
 Structure:
 
-- Slice Name (slice status)
+- Slice Plan Name (slice plan status)
   - [ ] Implementation Task
   - [ ] Implementation Task
 
 Rules:
-- Slice entries here correspond to the explicit slice definitions in `## Slices`.
+- Slice Plan entries here correspond to the explicit definitions in `## Slice Plans`.
 - Implementation Tasks use checkboxes to indicate progress (`done / not done`).
-- Implementation Tasks are appended continuously during execution.
+- Implementation Tasks are added during Slice Plan approval and updated during slice execution.
 - Developer selects tasks for execution in batches (batches are not explicitly represented).
 - This is the only place where sequencing exists.
-- Progress is reflected inline through task completion and slice status.
+- Feature-level execution is reflected through Slice Plan status.
+- Slice-level execution is reflected through task completion and batch state.
 - Batches should remain small enough for a single high-quality developer review step.
 - Tasks should be marked done only after developer approval of the implemented batch.
 - An approved batch should be committed only on explicit developer instruction before the next batch begins so that review boundaries remain clean.
@@ -73,7 +74,7 @@ Use for:
 Curated working file map for upcoming execution.
 
 Use for:
-- files or directories likely to matter for upcoming Slices
+- files or directories likely to matter for upcoming slices
 - anchor files that help a fresh session pick up the feature efficiently
 - major code areas already touched that are still relevant to subsequent work
 

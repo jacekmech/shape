@@ -1,7 +1,7 @@
 # finish feature
 
 ## Purpose
-Conclude implementation for the active feature after all slices are `done` and validated by verifying repository readiness for completion, marking the Implementation Plan as `done`, clearing the active workspace feature context, and making the completed state explicit.
+Conclude implementation for the active feature after all Slice Plans are `done` and validated by verifying repository readiness for completion, marking the Implementation Plan as `done`, clearing the active workspace feature context, and making the completed state explicit.
 
 ## When to Use
 Use this skill when the user wants to finish the feature, close the Implementation Plan after all slice work is complete, or confirm that implementation has actually reached the `done` state.
@@ -26,21 +26,21 @@ Helpful but optional:
 ## Preconditions
 Before finishing implementation:
 - resolve the active feature and locate `03-implementation-plan.md`
-- verify that all slices are marked `done`
-- verify that slice validation is complete
+- verify that all Slice Plans are marked `done`
+- verify that Slice Plan validation is complete
 - verify that the Implementation Plan reflects full execution progress
 - inspect whether unresolved draft Specification Updates remain in `01-prd.md` or `02-tech-concept.md`
 - confirm there is no remaining open batch, review, approval, or commit boundary blocking completion
 - inspect whether repository state is clean enough to treat completion as an actual repository checkpoint
 
 This skill should conclude implementation only when the feature is actually implemented in code and the plan reflects that state.
-If unfinished slices, unresolved draft updates, unclean repository state, or unresolved execution boundaries remain, surface that clearly instead of marking the plan `done`.
+If unfinished Slice Plans, unresolved draft updates, unclean repository state, or unresolved execution boundaries remain, surface that clearly instead of marking the plan `done`.
 
 ## Behavior
 Validate overall implementation completion and close the Implementation Plan.
 
 During completion:
-- confirm all slices are `done` and validated
+- confirm all Slice Plans are `done` and validated
 - confirm the plan status should now move to `done`
 - treat the Implementation Plan as the canonical feature-completion artifact
 - confirm unresolved draft updates are either absent or explicitly surfaced as blockers
@@ -67,11 +67,11 @@ Update the Implementation Plan in `03-implementation-plan.md` and `.shape/worksp
 
 Work against these sections:
 - `## Header`
-- `## Slices`
+- `## Slice Plans`
 - `## Notes`
 
 Apply these rules:
-- implementation ends when all slices are `done` and validated
+- implementation ends when all Slice Plans are `done` and validated
 - the Implementation Plan status is set to `done` only at that point
 - the Implementation Plan is the canonical artifact for feature completion state
 - the plan should reflect full progress at completion
@@ -87,13 +87,13 @@ This skill may:
 - surface any remaining mismatch if completion is not yet justified
 
 This skill must not:
-- mark the plan `done` while any slice remains unfinished
+- mark the plan `done` while any Slice Plan remains unfinished
 - clear the active workspace feature before the feature is actually completed
 - ignore unresolved draft updates that keep completion ambiguous
 - hide unfinished review, approval, or commit boundaries
 - claim completion while repository state is still not clean enough to support a completion checkpoint
 - use finalization to compensate for stale or inaccurate plan state
-- reopen `done` slices as part of completion unless a real inconsistency must be surfaced first
+- reopen `done` Slice Plans as part of completion unless a real inconsistency must be surfaced first
 
 ## Outputs
 This skill should produce:
@@ -106,7 +106,7 @@ This skill should produce:
 
 ## Completion Signals
 This skill is complete when:
-- all slices are `done` and validated
+- all Slice Plans are `done` and validated
 - the Implementation Plan status is correctly set to `done`
 - `.shape/workspace.json` no longer points to the completed feature when local workspace state is available
 - repository state is confirmed clean enough for final completion
@@ -115,7 +115,7 @@ This skill is complete when:
 - the next likely workflow action is stated plainly
 
 ## Guardrails
-- YOU MUST NOT mark implementation done with unfinished slices
+- YOU MUST NOT mark implementation done with unfinished Slice Plans
 - YOU MUST NOT ignore unresolved batch, review, approval, or commit boundaries
 - YOU MUST NOT use finalization to paper over inaccurate plan state
 - YOU MUST NOT confuse “mostly complete” with `done`

@@ -43,10 +43,12 @@ Read or infer where practical:
 
 ### Implementation state
 When an Implementation Plan exists, inspect where practical:
-- overall plan status: `draft | approved | in progress | done`
-- whether slices exist
-- per-slice status where available: `draft | planned | in progress | done`
-- whether unfinished slices remain
+- overall plan status: `draft | approved | done`
+- feature-level execution structure through Slice Plans
+- whether Slice Plans exist
+- per-Slice Plan status where available: `draft | approved | done`
+- slice-level execution through task completion and batch state
+- whether unfinished Slice Plans remain
 - whether execution tasks exist
 - whether the feature is completed because the Implementation Plan is `done`
 - whether there are obvious signs that review, approval, commit, or slice closure is the likely next step
@@ -85,14 +87,14 @@ Examples:
 - feature exists but PRD is missing or draft → `create prd`
 - PRD approved and Technical Concept not approved → `create technical concept`
 - PRD and Technical Concept approved but Implementation Plan missing or draft → `plan implementation`
-- plan is `approved` and next slice still `draft` → `plan slice`
-- slice `planned` and ready for coding → `implement batch`
-- slice `in progress` with implemented but unapproved work → continue `implement batch` for review and approval handling
-- slice `in progress` with approved but uncommitted work → continue `implement batch` if the user wants to commit that approved batch
-- slice `in progress` with all tasks done and committed → `finish slice`
+- plan is `approved` and next Slice Plan still `draft` → `plan slice`
+- Slice Plan `approved` and ready for coding → `implement batch`
+- Slice Plan `approved` with implemented but unapproved work → continue `implement batch` for review and approval handling
+- Slice Plan `approved` with approved but uncommitted work → continue `implement batch` if the user wants to commit that approved batch
+- Slice Plan `approved` with all tasks done and committed → `finish slice`
 - code appears implemented for a selected batch but not yet validated → continue `implement batch`
 - approved batch appears uncommitted → continue `implement batch` if commit is desired
-- all slices `done` but plan not closed → `finish feature`
+- all Slice Plans `done` but plan not closed → `finish feature`
 - Implementation Plan is `done` and no further change flow is requested → `initiate feature` or explicit update flow on the completed feature
 
 ## Behavior Principles

@@ -297,7 +297,7 @@ When working in this repository:
 - YOU MUST NOT silently combine multiple Shape operations into one step.
 - YOU MUST NOT skip the commit boundary between separate Shape workflow operations.
 - YOU MUST stop for human review before changing any artifact or update from `draft` to `approved`.
-- YOU MUST NOT mark artifacts, updates, tasks, slices, batches, or implementation plans approved or done without explicit approval from the responsible human role.
+- YOU MUST NOT mark artifacts or updates approved or done, or mark tasks or batches complete, without explicit approval from the responsible human role.
 - After a Shape operation produces an accepted diff, YOU MUST ask whether to prepare and submit a commit.
 - YOU MUST NOT commit without explicit human approval for the current diff.
 - After the commit boundary is resolved, YOU MUST ask whether to proceed to the next Shape workflow step.

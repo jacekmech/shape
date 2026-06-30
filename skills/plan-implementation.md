@@ -1,7 +1,7 @@
 # plan implementation
 
 ## Purpose
-Create the initial Implementation Plan from the approved PRD and approved Technical Concept, define the first set of execution slices, and set up implementation so that execution can continue through small, reviewable batches.
+Create the initial Implementation Plan from the approved PRD and approved Technical Concept, break feature implementation into deliverable slices represented by Slice Plans, and set up execution so that implementation can continue slice by slice through small, reviewable batches.
 
 ## When to Use
 Use this skill when the user wants to begin implementation planning for a feature whose PRD and Technical Concept are already approved, or when the existing Implementation Plan is still only a scaffold and needs to become a real execution document.
@@ -11,7 +11,7 @@ Typical triggers:
 - “start implementation planning”
 - “create the implementation plan”
 - “begin implementation”
-- “set up slices for execution”
+- “set up slice plans for execution”
 
 ## Inputs
 Expected inputs:
@@ -31,32 +31,32 @@ Before initiating implementation:
 - confirm the PRD status is `approved`
 - confirm the Technical Concept status is `approved`
 - inspect any approved updates in the PRD or Technical Concept that materially affect execution
-- inspect the codebase enough to shape realistic initial slices
+- inspect the codebase enough to shape realistic initial Slice Plans
 
 Implementation planning should not begin from unstable upstream artifacts.
 If the PRD or Technical Concept is still `draft`, surface that clearly and redirect to the appropriate upstream skill.
 
 ## Behavior
-Create or refine the Implementation Plan into an execution-ready control document.
+Create or refine the Implementation Plan into an execution-ready control document for feature implementation.
 
 During initialization:
 - summarize the development objective from the approved PRD and Technical Concept
-- define an initial set of slices small enough for focused execution sessions
-- create initial slices in `draft`
+- define the feature implementation breakdown as an initial set of deliverable slices represented by Slice Plans
+- create initial Slice Plans in `draft`
 - keep slices reviewable and practical rather than overly broad
 - do not add implementation tasks
 
 This skill should reinforce Shape’s execution discipline:
-- each new Slice should normally begin in a fresh agent session
+- each new slice should normally begin in a fresh agent session
 - fresh execution sessions should normally begin with `pick up feature` unless the active feature is already unambiguous
-- execution will later proceed through slices and developer-selected batches
+- execution will later proceed through Slice Plans and developer-selected batches
 - approved batches may be committed within `implement batch`, but only on explicit developer instruction before the next batch begins
 
 The responsible role remains the Developer.
-The agent may propose slices, and execution order, but should not silently decide implementation strategy where the developer needs to choose trade-offs or sequencing.
+The agent may propose Slice Plans and execution order, but should not silently decide implementation strategy where the developer needs to choose trade-offs or sequencing.
 
-Set the Implementation Plan to `approved` when the initial slices and execution framing are accepted as the execution baseline.
-Do not set it to `in progress` merely because planning work occurred; that transition belongs when active execution begins.
+Set the Implementation Plan to `approved` when the feature-level breakdown and execution framing are accepted as the execution baseline.
+The Implementation Plan remains `approved` during execution and moves to `done` only when all Slice Plans are done and the feature is finished.
 
 ## Workflow Boundary Rules
 
@@ -73,7 +73,7 @@ Read and update only the Implementation Plan in `03-implementation-plan.md`, usi
 Use the canonical Implementation Plan section structure:
 - `## Header`
 - `## Objective`
-- `## Slices`
+- `## Slice Plans`
 - `## Execution Order`
 - `## Important Decisions`
 - `## Relevant Files`
@@ -81,29 +81,29 @@ Use the canonical Implementation Plan section structure:
 
 Apply these rules:
 - the Implementation Plan is a live inline document rather than an append-only update artifact
-- `## Slices` should define the initial high-level execution structure using explicit slice status entries
-- initial slices created by this skill should start in `draft`
-- `## Execution Order` should establish slice ordering, but implementation tasks must remain empty until `plan slice`
+- `## Slice Plans` should define the feature implementation breakdown using explicit Slice Plan status entries
+- initial Slice Plans created by this skill should start in `draft`
+- `## Execution Order` should establish Slice Plan ordering, but implementation tasks must remain empty until `plan slice`
 - `## Relevant Files` should stay selective and useful for fresh-session pickup rather than becoming a full file inventory
 - no explicit batch representation should be added to the document
 
 This skill may:
 - create or refine `## Objective`
-- define initial slices in `## Slices`
-- establish corresponding slice entries in `## Execution Order`
+- define initial Slice Plans in `## Slice Plans`
+- establish corresponding Slice Plan entries in `## Execution Order`
 - seed `## Relevant Files` with a compact working file map when useful
 - change plan status between `draft` and `approved` based on explicit developer acceptance
 
 This skill must not:
-- start marking slices
+- start approving or completing Slice Plans
 - treat batch boundaries as document structure
 - rewrite the PRD or Technical Concept as part of implementation kickoff
-- mark the plan `in progress` or `done`
+- mark the plan `done`
 
 ## Outputs
 This skill should produce:
 - an Implementation Plan in `03-implementation-plan.md` aligned to the Implementation Plan template
-- initial slices in `draft` ready for later refinement
+- initial Slice Plans in `draft` that represent the feature implementation breakdown and are ready for later refinement
 - updated plan status of `draft` or `approved`
 - a repository state that is ready to be committed once the Developer accepts the initial plan structure
 - a proposed commit message when the accepted planning state is suitable for checkpointing
@@ -112,24 +112,24 @@ This skill should produce:
 ## Completion Signals
 This skill is complete when:
 - `03-implementation-plan.md` reflects the approved PRD and approved Technical Concept
-- initial slices exist and are small enough to support focused execution sessions
+- initial Slice Plans exist, represent deliverable slices, and are small enough to support focused execution sessions
 - `## Execution Order` contains the execution skeleton without prematurely turning into task-level detail
 - the plan status accurately reflects whether execution planning is still being refined or is approved as the execution baseline
-- the resulting planning state is clear enough to serve as a repository checkpoint before slice refinement begins
+- the resulting planning state is clear enough to serve as a repository checkpoint before Slice Plan refinement begins
 - the accepted checkpoint is clear enough that the agent can propose a commit cleanly
 - the next likely workflow step is stated plainly
 
 ## Guardrails
 - Do not start planning implementation from draft upstream artifacts
-- Do not collapse slice planning into immediate batch execution
+- Do not collapse Slice Plan approval into immediate batch execution
 - Do not add implementation tasks so early that slice boundaries become unclear
 - Do not turn `## Relevant Files` into a historical changelog or full repository inventory
-- Do not mark the plan `in progress` merely because the plan now exists
+- Do not mark the plan `done` merely because the initial plan now exists
 - YOU MUST NOT proceed to the next workflow step without explicit approval
 
 ## Likely Next Step
 Usually suggest:
-- continue `plan implementation` if slice structure is still unstable
+- continue `plan implementation` if Slice Plan structure is still unstable
 - propose a commit message and offer to create the commit if the current planning state is accepted and the user wants a checkpoint
 - `plan slice` if the Implementation Plan is `approved`
 - `update technical concept` or `update prd` if implementation planning exposed a real upstream gap

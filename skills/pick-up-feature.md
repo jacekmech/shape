@@ -48,7 +48,7 @@ Prefer deterministic resolution in this order:
 4. Single unfinished feature that is the obvious candidate
 5. Most likely unfinished candidate based on current workflow state
 
-For default resume behavior, treat a feature as unfinished only when its Implementation Plan is missing, `draft`, `approved`, or `in progress`.
+For default resume behavior, treat a feature as unfinished only when its Implementation Plan is missing, `draft`, or `approved`.
 Treat a feature whose Implementation Plan is `done` as completed rather than resumable by default.
 
 When a single unfinished feature is the obvious candidate, resolve it with minimal friction.
@@ -90,15 +90,15 @@ Examples:
 - PRD missing or still early → `create prd`
 - PRD approved, Technical Concept draft or missing → `create technical concept`
 - PRD and Technical Concept approved, Implementation Plan missing or draft → `plan implementation`
-- next slice is still `draft` → `plan slice`
-- slice is `planned` and waiting for execution selection → `implement batch`
-- slice is `in progress` and active work is awaiting review, approval handling, revision, or commit → continue `implement batch`
-- slice is `in progress` with all tasks done and committed → `finish slice`
-- all slices are `done` and plan nearly complete → `finish feature`
+- next Slice Plan is still `draft` → `plan slice`
+- Slice Plan is `approved` and waiting for execution selection → `implement batch`
+- Slice Plan is `approved` and active work is awaiting review, approval handling, revision, or commit → continue `implement batch`
+- Slice Plan is `approved` with all tasks done and committed → `finish slice`
+- all Slice Plans are `done` and plan nearly complete → `finish feature`
 - Implementation Plan is `done` → treat the feature as completed unless the user explicitly wants to inspect completed work
 
 ## Fresh-Session Behavior
-Shape expects each new Slice to normally begin in a fresh agent session.
+Shape expects each new slice to normally begin in a fresh agent session.
 In such sessions, this skill should usually run before implementation work unless the active feature is already unambiguous.
 
 This skill should support that behavior by making feature pickup quick, not ceremonial.

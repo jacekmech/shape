@@ -84,13 +84,13 @@ Markdown document specifying functional and non-functional requirements for a fe
 Markdown document specifying technical design and initial implementation direction for a feature. It serves as the design baseline for implementation.
 
 ### Implementation Plan  
-Markdown document driving execution. Its file is scaffolded during feature initiation and then filled in at implementation kickoff by defining initial Implementation Slices. It continues to evolve during implementation by adding detailed Implementation Tasks and tracking progress.
+Markdown document driving feature execution. Its file is scaffolded during feature initiation and then filled in at implementation kickoff by breaking feature implementation into deliverable slices represented by Slice Plans. It continues to evolve during implementation by tracking slice status, task progress, and execution-relevant decisions.
 
-### Implementation Slice  
-Coarse-grained execution unit of work that can be reviewed, integrated, and validated independently. Slices are defined in the Implementation Plan and may be added or adjusted during implementation. A Slice should be small enough to fit into a single focused agent session without relying on long-running conversational carryover.
+### Slice Plan  
+Planning artifact that breaks one slice implementation into executable implementation tasks. Slice Plans are defined in the Implementation Plan and may be added or adjusted during implementation. A Slice Plan defines the slice execution structure and tracks slice-level execution through task progress and final validation.
 
 ### Implementation Task  
-Fine-grained unit of work derived from a Slice. Typically involves a small, well-defined change (e.g., a few related modifications across code or configuration). Tasks are explicitly listed in the Implementation Plan.
+Fine-grained unit of work derived from a Slice Plan. Typically involves a small, well-defined change (e.g., a few related modifications across code or configuration). Tasks are explicitly listed in the Implementation Plan.
 
 ### Implementation Batch  
 A selected group of Implementation Tasks executed in a single coding step by the AI Agent and then reviewed by the Developer. A Batch should be small enough to fit into a single high-quality developer review step. Each batch is followed by developer-led review and, once approved, must be concluded with a commit before the next batch begins.
@@ -227,10 +227,10 @@ Developer
 **Output**  
 - Implementation Plan markdown document
 - Implemented feature committed to the current branch
-- Updated Implementation Plan reflecting completed Slices and Tasks
+- Updated Implementation Plan reflecting completed Slice Plans and Tasks
 
 **Completion Condition**  
-All Implementation Slices are completed, validated, and reflected in both code and Implementation Plan.
+All Slice Plans are completed, validated, and reflected in both code and Implementation Plan.
 
 **Feedback Loop**  
 - **Inbound**  
@@ -361,9 +361,9 @@ Specification Updates may originate during Technical Concept creation, slice pla
   - PRD
 - Specification Updates may also be created independently of the main stage flow
 - Propagation to downstream artifacts is handled explicitly when relevant
-- Implementation Plan is updated inline; slice definition and planning content may be edited only while a slice is `draft` or `planned`
-- Execution-progress content for a slice, such as task completion state and status transitions, may continue to update while the slice is `in progress`
-- New slices may be added during implementation
+- Implementation Plan is updated inline; Slice Plan definition and planning content may be edited only while a Slice Plan is `draft`, or while an `approved` Slice Plan has not yet started execution
+- Execution-progress content for a Slice Plan is reflected through task completion and batch state while the Slice Plan remains `approved`
+- New Slice Plans may be added during implementation
 
 **Characteristics**
 - Non-blocking
@@ -375,40 +375,38 @@ Specification Updates may originate during Technical Concept creation, slice pla
 
 ## 6. Implementation Lifecycle
 
-This section defines how a feature is executed using **Implementation Slices, Tasks, and Batches**.
+This section defines how a feature is executed using **Slice Plans, Tasks, and Batches**.
 
 Execution follows a **developer-controlled, iterative microcycle**:
 
-**Slice → Tasks → Batch → Review → Commit**
+**Slice Plan → Tasks → Batch → Review → Commit**
 
-The **Implementation Plan** is the central control artifact throughout this process.
+The **Implementation Plan** is the central control artifact throughout this process: it defines the feature implementation breakdown into deliverable slices and tracks feature-level execution.
 
-Shape tracks **Implementation Plan status** and **Slice status** separately.
-The plan status describes the overall execution state of the feature.
-Each slice has its own lifecycle state that describes how far that slice has progressed through planning and execution.
+Shape tracks **Implementation Plan status** and **Slice Plan status** separately.
+The plan status describes the overall execution artifact for the feature.
+Each Slice Plan defines the slice implementation breakdown into Tasks and has its own artifact state. Active slice execution progress is inferred from Tasks and Batches rather than represented as a separate artifact status.
 
-A new Slice should begin in a **fresh agent session**. This is a critical Shape discipline, not just a convenience recommendation. It exists to preserve deliberate context curation, reduce carryover noise, and improve output quality. Slices should therefore be small enough to fit within practical agent context limits without depending on long-running conversational carryover. Batches should be selected to preserve high-quality developer reviewability, not just execution speed.
+A new slice should begin in a **fresh agent session**. This is a critical Shape discipline, not just a convenience recommendation. It exists to preserve deliberate context curation, reduce carryover noise, and improve output quality. Slices should therefore be small enough to fit within practical agent context limits without depending on long-running conversational carryover. Batches should be selected to preserve high-quality developer reviewability, not just execution speed.
 
 A fresh session should normally begin by resolving the active feature context through **Pick Up Feature**, an agent-supported feature selection operation, unless the active feature is already unambiguous and can be confirmed with minimal friction.
 
-**Slice lifecycle**
+**Slice Plan lifecycle**
 - `draft`
-  Slice exists in the Implementation Plan but has not yet been planned in enough detail for execution.
-- `planned`
-  Slice has been planned through **Plan Slice** and is ready for execution.
-- `in progress`
-  Slice has at least one approved Implementation Task marked done.
+  Slice Plan exists in the Implementation Plan but has not yet been planned in enough detail for execution.
+- `approved`
+  Slice Plan has been planned through **Plan Slice** and is ready for execution.
 - `done`
-  Slice has been explicitly validated and closed through **Finish Slice**.
+  Slice Plan has been explicitly validated and closed through **Finish Slice**.
 
-**Slice transition rules**
-- **Plan Implementation** creates initial slices in `draft`
-- **Plan Slice** transitions the selected slice from `draft` to `planned`
-- **Implement Batch** transitions a `planned` slice to `in progress` when the first approved task in that slice is marked done during its internal review-and-approval flow
-- **Finish Slice** transitions a validated `in progress` slice to `done`
+**Slice Plan transition rules**
+- **Plan Implementation** creates initial Slice Plans in `draft`
+- **Plan Slice** transitions the selected Slice Plan from `draft` to `approved`
+- **Implement Batch** marks approved Tasks done; the Slice Plan remains `approved` while execution is underway
+- **Finish Slice** transitions a validated `approved` Slice Plan to `done`
 
 Task checkboxes track task completion.
-Slice status tracks slice lifecycle.
+Slice Plan status tracks artifact lifecycle.
 These are related, but they are not the same mechanism.
 
 ---
@@ -422,7 +420,7 @@ Implementation begins by filling in the scaffolded Implementation Plan from the 
 - PRD status is `approved`
 - Technical Concept status is `approved`
 - Implementation Plan is created with its status updated to `approved`
-- Initial Slices are defined in `draft`
+- Initial Slice Plans are defined in `draft` to represent the feature implementation breakdown into deliverable slices
 - Tasks are not yet specified
 - No execution has occurred
 
@@ -431,19 +429,19 @@ Implementation begins by filling in the scaffolded Implementation Plan from the 
 ### 6.2 Slice Refinement
 
 **Summary**  
-A selected Implementation Slice is expanded into **Implementation Tasks**.
+A selected slice is broken into **Implementation Tasks** in its Slice Plan.
 
 **Process**
 - In a fresh session, the active feature is first resolved through **Pick Up Feature** unless already clearly active
-- Developer selects a `draft` Slice, defaulting to the next unfinished one
+- Developer selects a `draft` Slice Plan, defaulting to the next unfinished one
 - AI Agent proposes a breakdown into Tasks
 - Developer reviews and requests adjustment if needed
 - Tasks are added to the Implementation Plan
 - Slice scope is checked against practical agent context limits
-- Selected Slice status changes from `draft` to `planned`
+- Selected Slice Plan status changes from `draft` to `approved`
 
 **Output**
-- `planned` Slice with a defined set of Implementation Tasks
+- `approved` Slice Plan with a defined set of Implementation Tasks
 
 **Completion Condition**
 - Tasks are sufficiently granular for execution
@@ -496,25 +494,25 @@ When a batch finishes implementing, the AI Agent should clearly ask the Develope
 **Summary**  
 The Developer validates the result of the Batch as part of the same **Implement Batch** operation.
 
-This is a developer-led review step centered on the diff and intended batch outcome. The Developer may request adjustments, ask for clarifications, record implementation decisions, or even adjust upcoming Slice structure before approving the batch. These actions should occur through prompting the AI Agent rather than by directly editing workflow artifacts outside Shape.
+This is a developer-led review step centered on the diff and intended batch outcome. The Developer may request adjustments, ask for clarifications, record implementation decisions, or even adjust upcoming slice structure before approving the batch. These actions should occur through prompting the AI Agent rather than by directly editing workflow artifacts outside Shape.
 
 Approval and commit form a single normal progression boundary. Once a batch is approved, it should be committed before any subsequent batch begins so that the next review starts from a clean diff boundary.
 
 **Process**
 - Developer reviews code diff
-- Developer verifies alignment with selected Tasks and Slice intent
+- Developer verifies alignment with selected Tasks and slice intent
 - Developer may request one or more adjustment iterations
 - Developer may ask the AI Agent to record relevant implementation decisions or relevant files
 - Developer may reshape future tasking or slice boundaries if implementation reveals a better plan
 - Once satisfied, the Developer explicitly confirms the batch is approved
 - After approval, the AI Agent marks relevant tasks as completed in the Implementation Plan so that the workflow continues to minimize direct document editing by the Developer
-- If this is the first approved completed task within a `planned` Slice, that Slice transitions to `in progress`
-- If this is the first Slice entering `in progress`, the Implementation Plan status also transitions from `approved` to `in progress`
+- Completed tasks under an approved Slice Plan show that execution is underway
+- Slice Plan and Implementation Plan artifact statuses do not change during batch implementation
 - Developer commits or asks the agent to commit the approved batch before the next batch begins
 
 **Outcome**
 - Relevant tasks are marked done by the AI Agent in the Implementation Plan
-- Slice state may advance to `in progress` if it is still `planned`
+- Slice Plan state remains `approved` until explicit validation closes it as `done`
 - Approved and committed changes become part of the codebase
 - Batch is finalized
 
@@ -532,28 +530,28 @@ When review support is provided, the AI Agent should clearly state whether the b
 ### 6.6 Slice Validation
 
 **Summary**  
-After all Tasks within a Slice are completed and their approved batches have been committed, the Slice is validated.
+After all Tasks within a Slice Plan are completed and their approved batches have been committed, the Slice Plan is validated.
 
 **Process**
-- Developer verifies that Slice objectives are met
+- Developer verifies that slice objectives are met
 - Functional and technical expectations are confirmed
-- Slice is confirmed as complete within the intended session-sized boundary
+- Slice implementation is confirmed as complete within the intended session-sized boundary
 - Developer may confirm that the **Relevant Files** section still reflects the files and directories most useful for subsequent slices; the AI Agent should prune or refresh entries when slice completion changes what is worth carrying forward
-- Developer may confirm that the **Important Decisions** section still reflects the changes introduced in the implementation step for subsequent slices;
-- Slice status changes from `in progress` to `done` only after explicit Developer confirmation
+- Developer may confirm that the **Important Decisions** section still reflects the changes introduced in the implementation step for subsequent Slice Plans
+- Slice Plan status changes from `approved` to `done` only after explicit Developer confirmation
 
 **Output**
-- Slice marked `done` in the Implementation Plan
+- Slice Plan marked `done` in the Implementation Plan
 
 ---
 
 ### 6.7 Iteration
 
 **Summary**  
-The process repeats for the next Slice until all Slices are `done`.
+The process repeats for the next slice until all Slice Plans are `done`.
 
 **Rule**
-- Each new Slice should begin in a fresh agent session
+- Each new slice should begin in a fresh agent session
 - Each fresh execution session should normally begin with Pick Up Feature unless the active feature can be resolved with minimal friction
 - No new batch should begin until the previous approved batch has been committed
 - This should be treated as a core execution-quality rule, not as optional workflow polish
@@ -563,10 +561,10 @@ The process repeats for the next Slice until all Slices are `done`.
 ### 6.8 Completion
 
 **Summary**  
-Implementation ends when all Slices are `done` and validated.
+Implementation ends when all Slice Plans are `done` and validated.
 
 **Completion Condition**
-- All Slices marked `done`
+- All Slice Plans marked `done`
 - Implementation Plan status is set to `done`
 - Implementation Plan reflects full progress
 - Feature is fully implemented in code
@@ -581,7 +579,7 @@ Discoveries during Implementation may require requirement-level or design-level 
 **Rules**
 - Requirement-level issues may trigger draft Specification Updates to PRD
 - Design-level issues may trigger draft Specification Updates to Technical Concept
-- Implementation Plan is updated inline as a live document, including adding new slices, updating eligible `draft` or `planned` slices, and maintaining the **Relevant Files** section as a compact working file map for subsequent execution
+- Implementation Plan is updated inline as a live document, including adding new Slice Plans, updating eligible `draft` Slice Plans or not-yet-started `approved` Slice Plans, and maintaining the **Relevant Files** section as a compact working file map for subsequent execution
 - Downstream propagation is handled explicitly when relevant
 - Approved updates do not silently reinterpret already executed work
 
@@ -822,12 +820,12 @@ All Shape documents follow these principles:
   - `date: YYYY-MM-DD`
 
 - **Status model by document type**
-  - PRD: `draft | approved`
-  - Technical Concept: `draft | approved`
-  - Implementation Plan: `draft | approved | in progress | done`
+- PRD: `draft | approved`
+- Technical Concept: `draft | approved`
+- Implementation Plan: `draft | approved | done`
 
-- **Status model for Slices**
-  - `draft | planned | in progress | done`
+- **Status model for Slice Plans**
+  - `draft | approved | done`
 
 - **Status model for Specification Updates**
   - `draft | approved`
@@ -1016,7 +1014,7 @@ Only approved Updates are considered effective.
 The Implementation Plan controls **how the feature is executed**.
 
 It focuses on:
-- slices
+- Slice Plans
 - tasks
 - progress
 - decisions made during execution
@@ -1033,41 +1031,40 @@ The Implementation Plan should contain:
 
 - **Header**
   - Title
-  - Status: `draft | planned | in progress | done`
+  - Status: `draft | approved | done`
   - Date
 
 - **Objective**
   - What is being delivered
   - Key constraints
 
-- **Slices**
+- **Slice Plans**
   - High-level execution structure
-  - Represented as explicit slice entries with their own status
-  - New slices may be appended during implementation
+  - Represented as explicit Slice Plan entries with their own status
+  - New Slice Plans may be appended during implementation
 
-  Each Slice should remain small enough to fit within a single focused agent session, and each new Slice should normally be executed in a fresh agent session. Fresh execution sessions should normally begin by resolving the active feature through **Pick Up Feature** unless the active feature is already unambiguous.
+  Each slice should remain small enough to fit within a single focused agent session, and each new slice should normally be executed in a fresh agent session. Fresh execution sessions should normally begin by resolving the active feature through **Pick Up Feature** unless the active feature is already unambiguous.
 
-  Each Slice uses this lifecycle:
+  Each Slice Plan uses this lifecycle:
   - `draft` when initially created during implementation planning
-  - `planned` after slice planning is approved
-  - `in progress` after the first approved task in the slice is marked done
-  - `done` after the slice is explicitly validated and closed
+  - `approved` after slice planning is approved
+  - `done` after the Slice Plan is explicitly validated and closed
 
 - **Execution Order**
   - Central execution workspace
   - Structure:
-    - Slice
-    - Implementation Tasks under the Slice
+    - Slice Plan
+    - Implementation Tasks under the Slice Plan
 
   Rules:
-  - Slice entries in `## Execution Order` have their status indicated in parentheses after Slice name
+  - Slice Plan entries in `## Execution Order` have their status indicated in parentheses after Slice Plan name
   - Implementation Tasks use checkboxes to indicate progress (`done / not done`)
   - Implementation Tasks are appended continuously during execution
-  - Slice definition and planning content should be changed only while the slice is `draft` or `planned`
-  - Execution-progress content may continue to update while the slice is `in progress`
+  - Slice Plan definition and planning content should be changed only while the Slice Plan is `draft`, or while an `approved` Slice Plan has no completed tasks
+  - Execution-progress content is reflected through task completion while the Slice Plan remains `approved`
   - Developer selects tasks for execution in batches (batches are not explicitly represented)
   - This is the only place where sequencing exists
-  - Progress is reflected inline through task completion and slice status
+  - Progress is reflected inline through task completion and Slice Plan status
   - Batches should remain small enough for a single high-quality developer review step
   - Tasks should be marked done only after developer approval of the implemented batch
   - An approved batch should be committed before the next batch begins so that review boundaries remain clean
@@ -1174,7 +1171,7 @@ Fill in the scaffolded Implementation Plan from the approved PRD and Technical C
 Developer
 
 **AI Agent**  
-Validates that PRD and Technical Concept are approved, fills in the scaffolded Implementation Plan by proposing the initial execution structure and initial slices, checks that slices are shaped for fresh-session execution, and updates the document accordingly. It does not create implementation tasks, and initial slices are created in `draft`. It must not mark the Implementation Plan as approved without explicit approval from the user. It must not move on to the next workflow operation without explicit approval from the user.
+Validates that PRD and Technical Concept are approved, fills in the scaffolded Implementation Plan by proposing the initial execution structure and initial Slice Plans, checks that slices are shaped for fresh-session execution, and updates the document accordingly. It does not create implementation tasks, and initial Slice Plans are created in `draft`. It must not mark the Implementation Plan as approved without explicit approval from the user. It must not move on to the next workflow operation without explicit approval from the user.
 
 **User**  
 Reviews the proposed implementation structure, asks for adjustments if needed, approves the Implementation Plan as the execution baseline, commits the changes in the Implementation Plan or asks the agent to commit.
@@ -1192,19 +1189,19 @@ Turn a selected implementation slice into a concrete, reviewable execution propo
 Developer
 
 **AI Agent**  
-In a fresh session, resolves the active feature through the **Pick Up Feature** operation unless already clearly active. For the selected slice, it:
+In a fresh session, resolves the active feature through the **Pick Up Feature** operation unless already clearly active. For the selected Slice Plan, it:
 - asks clarifying questions if needed
 - proposes the **Implementation Tasks**
 - proposes any **Important Decisions** that should be made before execution
-- checks whether the slice is still sized appropriately for a focused execution session
+- checks whether the Slice Plan is still sized appropriately for a focused execution session
 
-Once the proposals are approved, it updates the Implementation Plan with the agreed Implementation Tasks and any agreed Important Decisions, and transitions the selected slice from `draft` to `planned`. It then indicates the next likely step. It does not proceed to implementation without explicit approval.
+Once the proposals are approved, it updates the Implementation Plan with the agreed Implementation Tasks and any agreed Important Decisions, and transitions the selected Slice Plan from `draft` to `approved`. It then indicates the next likely step. It does not proceed to implementation without explicit approval.
 
 **User**  
-Selects the slice, reviews the proposed tasks and decisions, iterates if needed, explicitly approves the planning changes to the Implementation Plan, commits the updates in the Implementation Plan or asks the agent to commit.
+Selects the Slice Plan, reviews the proposed tasks and decisions, iterates if needed, explicitly approves the planning changes to the Implementation Plan, commits the updates in the Implementation Plan or asks the agent to commit.
 
 **Ends with**  
-**Approved changes recorded in the Implementation Plan, the selected slice transitioned to `planned`, and the result committed.**
+**Approved changes recorded in the Implementation Plan, the selected Slice Plan transitioned to `approved`, and the result committed.**
 
 ---
 
@@ -1226,8 +1223,7 @@ Starts implementation **only after explicit Developer approval** for the selecte
 - gives a **very brief summary** of what changed and explicitly asks the Developer to review the batch
 - supports review iteration by explaining task-to-diff mapping, highlighting notable decisions, gaps, or risks, and applying requested adjustments
 - marks tasks as done in the Implementation Plan **only after explicit Developer approval**
-- transitions the slice to `in progress` if approval marks the first completed task within a `planned` slice
-- transitions the Implementation Plan status from `approved` to `in progress` if this is the first slice entering `in progress`
+- leaves Slice Plan and Implementation Plan artifact statuses unchanged during batch implementation
 - proposes a commit message or commit summary when useful
 - creates the commit itself **only if explicitly asked by the Developer**
 
@@ -1243,19 +1239,19 @@ Selects the tasks for the batch, provides execution constraints or corrections, 
 
 #### 7. Finish Slice
 **Description**  
-Validate that an `in progress` slice is complete and transition it to `done` in the Implementation Plan.
+Validate that an `approved` Slice Plan is complete and transition it to `done` in the Implementation Plan.
 
 **Responsible role**  
 Developer
 
 **AI Agent**  
-Summarizes completed tasks and resulting functionality, confirms whether the slice is complete within its intended boundary, and updates the slice state only if the Developer explicitly confirms completion. It should treat committed approved batches as the expected precondition for closing the slice. It must not mark the slice `done` without explicit Developer approval.
+Summarizes completed tasks and resulting functionality, confirms whether the Slice Plan is complete within its intended boundary, and updates the Slice Plan state only if the Developer explicitly confirms completion. It should treat committed approved batches as the expected precondition for closing the Slice Plan. It must not mark the Slice Plan `done` without explicit Developer approval.
 
 **User**  
-Reviews the implemented slice outcome, validates that the slice goal has been met, confirms transitioning the slice from `in progress` to `done`, commits the updated Implementation Plan or asks the agent to commit.
+Reviews the implemented slice outcome, validates that the slice goal has been met, confirms transitioning the Slice Plan from `approved` to `done`, commits the updated Implementation Plan or asks the agent to commit.
 
 **Ends with**  
-**Slice approved as complete, transitioned to `done` in the Implementation Plan, and committed.**
+**Slice Plan validated as complete, transitioned to `done` in the Implementation Plan, and committed.**
 
 ---
 
@@ -1303,7 +1299,7 @@ Apply relevant approved updates from the PRD and/or Technical Concept to the Imp
 Developer
 
 **AI Agent**  
-Identifies which approved PRD or Technical Concept updates affect execution planning, summarizes their implementation impact, and proposes corresponding inline changes to the Implementation Plan. It may add new Slices or update existing `draft` or `planned` Slices, but does not modify `in progress` Slices, `done` Slices, or any Implementation Tasks.
+Identifies which approved PRD or Technical Concept updates affect execution planning, summarizes their implementation impact, and proposes corresponding inline changes to the Implementation Plan. It may add new Slice Plans or update existing `draft` Slice Plans or not-yet-started `approved` Slice Plans, but does not modify already-started `approved` Slice Plans, `done` Slice Plans, or any Implementation Tasks.
 
 **User**  
 Confirms that the specification updates should be reflected in the Implementation Plan, reviews the proposed planning changes, adjusts them if needed, approves updating the document, commits the changes or asks the Agent to commit.
@@ -1321,7 +1317,7 @@ Conclude implementation by verifying completion state, repository readiness, and
 Developer
 
 **AI Agent**  
-Checks that all slices are marked `done`, confirms the Implementation Plan reflects execution state, treats the Implementation Plan as the canonical feature-completion artifact, checks for unresolved draft updates, proposes final status updates, clears local workspace state so `activeFeature` becomes `null`, and indicates completion clearly.
+Checks that all Slice Plans are marked `done`, confirms the Implementation Plan reflects execution state, treats the Implementation Plan as the canonical feature-completion artifact, checks for unresolved draft updates, proposes final status updates, clears local workspace state so `activeFeature` becomes `null`, and indicates completion clearly.
 
 **User**  
 Verifies repository cleanliness and completion readiness, confirms marking the Implementation Plan as done, commits the change or asks the Agent to commit.
@@ -1431,12 +1427,12 @@ The inventory should also be easy to surface to the user on demand. Shape assume
 - **plan implementation**
   - **Purpose:** create the initial Implementation Plan from the approved PRD and Technical Concept and prepare execution to begin
   - **Triggers on:** request to begin implementation planning
-  - **Outcome:** Implementation Plan exists with initial slices and can reach `approved` state as the execution baseline
+  - **Outcome:** Implementation Plan exists with initial Slice Plans and can reach `approved` state as the execution baseline
 
 - **plan slice**
-  - **Purpose:** turn a selected implementation slice into a concrete, reviewable execution proposal by defining Implementation Tasks and recording any agreed Important Decisions
-  - **Triggers on:** request to refine a slice for execution
-  - **Outcome:** approved planning changes are recorded in the Implementation Plan and the selected slice can move from `draft` to `planned`
+  - **Purpose:** turn a selected Slice Plan into a concrete, reviewable execution proposal by defining Implementation Tasks and recording any agreed Important Decisions
+  - **Triggers on:** request to refine a Slice Plan for execution
+  - **Outcome:** approved planning changes are recorded in the Implementation Plan and the selected Slice Plan can move from `draft` to `approved`
 
 - **implement batch**
   - **Purpose:** execute an approved batch of implementation tasks through its full internal lifecycle of input, execution, review and iteration, approval-driven plan updates, and commit
@@ -1444,9 +1440,9 @@ The inventory should also be easy to surface to the user on demand. Shape assume
   - **Outcome:** the selected batch can move through execution, developer review, revision, approval, task completion updates, and commit without splitting into separate workflow operations or crossing approval or commit consent boundaries implicitly
 
 - **finish slice**
-  - **Purpose:** validate that an `in progress` slice is complete and transition it to `done` in the Implementation Plan
-  - **Triggers on:** request to close a slice whose tasks have been completed through approved batches and any explicitly requested commits
-  - **Outcome:** selected slice is transitioned to `done` in the Implementation Plan and can be committed as complete
+  - **Purpose:** validate that an `approved` Slice Plan is complete and transition it to `done` in the Implementation Plan
+  - **Triggers on:** request to close a Slice Plan whose tasks have been completed through approved batches and any explicitly requested commits
+  - **Outcome:** selected Slice Plan is transitioned to `done` in the Implementation Plan and can be committed as complete
 
 - **update prd**
   - **Purpose:** add a new PRD Specification Update or continue refining an existing draft PRD update until it remains `draft` or is marked `approved`
@@ -1461,7 +1457,7 @@ The inventory should also be easy to surface to the user on demand. Shape assume
 - **update implementation plan**
   - **Purpose:** apply relevant approved updates from the PRD and/or Technical Concept to the Implementation Plan
   - **Triggers on:** request to propagate approved specification updates into execution planning
-  - **Outcome:** Implementation Plan is updated inline to reflect approved specification changes without changing `in progress` slices, `done` slices, or any Implementation Tasks
+  - **Outcome:** Implementation Plan is updated inline to reflect approved specification changes without changing already-started Slice Plans, `done` Slice Plans, or any Implementation Tasks
 
 - **finish feature**
   - **Purpose:** conclude implementation by verifying completion state, repository readiness, and final Implementation Plan status
@@ -1498,7 +1494,7 @@ The inventory should also be easy to surface to the user on demand. Shape assume
 - `update prd` and `update technical concept` should clearly support both creating a new update and continuing an existing draft update.
 - Shape strongly prefers at most one draft Specification Update per target document at a time. Multiple concurrent draft updates in the same document are discouraged because they increase ambiguity and drift risk. Skills should warn about this situation and prefer continuing an existing draft, but should not assume they can fully prevent manual divergence.
 - `plan slice` should explicitly account for practical agent context limits.
-- `plan slice` and `plan implementation` should both reinforce that each new Slice should normally begin in a fresh agent session.
+- `plan slice` and `plan implementation` should both reinforce that each new slice should normally begin in a fresh agent session.
 - `plan slice` should normally begin a fresh execution session by resolving the active feature through `pick up feature`, unless the active feature is already unambiguous.
 - `implement batch` should preserve batch sizes that remain reviewable by a developer in one focused step.
 - `implement batch` should support Developer-led review and approval, not replace them.
