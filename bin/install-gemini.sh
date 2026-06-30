@@ -423,19 +423,13 @@ main() {
 
     info "Installing Gemini-native skills"
     mkdir -p "$target_gemini_skills"
-    while IFS= read -r -d '' skill_file; do
-        local base_name
-        base_name="$(basename "$skill_file")"
+    while IFS= read -r skill_name; do
+        [[ -n "$skill_name" ]] || continue
 
-        case "$base_name" in
-            README.md|skill-design-principles.md|codex-generation-prompt.md|claude-generation-prompt.md|gemini-generation-prompt.md)
-                info "Skipping source-repo-only artifact: $base_name"
-                ;;
-            *)
-                install_gemini_skill "$skill_file" "$target_gemini_skills"
-                ;;
-        esac
-    done < <(find "$shape_skills" -maxdepth 1 -type f -name '*.md' -print0)
+        local skill_file="$shape_skills/$skill_name.md"
+        require_file "$skill_file" "managed skill: $skill_name"
+        install_gemini_skill "$skill_file" "$target_gemini_skills"
+    done < <(list_managed_skills "$shape_config_templates/config.json")
 
     info "Generating GEMINI.md snippet"
     generate_gemini_snippet "$target_shape_generated/gemini-shape-snippet.md" "$target_root"

@@ -94,8 +94,7 @@ shape/
 ├── installation.md
 ├── skills/
 │   ├── README.md
-│   ├── skill-design-principles.md
-│   ├── codex-generation-prompt.md
+│   ├── skill-generation-prompt.md
 │   └── *.md
 ├── workflow-templates/
 │   ├── prd-template.md
@@ -112,9 +111,9 @@ shape/
 
 - `skills/` contains Shape skill definitions and skill-related guidance used to prepare agent-specific installations
 - `skills/README.md` is a **source-repository-only artifact** describing how the skills folder is organized and how skills relate to Shape operations
-- `skills/codex-generation-prompt.md` is a **source-repository-only artifact** used to help generate or skill files consistently
-- `skills/skill-design-principles.md` is a **source-repository-only artifact** describing how to create and review skill files in the Shape repository
-- the individual skill files under `skills/` are the actual skill-definition artifacts that may later be adapted into agent-specific installed formats
+- `skills/skill-generation-prompt.md` is a **source-repository-only artifact** used to help generate skill files consistently
+- the individual managed skill files under `skills/` are the actual skill-definition artifacts adapted into agent-specific installed formats
+- `config-templates/config.json` is the authoritative inventory of managed skills installed into target repositories
 - `workflow-templates/` contains the canonical workflow artifact templates
 - `config-templates/` contains starter repository-level Shape configuration files for the target repository `.shape/` folder
 
@@ -131,6 +130,7 @@ target-repo/
 │   ├── .gitignore
 │   ├── config.json
 │   ├── workspace.json
+│   ├── generated/
 │   └── workflow-templates/
 │       ├── prd-template.md
 │       ├── technical-concept-template.md
@@ -151,7 +151,7 @@ It contains:
 - persistent Shape configuration
 - transient local Shape workspace state
 - installed workflow templates
-- optionally, agent-specific generated support artifacts where appropriate
+- generated agent-specific instruction snippets under `.shape/generated/`
 
 ### Persistent vs transient
 
@@ -159,6 +159,7 @@ Persistent and shared:
 - `.shape/config.json`
 - `.shape/workflow-templates/`
 - `.shape/README.md`
+- `.shape/generated/`
 
 Transient and local:
 - `.shape/workspace.json`
