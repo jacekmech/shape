@@ -16,7 +16,9 @@ Arguments:
 
 Options:
   --overwrite    Replace the existing Shape installation in <target-root> while
-                 preserving feature folders and .shape/workspace.json
+                 preserving feature folders and .shape/workspace.json. Managed
+                 skills declared in the target .shape/config.json are removed
+                 before installing the new skill set.
 
 What this script does:
   1. Installs the generic Shape layer into <target-root>/.shape/
@@ -28,7 +30,7 @@ What this script does:
 What this script does NOT do:
   - It does not patch AGENTS.md
   - It does not commit any changes
-  - It does not overwrite existing files unless --overwrite is provided
+  - It stops if Shape is already installed unless --overwrite is provided
 
 Expected Shape source layout:
   <shape-root>/
@@ -380,25 +382,22 @@ main() {
     local target_codex_skills="$target_root/.codex/skills"
     local target_shape_config="$target_shape/config.json"
 
+    if [[ -e "$target_shape" && "$OVERWRITE" -ne 1 ]]; then
+        fail "Shape already appears to be installed at: $target_shape. Re-run with --overwrite to replace the managed Shape installation."
+    fi
+
     if [[ "$OVERWRITE" -eq 1 ]]; then
         info "Preparing overwrite of existing Shape + Codex installation"
+        while IFS= read -r skill_name; do
+            [[ -n "$skill_name" ]] || continue
+            remove_path_if_exists "$target_codex_skills/$skill_name" "Codex skill"
+        done < <(list_managed_skills "$target_shape_config")
+
         remove_path_if_exists "$target_shape/README.md" "Shape file"
         remove_path_if_exists "$target_shape/.gitignore" "Shape file"
         remove_path_if_exists "$target_shape/config.json" "Shape file"
         remove_path_if_exists "$target_shape_workflow_templates" "workflow templates"
         remove_path_if_exists "$target_shape_generated" "generated snippets"
-
-        while IFS= read -r skill_name; do
-            [[ -n "$skill_name" ]] || continue
-            remove_path_if_exists "$target_codex_skills/$skill_name" "Codex skill"
-        done < <(
-            {
-                list_managed_skills "$target_shape_config"
-                list_managed_skills "$shape_config_templates/config.json"
-                find "$shape_skills" -maxdepth 1 -type f -name '*.md' -printf '%f\n' \
-                    | sed -E 's/\.md$//'
-            } | grep -vE '^(README|skill-design-principles|codex-generation-prompt)$' | sort -u
-        )
     fi
 
     info "Installing generic Shape layer"

@@ -19,12 +19,20 @@ Use the installation script for your agent. Each script:
 The scripts do not:
 - patch `AGENTS.md`, `CLAUDE.md`, or `GEMINI.md` automatically
 - commit changes
-- overwrite existing files silently
+- overwrite an existing Shape installation unless `--overwrite` is provided
+
+Installation behavior:
+- if Shape is not installed in the target repository, the script installs it
+- if Shape is already installed and `--overwrite` is not provided, the script stops with a clear message
+- if Shape is already installed and `--overwrite` is provided, the script replaces the managed Shape installation while preserving feature folders and `.shape/workspace.json`
+
+During overwrite, the script removes existing agent-native Shape skills declared in the target repository `.shape/config.json`, then installs the new managed skill set from the Shape source repository.
 
 ### Codex
 
 ```bash
 bin/install-codex.sh <shape-root> <target-root>
+bin/install-codex.sh --overwrite <shape-root> <target-root>
 ```
 
 Then paste the generated snippet into `AGENTS.md`.
@@ -33,6 +41,7 @@ Then paste the generated snippet into `AGENTS.md`.
 
 ```bash
 bin/install-claude.sh <shape-root> <target-root>
+bin/install-claude.sh --overwrite <shape-root> <target-root>
 ```
 
 Then paste the generated snippet into `CLAUDE.md`.
@@ -41,6 +50,7 @@ Then paste the generated snippet into `CLAUDE.md`.
 
 ```bash
 bin/install-gemini.sh <shape-root> <target-root>
+bin/install-gemini.sh --overwrite <shape-root> <target-root>
 ```
 
 Then paste the generated snippet into `GEMINI.md`.
@@ -49,6 +59,7 @@ Then paste the generated snippet into `GEMINI.md`.
 
 ```bash
 bin/install-opencode.sh <shape-root> <target-root>
+bin/install-opencode.sh --overwrite <shape-root> <target-root>
 ```
 
 Then paste the generated snippet into `AGENTS.md`.
