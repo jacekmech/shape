@@ -23,7 +23,8 @@ Shape is designed to help structure software feature development when working wi
 
 ## Version History
 
-- `v0.2` (current): terminology and documentation cleanup around software development wording, overview structure, status naming, and stronger workflow step-boundary guidance
+- `v0.3` (current): unified artifact state flows around Implementation Plans and Slice Plans, refreshed installation guidance and install script behavior, and removed repository readiness checks to keep Shape focused on feature workflow
+- `v0.2`: terminology and documentation cleanup around software development wording, overview structure, status naming, and stronger workflow step-boundary guidance
 - `v0.1`: initial version with PRD, Technical Concept, and Implementation Plan support; basic skill set in place; fully functional
 
 ## License
