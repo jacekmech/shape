@@ -1,7 +1,7 @@
 # finish feature
 
 ## Purpose
-Conclude implementation for the active feature after all Slice Plans are `done` and validated by verifying repository readiness for completion, marking the Implementation Plan as `done`, clearing the active workspace feature context, and making the completed state explicit.
+Conclude implementation for the active feature after all Slice Plans are `done` and validated by verifying repository cleanliness for completion, marking the Implementation Plan as `done`, clearing the active workspace feature context, and making the completed state explicit.
 
 ## When to Use
 Use this skill when the user wants to finish the feature, close the Implementation Plan after all slice work is complete, or confirm that implementation has actually reached the `done` state.

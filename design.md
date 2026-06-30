@@ -55,8 +55,6 @@ Late changes are inherently expensive to coordinate. Shape keeps the mechanism f
 
 Shape focuses on the core artifact-driven workflow for delivering a feature within an already chosen branch and repository context. It does not define branching strategy or prescribe a specific coding agent vendor, integration mechanism, or mandatory agent instruction filename.
 
-Shape does define repository readiness expectations for agent-assisted development, but it does not standardize the full setup or installation model for agent tooling across repositories.
-
 The following areas are intentionally out of scope for Shape:
 - document review workflows
 - pull request review workflows
@@ -1117,7 +1115,7 @@ Create the initial feature workspace and establish the feature as a concrete uni
 Product Owner, Architect, or Developer
 
 **AI Agent**  
-Proposes feature identifier and slug if needed, scaffolds the feature folder and core artifact files according to Shape conventions, evaluates repository readiness, and indicates the most likely next step after setup. This includes scaffolding an initial `03-implementation-plan.md` file from the default template, but it does not fill in execution content such as slices or tasks beyond that starting structure.
+Proposes feature identifier and slug if needed, scaffolds the feature folder and core artifact files according to Shape conventions, and indicates the most likely next step after setup. This includes scaffolding an initial `03-implementation-plan.md` file from the default template, but it does not fill in execution content such as slices or tasks beyond that starting structure.
 
 **User**  
 Provides or approves the feature identity, confirms creation of the feature workspace, commits the changes or asks the Agent to commit.
@@ -1311,7 +1309,7 @@ Confirms that the specification updates should be reflected in the Implementatio
 
 #### 11. Finish Feature
 **Description**  
-Conclude implementation by verifying completion state, repository readiness, and final Implementation Plan status.
+Conclude implementation by verifying completion state, repository cleanliness, and final Implementation Plan status.
 
 **Responsible role**  
 Developer
@@ -1320,7 +1318,7 @@ Developer
 Checks that all Slice Plans are marked `done`, confirms the Implementation Plan reflects execution state, treats the Implementation Plan as the canonical feature-completion artifact, checks for unresolved draft updates, proposes final status updates, clears local workspace state so `activeFeature` becomes `null`, and indicates completion clearly.
 
 **User**  
-Verifies repository cleanliness and completion readiness, confirms marking the Implementation Plan as done, commits the change or asks the Agent to commit.
+Verifies repository cleanliness and completion state, confirms marking the Implementation Plan as done, commits the change or asks the Agent to commit.
 
 **Ends with**  
 **Implementation Plan marked as done, active workspace feature cleared, repository confirmed clean, and completion committed.**
@@ -1352,7 +1350,7 @@ Display the current Shape configuration, active feature context, resolved artifa
 Product Owner, Architect, or Developer
 
 **AI Agent**  
-Reads Shape configuration and local state, resolves the active feature and core artifacts, reports current statuses and missing prerequisites, surfaces repository readiness state, and suggests the next likely workflow step.
+Reads Shape configuration and local state, resolves the active feature and core artifacts, reports current statuses and missing prerequisites, and suggests the next likely workflow step.
 
 **User**  
 Requests the current workflow state and uses the result to decide what to do next.
@@ -1460,7 +1458,7 @@ The inventory should also be easy to surface to the user on demand. Shape assume
   - **Outcome:** Implementation Plan is updated inline to reflect approved specification changes without changing already-started Slice Plans, `done` Slice Plans, or any Implementation Tasks
 
 - **finish feature**
-  - **Purpose:** conclude implementation by verifying completion state, repository readiness, and final Implementation Plan status
+  - **Purpose:** conclude implementation by verifying completion state, repository cleanliness, and final Implementation Plan status
   - **Triggers on:** request to finalize feature implementation
   - **Outcome:** Implementation Plan can be marked as `done`, active workspace feature context can be cleared, and repository state can be confirmed clean and complete
 
@@ -1506,207 +1504,3 @@ The inventory should also be easy to surface to the user on demand. Shape assume
 - Full skill behavior, prompts, validations, and file formats belong in separate skill files.
 
 ---
-
-## 11. Repository Readiness for Agent-Assisted Development
-
-Shape assumes that artifact quality alone is not sufficient to ensure high-quality agent-assisted development. The surrounding repository context also matters.
-
-Even with a strong PRD, Technical Concept, and Implementation Plan, a coding agent will produce less reliable results if the repository does not clearly communicate how code should be written, validated, and organized.
-
-This section defines what Shape expects from the repository environment, how missing guidance affects development quality, and how Shape skills should behave when repository readiness is incomplete.
-
----
-
-### 11.1 Purpose
-
-The purpose of repository readiness guidance is to improve:
-
-- implementation consistency
-- alignment with local repository conventions
-- architectural correctness
-- validation reliability
-- predictability of agent output
-- overall development quality
-
-Shape does not require a specific coding agent vendor or a single mandatory instruction filename. Instead, it expects that the repository provides sufficient agent-facing guidance in a form that the coding agent can reliably consume.
-
-Examples of such files may include:
-
-- `AGENTS.md`
-- `CLAUDE.md`
-- `GEMINI.md`
-- other repository-level agent instruction files
-- contributor or engineering guidance documents referenced from agent-facing instructions
-
-The important requirement is not the exact filename, but the presence of clear, accessible, repository-specific guidance.
-
----
-
-### 11.2 Expected Repository Guidance
-
-Shape strongly prefers that the repository provides agent-facing guidance covering the following areas.
-
-#### Repository structure
-The agent should be able to understand:
-
-- how the repository is organized
-- where major code areas live
-- where documentation artifacts live
-- where Shape feature folders are expected to be created
-- whether there are important monorepo boundaries or ownership boundaries
-
-#### Development and validation commands
-The agent should be able to understand:
-
-- how to install dependencies
-- how to run relevant tests
-- how to run linting
-- how to run formatting
-- how to build the project
-- how to validate changes before review
-
-#### Code style and local conventions
-The agent should be able to understand:
-
-- formatting expectations
-- naming conventions
-- file organization preferences
-- local patterns that should be followed
-- conventions that differ from generic framework defaults
-
-#### Architectural constraints and preferred patterns
-The agent should be able to understand:
-
-- important architectural boundaries
-- preferred implementation patterns
-- forbidden or discouraged patterns
-- how responsibilities are typically split
-- which decisions should remain consistent across features
-
----
-
-### 11.3 Readiness Levels
-
-Shape should treat repository readiness as graded rather than binary.
-
-#### Ready enough
-The repository contains sufficient guidance for an agent to operate with acceptable consistency and predictability.
-
-Typical characteristics:
-
-- repository structure is understandable
-- validation commands are available
-- coding conventions are documented
-- architectural direction is at least partially clear
-
-This is the preferred operating condition.
-
-#### Degraded
-Some important guidance is missing, incomplete, outdated, or fragmented.
-
-Typical characteristics:
-
-- agent instructions exist but are partial
-- some commands are missing or unclear
-- architectural expectations are only partly documented
-- local conventions must be inferred from code rather than stated explicitly
-
-Work may still proceed, but results are likely to be:
-
-- less consistent
-- more error-prone
-- less aligned with repository conventions
-- more likely to require manual correction or rework
-
-This condition should trigger a warning, but should not automatically block work.
-
-#### High risk
-Critical guidance is missing or too unclear for reliable agent-assisted development.
-
-Typical characteristics:
-
-- no usable agent-facing repository instructions
-- no clear validation commands
-- no understandable repository structure guidance
-- no clear indication of local coding or architectural expectations
-
-Work may still technically proceed, but the probability of low-quality, inconsistent, or misaligned output is materially higher.
-
-This condition should trigger a strong warning and explicit user confirmation before continuing.
-
----
-
-### 11.4 Non-Blocking but Explicit Policy
-
-Shape does not assume it can fully prevent users from working in an underprepared repository.
-
-Accordingly:
-
-- missing repository guidance should not automatically block feature initiation
-- Shape should inspect and report missing or weak guidance explicitly
-- Shape should communicate likely consequences of proceeding without it
-- Shape should ask for explicit confirmation before continuing in clearly degraded or high-risk conditions
-
-Shape prefers transparent warnings over false guarantees of control.
-
-This is intentional. A user may choose to proceed despite missing guidance, may modify files manually outside Shape, or may accept lower predictability for the sake of speed. The workflow should acknowledge that reality rather than pretending it can fully enforce repository discipline.
-
----
-
-### 11.5 Expected Skill Behavior
-
-This section should be operationalized primarily through the `initiate feature` skill and, where useful, through `show status`.
-
-#### Initiate feature
-When starting a feature, the skill should:
-
-- inspect the repository for agent-facing guidance
-- determine whether relevant guidance appears present, partial, or critically missing
-- summarize the current readiness state
-- identify the most important gaps
-- explain that lower readiness reduces development quality and predictability
-- ask whether the user wants to proceed if readiness is degraded or high risk
-
-The skill should not hard-block feature creation solely because readiness is incomplete.
-
-#### Show status
-When requested, the skill should also be able to surface repository readiness information, including:
-
-- whether agent-facing guidance appears present
-- whether major gaps were previously detected
-- whether the current repository state appears ready enough, degraded, or high risk for agent-assisted development
-
-This keeps repository readiness visible beyond the initial feature setup.
-
-#### Create Technical Concept
-When drafting technical design, the skill should:
-
-- explicitly use repository guidance and local architectural instructions as design inputs
-- avoid proposing solutions that clearly conflict with established project patterns without calling this out
-- mention important repository-alignment constraints when they materially shape the concept
-
-This keeps architectural alignment visible as a central part of design work rather than as an implicit side effect.
-
----
-
-### 11.6 Minimal Recommendation for Shape Repositories
-
-For practical use, Shape strongly recommends that a repository provide at least:
-
-- one agent-facing repository instruction file
-- clear locations for Shape feature artifacts
-- lint, test, build, and formatting commands
-- key coding style expectations
-- important architectural constraints and preferred implementation patterns
-
-This is not intended as heavy process. It is the minimum repository context needed to reduce ambiguity and improve the quality of agent-assisted development.
-
----
-
-### 11.7 Summary Principle
-
-Shape assumes that coding agents perform best when repository expectations are explicit.
-
-Good artifacts improve feature-level intent. Good repository guidance improves implementation-level consistency.
-
-Both are needed for reliable agent-assisted development.

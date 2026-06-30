@@ -1,10 +1,10 @@
 # show status
 
 ## Purpose
-Display the current Shape workflow state in a compact, user-friendly form so the user can quickly understand active context, artifact status, repository readiness, structural warnings, and the most likely next action.
+Display the current Shape workflow state in a compact, user-friendly form so the user can quickly understand active context, artifact status, structural warnings, and the most likely next action.
 
 ## When to Use
-Use this skill when the user wants to inspect current Shape state, understand what is active, check readiness, or decide what to do next.
+Use this skill when the user wants to inspect current Shape state, understand what is active, or decide what to do next.
 
 Typical triggers:
 - “show status”
@@ -53,20 +53,6 @@ When an Implementation Plan exists, inspect where practical:
 - whether the feature is completed because the Implementation Plan is `done`
 - whether there are obvious signs that review, approval, commit, or slice closure is the likely next step
 
-### Repository readiness
-Surface repository readiness for agent-assisted development.
-Check for:
-- agent-facing guidance files
-- development and validation commands
-- coding conventions
-- architecture guidance
-- feature artifact location clarity
-
-Use Shape’s readiness levels:
-- **ready enough**
-- **degraded**
-- **high risk**
-
 ## Output Structure
 Present status in a compact structure that is easy to scan.
 
@@ -74,7 +60,6 @@ Recommended sections:
 - Active feature
 - Artifacts
 - Implementation state
-- Repository readiness
 - Warnings
 - Likely next step
 
@@ -116,13 +101,11 @@ Examples:
 This skill is complete when the user can answer all of the following quickly:
 - What feature is active?
 - Which artifacts exist and what state are they in?
-- Is the repository ready enough for agent-assisted work?
 - Are there any structural warnings?
 - What is the next likely workflow step?
 
 ## Guardrails
 - Do not dump raw file listings when a summary is enough
 - Do not hide structural problems or missing artifacts
-- Do not report repository readiness vaguely; classify it explicitly when possible
 - Do not end with status alone; always include the most likely next step
 - YOU MUST NOT proceed to the next workflow step without explicit approval

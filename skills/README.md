@@ -258,25 +258,7 @@ Skills should not overdramatize this rule, but they should preserve it where ope
 
 ---
 
-## 7. Repository Readiness Principles
-
-Skills that operate against repository structure should account for repository readiness.
-
-At minimum, repository-oriented skills should be able to notice whether the repository appears to provide:
-
-- agent-facing instructions
-- feature artifact location guidance
-- test, lint, build, and format commands
-- coding conventions
-- architectural guidance
-
-If readiness is weak, the skill should surface the risk explicitly rather than pretending the workflow is fully controlled.
-
-The workflow should warn, not bluff.
-
----
-
-## 8. Tone and Writing Style
+## 7. Tone and Writing Style
 
 Shape skills should be written in a tone that is:
 
@@ -301,7 +283,7 @@ Prefer:
 
 ---
 
-## 9. Recommended Skill File Structure
+## 8. Recommended Skill File Structure
 
 Each skill file should follow a stable structure.
 
@@ -323,7 +305,7 @@ Not every skill needs the exact same depth in every section, but the overall str
 
 ---
 
-## 10. What a Good Skill Must Make Clear
+## 9. What a Good Skill Must Make Clear
 
 A good Shape skill should make the following clear without ambiguity:
 
@@ -341,7 +323,7 @@ If any of those are unclear, the skill is probably too vague.
 
 ---
 
-## 11. What Skills Should Not Try to Do
+## 10. What Skills Should Not Try to Do
 
 Shape skills should not:
 
@@ -349,7 +331,6 @@ Shape skills should not:
 - absorb multiple operations into one broad helper
 - hide document lifecycle rules
 - silently rewrite immutable baseline sections
-- pretend repository readiness is better than it is
 - replace explicit human review and approval boundaries
 - turn `Relevant Files` into a full inventory or changelog
 - improvise alternative document schemas
@@ -357,7 +338,7 @@ Shape skills should not:
 
 ---
 
-## 12. Relationship Between Principles and Examples
+## 11. Relationship Between Principles and Examples
 
 The first generated skills should be treated as reference implementations of these principles.
 
@@ -377,7 +358,7 @@ If the principles and examples conflict, the principles should be treated as the
 
 ---
 
-## 13. Practical Generation Guidance
+## 12. Practical Generation Guidance
 
 When generating skills in batches:
 
@@ -392,7 +373,7 @@ Small-batch generation with review is preferred over one-shot bulk generation of
 
 ---
 
-## 14. Definition of Done for a Shape Skill
+## 13. Definition of Done for a Shape Skill
 
 A skill file is ready when:
 

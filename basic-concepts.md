@@ -89,7 +89,7 @@ Slice Plans optimize for agent execution. Batches optimize for human validation.
 
 Together, they let implementation move fast without forcing either the AI or the developer to work in units that are too large for reliable judgment.
 
-Shape also assumes that repository context matters. Good feature artifacts improve feature-level intent, but agent-facing repository guidance improves implementation consistency, validation reliability, and alignment with local engineering conventions.
+Repository context still matters when it is available. Shape uses repository guidance as input to technical design and implementation decisions, but it does not turn that context into a workflow checkpoint.
 
 ## Status vocabulary
 

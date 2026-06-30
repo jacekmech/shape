@@ -4,7 +4,7 @@
 
 This document explains how to use Shape to deliver a feature with an AI coding agent.
 
-It assumes Shape is already installed and the repository already includes agent-facing guidance. If you need the conceptual introduction first, read `basic-concepts.md`. If you need installation and repository setup guidance, read `installation.md`.
+It assumes Shape is already installed in the repository. If you need the conceptual introduction first, read `basic-concepts.md`. If you need installation guidance, read `installation.md`.
 
 ---
 

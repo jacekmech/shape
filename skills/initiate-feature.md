@@ -1,7 +1,7 @@
 # initiate feature
 
 ## Purpose
-Create the initial Shape feature workspace in the repository, scaffold the core artifact files using Shape conventions, inspect repository readiness for agent-assisted development, and orient the user toward the next workflow step.
+Create the initial Shape feature workspace in the repository, scaffold the core artifact files using Shape conventions, and orient the user toward the next workflow step.
 
 ## When to Use
 Use this skill when the user wants to start a new Shape feature, create a new feature folder, scaffold the three core artifacts, or establish a feature as a new unit of work in the repository.
@@ -24,7 +24,6 @@ Expected inputs:
 Helpful but optional:
 - Existing ticket title
 - Existing feature brief
-- Existing repository guidance files or references
 
 ## Preconditions
 Before proceeding, confirm or infer:
@@ -40,7 +39,6 @@ This skill should produce:
 - `01-prd.md`
 - `02-tech-concept.md`
 - `03-implementation-plan.md`
-- A concise repository readiness assessment
 - A repository state that is ready to be committed as the feature-initiation checkpoint
 - A clear likely next step
 
@@ -110,48 +108,6 @@ Do not prematurely mark any artifact as `approved`.
 - After the commit boundary is resolved, YOU MUST ask whether to proceed to the next Shape workflow step.
 - YOU MUST NOT proceed to `create prd` or any other next Shape workflow step unless the human explicitly approves proceeding.
 
-## Repository Readiness Check
-This skill must inspect repository readiness for agent-assisted development.
-
-Look for agent-facing guidance such as:
-- `AGENTS.md`
-- `CLAUDE.md`
-- `GEMINI.md`
-- contributor docs
-- engineering docs referenced from agent-facing files
-- repository docs that define conventions, commands, or architecture
-
-Assess readiness using Shape’s three-level model:
-- **ready enough**
-- **degraded**
-- **high risk**
-
-Check for evidence of:
-- repository structure guidance
-- test, lint, build, and formatting commands
-- coding conventions
-- architectural constraints or preferred patterns
-- expected location for feature artifacts
-
-## Readiness Behavior
-Behavior by readiness level:
-
-### Ready enough
-Proceed normally.
-Summarize the useful guidance found.
-
-### Degraded
-Proceed only after clearly warning the user that development quality and predictability are reduced and the user explicitly confirms continuing.
-State the most important gaps.
-
-### High risk
-Give a stronger warning.
-State that agent-assisted development is materially less reliable.
-Proceed only after explicit user confirmation.
-Do not pretend the repository is prepared if it is not.
-
-This skill should not hard-block feature initiation solely because readiness is incomplete, but it should make the consequences explicit.
-
 ## Interaction Style
 When feature identity is incomplete:
 - infer sensible defaults when possible
@@ -167,7 +123,6 @@ This skill is complete when:
 - the new feature folder is resolved
 - all three core artifact files exist
 - each file starts in `draft`
-- repository readiness has been assessed and reported
 - the workspace is clearly ready for the user or agent to create the feature-initiation commit
 - a commit can be proposed cleanly as the feature-initiation checkpoint
 - the user can immediately proceed to the next meaningful Shape step
@@ -175,7 +130,6 @@ This skill is complete when:
 ## Guardrails
 - Do not overwrite an existing feature folder silently
 - YOU MUST NOT mark documents `approved` during scaffolding
-- Do not skip repository readiness reporting
 - Do not invent non-Shape artifact filenames unless repository constraints require it
 - Do not bury the next step; state it plainly
 - YOU MUST NOT proceed to the next workflow step without explicit approval
@@ -187,4 +141,4 @@ Usually suggest:
 - `show status`
 - `show capabilities`
 
-Prefer `create prd` as the default next step unless the user first needs orientation or repository issues need attention, the commit boundary is resolved, and the human explicitly approves proceeding.
+Prefer `create prd` as the default next step once the commit boundary is resolved and the human explicitly approves proceeding.
