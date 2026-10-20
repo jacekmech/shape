@@ -1,4 +1,4 @@
-# Technical Concept Template
+# Technical Specification Template
 
 ## Header
 - **Title:**
@@ -64,6 +64,7 @@
 ## Risks & Trade-offs
 - **Major risks:**
 - **Important decisions:**
+- **Delivery feasibility:** dependencies and recommended refinements to the proposed product delivery iterations
 
 ---
 
@@ -75,13 +76,13 @@
 ---
 
 ## Out of Scope
-- 
+-
 
 ---
 
 ## Updates
 
-Append-only list of **Specification Updates** added after the baseline Technical Concept reaches `approved`.
+Append-only list of **Specification Updates** added after the baseline Technical Specification reaches `approved`.
 
 Only Updates with status `approved` are considered effective.
 
@@ -92,10 +93,10 @@ Only Updates with status `approved` are considered effective.
 - **Date:** `YYYY-MM-DD`
 
 **Context**
-- 
+-
 
 **Change / decision**
-- 
+-
 
 **Impact**
-- 
+-

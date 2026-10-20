@@ -3,6 +3,11 @@
 ## Purpose
 Display the currently supported Shape skills in a compact, user-friendly form so the user can see what operations are available now and which ones are most relevant for the current workflow state.
 
+## Artifact resolution and compatibility
+Read `.shape/config.json` before resolving artifacts. Filenames below are fresh-install defaults; use configured `featuresRoot` and `artifacts.productSpecification`, `artifacts.technicalSpecification`, and `artifacts.implementationPlan` values instead when present. Older configurations may use `prd` and `technicalConcept` keys. Existing `01-prd.md`, `02-tech-concept.md`, and “Slice Plan” headings remain valid; interpret them as Product Specification, Technical Specification, and Iteration without renaming files or rewriting existing documents solely for terminology.
+
+For any specification input, read its `## Source` when present and follow the referenced document and relevant sections, including approved source-revision updates. A reference artifact is valid without the full authored template. If the source is inaccessible or materially changed since review, surface the gap and pause dependent work until it is resolved; do not infer readiness from the link or status alone. Read `.shape/workflow-templates/specification-reference-template.md` for reference and revision rules.
+
 ## When to Use
 Use this skill when the user wants to understand what Shape can do in this repository, which operations are available in the current stage, or what the valid next actions are.
 
@@ -36,16 +41,16 @@ Present capabilities in plain language rather than as a raw file listing.
 
 When useful, group the result by workflow stage:
 - orientation
-- PRD
-- Technical Concept
+- Product Specification
+- Technical Specification
 - implementation
 
 Call out the currently most relevant operations based on the best available state evidence.
 
 Examples:
 - no feature context yet: emphasize `initiate feature`, `pick up feature`, and `show status`
-- feature exists but PRD is still `draft`: emphasize `create prd`
-- PRD is `approved` and Technical Concept is missing or `draft`: emphasize `create technical concept`
+- feature exists but Product Specification is still `draft`: emphasize `create product specification`
+- Product Specification is `approved` and Technical Specification is missing or `draft`: emphasize `create technical specification`
 - implementation is active: emphasize the implementation skill most likely needed next rather than dumping the full list first
 
 Keep the result concise and easy to scan.
@@ -61,7 +66,7 @@ The goal is orientation and workflow discoverability, not exhaustive theory.
 ## Artifact Rules
 This skill may read:
 - `.shape/config.json` for the repository-declared Shape skill inventory and local artifact conventions
-- `01-prd.md`, `02-tech-concept.md`, and `03-implementation-plan.md` for relevance cues when an active feature is available
+- `01-product-specification.md`, `02-technical-specification.md`, and `03-implementation-plan.md` for relevance cues when an active feature is available
 
 This skill must not:
 - create or modify any Shape artifact

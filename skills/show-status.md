@@ -3,6 +3,11 @@
 ## Purpose
 Display the current Shape workflow state in a compact, user-friendly form so the user can quickly understand active context, artifact status, structural warnings, and the most likely next action.
 
+## Artifact resolution and compatibility
+Read `.shape/config.json` before resolving artifacts. Filenames below are fresh-install defaults; use configured `featuresRoot` and `artifacts.productSpecification`, `artifacts.technicalSpecification`, and `artifacts.implementationPlan` values instead when present. Older configurations may use `prd` and `technicalConcept` keys. Existing `01-prd.md`, `02-tech-concept.md`, and “Slice Plan” headings remain valid; interpret them as Product Specification, Technical Specification, and Iteration without renaming files or rewriting existing documents solely for terminology.
+
+For any specification input, read its `## Source` when present and follow the referenced document and relevant sections, including approved source-revision updates. A reference artifact is valid without the full authored template. If the source is inaccessible or materially changed since review, surface the gap and pause dependent work until it is resolved; do not infer readiness from the link or status alone. Read `.shape/workflow-templates/specification-reference-template.md` for reference and revision rules.
+
 ## When to Use
 Use this skill when the user wants to inspect current Shape state, understand what is active, or decide what to do next.
 
@@ -31,8 +36,8 @@ Inspect the following where available:
 
 ### Core artifacts
 For the resolved feature, inspect:
-- `01-prd.md`
-- `02-tech-concept.md`
+- `01-product-specification.md`
+- `02-technical-specification.md`
 - `03-implementation-plan.md`
 
 Read or infer where practical:
@@ -44,14 +49,14 @@ Read or infer where practical:
 ### Implementation state
 When an Implementation Plan exists, inspect where practical:
 - overall plan status: `draft | approved | done`
-- feature-level execution structure through Slice Plans
-- whether Slice Plans exist
-- per-Slice Plan status where available: `draft | approved | done`
-- slice-level execution through task completion and batch state
-- whether unfinished Slice Plans remain
+- feature-level execution structure through Iterations
+- whether Iterations exist
+- per-Iteration status where available: `draft | approved | done`
+- iteration-level execution through task completion and batch state
+- whether unfinished Iterations remain
 - whether execution tasks exist
 - whether the feature is completed because the Implementation Plan is `done`
-- whether there are obvious signs that review, approval, commit, or slice closure is the likely next step
+- whether there are obvious signs that review, approval, commit, or iteration closure is the likely next step
 
 ## Output Structure
 Present status in a compact structure that is easy to scan.
@@ -69,17 +74,17 @@ Suggest the next likely step based on the best available evidence.
 Examples:
 - no feature selected but one obvious in-progress feature exists → `pick up feature`
 - no feature selected and only completed features are visible → `initiate feature` or explicitly inspect a completed feature
-- feature exists but PRD is missing or draft → `create prd`
-- PRD approved and Technical Concept not approved → `create technical concept`
-- PRD and Technical Concept approved but Implementation Plan missing or draft → `plan implementation`
-- plan is `approved` and next Slice Plan still `draft` → `plan slice`
-- Slice Plan `approved` and ready for coding → `implement batch`
-- Slice Plan `approved` with implemented but unapproved work → continue `implement batch` for review and approval handling
-- Slice Plan `approved` with approved but uncommitted work → continue `implement batch` if the user wants to commit that approved batch
-- Slice Plan `approved` with all tasks done and committed → `finish slice`
+- feature exists but Product Specification is missing or draft → `create product specification`
+- Product Specification approved and Technical Specification not approved → `create technical specification`
+- Product Specification and Technical Specification approved but Implementation Plan missing or draft → `plan implementation`
+- plan is `approved` and next Iteration still `draft` → `plan iteration`
+- Iteration `approved` and ready for coding → `implement batch`
+- Iteration `approved` with implemented but unapproved work → continue `implement batch` for review and approval handling
+- Iteration `approved` with approved but uncommitted work → continue `implement batch` if the user wants to commit that approved batch
+- Iteration `approved` with all tasks done and committed → `finish iteration`
 - code appears implemented for a selected batch but not yet validated → continue `implement batch`
 - approved batch appears uncommitted → continue `implement batch` if commit is desired
-- all Slice Plans `done` but plan not closed → `finish feature`
+- all Iterations `done` but plan not closed → `finish feature`
 - Implementation Plan is `done` and no further change flow is requested → `initiate feature` or explicit update flow on the completed feature
 
 ## Behavior Principles

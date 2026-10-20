@@ -3,6 +3,11 @@
 ## Purpose
 Create the initial Shape feature workspace in the repository, scaffold the core artifact files using Shape conventions, and orient the user toward the next workflow step.
 
+## Artifact resolution and compatibility
+Read `.shape/config.json` before resolving artifacts. Filenames below are fresh-install defaults; use configured `featuresRoot` and `artifacts.productSpecification`, `artifacts.technicalSpecification`, and `artifacts.implementationPlan` values instead when present. Older configurations may use `prd` and `technicalConcept` keys. Existing `01-prd.md`, `02-tech-concept.md`, and “Slice Plan” headings remain valid; interpret them as Product Specification, Technical Specification, and Iteration without renaming files or rewriting existing documents solely for terminology.
+
+For any specification input, read its `## Source` when present and follow the referenced document and relevant sections, including approved source-revision updates. A reference artifact is valid without the full authored template. If the source is inaccessible or materially changed since review, surface the gap and pause dependent work until it is resolved; do not infer readiness from the link or status alone. Read `.shape/workflow-templates/specification-reference-template.md` for reference and revision rules.
+
 ## When to Use
 Use this skill when the user wants to start a new Shape feature, create a new feature folder, scaffold the three core artifacts, or establish a feature as a new unit of work in the repository.
 
@@ -19,9 +24,10 @@ Expected inputs:
 - Optional preferred feature identifier
 - Optional preferred feature slug
 - Repository root or relevant artifact root if known
-- Any repository-specific location override for the default `features/` root
+- Any repository-specific location override for the default `docs/implementation/` root
 
 Helpful but optional:
+- Names, repository paths, or URLs of existing Product and/or Technical Specifications
 - Existing ticket title
 - Existing feature brief
 
@@ -36,8 +42,8 @@ This skill should not silently overwrite an existing feature folder.
 ## Outputs
 This skill should produce:
 - A new feature folder
-- `01-prd.md`
-- `02-tech-concept.md`
+- `01-product-specification.md`
+- `02-technical-specification.md`
 - `03-implementation-plan.md`
 - A repository state that is ready to be committed as the feature-initiation checkpoint
 - A clear likely next step
@@ -46,10 +52,10 @@ This skill should produce:
 Default Shape layout:
 
 ```text
-features/
+docs/implementation/
   <feature-id>-<feature-slug>/
-    01-prd.md
-    02-tech-concept.md
+    01-product-specification.md
+    02-technical-specification.md
     03-implementation-plan.md
 ```
 
@@ -70,24 +76,29 @@ Examples:
 - `202604-contact-form`
 - `202604-csv-import-validation`
 
+## Existing specifications
+Explicitly offer both options before scaffolding: “Do you already have a Product Specification or Technical Specification? Provide a document name, repository path, or URL for either or both. Shape can reference those documents or help draft new ones.” Skip this question if the user has already supplied the choice.
+
+Resolve names against available sources. Ask for clarification only when a name is ambiguous or cannot be resolved. Choose authored or reference mode independently for each specification. Always create all three Shape artifacts. For supplied documents, use the reference template instead of the full authored template, with a source link, relevant scope, and revision/date where available. Keep these artifacts `draft`; source readiness and approval are assessed in the corresponding create-specification step. An unresolved name is an open question, not a verified source link.
+
 ## Artifact Scaffolding Rules
 Create all three core files at feature initiation time.
 
-### PRD file
-Create `01-prd.md` using the canonical PRD structure.
+### Product Specification file
+Create `01-product-specification.md` using the canonical Product Specification structure, or the reference template when an existing source is supplied.
 Initial state:
 - `Status: draft`
 - current date
 - title set from the feature name
-- section structure present, even if content is still skeletal
+- selected authored or reference section structure present, even if content is still skeletal
 
-### Technical Concept file
-Create `02-tech-concept.md` using the canonical Technical Concept structure.
+### Technical Specification file
+Create `02-technical-specification.md` using the canonical Technical Specification structure, or the reference template when an existing source is supplied.
 Initial state:
 - `Status: draft`
 - current date
 - title set from the feature name
-- section structure present
+- selected authored or reference section structure present
 
 ### Implementation Plan file
 Create `03-implementation-plan.md` using the canonical Implementation Plan structure.
@@ -106,7 +117,7 @@ Do not prematurely mark any artifact as `approved`.
 - After finishing this Shape operation, YOU MUST ask whether to prepare and submit a commit for the accepted feature-initiation diff.
 - YOU MUST NOT create a commit unless the human explicitly approves committing the current diff.
 - After the commit boundary is resolved, YOU MUST ask whether to proceed to the next Shape workflow step.
-- YOU MUST NOT proceed to `create prd` or any other next Shape workflow step unless the human explicitly approves proceeding.
+- YOU MUST NOT proceed to `create product specification` or any other next Shape workflow step unless the human explicitly approves proceeding.
 
 ## Interaction Style
 When feature identity is incomplete:
@@ -137,8 +148,8 @@ This skill is complete when:
 ## Likely Next Steps
 Usually suggest:
 - propose a commit message and offer to create the feature-initiation commit if the user wants to checkpoint the new workspace now
-- `create prd`
+- `create product specification`
 - `show status`
 - `show capabilities`
 
-Prefer `create prd` as the default next step once the commit boundary is resolved and the human explicitly approves proceeding.
+Prefer `create product specification` as the default next step once the commit boundary is resolved and the human explicitly approves proceeding.

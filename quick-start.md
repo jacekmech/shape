@@ -4,7 +4,7 @@
 
 The skills guide an AI coding agent through three workflow stages:
 
-PRD → Technical Concept → Implementation
+Product Specification → Technical Specification → Implementation
 
 The goal is simple: keep feature development grounded in persistent files instead of loose chat context.
 
@@ -19,28 +19,30 @@ Use Shape to start a feature for adding file attachments to the contact form.
 Shape creates a feature workspace:
 
 ```text
-features/
+docs/implementation/
   contact-form-attachments/
-    01-prd.md
-    02-tech-concept.md
+    01-product-specification.md
+    02-technical-specification.md
     03-implementation-plan.md
 ...
 ```
+
+Shape first offers to use existing Product and Technical Specifications. You can supply either document's name, repository path, or URL. Each Shape specification file can simply record its source link, scope, reviewed revision, and Shape approval status. You can reference one specification and draft the other.
 
 These three files become the working memory for the feature development.
 
 ## A. Define the feature
 
-Shape first helps you create a PRD.
+Shape first helps you create a Product Specification.
 
-At the beginning of this step, the agent should guide product clarification before writing the artifact. For example:
+If you choose to author a new specification, the agent guides product clarification before drafting. For example:
 
 ```text
-I’ll help you define the PRD for this feature. Let’s first clarify the user goal,
-main behavior, constraints, and acceptance criteria before I create the initial PRD draft.
+I’ll help you define the Product Specification for this feature. Let’s first clarify the user goal,
+main behavior, constraints, and acceptance criteria before I create the initial Product Specification draft.
 ```
 
-Example PRD:
+Example Product Specification:
 
 ```markdown
 # Contact Form Attachments
@@ -52,28 +54,34 @@ Users can attach one PDF, PNG, or JPG file.
 Rules:
 - maximum file size: 10 MB
 - invalid files show a clear error
+
+Proposed Delivery Iterations:
+- Iteration 1: attach and submit one valid file; confirm it reaches the recipient.
+- Iteration 2: validate size/type and show actionable errors; reject invalid files.
 ...
 ```
 
-The PRD answers:
+The Product Specification answers:
 
-**What are we building?**
+**What are we building, and what could we deliver first?**
+
+The delivery outline is provisional; technical design and implementation planning refine it into Iterations. An iteration is a bounded delivery increment, not a fixed-duration sprint.
 
 ## B. Design the feature
 
-Shape then helps you create a Technical Concept.
+Shape then helps you create a Technical Specification.
 
-At the beginning of this step, the agent should use the ready PRD and guide the design discussion. For example:
+At the beginning of this step, the agent should use the ready Product Specification and guide the design discussion. For example:
 
 ```text
-I’ll create the Technical Concept from the ready PRD. First, I’ll review the existing code structure
+I’ll create the Technical Specification from the ready Product Specification. First, I’ll review the existing code structure
 and clarify the frontend, backend, validation, storage, and error-handling design.
 ```
 
-Example Technical Concept:
+Example Technical Specification:
 
 ```markdown
-# Contact Form Attachments - Technical Concept
+# Contact Form Attachments - Technical Specification
 
 Status: approved
 
@@ -85,7 +93,7 @@ Backend:
 ...
 ```
 
-The Technical Concept answers:
+The Technical Specification answers:
 
 **How should this fit into the system?**
 
@@ -95,14 +103,14 @@ Shape then helps you move from design into controlled implementation.
 
 Implementation has two planning levels:
 
-1. **Overall implementation planning** — creates the Implementation Plan by breaking feature implementation into deliverable slices.
-2. **Slice planning** — prepares one selected slice in detail by breaking slice implementation into Tasks and important decisions.
+1. **Overall implementation planning** — creates the Implementation Plan by breaking feature implementation into deliverable iterations.
+2. **Iteration planning** — prepares one selected iteration in detail by breaking iteration implementation into Tasks and important decisions.
 
-At the beginning of overall implementation planning, the agent should use the ready PRD and Technical Concept to propose the implementation structure. For example:
+At the beginning of overall implementation planning, the agent should use the ready Product Specification and Technical Specification to propose the implementation structure. For example:
 
 ```text
-I’ll create the Implementation Plan from the ready PRD and Technical Concept.
-First, I’ll propose the main deliverable slices, each sized for one focused AI session.
+I’ll create the Implementation Plan from the ready Product Specification and Technical Specification.
+First, I’ll propose the main deliverable iterations, each sized for one focused AI session.
 ```
 
 Example Implementation Plan:
@@ -112,25 +120,25 @@ Example Implementation Plan:
 
 Status: approved
 
-Slice Plans:
+Iterations:
 1. Backend upload handling — draft
 2. Frontend file input — draft
 ...
 ```
 
-A **Slice Plan** breaks one slice into implementation tasks and tracks execution of that slice.
+An **Iteration** breaks one iteration into implementation tasks and tracks execution of that iteration.
 
-Before implementing a Slice Plan, Shape plans it in more detail. For example:
+Before implementing an Iteration, Shape plans it in more detail. For example:
 
 ```text
-I’ll prepare Slice 1: Backend upload handling. I’ll break it into reviewable tasks,
+I’ll prepare Iteration 1: Backend upload handling. I’ll break it into reviewable tasks,
 call out important implementation decisions, and wait for your approval before changing code.
 ```
 
-Example Slice Plan:
+Example Iteration:
 
 ```markdown
-Slice Plan 1: Backend upload handling
+Iteration 1: Backend upload handling
 Status: approved
 
 Tasks:
@@ -140,12 +148,12 @@ Tasks:
 ...
 ```
 
-Slice implementation is organized into **Batches** so that each code change stays small enough for efficient diff review.
+Iteration implementation is organized into **Batches** so that each code change stays small enough for efficient diff review.
 
 Example Batch prompt:
 
 ```text
-Implement only this batch from Slice Plan 1:
+Implement only this batch from Iteration 1:
 
 - add multipart request handling
 - validate file type and size
@@ -158,7 +166,7 @@ The agent implements the Batch, stops, and asks for review.
 After approval, the plan is updated:
 
 ```markdown
-Slice Plan 1: Backend upload handling
+Iteration 1: Backend upload handling
 Status: approved
 
 Tasks:
@@ -173,20 +181,20 @@ The approved Batch is committed before the next Batch starts.
 
 Shape connects the whole feature flow:
 
-PRD  
-→ Technical Concept  
+Product Specification\
+→ Technical Specification\
 → Implementation Plan  
-→ Slice Plan  
+→ Iteration\
 → Batch  
 → Review  
 → Commit
 
 Each boundary has a job:
 
-- **PRD** keeps product intent stable.
-- **Technical Concept** keeps design decisions visible.
+- **Product Specification** keeps product intent stable.
+- **Technical Specification** keeps design decisions visible.
 - **Implementation Plan** turns the feature into executable delivery structure.
-- **Slice Plan** bounds one focused agent session.
+- **Iteration** bounds one focused agent session.
 - **Batch** bounds one developer-reviewable diff.
 
 Shape moves the agent from **unclear feature idea** to **reviewable, committed code** using persistent artifacts and small execution steps.

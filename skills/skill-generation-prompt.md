@@ -24,8 +24,9 @@ Before generating skills, use the following repository sources as the source of 
 1. the Shape specification document
    - `design.md`
 2. the artifact templates:
-   - `workflow-templates/prd-template.md`
-   - `workflow-templates/technical-concept-template.md`
+   - `workflow-templates/specification-reference-template.md`
+   - `workflow-templates/product-specification-template.md`
+   - `workflow-templates/technical-specification-template.md`
    - `workflow-templates/implementation-plan-template.md`
 3. the skill design standard:
    - `skills/README.md`
@@ -45,9 +46,9 @@ Use stable kebab-case filenames derived from the skill name.
 
 Examples:
 - `show-capabilities.md`
-- `create-prd.md`
-- `update-prd.md`
-- `plan-slice.md`
+- `create-product-specification.md`
+- `update-product-specification.md`
+- `plan-iteration.md`
 
 Each file should represent exactly one Shape skill.
 
@@ -66,7 +67,7 @@ Do not merge adjacent operations unless explicitly instructed.
 Examples:
 - `implement batch` must not imply approval
 - `implement batch` includes review handling and commit as part of the same operation, but explicit developer approval and explicit commit consent must remain separate
-- PRD and Technical Concept updates remain append-only after readiness
+- Product Specification and Technical Specification updates remain append-only after readiness
 
 ### 3. Be artifact-aware
 Ground each skill in:
@@ -127,14 +128,14 @@ State:
 
 ### Use actual template sections
 Examples:
-- PRD `## Updates`
-- Technical Concept `## Repository Alignment`
+- Product Specification `## Updates`
+- Technical Specification `## Repository Alignment`
 - Implementation Plan `## Execution Order`
 - Implementation Plan `## Relevant Files`
 
 ### Respect document lifecycle rules
-- PRD baseline becomes immutable after readiness
-- Technical Concept baseline becomes immutable after readiness
+- Product Specification baseline becomes immutable after readiness
+- Technical Specification baseline becomes immutable after readiness
 - updates are append-only
 - only approved updates are effective
 - Implementation Plan is updated inline
@@ -214,3 +215,5 @@ Before considering a generated skill complete, check:
 - Does it make the next likely workflow step obvious?
 
 If the answer to any of these is no, revise the file before finishing.
+
+Honor configured paths and legacy artifact names on existing installations. For specification workflows, support independent authored/reference modes, an explicit offer to use existing documents by name/path/URL, source revision review, and append-only source updates. Include the provisional delivery outline in the Product Specification or its linked source; refine it during implementation planning.
