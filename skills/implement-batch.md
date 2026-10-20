@@ -3,8 +3,13 @@
 ## Purpose
 Execute an explicitly approved developer-selected batch of implementation tasks in code, support review and revision on that same batch, update execution state only after explicit developer approval, and carry the batch through commit without silently expanding scope or collapsing approval boundaries.
 
+## Artifact resolution and compatibility
+Read `.shape/config.json` before resolving artifacts. Filenames below are fresh-install defaults; use configured `featuresRoot` and `artifacts.productSpecification`, `artifacts.technicalSpecification`, and `artifacts.implementationPlan` values instead when present. Older configurations may use `prd` and `technicalConcept` keys. Existing `01-prd.md`, `02-tech-concept.md`, and “Slice Plan” headings remain valid; interpret them as Product Specification, Technical Specification, and Iteration without renaming files or rewriting existing documents solely for terminology.
+
+For any specification input, read its `## Source` when present and follow the referenced document and relevant sections, including approved source-revision updates. A reference artifact is valid without the full authored template. If the source is inaccessible or materially changed since review, surface the gap and pause dependent work until it is resolved; do not infer readiness from the link or status alone. Read `.shape/workflow-templates/specification-reference-template.md` for reference and revision rules.
+
 ## When to Use
-Use this skill when the user wants to implement one or more selected implementation tasks from the active Slice Plan, produce the code changes for a small batch, and prepare the result for developer review.
+Use this skill when the user wants to implement one or more selected implementation tasks from the active Iteration, produce the code changes for a small batch, and prepare the result for developer review.
 
 Typical triggers:
 - “implement batch”
@@ -28,8 +33,8 @@ Helpful but optional:
 ## Preconditions
 Before implementing a batch:
 - resolve the active feature and locate `03-implementation-plan.md`
-- inspect the selected Slice Plan and tasks in `## Execution Order`
-- confirm the selected Slice Plan is `approved`
+- inspect the selected Iteration and tasks in `## Execution Order`
+- confirm the selected Iteration is `approved`
 - confirm the batch is explicitly selected and approved by the Developer
 - confirm the previous approved batch, if any, has already been committed before starting a new one
 
@@ -50,7 +55,7 @@ During execution:
 If execution reveals issues outside the selected batch:
 - surface them clearly
 - avoid silently expanding the batch
-- suggest an upstream update or future slice adjustment when appropriate
+- suggest an upstream update or future iteration adjustment when appropriate
 
 After implementation:
 - summarize the selected-task coverage clearly
@@ -60,7 +65,7 @@ After implementation:
 
 Only after the Developer explicitly approves the batch may this skill:
 - mark the relevant tasks done in `## Execution Order`
-- leave Slice Plan and Implementation Plan artifact status unchanged unless a separate validation step moves the Slice Plan to `done`
+- leave Iteration and Implementation Plan status unchanged unless a separate validation step moves the Iteration to `done`
 - refresh `## Relevant Files` when accepted implementation changed what matters next
 - update `## Important Decisions` when accepted implementation introduced decisions worth preserving
 - state clearly that the batch is `approved but awaiting commit`
@@ -93,7 +98,7 @@ The agent implements the selected work, supports review, and can perform the com
 - YOU MUST NOT mark tasks done until the Developer explicitly approves the implemented batch.
 - After marking approved tasks done, YOU MUST ask whether to prepare and submit a commit for the approved batch diff.
 - YOU MUST NOT create a commit unless the Developer explicitly approves committing the current diff.
-- YOU MUST NOT start another batch, finish the slice, or move to any other Shape workflow step until the approved batch commit boundary is resolved.
+- YOU MUST NOT start another batch, finish the iteration, or move to any other Shape workflow step until the approved batch commit boundary is resolved.
 - After the commit boundary is resolved, YOU MUST ask whether to proceed to the next Shape workflow step.
 - YOU MUST NOT proceed to the next Shape workflow step unless the Developer explicitly approves proceeding.
 
@@ -105,10 +110,10 @@ Apply these rules:
 - batches are not explicitly represented in the Implementation Plan
 - task completion is finalized only after explicit developer approval
 - `## Relevant Files` should reflect resulting implementation state rather than becoming a historical changelog
-- `## Important Decisions` should capture implementation-time decisions that matter for subsequent slices or future review
+- `## Important Decisions` should capture implementation-time decisions that matter for subsequent iterations or future review
 - these implementation-plan updates do not by themselves imply approval of the batch
-- implementation progress is inferred from approved task completion under an approved Slice Plan
-- the Implementation Plan remains `approved` until all Slice Plans are `done` and the feature is finished
+- implementation progress is inferred from approved task completion under an approved Iteration
+- the Implementation Plan remains `approved` until all Iterations are `done` and the feature is finished
 
 This skill may:
 - change repository code and related files needed to complete the selected batch
@@ -162,6 +167,6 @@ Usually suggest:
 - explicit approval review on the current batch
 - explicit commit instruction for the approved batch
 - commit changes if commit instruction approved and moving to another workflow step
-- `finish slice` if the slice is fully complete and the approved work has been committed
+- `finish iteration` if the iteration is fully complete and the approved work has been committed
 
-Prefer continuing `implement batch` as the same-batch review and revision loop until approval is explicit. Prefer `finish slice` only after the approved batch commit boundary is resolved and the Developer explicitly approves proceeding.
+Prefer continuing `implement batch` as the same-batch review and revision loop until approval is explicit. Prefer `finish iteration` only after the approved batch commit boundary is resolved and the Developer explicitly approves proceeding.

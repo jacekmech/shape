@@ -1,9 +1,10 @@
 {
-  "version": 1,
-  "featuresRoot": "features",
+  "version": 2,
+  "shapeVersion": "0.4",
+  "featuresRoot": "docs/implementation",
   "artifacts": {
-    "prd": "01-prd.md",
-    "technicalConcept": "02-tech-concept.md",
+    "productSpecification": "01-product-specification.md",
+    "technicalSpecification": "02-technical-specification.md",
     "implementationPlan": "03-implementation-plan.md"
   },
   "skills": {
@@ -12,15 +13,15 @@
       "pick-up-feature",
       "show-status",
       "show-capabilities",
-      "create-prd",
-      "update-prd",
-      "create-technical-concept",
-      "update-technical-concept",
+      "create-product-specification",
+      "update-product-specification",
+      "create-technical-specification",
+      "update-technical-specification",
       "plan-implementation",
       "update-implementation-plan",
-      "plan-slice",
+      "plan-iteration",
       "implement-batch",
-      "finish-slice",
+      "finish-iteration",
       "finish-feature"
     ]
   }

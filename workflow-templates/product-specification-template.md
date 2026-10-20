@@ -1,4 +1,4 @@
-# PRD Template
+# Product Specification Template
 
 ## Header
 - **Title:**
@@ -23,15 +23,27 @@
 
 ## Requirements
 ### Functional Requirements
-- 
+-
 
 ### Business Rules / Constraints
-- 
+-
 
 ---
 
 ## Acceptance Criteria
-- 
+-
+
+---
+
+## Proposed Delivery Iterations
+
+Initial product-level delivery proposal, refined during technical design and implementation planning. These are outcomes, not approved Iterations or task lists. One iteration may be sufficient for a small feature.
+
+- **Iteration 1 — name:**
+  - **User-visible outcome:**
+  - **Included scope:**
+  - **Acceptance criteria:**
+  - **Dependencies / sequencing rationale:**
 
 ---
 
@@ -57,13 +69,13 @@
 ---
 
 ## Out of Scope
-- 
+-
 
 ---
 
 ## Updates
 
-Append-only list of **Specification Updates** added after the baseline PRD reaches `approved`.
+Append-only list of **Specification Updates** added after the baseline Product Specification reaches `approved`.
 
 Only Updates with status `approved` are considered effective.
 
@@ -74,10 +86,10 @@ Only Updates with status `approved` are considered effective.
 - **Date:** `YYYY-MM-DD`
 
 **Context**
-- 
+-
 
 **Change / decision**
-- 
+-
 
 **Impact**
-- 
+-

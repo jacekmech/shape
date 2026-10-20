@@ -16,8 +16,8 @@ Arguments:
 
 Options:
   --overwrite    Replace the existing Shape installation in <target-root> while
-                 preserving feature folders and .shape/workspace.json. Managed
-                 skills declared in the target .shape/config.json are removed
+                 preserving project documents, configured paths, and workspace state.
+                 Previous and retired Shape skills for this agent are removed
                  before installing the new skill set.
 
 What this script does:
@@ -117,39 +117,12 @@ remove_path_if_exists() {
     local path="$1"
     local label="$2"
 
-    if [[ -e "$path" ]]; then
-        rm -rf "$path"
+    if [[ -e "$path" || -L "$path" ]]; then
+        rm -rf -- "$path"
         info "Removed existing $label: $path"
     fi
 }
 
-list_managed_skills() {
-    local config_file="$1"
-
-    [[ -f "$config_file" ]] || return 0
-
-    awk '
-        /"managed"[[:space:]]*:[[:space:]]*\[/ {
-            in_managed = 1
-        }
-
-        in_managed {
-            line = $0
-
-            while (match(line, /"([^"]+)"/)) {
-                value = substr(line, RSTART + 1, RLENGTH - 2)
-                if (value != "managed") {
-                    print value
-                }
-                line = substr(line, RSTART + RLENGTH)
-            }
-
-            if ($0 ~ /\]/) {
-                exit
-            }
-        }
-    ' "$config_file"
-}
 
 trim() {
     local value="$1"
@@ -312,29 +285,31 @@ When working in this repository:
 - After a Shape operation updates workflow artifacts, stop and let the user review and commit the result, or explicitly ask you to commit it.
 - `implement batch` is the special exception: it may continue through review handoff, revision, approval handling, task completion updates, and optional commit, but only with explicit user approval and explicit commit instruction.
 - Do not mark tasks done before explicit approval, and do not commit without explicit user instruction.
-- Never deviate from the workflow, e.g. by skipping a step, combining two steps or implementing two slices in one go.
+- Never deviate from the workflow, e.g. by skipping a step, combining two steps or implementing two iterations in one go.
 
 Default Shape step order:
 1. initiate feature
-2. create prd
-3. create technical concept
+2. create product specification
+3. create technical specification
 4. plan implementation
-5. plan slice
+5. plan iteration
 6. implement batch
-7. finish slice
+7. finish iteration
 8. finish feature
 
 Before acting:
 
 - Read `.shape/config.json` to understand the configured Shape feature root and canonical artifact filenames.
+- Resolve filenames from configuration; legacy `prd`/`technicalConcept` keys, `01-prd.md`/`02-tech-concept.md`, and Slice Plan headings remain valid without document migration.
+- For referenced specifications, read the linked source and reviewed revision before dependent work; use the reference template rules for source changes.
 - Treat `.shape/workspace.json` as transient local workspace state. Do not rely on it as committed project state.
 - Use `.shape/workflow-templates/` as the canonical source for workflow artifact templates.
 - Treat feature folders under the configured feature root as the primary Shape work units.
 - Use installed OpenCode skills from `.opencode/skills/` when a matching Shape workflow operation applies.
 
 Shape feature artifacts typically include:
-- `01-prd.md`
-- `02-tech-concept.md`
+- `01-product-specification.md`
+- `02-technical-specification.md`
 - `03-implementation-plan.md`
 
 Do not invent alternative artifact naming or layout if the configured Shape files already exist.
@@ -402,24 +377,27 @@ main() {
     local target_shape_generated="$target_shape/generated"
     local target_shape_workflow_templates="$target_shape/workflow-templates"
     local target_opencode_skills="$target_root/.opencode/skills"
-    local target_shape_config="$target_shape/config.json"
 
     if [[ -e "$target_shape" && "$OVERWRITE" -ne 1 ]]; then
         fail "Shape already appears to be installed at: $target_shape. Re-run with --overwrite to replace the managed Shape installation."
     fi
+
+    require_file "$shape_root/bin/install-common.sh" "shared installer"
+    require_file "$shape_root/bin/install-config.awk" "config migration helper"
+    require_file "$shape_config_templates/retired-skills.json" "retired skill inventory"
+    source "$shape_root/bin/install-common.sh"
+    prepare_shape_install "opencode" "$target_opencode_skills" "$shape_root" "$target_root"
 
     if [[ "$OVERWRITE" -eq 1 ]]; then
         info "Preparing overwrite of existing Shape + OpenCode installation"
         while IFS= read -r skill_name; do
             [[ -n "$skill_name" ]] || continue
             remove_path_if_exists "$target_opencode_skills/$(sanitize_opencode_skill_slug "$skill_name")" "OpenCode skill"
-        done < <(list_managed_skills "$target_shape_config")
+        done < "$SHAPE_INSTALL_STAGE/cleanup.txt"
 
         remove_path_if_exists "$target_shape/README.md" "Shape file"
         remove_path_if_exists "$target_shape/.gitignore" "Shape file"
-        remove_path_if_exists "$target_shape/config.json" "Shape file"
         remove_path_if_exists "$target_shape_workflow_templates" "workflow templates"
-        remove_path_if_exists "$target_shape_generated" "generated snippets"
     fi
 
     info "Installing generic Shape layer"
@@ -428,7 +406,6 @@ main() {
 
     copy_managed_file "$shape_config_templates/README.md" "$target_shape/README.md"
     copy_managed_file "$shape_config_templates/gitignore" "$target_shape/.gitignore"
-    copy_managed_file "$shape_config_templates/config.json" "$target_shape/config.json"
     copy_managed_file "$shape_config_templates/workspace.json" "$target_shape/workspace.json" 1
 
     info "Installing workflow templates"
@@ -444,7 +421,9 @@ main() {
         local skill_file="$shape_skills/$skill_name.md"
         require_file "$skill_file" "managed skill: $skill_name"
         install_opencode_skill "$skill_file" "$target_opencode_skills"
-    done < <(list_managed_skills "$shape_config_templates/config.json")
+    done < "$SHAPE_INSTALL_STAGE/install.txt"
+
+    finish_shape_install "opencode" "$target_shape"
 
     info "Generating AGENTS.md snippet"
     generate_opencode_snippet "$target_shape_generated/opencode-shape-snippet.md" "$target_root"

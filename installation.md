@@ -10,6 +10,8 @@ This is an installation and configuration guide, not a workflow usage guide.
 
 ## Quick Start
 
+The installers require Bash and standard POSIX tools, including `awk`. No Python, Node.js, `jq`, or additional packages are required. Keep the `bin/` helpers alongside the installer scripts in the Shape source checkout.
+
 Use the installation script for your agent. Each script:
 - installs the generic Shape layer into the target repository
 - copies workflow templates into `.shape/workflow-templates/`
@@ -26,7 +28,28 @@ Installation behavior:
 - if Shape is already installed and `--overwrite` is not provided, the script stops with a clear message
 - if Shape is already installed and `--overwrite` is provided, the script replaces the managed Shape installation while preserving feature folders and `.shape/workspace.json`
 
-During overwrite, the script removes existing agent-native Shape skills declared in the target repository `.shape/config.json`, then installs the new managed skill set from the Shape source repository.
+During overwrite, the script validates configuration and source skills before changing the installation. It removes the selected agent's previously managed skills using both `.shape/config.json` and `.shape/installations/<agent>.json`, plus the known retired names in the source `config-templates/retired-skills.json`. It then installs the complete current skill set. Unrelated skills are preserved; an unowned destination collision stops installation.
+
+### Upgrading to v0.4
+
+Run your agent's installer with `--overwrite`. Repeat for each agent installed in the project. Per-agent inventories and the retired-name list allow sequential upgrades even after the shared config has already changed.
+
+- Existing feature documents, documentation folders, and `.shape/workspace.json` remain unchanged. No documents are moved, renamed, or rewritten.
+- `featuresRoot`, configured artifact filenames, and custom configuration fields are preserved. Legacy `artifacts.prd` and `artifacts.technicalConcept` keys become `productSpecification` and `technicalSpecification`, retaining their values.
+- New installations default to `docs/implementation`, `01-product-specification.md`, and `02-technical-specification.md`. Existing installations retain their configured locations, including `features/` and legacy filenames.
+- Configuration schema `version` becomes `2`; `shapeVersion` records `0.4`. These are distinct from Git release tags. The managed skill inventory is replaced with the current set.
+- Shape-owned templates and the selected agent's generated integration snippet are refreshed. Other agents' snippets and inventories remain intact.
+- Missing or invalid existing configuration/inventories stop the upgrade before replacement. Restore the previous metadata and retry; the installer does not guess where existing documents belong. Conflicting old/new artifact keys also require resolution first.
+
+After upgrading, replace the existing Shape integration block in `AGENTS.md`, `CLAUDE.md`, or `GEMINI.md` with the freshly generated snippet. The installer does not edit these files automatically. Use the new skill names; new skills recognize existing PRD, Technical Concept, and Slice Plan artifacts without requiring a documentation migration.
+
+To verify installer behavior in an isolated temporary directory, run:
+
+```bash
+bash tests/install.sh
+```
+
+This covers all four agents, fresh installations, upgrades, document/configuration preservation, obsolete skill removal, repeated installation, sequential agent upgrades, and failures before mutation.
 
 ### Codex
 
@@ -108,8 +131,8 @@ shape/
 │   ├── skill-generation-prompt.md
 │   └── *.md
 ├── workflow-templates/
-│   ├── prd-template.md
-│   ├── technical-concept-template.md
+│   ├── product-specification-template.md
+│   ├── technical-specification-template.md
 │   └── implementation-plan-template.md
 └── config-templates/
     ├── README.md
@@ -143,13 +166,13 @@ target-repo/
 │   ├── workspace.json
 │   ├── generated/
 │   └── workflow-templates/
-│       ├── prd-template.md
-│       ├── technical-concept-template.md
+│       ├── product-specification-template.md
+│       ├── technical-specification-template.md
 │       └── implementation-plan-template.md
-├── features/
+├── docs/implementation/
 │   └── <feature-id>-<feature-slug>/
-│       ├── 01-prd.md
-│       ├── 02-tech-concept.md
+│       ├── 01-product-specification.md
+│       ├── 02-technical-specification.md
 │       └── 03-implementation-plan.md
 └── ...
 ```
@@ -193,15 +216,16 @@ Purpose:
 - declare the Shape skill inventory expected by the repository
 - provide a stable repository-level Shape contract
 
-Default v1 example:
+Default schema v2 example (skill list abbreviated):
 
 ```json
 {
-  "version": 1,
-  "featuresRoot": "features",
+  "version": 2,
+  "shapeVersion": "0.4",
+  "featuresRoot": "docs/implementation",
   "artifacts": {
-    "prd": "01-prd.md",
-    "technicalConcept": "02-tech-concept.md",
+    "productSpecification": "01-product-specification.md",
+    "technicalSpecification": "02-technical-specification.md",
     "implementationPlan": "03-implementation-plan.md"
   },
   "skills": {
@@ -212,6 +236,8 @@ Default v1 example:
   }
 }
 ```
+
+`shapeVersion` records the installed Shape release; `version` describes the configuration schema. `.shape/installations/<agent>.json` stores that agent’s installed skill inventory and release version and should be committed.
 
 `skills.managed` declares the Shape skills supported by the repository. It is the repository-local inventory used for workflow orientation features such as `show capabilities`.
 
@@ -227,7 +253,7 @@ Purpose:
 - keep local Shape state small and explicit
 - support clearing the active feature after a completed feature is closed
 
-Default v1 example:
+Default schema v2 example (skill list abbreviated):
 
 ```json
 {
@@ -288,7 +314,7 @@ Default:
 
 ```json
 {
-  "featuresRoot": "features"
+  "featuresRoot": "docs/implementation"
 }
 ```
 
@@ -299,8 +325,8 @@ If the repository uses a different location, update it there.
 Check `.shape/config.json` and confirm that the canonical filenames match the target repository expectations.
 
 Default filenames:
-- `01-prd.md`
-- `02-tech-concept.md`
+- `01-product-specification.md`
+- `02-technical-specification.md`
 - `03-implementation-plan.md`
 
 ### 6. Create the feature root if needed
@@ -310,7 +336,7 @@ If the repository does not already have the configured feature root, create it.
 Default:
 
 ```text
-features/
+docs/implementation/
 ```
 
 At this point, the generic Shape layer is installed.
@@ -343,7 +369,7 @@ target-repo/
 │   └── skills/
 │       └── <skill-name>/
 │           └── SKILL.md
-├── features/
+├── docs/implementation/
 └── ...
 ```
 
@@ -373,7 +399,7 @@ target-repo/
 │   └── skills/
 │       └── <skill-name>/
 │           └── SKILL.md
-├── features/
+├── docs/implementation/
 └── ...
 ```
 
@@ -403,7 +429,7 @@ target-repo/
 │   └── skills/
 │       └── <skill-name>/
 │           └── SKILL.md
-├── features/
+├── docs/implementation/
 └── ...
 ```
 
@@ -433,7 +459,7 @@ target-repo/
 │   └── skills/
 │       └── <skill-name>/
 │           └── SKILL.md
-├── features/
+├── docs/implementation/
 └── ...
 ```
 

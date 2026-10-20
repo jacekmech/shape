@@ -50,14 +50,14 @@ Skills should normally end by making the next likely valid workflow action obvio
 Each Shape operation should normally map to one skill file.
 
 Examples:
-- `create prd` -> `create-prd.md`
-- `plan slice` -> `plan-slice.md`
+- `create product specification` -> `create-product-specification.md`
+- `plan iteration` -> `plan-iteration.md`
 - `implement batch` -> `implement-batch.md`
 
 ### Do not merge adjacent operations without a strong reason
 For example:
 - `implement batch` may absorb adjacent batch review and commit handling only when Shape explicitly defines that combined microcycle
-- `create technical concept` should not absorb `update technical concept`
+- `create technical specification` should not absorb `update technical specification`
 
 Shape deliberately separates these boundaries. Skill boundaries should preserve them.
 
@@ -68,7 +68,7 @@ Examples:
 - `initiate feature`
 - `pick up feature`
 - `show status`
-- `create prd`
+- `create product specification`
 
 Do not use vague or branded names such as:
 - `feature setup helper`
@@ -80,7 +80,7 @@ Use lowercase kebab-case filenames under `/skills`.
 
 Examples:
 - `initiate-feature.md`
-- `update-technical-concept.md`
+- `update-technical-specification.md`
 - `record-implementation-decision.md`
 
 ---
@@ -95,7 +95,7 @@ It should not read like philosophy, marketing copy, or a high-level overview.
 The skill should include workflow rules that materially affect behavior.
 
 Examples:
-- PRD and Technical Concept updates are append-only after readiness
+- Product Specification and Technical Specification updates are append-only after readiness
 - only approved updates are effective
 - implementation tasks are marked done only after explicit developer approval
 - `implement batch` includes commit as part of completing the operation, even when the developer performs the commit directly
@@ -110,8 +110,8 @@ Where relevant, the skill should refer to:
 - actual target sections within templates
 
 Examples:
-- PRD `## Updates`
-- Technical Concept `## Repository Alignment`
+- Product Specification `## Updates`
+- Technical Specification `## Repository Alignment`
 - Implementation Plan `## Execution Order`
 - Implementation Plan `## Relevant Files`
 
@@ -132,35 +132,36 @@ It should not improvise unnecessary structure.
 
 ## 4. Artifact-Awareness Rules
 
-### PRD baseline work
-Skills touching PRD baseline creation should use the exact PRD template structure:
+### Product Specification baseline work
+Skills touching authored Product Specification baseline creation should use the Product Specification template structure:
 
 - `## Header`
 - `## Goal`
 - `## Flow`
 - `## Requirements`
 - `## Acceptance Criteria`
+- `## Proposed Delivery Iterations`
 - `## UX Notes`
 - `## Non-Functional Requirements`
 - `## Notes`
 - `## Out of Scope`
 - `## Updates`
 
-### PRD update work
-PRD updates must be appended under `## Updates` using the update structure already defined by the template.
+### Product Specification update work
+Product Specification updates must be appended under `## Updates` using the update structure already defined by the template.
 
 They should:
 - not rewrite approved baseline content
 - not silently edit prior approved updates
 - normally prefer continuing an existing draft update if one already exists
 
-### Technical Concept baseline work
-Skills touching Technical Concept baseline creation should use the exact Technical Concept template structure, including `## Repository Alignment`.
+### Technical Specification baseline work
+Skills touching authored Technical Specification baseline creation should use the Technical Specification template structure, including `## Repository Alignment`.
 
 This section is not optional in practice when repository guidance materially shapes design.
 
-### Technical Concept update work
-Technical Concept updates must be appended under `## Updates` and follow the defined update structure.
+### Technical Specification update work
+Technical Specification updates must be appended under `## Updates` and follow the defined update structure.
 
 They should:
 - preserve baseline immutability after readiness
@@ -174,14 +175,14 @@ They should work against the actual sections:
 
 - `## Header`
 - `## Objective`
-- `## Slice Plans`
+- `## Iterations`
 - `## Execution Order`
 - `## Important Decisions`
 - `## Relevant Files`
 - `## Notes`
 
 Implementation Plan skills must respect:
-- Slice Plan status and task checkboxes
+- Iteration status and task checkboxes
 - inline progress updates
 - no explicit batch representation in the document
 - selective maintenance of `## Relevant Files`
@@ -205,10 +206,10 @@ A skill must not imply approval merely because work is completed.
 Examples:
 - `implement batch` does not approve the batch
 - `implement batch` supports review handling but does not replace developer approval
-- `finish slice` should not assume completion without developer confirmation
+- `finish iteration` should not assume completion without developer confirmation
 
 Skills that can move artifacts or execution state across approval boundaries should use explicit mandatory wording:
-- YOU MUST stop for human review before changing an artifact, update, slice, or plan from a draft or active state into an approved or done state.
+- YOU MUST stop for human review before changing an artifact, update, iteration, or plan from a draft or active state into an approved or done state.
 - YOU MUST NOT mark artifacts or updates approved or done, or mark tasks or batches complete, without explicit approval from the responsible human role.
 - YOU MUST NOT treat completed drafting, planning, implementation, validation, or revision work as approval.
 
@@ -232,7 +233,7 @@ Skills should make the next likely valid workflow action obvious, but making the
 - YOU MUST ask whether to proceed to the next Shape workflow step after the commit boundary is resolved.
 - YOU MUST NOT proceed to the next Shape workflow step unless the responsible human explicitly approves proceeding.
 - YOU MUST NOT silently combine adjacent Shape operations, even when the next operation seems obvious.
-- YOU MUST NOT start implementation, a new batch, slice closure, or feature completion merely because the previous step reached review, approval, or commit readiness.
+- YOU MUST NOT start implementation, a new batch, iteration closure, or feature completion merely because the previous step reached review, approval, or commit readiness.
 
 ### Make review state explicit
 Where relevant, skills should distinguish clearly between:
@@ -250,9 +251,9 @@ Shape treats fresh-session execution as a quality discipline, especially in impl
 
 Skills should reinforce that:
 
-- each new slice should normally begin in a fresh agent session
+- each new iteration should normally begin in a fresh agent session
 - fresh execution sessions should normally begin with `pick up feature` unless the active feature is already unambiguous
-- slices should remain small enough for focused execution without relying on long conversational carryover
+- iterations should remain small enough for focused execution without relying on long conversational carryover
 
 Skills should not overdramatize this rule, but they should preserve it where operationally relevant.
 
@@ -386,3 +387,9 @@ A skill file is ready when:
 - it makes the likely next workflow step obvious
 
 If a skill is elegant but vague, it is not done.
+
+## Specification modes and upgrade compatibility
+
+At initiation and before drafting, offer to reference existing Product and/or Technical Specifications by name, path, or URL. Honor choices already supplied. Each specification independently uses authored mode or `specification-reference-template.md`; reference mode replaces full authored section requirements. Always read the referenced source, check scope and reviewed revision, and require Shape approval. Product specifications must include or link to proposed delivery iterations, adding a local supplement if needed. Source changes use append-only updates with old/new revisions and downstream impact.
+
+Skills must resolve configured roots and artifact filenames before using defaults. Legacy `prd`/`technicalConcept` keys, PRD/Technical Concept files, and Slice Plan headings remain readable without rewriting project documents. Installed skill directories use the new names. Installer upgrades remove old managed and retired skill names, replace the current skill set, and preserve per-agent inventories for subsequent upgrades.

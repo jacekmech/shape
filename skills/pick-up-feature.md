@@ -3,6 +3,11 @@
 ## Purpose
 Resolve and select an existing Shape feature as the active working context so that subsequent operations act on the correct feature artifacts with minimal friction.
 
+## Artifact resolution and compatibility
+Read `.shape/config.json` before resolving artifacts. Filenames below are fresh-install defaults; use configured `featuresRoot` and `artifacts.productSpecification`, `artifacts.technicalSpecification`, and `artifacts.implementationPlan` values instead when present. Older configurations may use `prd` and `technicalConcept` keys. Existing `01-prd.md`, `02-tech-concept.md`, and “Slice Plan” headings remain valid; interpret them as Product Specification, Technical Specification, and Iteration without renaming files or rewriting existing documents solely for terminology.
+
+For any specification input, read its `## Source` when present and follow the referenced document and relevant sections, including approved source-revision updates. A reference artifact is valid without the full authored template. If the source is inaccessible or materially changed since review, surface the gap and pause dependent work until it is resolved; do not infer readiness from the link or status alone. Read `.shape/workflow-templates/specification-reference-template.md` for reference and revision rules.
+
 ## When to Use
 Use this skill when the user wants to resume work on an existing feature, continue a Shape workflow in a fresh session, or set the active feature before performing another operation.
 
@@ -22,7 +27,7 @@ Expected inputs:
 Helpful but optional:
 - Current stage or intended next operation
 - Whether the user wants the most recent, active, or in-progress feature
-- Known feature root override if the repository does not use `features/`
+- Known feature root override if the repository does not use `docs/implementation/`
 
 ## Preconditions
 Before resolving a feature:
@@ -34,8 +39,8 @@ Expected artifact pattern:
 
 ```text
 <feature-root>/<feature-id>-<feature-slug>/
-  01-prd.md
-  02-tech-concept.md
+  01-product-specification.md
+  02-technical-specification.md
   03-implementation-plan.md
 ```
 
@@ -69,8 +74,8 @@ When all candidate features appear completed:
 
 ## What to Validate
 After resolving a candidate feature, inspect:
-- whether `01-prd.md` exists
-- whether `02-tech-concept.md` exists
+- whether `01-product-specification.md` exists
+- whether `02-technical-specification.md` exists
 - whether `03-implementation-plan.md` exists
 - current document statuses when easily available
 - whether the Implementation Plan is already `done`
@@ -87,18 +92,18 @@ This skill should produce:
 Use current artifact state to suggest the next likely step.
 
 Examples:
-- PRD missing or still early → `create prd`
-- PRD approved, Technical Concept draft or missing → `create technical concept`
-- PRD and Technical Concept approved, Implementation Plan missing or draft → `plan implementation`
-- next Slice Plan is still `draft` → `plan slice`
-- Slice Plan is `approved` and waiting for execution selection → `implement batch`
-- Slice Plan is `approved` and active work is awaiting review, approval handling, revision, or commit → continue `implement batch`
-- Slice Plan is `approved` with all tasks done and committed → `finish slice`
-- all Slice Plans are `done` and plan nearly complete → `finish feature`
+- Product Specification missing or still early → `create product specification`
+- Product Specification approved, Technical Specification draft or missing → `create technical specification`
+- Product Specification and Technical Specification approved, Implementation Plan missing or draft → `plan implementation`
+- next Iteration is still `draft` → `plan iteration`
+- Iteration is `approved` and waiting for execution selection → `implement batch`
+- Iteration is `approved` and active work is awaiting review, approval handling, revision, or commit → continue `implement batch`
+- Iteration is `approved` with all tasks done and committed → `finish iteration`
+- all Iterations are `done` and plan nearly complete → `finish feature`
 - Implementation Plan is `done` → treat the feature as completed unless the user explicitly wants to inspect completed work
 
 ## Fresh-Session Behavior
-Shape expects each new slice to normally begin in a fresh agent session.
+Shape expects each new iteration to normally begin in a fresh agent session.
 In such sessions, this skill should usually run before implementation work unless the active feature is already unambiguous.
 
 This skill should support that behavior by making feature pickup quick, not ceremonial.
