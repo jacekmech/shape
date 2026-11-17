@@ -58,10 +58,19 @@ If execution reveals issues outside the selected batch:
 - suggest an upstream update or future iteration adjustment when appropriate
 
 After implementation:
-- summarize the selected-task coverage clearly
-- ask the Developer to review the batch
+- conclude with the required `## Batch Summary` handoff section described below
 - make the current state explicit as `awaiting review` or `under revision`
 - if the Developer requests revisions, continue only within the same selected batch unless a new batch is explicitly chosen
+
+### Batch Summary handoff
+
+End each implementation response with a concise `## Batch Summary` section that is self-contained and suitable to copy into a fresh session. Keep it in this order:
+
+- **Implemented:** a coarse-grained, skimmable bullet list of the completed work. Describe outcomes or areas changed, rather than repeating every edit or file.
+- Immediately below that list, one brief sentence naming the implemented task numbers and pointing to the Iteration and `03-implementation-plan.md` that define them. For example: `Implemented tasks 1 and 2 from Iteration 3 in [03-implementation-plan.md](path/to/03-implementation-plan.md).`
+- Close the section with the current-state sentence, such as: `The batch is ready and awaiting your review and approval.` Do not explicitly frame this section as a code-review request.
+
+Do not duplicate this content elsewhere in the response. Keep the handoff short enough to scan in about five seconds while retaining the task and plan reference needed to recover the execution context.
 
 Only after the Developer explicitly approves the batch may this skill:
 - mark the relevant tasks done in `## Execution Order`
@@ -136,6 +145,7 @@ This skill should produce:
 - code changes for the selected batch
 - any resulting `03-implementation-plan.md` updates needed to reflect implementation state or approved task completion
 - a clear summary of what was implemented against the selected tasks
+- a self-contained `## Batch Summary` handoff with coarse-grained implemented-work bullets, the implemented task numbers and their Iteration/Implementation Plan reference, and the current state
 - any checks run and their results
 - an explicit current state such as awaiting review, under revision, awaiting approval, approved but awaiting commit, or committed
 - an explicit review request until approval happens
@@ -158,7 +168,7 @@ This skill is complete when:
 - YOU MUST NOT present approval as commit
 - YOU MUST NOT treat approved-but-uncommitted work as a finished `implement batch`
 - YOU MUST NOT start a new batch before the current approved batch is committed
-- YOU MUST NOT end without clearly asking for review and approval
+- YOU MUST NOT end without the required `## Batch Summary` handoff stating that the batch is awaiting review and approval
 - YOU MUST NOT proceed to the next workflow step without explicit approval
 
 ## Likely Next Step

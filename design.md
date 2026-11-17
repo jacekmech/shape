@@ -493,7 +493,7 @@ The AI Agent executes the selected Batch.
 - AI Agent does not select or reorder Tasks
 
 **Guidance to user**  
-When a batch finishes implementing, the AI Agent should clearly ask the Developer for **review** and **approval**, explicitly stating that the next step is to inspect the diff, request any needed adjustments, and then either approve or reiterate.
+When a batch finishes implementing, the AI Agent should end with a concise, self-contained **Batch Summary** section. It contains a coarse-grained bullet list of implemented work, followed immediately by one brief sentence identifying the implemented task numbers and their defining Iteration and Implementation Plan document, then a current-state sentence such as “The batch is ready and awaiting your review and approval.” The section should be short enough to scan in about five seconds and suitable to copy into a fresh session without explicitly framing it as a code-review request.
 
 ---
 
@@ -1232,7 +1232,7 @@ Starts implementation **only after explicit Developer approval** for the selecte
 - stays within the approved batch scope
 - updates the **Relevant Files** list in the Implementation Plan to reflect the resulting implementation state
 - updates **Important Decisions** in the Implementation Plan when implementation introduces decisions worth preserving
-- gives a **very brief summary** of what changed and explicitly asks the Developer to review the batch
+- ends with a concise, self-contained **Batch Summary**: coarse-grained bullets of what changed, then one brief sentence naming the implemented task numbers and their defining Iteration and Implementation Plan document, followed by the current-state handoff
 - supports review iteration by explaining task-to-diff mapping, highlighting notable decisions, gaps, or risks, and applying requested adjustments
 - marks tasks as done in the Implementation Plan **only after explicit Developer approval**
 - leaves Iteration and Implementation Plan statuses unchanged during batch implementation
