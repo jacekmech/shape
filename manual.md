@@ -279,6 +279,9 @@ Important:
 - the batch should stay small enough for one focused review
 - implementation completion is not the same as approval
 - after implementation, the agent should ask for review rather than treating the work as accepted
+- each implementation response ends with a short, self-contained `## Batch Summary`
+- the Batch Summary lists implemented outcomes, task numbers, and the defining Iteration and `03-implementation-plan.md`
+- the Batch Summary ends with the current state and can be copied into a fresh session
 - revisions may happen within the same selected batch without opening a new batch
 - only after explicit approval should the agent mark the selected tasks done in the Implementation Plan
 - completed tasks under an approved Iteration show that iteration implementation is underway
