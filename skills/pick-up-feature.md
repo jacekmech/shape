@@ -97,7 +97,7 @@ Examples:
 - Product Specification and Technical Specification approved, Implementation Plan missing or draft → `plan implementation`
 - next Iteration is still `draft` → `plan iteration`
 - Iteration is `approved` and waiting for execution selection → `implement batch`
-- Iteration is `approved` and active work is awaiting review, approval handling, revision, or commit → continue `implement batch`
+- Iteration is `approved` and active work is awaiting review, approval handling, revision, or commit → use `review code` for an independent assessment when wanted, otherwise continue `implement batch`
 - Iteration is `approved` with all tasks done and committed → `finish iteration`
 - all Iterations are `done` and plan nearly complete → `finish feature`
 - Implementation Plan is `done` → treat the feature as completed unless the user explicitly wants to inspect completed work

@@ -79,10 +79,10 @@ Examples:
 - Product Specification and Technical Specification approved but Implementation Plan missing or draft → `plan implementation`
 - plan is `approved` and next Iteration still `draft` → `plan iteration`
 - Iteration `approved` and ready for coding → `implement batch`
-- Iteration `approved` with implemented but unapproved work → continue `implement batch` for review and approval handling
+- Iteration `approved` with implemented but unapproved work → `review code` for an independent assessment, or continue `implement batch` for review and approval handling
 - Iteration `approved` with approved but uncommitted work → continue `implement batch` if the user wants to commit that approved batch
 - Iteration `approved` with all tasks done and committed → `finish iteration`
-- code appears implemented for a selected batch but not yet validated → continue `implement batch`
+- code appears implemented for a selected batch but not yet validated → `review code` when an independent assessment is wanted, otherwise continue `implement batch`
 - approved batch appears uncommitted → continue `implement batch` if commit is desired
 - all Iterations `done` but plan not closed → `finish feature`
 - Implementation Plan is `done` and no further change flow is requested → `initiate feature` or explicit update flow on the completed feature

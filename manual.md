@@ -18,9 +18,10 @@ A normal Shape flow looks like this:
 4. **plan implementation**
 5. **plan iteration**
 6. **implement batch**
-7. **finish iteration**
-8. Repeat until done
-9. **finish feature**
+7. **review code** (optional, before approval)
+8. **finish iteration**
+9. Repeat until done
+10. **finish feature**
 
 At the beginning of the workflow, Shape creates the feature workspace. As the work moves forward, the workflow produces the **Product Specification**, the **Technical Specification**, the **Implementation Plan**, **Iterations**, and the code delivered through implementation batches. Together, these are the outputs of the workflow: structured feature artifacts that define and guide the work, and the code generated along the way.
 
@@ -490,12 +491,16 @@ Concrete navigation skills are also available whenever needed:
 - choose only a small batch
 
 ### After implementation
+- in a fresh session, paste the Batch Summary and ask for a code review if you want an independent assessment
 - review the diff carefully
 - request adjustments if needed
 - approve explicitly only when satisfied
 - mark tasks done only after approval
 - treat completed tasks under an approved Iteration as the signal that execution has begun
 - commit the approved batch before starting another one
+
+### Code review findings
+The optional **`review code`** skill assesses the current batch without changing code or workflow state. It reports actionable issues as bullets beginning with `[P1]`, `[P2]`, or `[P3]`; it does not approve the batch.
 
 ### When something new is learned
 - use **`update product specification`** if it changes requirements

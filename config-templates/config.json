@@ -21,6 +21,7 @@
       "update-implementation-plan",
       "plan-iteration",
       "implement-batch",
+      "review-code",
       "finish-iteration",
       "finish-feature"
     ]

@@ -161,7 +161,7 @@ Implement only this batch from Iteration 1:
 Do not implement storage yet.
 ```
 
-The agent implements the Batch, stops, and asks for review.
+The agent implements the Batch, stops, and provides a Batch Summary. In a fresh session, you can paste that summary and ask for a code review; the optional **`review code`** skill reports any actionable findings as `[P1]`, `[P2]`, or `[P3]` bullets without changing the batch.
 
 After approval, the plan is updated:
 
