@@ -527,7 +527,7 @@ Approval and commit form a single normal progression boundary. Once a batch is a
 **Notes on agent-assisted review**
 - Same-session review by the implementing AI Agent may be useful for summarization, task-to-diff mapping, and obvious risk surfacing
 - It should not be treated as a strong independent quality signal
-- A separate review-oriented session may provide additional value by examining the diff with fresher context, but this remains supportive rather than authoritative
+- A separate `review code` session may provide additional value by using the Batch Summary to examine the diff with fresher context, but this remains supportive rather than authoritative
 - Human developer validation remains the trusted approval boundary
 
 **Guidance to user**  
@@ -1386,6 +1386,21 @@ Requests guidance on what Shape can do and uses the result to choose the next ac
 
 ---
 
+#### 15. Review Code
+**Description**
+Independently assess a completed implementation batch from its Batch Summary, task context, and working-tree diff without changing the batch or workflow state.
+
+**Responsible role**
+Developer
+
+**AI Agent**
+Resolves the Batch Summary's Iteration and Implementation Plan reference, reviews the selected diff and relevant code, and reports only actionable findings as bullets beginning with `[P1]`, `[P2]`, or `[P3]`. It does not approve the batch, mark tasks done, or modify code.
+
+**User**
+Starts a fresh session when useful, provides the Batch Summary, and decides whether any findings need revision or the batch can be approved.
+
+---
+
 ### 9.3 Notes on Change Handling
 
 Shape keeps change handling intentionally small:
@@ -1450,6 +1465,11 @@ The inventory should also be easy to surface to the user on demand. Shape assume
   - **Purpose:** execute an approved batch of implementation tasks through its full internal lifecycle of input, execution, review and iteration, approval-driven plan updates, and commit
   - **Triggers on:** request to implement one or more approved implementation tasks
   - **Outcome:** the selected batch can move through execution, developer review, revision, approval, task completion updates, and commit without splitting into separate workflow operations or crossing approval or commit consent boundaries implicitly
+
+- **review code**
+  - **Purpose:** independently assess a completed batch from its Batch Summary, task context, and working-tree diff without changing code or workflow state
+  - **Triggers on:** a request for a code review, review of current changes, or a pasted Batch Summary
+  - **Outcome:** actionable issues are reported as `[P1]`, `[P2]`, or `[P3]` bullets, while developer approval remains separate
 
 - **finish iteration**
   - **Purpose:** validate that an `approved` Iteration is complete and transition it to `done` in the Implementation Plan

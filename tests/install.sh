@@ -61,8 +61,9 @@ for agent in codex claude gemini opencode; do
     assert_contains "$config" '"shapeVersion": "0.4"'
     assert_contains "$config" '"productSpecification": "01-product-specification.md"'
     native="$target/$(skills_dir "$agent")"
-    [[ -f "$native/create-product-specification/SKILL.md" && -f "$native/plan-iteration/SKILL.md" ]] || fail 'Missing new skills'
-    [[ $(find "$native" -name SKILL.md | wc -l) -eq 14 ]] || fail 'Incomplete managed skill set'
+    [[ -f "$native/create-product-specification/SKILL.md" && -f "$native/plan-iteration/SKILL.md" && -f "$native/review-code/SKILL.md" ]] || fail 'Missing new skills'
+    assert_contains "$native/review-code/SKILL.md" 'Perform a code review'
+    [[ $(find "$native" -name SKILL.md | wc -l) -eq 15 ]] || fail 'Incomplete managed skill set'
     for skill in "$native"/*; do
         grep -Eq "^name: \"?$(basename "$skill")\"?$" "$skill/SKILL.md" || fail 'Skill metadata name does not match its directory'
     done

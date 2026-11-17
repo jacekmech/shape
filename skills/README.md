@@ -53,10 +53,12 @@ Examples:
 - `create product specification` -> `create-product-specification.md`
 - `plan iteration` -> `plan-iteration.md`
 - `implement batch` -> `implement-batch.md`
+- `review code` -> `review-code.md`
 
 ### Do not merge adjacent operations without a strong reason
 For example:
 - `implement batch` may absorb adjacent batch review and commit handling only when Shape explicitly defines that combined microcycle
+- `review code` provides a read-only independent assessment of a completed batch; it does not replace developer approval or modify workflow state
 - `create technical specification` should not absorb `update technical specification`
 
 Shape deliberately separates these boundaries. Skill boundaries should preserve them.
