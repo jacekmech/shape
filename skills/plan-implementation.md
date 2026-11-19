@@ -142,3 +142,9 @@ Usually suggest:
 - `update technical specification` or `update product specification` if implementation planning exposed a real upstream gap
 
 Prefer `plan iteration` once the Implementation Plan is explicitly accepted as `approved`, the commit boundary is resolved, and the Developer explicitly approves proceeding.
+
+## Follow-up Questions
+
+- When a follow-up is needed, put one question in its own final paragraph after any summary, findings, checks, or links. Do the same when pausing for input.
+- Use yes/no for a single named action. Ask for approval, commit consent, and permission to start the next step at their respective checkpoints.
+- If the answer requires a choice or missing detail, give context first and ask directly for the input. End with the result when no input is needed and there is no concrete next action to offer.

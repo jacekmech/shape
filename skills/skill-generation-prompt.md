@@ -150,6 +150,12 @@ Examples:
 - it should not default to telling the user to perform the commit manually
 - explicit user consent is still required before the agent creates the commit
 
+### Put follow-up questions last
+- Include this guidance in each generated skill. When there is a decision to make or information to provide, place one follow-up question in its own final paragraph, after any summary, findings, checks, or links. Apply the same rule when pausing for input mid-operation.
+- Use a yes/no question for a single named action. Ask for review approval, commit consent, and permission for the next operation at their respective checkpoints.
+- If the user must choose among options or supply a detail, present the context first and ask for the specific input on the last line.
+- End with the result when no user decision or input is needed and there is no concrete next action to offer.
+
 ### Keep tone operational
 Avoid:
 - marketing tone
@@ -213,6 +219,7 @@ Before considering a generated skill complete, check:
 - Does it match the structure and tone of approved examples?
 - Does it define guardrails clearly?
 - Does it make the next likely workflow step obvious?
+- Does it put applicable follow-ups last and use yes/no for a single proposed action?
 
 If the answer to any of these is no, revise the file before finishing.
 

@@ -64,13 +64,15 @@ After implementation:
 
 ### Batch Summary handoff
 
-End each implementation response with a concise `## Batch Summary` section that is self-contained and suitable to copy into a fresh session. Keep it in this order:
+Include a concise `## Batch Summary` section that is self-contained and suitable to copy into a fresh session. Keep the section in this order:
 
 - **Implemented:** a coarse-grained, skimmable bullet list of the completed work. Describe outcomes or areas changed, rather than repeating every edit or file.
 - Immediately below that list, one brief sentence naming the implemented task numbers and pointing to the Iteration and `03-implementation-plan.md` that define them. For example: `Implemented tasks 1 and 2 from Iteration 3 in [03-implementation-plan.md](path/to/03-implementation-plan.md).`
 - Close the section with the current-state sentence, such as: `The batch is ready and awaiting your review and approval.` Do not explicitly frame this section as a code-review request.
 
 Do not duplicate this content elsewhere in the response. Keep the handoff short enough to scan in about five seconds while retaining the task and plan reference needed to recover the execution context.
+
+Place the follow-up below the handoff in its own final paragraph. When the batch is ready for review, ask “Do you approve this batch?” Once the batch is approved and awaiting consent to commit, ask “Should I commit the approved batch?”
 
 Only after the Developer explicitly approves the batch may this skill:
 - mark the relevant tasks done in `## Execution Order`
@@ -148,7 +150,7 @@ This skill should produce:
 - a self-contained `## Batch Summary` handoff with coarse-grained implemented-work bullets, the implemented task numbers and their Iteration/Implementation Plan reference, and the current state
 - any checks run and their results
 - an explicit current state such as awaiting review, under revision, awaiting approval, approved but awaiting commit, or committed
-- an explicit review request until approval happens
+- a separate yes/no approval question when the batch is ready for Developer review
 - a clear likely next step
 
 ## Completion Signals
@@ -168,7 +170,7 @@ This skill is complete when:
 - YOU MUST NOT present approval as commit
 - YOU MUST NOT treat approved-but-uncommitted work as a finished `implement batch`
 - YOU MUST NOT start a new batch before the current approved batch is committed
-- YOU MUST NOT end without the required `## Batch Summary` handoff stating that the batch is awaiting review and approval
+- YOU MUST include the `## Batch Summary` handoff and report the current batch state
 - YOU MUST NOT proceed to the next workflow step without explicit approval
 
 ## Likely Next Step
@@ -180,3 +182,9 @@ Usually suggest:
 - `finish iteration` if the iteration is fully complete and the approved work has been committed
 
 Prefer continuing `implement batch` as the same-batch review and revision loop until approval is explicit. Prefer `finish iteration` only after the approved batch commit boundary is resolved and the Developer explicitly approves proceeding.
+
+## Follow-up Questions
+
+- When a follow-up is needed, put one question in its own final paragraph after any summary, findings, checks, or links. Do the same when pausing for input.
+- Use yes/no for a single named action. Ask for approval, commit consent, and permission to start the next step at their respective checkpoints.
+- If the answer requires a choice or missing detail, give context first and ask directly for the input. End with the result when no input is needed and there is no concrete next action to offer.

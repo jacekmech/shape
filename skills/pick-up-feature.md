@@ -63,14 +63,13 @@ Example:
 - “I found one unfinished feature: `202604-contact-form`. I’ll use that.”
 
 When multiple plausible candidates exist:
-- present a short, clean choice
-- keep the list compact
-- avoid forcing the user through unnecessary detail
+- list the plausible features briefly
+- ask which feature to pick up
 
 When all candidate features appear completed:
 - do not silently reactivate one
 - state that there is no active unfinished feature to resume by default
-- ask whether the user wants to inspect a completed feature or start a new one
+- ask which action the user wants when both inspecting a completed feature and starting a new one are plausible
 
 ## What to Validate
 After resolving a candidate feature, inspect:
@@ -129,3 +128,9 @@ This skill is complete when:
 - Do not force a complex selection flow when one obvious unfinished feature exists
 - Do not stop at “feature selected”; always orient the user toward the next likely step
 - YOU MUST NOT start the next workflow step without explicit approval
+
+## Follow-up Questions
+
+- When a follow-up is needed, put one question in its own final paragraph after any summary, findings, checks, or links. Do the same when pausing for input.
+- Use yes/no for a single named action. Ask for approval, commit consent, and permission to start the next step at their respective checkpoints.
+- If the answer requires a choice or missing detail, give context first and ask directly for the input. End with the result when no input is needed and there is no concrete next action to offer.

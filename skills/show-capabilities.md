@@ -60,7 +60,7 @@ The goal is orientation and workflow discoverability, not exhaustive theory.
 
 - YOU MUST treat capability reporting as orientation, not permission to start the next Shape workflow step.
 - YOU MUST NOT modify artifacts, mark statuses, or create commits while showing capabilities.
-- YOU MUST ask whether to proceed before starting a suggested Shape workflow step.
+- When the current context supports offering a specific workflow step, ask whether to start that step.
 - YOU MUST NOT start a suggested Shape workflow step unless the human explicitly approves proceeding.
 
 ## Artifact Rules
@@ -107,3 +107,9 @@ Usually suggest one of:
 - the single stage-specific operation that best matches the current artifact state
 
 Prefer the most workflow-relevant action over a generic inventory recap.
+
+## Follow-up Questions
+
+- When a follow-up is needed, put one question in its own final paragraph after any summary, findings, checks, or links. Do the same when pausing for input.
+- Use yes/no for a single named action. Ask for approval, commit consent, and permission to start the next step at their respective checkpoints.
+- If the answer requires a choice or missing detail, give context first and ask directly for the input. End with the result when no input is needed and there is no concrete next action to offer.

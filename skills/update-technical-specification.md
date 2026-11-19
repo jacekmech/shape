@@ -136,3 +136,9 @@ Usually suggest:
 - `update product specification` if the design change revealed a requirement-level issue
 
 Prefer `update implementation plan` when a newly approved Technical Specification update changes Iterations or execution intent, the commit boundary is resolved, and the Architect explicitly approves proceeding.
+
+## Follow-up Questions
+
+- When a follow-up is needed, put one question in its own final paragraph after any summary, findings, checks, or links. Do the same when pausing for input.
+- Use yes/no for a single named action. Ask for approval, commit consent, and permission to start the next step at their respective checkpoints.
+- If the answer requires a choice or missing detail, give context first and ask directly for the input. End with the result when no input is needed and there is no concrete next action to offer.

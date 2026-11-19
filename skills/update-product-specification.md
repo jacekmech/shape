@@ -135,3 +135,9 @@ Usually suggest:
 - `show status` if the user needs orientation on downstream impact
 
 Prefer `update technical specification` when a newly approved Product Specification update changes technical design expectations, the commit boundary is resolved, and the Product Owner explicitly approves proceeding.
+
+## Follow-up Questions
+
+- When a follow-up is needed, put one question in its own final paragraph after any summary, findings, checks, or links. Do the same when pausing for input.
+- Use yes/no for a single named action. Ask for approval, commit consent, and permission to start the next step at their respective checkpoints.
+- If the answer requires a choice or missing detail, give context first and ask directly for the input. End with the result when no input is needed and there is no concrete next action to offer.

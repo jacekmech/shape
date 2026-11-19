@@ -64,7 +64,7 @@ The agent may help verify completion and update the artifact, but should not sil
 - YOU MUST NOT clear `.shape/workspace.json` for the feature unless the Developer explicitly approves feature completion.
 - After finishing this Shape operation, YOU MUST ask whether to prepare and submit a commit for the accepted feature-completion diff.
 - YOU MUST NOT create a commit unless the Developer explicitly approves committing the current diff.
-- After the commit boundary is resolved, YOU MUST ask whether the Developer wants any further Shape workflow action.
+- After the commit boundary is resolved, ask about proceeding only when there is a specific further Shape workflow action to offer.
 - YOU MUST NOT start another Shape workflow action unless the Developer explicitly approves proceeding.
 
 ## Artifact Rules
@@ -132,4 +132,10 @@ Usually suggest one of:
 - `show status` if the user wants a final workflow snapshot
 - `pick up feature` only if the user intends to inspect the completed feature again in a later session
 
-Prefer `show status` as the default follow-up once implementation is finalized, the commit boundary is resolved, and the Developer explicitly approves proceeding.
+Once implementation is finalized and the commit boundary is resolved, offer `show status` if a final workflow snapshot would serve the Developer's request. Otherwise, end with the completion outcome.
+
+## Follow-up Questions
+
+- When a follow-up is needed, put one question in its own final paragraph after any summary, findings, checks, or links. Do the same when pausing for input.
+- Use yes/no for a single named action. Ask for approval, commit consent, and permission to start the next step at their respective checkpoints.
+- If the answer requires a choice or missing detail, give context first and ask directly for the input. End with the result when no input is needed and there is no concrete next action to offer.

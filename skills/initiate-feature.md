@@ -77,7 +77,7 @@ Examples:
 - `202604-csv-import-validation`
 
 ## Existing specifications
-Explicitly offer both options before scaffolding: “Do you already have a Product Specification or Technical Specification? Provide a document name, repository path, or URL for either or both. Shape can reference those documents or help draft new ones.” Skip this question if the user has already supplied the choice.
+Before scaffolding, explain that Shape can draft either specification or reference an existing one by document name, repository path, or URL. If the choice is still open, end the reply with “Which existing specifications, if any, should Shape reference?”
 
 Resolve names against available sources. Ask for clarification only when a name is ambiguous or cannot be resolved. Choose authored or reference mode independently for each specification. Always create all three Shape artifacts. For supplied documents, use the reference template instead of the full authored template, with a source link, relevant scope, and revision/date where available. Keep these artifacts `draft`; source readiness and approval are assessed in the corresponding create-specification step. An unresolved name is an open question, not a verified source link.
 
@@ -153,3 +153,9 @@ Usually suggest:
 - `show capabilities`
 
 Prefer `create product specification` as the default next step once the commit boundary is resolved and the human explicitly approves proceeding.
+
+## Follow-up Questions
+
+- When a follow-up is needed, put one question in its own final paragraph after any summary, findings, checks, or links. Do the same when pausing for input.
+- Use yes/no for a single named action. Ask for approval, commit consent, and permission to start the next step at their respective checkpoints.
+- If the answer requires a choice or missing detail, give context first and ask directly for the input. End with the result when no input is needed and there is no concrete next action to offer.
