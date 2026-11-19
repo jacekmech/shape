@@ -144,3 +144,9 @@ Usually suggest:
 - `update implementation plan` if the plan no longer matches effective upstream changes
 
 Prefer `implement batch` once the Iteration has a clear, small, reviewable starting batch, the commit boundary is resolved, and the Developer explicitly approves proceeding.
+
+## Follow-up Questions
+
+- When a follow-up is needed, put one question in its own final paragraph after any summary, findings, checks, or links. Do the same when pausing for input.
+- Use yes/no for a single named action. Ask for approval, commit consent, and permission to start the next step at their respective checkpoints.
+- If the answer requires a choice or missing detail, give context first and ask directly for the input. End with the result when no input is needed and there is no concrete next action to offer.

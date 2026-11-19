@@ -232,7 +232,7 @@ Explicit user consent is still required before the agent creates the commit:
 ### Preserve next-step boundaries
 Skills should make the next likely valid workflow action obvious, but making the next action obvious is not permission to start it.
 
-- YOU MUST ask whether to proceed to the next Shape workflow step after the commit boundary is resolved.
+- After the commit boundary is resolved, YOU MUST ask whether to proceed when there is a specific next Shape workflow step to offer.
 - YOU MUST NOT proceed to the next Shape workflow step unless the responsible human explicitly approves proceeding.
 - YOU MUST NOT silently combine adjacent Shape operations, even when the next operation seems obvious.
 - YOU MUST NOT start implementation, a new batch, iteration closure, or feature completion merely because the previous step reached review, approval, or commit readiness.
@@ -283,6 +283,14 @@ Prefer:
 - explicit workflow boundaries
 - clear expected outcomes
 - practical instructions
+
+### Follow-up questions
+
+- When the user needs to make a decision or provide input, put one follow-up question in its own paragraph at the very end of the reply, after any summary, findings, checks, or links. Apply this to replies that pause for input as well as replies that report completed work.
+- Use a yes/no question when the user can decide on a single named action, such as approving a draft, committing an accepted diff, or starting a specific workflow step. Ask about each approval boundary separately once it is reached.
+- When the answer needs a choice or missing information, give the relevant options or context first and ask for the specific input on the last line.
+- End with the result when no user decision or input is needed and there is no concrete next action to offer.
+- Include these rules in each installed skill's source file.
 
 ---
 
@@ -387,6 +395,7 @@ A skill file is ready when:
 - it uses the common Shape skill structure
 - it is specific enough to guide execution, not just describe intent
 - it makes the likely next workflow step obvious
+- when a follow-up applies, it specifies that the question goes last and uses yes/no for a single proposed action
 
 If a skill is elegant but vague, it is not done.
 

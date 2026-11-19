@@ -102,4 +102,10 @@ Usually suggest:
 - address reported findings through the same `implement batch` revision loop
 - if no issues are found, let the Developer decide whether to approve the batch
 
-Do not proceed to revision, approval, commit, or another Shape workflow step without explicit Developer instruction.
+Do not proceed to revision, approval, commit, or another Shape workflow step without explicit Developer instruction. End a completed review with the findings or outcome when no input is needed. If review context is missing, ask for the specific missing item on the last line.
+
+## Follow-up Questions
+
+- When a follow-up is needed, put one question in its own final paragraph after any summary, findings, checks, or links. Do the same when pausing for input.
+- Use yes/no for a single named action. Ask for approval, commit consent, and permission to start the next step at their respective checkpoints.
+- If the answer requires a choice or missing detail, give context first and ask directly for the input. End with the result when no input is needed and there is no concrete next action to offer.

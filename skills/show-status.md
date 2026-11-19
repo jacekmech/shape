@@ -99,7 +99,7 @@ Examples:
 
 - YOU MUST treat status reporting as orientation, not permission to start the next Shape workflow step.
 - YOU MUST NOT modify artifacts, mark statuses, or create commits while showing status.
-- YOU MUST ask whether to proceed before starting the likely next Shape workflow step.
+- When there is a specific next workflow step to offer, ask whether to start that step.
 - YOU MUST NOT start the likely next Shape workflow step unless the human explicitly approves proceeding.
 
 ## Completion Criteria
@@ -114,3 +114,9 @@ This skill is complete when the user can answer all of the following quickly:
 - Do not hide structural problems or missing artifacts
 - Do not end with status alone; always include the most likely next step
 - YOU MUST NOT proceed to the next workflow step without explicit approval
+
+## Follow-up Questions
+
+- When a follow-up is needed, put one question in its own final paragraph after any summary, findings, checks, or links. Do the same when pausing for input.
+- Use yes/no for a single named action. Ask for approval, commit consent, and permission to start the next step at their respective checkpoints.
+- If the answer requires a choice or missing detail, give context first and ask directly for the input. End with the result when no input is needed and there is no concrete next action to offer.
