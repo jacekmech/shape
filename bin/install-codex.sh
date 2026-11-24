@@ -260,9 +260,10 @@ When working in this repository:
 - When the approved diff includes files both inside and outside configured Shape feature folders, YOU MUST propose the codebase commit first and the Shape artifact commit second, with one consent question for both. If the approved diff contains only one kind of change, propose one commit.
 - Each Shape artifact commit subject MUST identify the Shape changes. Use `shape:` where it fits repository conventions.
 - When the Developer explicitly approves closing the Iteration with its final batch, follow the final-batch procedure in `finish iteration`. Complete the closure checks and commit the codebase changes before marking the Iteration done. Record closure in the final batch's Shape commit.
-- YOU MUST stop for human review before changing any artifact or update from `draft` to `approved`.
+- If explicit approval is still missing, YOU MUST stop for human review before changing any artifact or update from `draft` to `approved`.
 - YOU MUST NOT mark artifacts or updates approved or done, or mark tasks or batches complete, without explicit approval from the responsible human role.
-- After a Shape operation produces an accepted diff, YOU MUST ask whether to prepare and submit a commit.
+- At an accepted checkpoint, review the scoped diff. If you still need commit consent, YOU MUST report the change and propose the commit subject and scope in the same reply. End with one yes/no question asking whether to create the proposed commit or commits.
+- An explicit request to change a status authorizes that transition once its preconditions are met. It leaves commit consent pending unless the user also explicitly asks you to commit the scoped changes. If they already did, proceed with the authorized commit without asking again.
 - YOU MUST NOT commit without explicit human approval for the current diff.
 - After the commit boundary is resolved, YOU MUST ask whether to proceed to the next Shape workflow step.
 - YOU MUST NOT proceed to the next Shape workflow step unless the human explicitly approves proceeding.

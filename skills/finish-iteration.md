@@ -63,10 +63,10 @@ The agent may help validate and update the plan. The final-batch procedure still
 
 ## Workflow Boundary Rules
 
-- YOU MUST stop for Developer review before changing an Iteration from `approved` to `done`.
+- If explicit approval is still missing, YOU MUST stop for Developer review before changing an Iteration from `approved` to `done`.
 - YOU MUST NOT mark an Iteration `done` unless the Developer explicitly approves closing that Iteration.
-- After finishing this Shape operation, YOU MUST ask whether to prepare and submit a commit for the accepted Iteration closure diff, unless that commit is already covered by explicit consent for the final-batch proposal.
-- YOU MUST NOT create a commit unless the Developer explicitly approves committing the current diff.
+- Review the accepted Iteration closure diff. When commit consent is still needed, YOU MUST report the new status and propose each commit with its subject and scope in the same reply. End with one yes/no question asking whether to create the proposed commit or commits.
+- Create and report the scoped commit or commits only when the Developer explicitly authorizes committing the current changes, including consent already given for the final-batch proposal. Approval of the status change alone leaves commit consent pending.
 - After the commit boundary is resolved, YOU MUST ask whether to proceed to the next Shape workflow step.
 - YOU MUST NOT proceed to planning the next Iteration, finishing the feature, or any other next Shape workflow step unless the Developer explicitly approves proceeding.
 
@@ -124,7 +124,6 @@ This skill is complete when:
 
 ## Likely Next Step
 Usually suggest one of:
-- propose a commit message and offer to create the commit if the iteration-closure checkpoint is accepted and the user wants to record it now
 - `plan iteration` for the next `draft` Iteration
 - `finish feature` if all Iterations are now `done` and validated
 - `update implementation plan` if iteration completion exposed a needed execution reshaping

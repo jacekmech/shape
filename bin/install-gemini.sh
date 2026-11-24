@@ -269,7 +269,8 @@ When working in this repository:
 - When the approved diff includes files both inside and outside configured Shape feature folders, YOU MUST propose the codebase commit first and the Shape artifact commit second, with one consent question for both. If the approved diff contains only one kind of change, propose one commit.
 - Each Shape artifact commit subject MUST identify the Shape changes. Use `shape:` where it fits repository conventions.
 - When the Developer explicitly approves closing the Iteration with its final batch, follow the final-batch procedure in `finish iteration`. Complete the closure checks and commit the codebase changes before marking the Iteration done. Record closure in the final batch's Shape commit.
-- After a Shape operation updates workflow artifacts, stop and let the user review and commit the result, or explicitly ask you to commit it.
+- At an accepted checkpoint, review the scoped diff. If you still need commit consent, YOU MUST report the change and propose the commit subject and scope in the same reply. End with one yes/no question asking whether to create the proposed commit or commits.
+- An explicit request to change a status authorizes that transition once its preconditions are met. It leaves commit consent pending unless the user also explicitly asks you to commit the scoped changes. If they already did, proceed with the authorized commit without asking again.
 - `implement batch` is the special exception: it may continue through review handoff, revision, approval handling, task completion updates, and optional commit, but only with explicit user approval and explicit commit instruction.
 - Do not mark tasks done before explicit approval, and do not commit without explicit user instruction.
 - Never deviate from the workflow, e.g. by skipping a step, combining two steps or implementing two iterations in one go.

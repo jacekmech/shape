@@ -67,10 +67,10 @@ The Implementation Plan remains `approved` during execution and moves to `done` 
 
 ## Workflow Boundary Rules
 
-- YOU MUST stop for Developer review before changing the Implementation Plan from `draft` to `approved`.
+- If explicit approval is still missing, YOU MUST stop for Developer review before changing the Implementation Plan from `draft` to `approved`.
 - YOU MUST NOT mark the Implementation Plan `approved` unless the Developer explicitly approves that transition.
-- After finishing this Shape operation, YOU MUST ask whether to prepare and submit a commit for the accepted Implementation Plan diff.
-- YOU MUST NOT create a commit unless the Developer explicitly approves committing the current diff.
+- Review the accepted Implementation Plan diff. When commit consent is still needed, YOU MUST report the new status and propose each commit with its subject and scope in the same reply. End with one yes/no question asking whether to create the proposed commit or commits.
+- Create and report the scoped commit or commits only when the Developer explicitly authorizes committing the current changes. Approval of the status change alone leaves commit consent pending.
 - After the commit boundary is resolved, YOU MUST ask whether to proceed to the next Shape workflow step.
 - YOU MUST NOT proceed to the next Shape workflow step unless the Developer explicitly approves proceeding.
 
@@ -138,7 +138,6 @@ This skill is complete when:
 ## Likely Next Step
 Usually suggest:
 - continue `plan implementation` if Iteration structure is still unstable
-- propose a commit message and offer to create the commit if the current planning state is accepted and the user wants a checkpoint
 - `plan iteration` if the Implementation Plan is `approved`
 - `update technical specification` or `update product specification` if implementation planning exposed a real upstream gap
 

@@ -146,9 +146,9 @@ Examples:
 - the agent may create the required commits only on explicit developer instruction before the next batch begins
 
 ### Propose commits at accepted checkpoints
-- when a skill reaches an accepted repository checkpoint, it should normally propose a commit message and offer to create the commit
-- it should not default to telling the user to perform the commit manually
-- explicit user consent is still required before the agent creates the commit
+- Treat an explicit request for a specific status change as approval for that transition once its preconditions are met.
+- Require the agent to review the scoped diff at an accepted checkpoint. If commit consent is still needed, report the status or accepted changes and propose the commit subject and scope in the same reply, ending with one question asking whether to create the proposed commit or commits.
+- Require explicit consent for the current commit scope. When it is already given, create the authorized commit and report the result.
 - Split the approved diff by the configured Shape feature folder paths. For mixed changes, require a single proposal and consent question covering two scoped commits, codebase first and Shape artifacts second. Use a clear Shape subject, with `shape:` where repository conventions support it.
 - Allow explicitly approved and validated Iteration closure in the final batch's Shape commit after the codebase commit succeeds.
 

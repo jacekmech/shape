@@ -29,6 +29,8 @@ The workflow also keeps repository and artifact boundaries explicit. Baseline ar
 
 When a skill needs your input or approval, look for one question at the end of the reply. Batch approval, commit consent, and permission to start the next step are requested at their respective checkpoints.
 
+If you ask Shape to change an artifact's status, the agent checks the transition's prerequisites, updates the artifact, and reviews the diff. In the same reply, it reports the new status and proposes the commit subject and scope with one question asking whether to create the commit. If you also explicitly ask it to commit the scoped changes, it creates the commit and reports the result.
+
 When something changes after the Product Specification or Technical Specification is already approved:
 - **update product specification**
 - **update technical specification**

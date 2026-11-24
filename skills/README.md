@@ -211,23 +211,20 @@ Examples:
 - `finish iteration` should not assume completion without developer confirmation
 
 Skills that can move artifacts or execution state across approval boundaries should use explicit mandatory wording:
-- YOU MUST stop for human review before changing an artifact, update, iteration, or plan from a draft or active state into an approved or done state.
+- If explicit approval is still missing, YOU MUST stop for human review before changing an artifact, update, iteration, or plan from a draft or active state into an approved or done state.
 - YOU MUST NOT mark artifacts or updates approved or done, or mark tasks or batches complete, without explicit approval from the responsible human role.
 - YOU MUST NOT treat completed drafting, planning, implementation, validation, or revision work as approval.
+- An explicit request for a specific status change authorizes that transition once its preconditions are met.
 
 ### Propose commits proactively
-When a skill reaches an accepted repository checkpoint, it should normally:
-- propose a commit message
-- offer to create the commit
-- avoid defaulting to telling the user to perform the commit manually
 
-After finishing a Shape operation, the skill should require the agent to ask whether to prepare and submit a commit for the accepted diff.
+At an accepted repository checkpoint, review the diff and identify the changes in scope. If commit consent is still needed, YOU MUST report the status or accepted changes and propose the commit subject and scope in the same reply. End with one yes/no question asking whether to create the proposed commit or commits.
 
-Explicit user consent is still required before the agent creates the commit:
-- YOU MUST ask whether to prepare and submit a commit after the responsible human accepts the current operation's diff.
-- YOU MUST NOT create a commit unless the responsible human explicitly approves committing the current diff.
-- YOU MUST keep the commit scoped to the accepted diff for the current Shape operation.
-- YOU MUST surface unrelated or unexpected changes before committing.
+> I marked the Technical Specification `approved`. The proposed commit, `Approve Shape technical specification`, covers the status change in `02-technical-specification.md`.
+>
+> Should I create this commit?
+
+Approval of the status change leaves commit consent pending. If the responsible human also explicitly requested a commit covering the current changes, create the authorized commit and report it. YOU MUST keep each commit scoped to the accepted diff and surface unrelated or unexpected changes before committing.
 
 ### Separate codebase and Shape commits
 

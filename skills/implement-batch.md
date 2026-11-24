@@ -85,10 +85,11 @@ Only after the Developer explicitly approves the batch may this skill:
 
 Use the configured feature root and resolved feature folder paths to identify Shape artifacts. Files inside Shape feature folders are Shape artifacts. All other files are non-Shape changes, including code, tests, configuration, and documentation outside those folders.
 
-- If the approved scope contains both kinds of changes, YOU MUST propose two commits together. List the codebase commit first and the Shape artifact commit second, with a subject and scope for each. Ask once for explicit consent to create both commits in that order. If only one kind of change remains to commit, propose one commit.
+- After marking approved tasks done, review the scoped diff. If commit consent is still needed, YOU MUST report the task changes and propose the commit subject and scope in the same reply. End with one yes/no question asking whether to create the proposed commit or commits.
+- If the approved scope contains both kinds of changes, YOU MUST keep two commits in the sequence. When proposing them, list the codebase commit first and the Shape artifact commit second, with a subject and scope for each. One consent question covers both in that order. If only one kind of change remains to commit, propose one commit.
 - The Shape commit subject MUST identify the Shape artifact changes. Use `shape:` when it fits the repository's commit conventions. A subject such as `Record Shape batch completion` also makes the scope clear.
 - YOU MUST NOT commit merely because the batch was approved
-- commit only if the Developer explicitly instructs you to commit
+- If the Developer already explicitly authorized the scoped commit or commits, proceed and report the result.
 - Inspect what will enter each commit. Keep both commits scoped to the approved changes and surface any unrelated staged or unstaged changes before committing. Preserve those unrelated changes.
 - If both commits are needed, the Developer also explicitly approves closing the Iteration, and the final batch is its only pending checkpoint, include closure in the Shape commit's proposed scope. Validate closure using `finish iteration`. After the codebase commit succeeds, mark the Iteration `done` and include that change with the final task updates in the Shape commit.
 - If either commit fails, report what succeeded and what remains. If the codebase commit succeeded, retain it and resume from the pending Shape commit. Report the batch as `committed` only when all required commits have succeeded.

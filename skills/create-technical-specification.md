@@ -75,10 +75,10 @@ Set it to `approved` only when the Architect explicitly accepts it for implement
 
 ## Workflow Boundary Rules
 
-- YOU MUST stop for Architect review before changing the Technical Specification from `draft` to `approved`.
+- If explicit approval is still missing, YOU MUST stop for Architect review before changing the Technical Specification from `draft` to `approved`.
 - YOU MUST NOT mark the Technical Specification `approved` unless the Architect explicitly approves that transition.
-- After finishing this Shape operation, YOU MUST ask whether to prepare and submit a commit for the accepted Technical Specification diff.
-- YOU MUST NOT create a commit unless the Architect explicitly approves committing the current diff.
+- Review the accepted Technical Specification diff. When commit consent is still needed, YOU MUST report the new status and propose each commit with its subject and scope in the same reply. End with one yes/no question asking whether to create the proposed commit or commits.
+- Create and report the scoped commit or commits only when the Architect explicitly authorizes committing the current changes. Approval of the status change alone leaves commit consent pending.
 - After the commit boundary is resolved, YOU MUST ask whether to proceed to the next Shape workflow step.
 - YOU MUST NOT proceed to the next Shape workflow step unless the Architect explicitly approves proceeding.
 
@@ -148,7 +148,6 @@ This skill is complete when:
 ## Likely Next Step
 Usually suggest:
 - continue `create technical specification` if material design gaps remain
-- propose a commit message and offer to create the commit if the current Technical Specification change set is accepted and the user wants a checkpoint
 - `update product specification` if requirement-level issues were discovered
 - `plan implementation` if the Technical Specification is `approved`
 

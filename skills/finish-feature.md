@@ -59,11 +59,11 @@ The agent may help verify completion and update the artifact, but should not sil
 
 ## Workflow Boundary Rules
 
-- YOU MUST stop for Developer review before changing the Implementation Plan to `done` or clearing the active feature.
+- If explicit approval is still missing, YOU MUST stop for Developer review before changing the Implementation Plan to `done` or clearing the active feature.
 - YOU MUST NOT mark the Implementation Plan `done` unless the Developer explicitly approves feature completion.
 - YOU MUST NOT clear `.shape/workspace.json` for the feature unless the Developer explicitly approves feature completion.
-- After finishing this Shape operation, YOU MUST ask whether to prepare and submit a commit for the accepted feature-completion diff.
-- YOU MUST NOT create a commit unless the Developer explicitly approves committing the current diff.
+- Review the accepted feature-completion diff. When commit consent is still needed, YOU MUST report the new status and propose each commit with its subject and scope in the same reply. End with one yes/no question asking whether to create the proposed commit or commits.
+- Create and report the scoped commit or commits only when the Developer explicitly authorizes committing the current changes. Approval of the status change alone leaves commit consent pending.
 - After the commit boundary is resolved, ask about proceeding only when there is a specific further Shape workflow action to offer.
 - YOU MUST NOT start another Shape workflow action unless the Developer explicitly approves proceeding.
 
@@ -128,7 +128,6 @@ This skill is complete when:
 
 ## Likely Next Step
 Usually suggest one of:
-- propose a commit message and offer to create the completion commit if the user wants to checkpoint final completion now
 - `show status` if the user wants a final workflow snapshot
 - `pick up feature` only if the user intends to inspect the completed feature again in a later session
 

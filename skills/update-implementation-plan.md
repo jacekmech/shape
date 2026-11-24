@@ -63,10 +63,10 @@ The agent may propose execution reshaping, but should not silently decide how to
 
 ## Workflow Boundary Rules
 
-- YOU MUST stop for Developer review before treating Implementation Plan propagation changes as accepted.
+- If explicit approval is still missing, YOU MUST stop for Developer review before treating Implementation Plan propagation changes as accepted.
 - YOU MUST NOT apply accepted execution-shape changes, new Iterations, or revised Iteration descriptions as final unless the Developer explicitly approves them.
-- After finishing this Shape operation, YOU MUST ask whether to prepare and submit a commit for the accepted Implementation Plan update diff.
-- YOU MUST NOT create a commit unless the Developer explicitly approves committing the current diff.
+- Review the accepted Implementation Plan update diff. When commit consent is still needed, YOU MUST report the accepted changes and propose each commit with its subject and scope in the same reply. End with one yes/no question asking whether to create the proposed commit or commits.
+- Create and report the scoped commit or commits only when the Developer explicitly authorizes committing the current changes. Approval of the changes alone leaves commit consent pending.
 - After the commit boundary is resolved, YOU MUST ask whether to proceed to the next Shape workflow step.
 - YOU MUST NOT proceed to Iteration approval, batch implementation, or any other next Shape workflow step unless the Developer explicitly approves proceeding.
 
@@ -131,7 +131,6 @@ This skill is complete when:
 ## Likely Next Step
 Usually suggest:
 - `plan iteration` if the updated plan now has a clear next `draft` Iteration
-- propose a commit message and offer to create the commit if the current planning update is accepted and the user wants a checkpoint
 - continue `update implementation plan` if propagation impact is still being resolved
 - `update technical specification` or `update product specification` if the upstream change is still incomplete
 

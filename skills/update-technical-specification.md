@@ -66,10 +66,10 @@ Only mark the update `approved` when the Architect explicitly accepts it as effe
 
 ## Workflow Boundary Rules
 
-- YOU MUST stop for Architect review before changing a Technical Specification Specification Update from `draft` to `approved`.
+- If explicit approval is still missing, YOU MUST stop for Architect review before changing a Technical Specification Specification Update from `draft` to `approved`.
 - YOU MUST NOT mark a Technical Specification Specification Update `approved` unless the Architect explicitly approves that transition.
-- After finishing this Shape operation, YOU MUST ask whether to prepare and submit a commit for the accepted Technical Specification update diff.
-- YOU MUST NOT create a commit unless the Architect explicitly approves committing the current diff.
+- Review the accepted Technical Specification update diff. When commit consent is still needed, YOU MUST report the new status and propose each commit with its subject and scope in the same reply. End with one yes/no question asking whether to create the proposed commit or commits.
+- Create and report the scoped commit or commits only when the Architect explicitly authorizes committing the current changes. Approval of the status change alone leaves commit consent pending.
 - After the commit boundary is resolved, YOU MUST ask whether to proceed to the next Shape workflow step.
 - YOU MUST NOT proceed to downstream propagation or any other next Shape workflow step unless the Architect explicitly approves proceeding.
 
@@ -131,7 +131,6 @@ This skill is complete when:
 ## Likely Next Step
 Usually suggest:
 - continue `update technical specification` if the change is still incomplete or awaiting acceptance
-- propose a commit message and offer to create the commit if the current Technical Specification update state is accepted and the user wants a checkpoint
 - `update implementation plan` if the approved design update changes execution planning
 - `update product specification` if the design change revealed a requirement-level issue
 
