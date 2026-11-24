@@ -30,14 +30,14 @@ Installation behavior:
 
 During overwrite, the script validates configuration and source skills before changing the installation. It removes the selected agent's previously managed skills using both `.shape/config.json` and `.shape/installations/<agent>.json`, plus the known retired names in the source `config-templates/retired-skills.json`. It then installs the complete current skill set. Unrelated skills are preserved; an unowned destination collision stops installation.
 
-### Upgrading to v0.4
+### Upgrading to v0.5
 
 Run your agent's installer with `--overwrite`. Repeat for each agent installed in the project. Per-agent inventories and the retired-name list allow sequential upgrades even after the shared config has already changed.
 
 - Existing feature documents, documentation folders, and `.shape/workspace.json` remain unchanged. No documents are moved, renamed, or rewritten.
 - `featuresRoot`, configured artifact filenames, and custom configuration fields are preserved. Legacy `artifacts.prd` and `artifacts.technicalConcept` keys become `productSpecification` and `technicalSpecification`, retaining their values.
 - New installations default to `docs/implementation`, `01-product-specification.md`, and `02-technical-specification.md`. Existing installations retain their configured locations, including `features/` and legacy filenames.
-- Configuration schema `version` becomes `2`; `shapeVersion` records `0.4`. These are distinct from Git release tags. The managed skill inventory is replaced with the current set.
+- Configuration schema `version` stays at `2` for v0.4 installations and advances to `2` for older schema `1` installations. `shapeVersion` records `0.5` in the shared configuration and the selected agent's inventory. The refreshed skill set includes `review-code`.
 - Shape-owned templates and the selected agent's generated integration snippet are refreshed. Other agents' snippets and inventories remain intact.
 - Missing or invalid existing configuration/inventories stop the upgrade before replacement. Restore the previous metadata and retry; the installer does not guess where existing documents belong. Conflicting old/new artifact keys also require resolution first.
 
@@ -221,7 +221,7 @@ Default schema v2 example (skill list abbreviated):
 ```json
 {
   "version": 2,
-  "shapeVersion": "0.4",
+  "shapeVersion": "0.5",
   "featuresRoot": "docs/implementation",
   "artifacts": {
     "productSpecification": "01-product-specification.md",

@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "shapeVersion": "0.4",
+  "shapeVersion": "0.5",
   "featuresRoot": "docs/implementation",
   "artifacts": {
     "productSpecification": "01-product-specification.md",

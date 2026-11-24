@@ -55,10 +55,12 @@ for agent in codex claude gemini opencode; do
     install "$agent" "$target"
     config="$target/.shape/config.json"
     cmp "$ROOT/config-templates/config.json" "$config" || fail 'Fresh config does not retain standard two-space JSON formatting'
-    grep -Fxq '  "skills": {' "$target/.shape/installations/$agent.json" || fail 'Installation inventory is not indented'
+    inventory="$target/.shape/installations/$agent.json"
+    grep -Fxq '  "skills": {' "$inventory" || fail 'Installation inventory is not indented'
+    assert_contains "$inventory" '"shapeVersion": "0.5"'
     assert_contains "$config" '"featuresRoot": "docs/implementation"'
     assert_contains "$config" '"version": 2'
-    assert_contains "$config" '"shapeVersion": "0.4"'
+    assert_contains "$config" '"shapeVersion": "0.5"'
     assert_contains "$config" '"productSpecification": "01-product-specification.md"'
     native="$target/$(skills_dir "$agent")"
     [[ -f "$native/create-product-specification/SKILL.md" && -f "$native/plan-iteration/SKILL.md" && -f "$native/review-code/SKILL.md" ]] || fail 'Missing new skills'
@@ -88,6 +90,8 @@ for agent in codex claude gemini opencode; do
     install "$agent" "$target" --overwrite
     assert_project_preserved "$target" "$target snapshot"
     config="$target/.shape/config.json"
+    assert_contains "$config" '"shapeVersion": "0.5"'
+    assert_contains "$target/.shape/installations/$agent.json" '"shapeVersion": "0.5"'
     assert_contains "$config" '"featuresRoot": "custom docs/features"'
     assert_contains "$config" '"productSpecification": "requirements.md"'
     assert_contains "$config" '"technicalSpecification": "design.md"'

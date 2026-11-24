@@ -24,12 +24,13 @@ Shape is designed to help structure software feature development when working wi
 
 ## Version History
 
-- `v0.4` (current): Product and Technical Specifications, delivery Iterations, `docs/implementation` defaults, existing-document references, and upgrade-safe installation with obsolete skill removal
+- `v0.5` (current) adds concise Batch Summaries, an optional read-only `review code` skill, and a consistent final question when a skill needs input or approval. Upgrades preserve configured artifact filenames, including legacy defaults.
+- `v0.4` introduced Product and Technical Specifications, delivery Iterations, `docs/implementation` defaults, existing-document references, and upgrade-safe installation with obsolete skill removal.
 - `v0.3`: unified artifact state flows around Implementation Plans and Slice Plans, refreshed installation guidance and install script behavior, and removed repository readiness checks to keep Shape focused on feature workflow
 - `v0.2`: terminology and documentation cleanup around software development wording, overview structure, status naming, and stronger workflow step-boundary guidance
 - `v0.1`: initial version with PRD, Technical Concept, and Implementation Plan support; basic skill set in place; fully functional
 
-Upgrade existing projects with `--overwrite`; see [installation and v0.4 upgrade guidance](./installation.md#upgrading-to-v04). Existing documentation and configured paths are preserved.
+Upgrade existing projects with `--overwrite`. Existing documentation and configured paths are preserved. [v0.5 upgrade guide](./installation.md#upgrading-to-v05)
 
 ## License
 

@@ -27,6 +27,8 @@ At the beginning of the workflow, Shape creates the feature workspace. As the wo
 
 The workflow also keeps repository and artifact boundaries explicit. Baseline artifacts are created and approved deliberately. Implementation work is reviewed before it is treated as complete. Approved implementation is committed only on explicit instruction before new batch work begins. This keeps both the feature artifacts and the repository in a clean, understandable state as the work moves forward.
 
+When a skill needs your input or approval, look for one question at the end of the reply. Batch approval, commit consent, and permission to start the next step are requested at their respective checkpoints.
+
 When something changes after the Product Specification or Technical Specification is already approved:
 - **update product specification**
 - **update technical specification**

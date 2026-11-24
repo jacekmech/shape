@@ -23,6 +23,6 @@ Feature artifacts should live under the configured feature root, for example:
 docs/implementation/<feature-id>-<feature-slug>/
 ```
 
-Fresh installs use configuration schema `version: 2` and `shapeVersion: "0.4"`. Upgrades preserve the configured root, artifact filenames, and custom settings while migrating legacy `prd` and `technicalConcept` artifact keys. Existing documents and workspace state are not migrated. New skills understand legacy PRD, Technical Concept, and Slice Plan artifacts.
+Fresh installs use configuration schema `version: 2` and `shapeVersion: "0.5"`. Upgrades preserve the configured root, artifact filenames, and custom settings while migrating legacy `prd` and `technicalConcept` artifact keys. Existing documents and workspace state are not migrated. New skills understand legacy PRD, Technical Concept, and Slice Plan artifacts.
 
 The source `retired-skills.json` lists historical Shape skill names removed during upgrades, including when another agent has already updated the shared configuration. Each installer also records its own inventory under `installations/` so future removals remain traceable.
