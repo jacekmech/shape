@@ -143,12 +143,14 @@ Examples:
 ### Respect implementation review boundaries
 - tasks are marked done only after explicit developer approval
 - `implement batch` is not complete until the approved batch is committed
-- the agent may create that commit only on explicit developer instruction before the next batch begins
+- the agent may create the required commits only on explicit developer instruction before the next batch begins
 
 ### Propose commits at accepted checkpoints
 - when a skill reaches an accepted repository checkpoint, it should normally propose a commit message and offer to create the commit
 - it should not default to telling the user to perform the commit manually
 - explicit user consent is still required before the agent creates the commit
+- Split the approved diff by the configured Shape feature folder paths. For mixed changes, require a single proposal and consent question covering two scoped commits, codebase first and Shape artifacts second. Use a clear Shape subject, with `shape:` where repository conventions support it.
+- Allow explicitly approved and validated Iteration closure in the final batch's Shape commit after the codebase commit succeeds.
 
 ### Put follow-up questions last
 - Include this guidance in each generated skill. When there is a decision to make or information to provide, place one follow-up question in its own final paragraph, after any summary, findings, checks, or links. Apply the same rule when pausing for input mid-operation.

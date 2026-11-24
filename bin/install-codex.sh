@@ -256,7 +256,10 @@ When working in this repository:
 - YOU MUST treat each Shape operation as a separate workflow boundary.
 - YOU MUST NOT move to the next Shape operation without explicit human approval.
 - YOU MUST NOT silently combine multiple Shape operations into one step.
-- YOU MUST NOT skip the commit boundary between separate Shape workflow operations.
+- Keep the commit boundary between Shape operations, with the final-batch closure procedure below.
+- When the approved diff includes files both inside and outside configured Shape feature folders, YOU MUST propose the codebase commit first and the Shape artifact commit second, with one consent question for both. If the approved diff contains only one kind of change, propose one commit.
+- Each Shape artifact commit subject MUST identify the Shape changes. Use `shape:` where it fits repository conventions.
+- When the Developer explicitly approves closing the Iteration with its final batch, follow the final-batch procedure in `finish iteration`. Complete the closure checks and commit the codebase changes before marking the Iteration done. Record closure in the final batch's Shape commit.
 - YOU MUST stop for human review before changing any artifact or update from `draft` to `approved`.
 - YOU MUST NOT mark artifacts or updates approved or done, or mark tasks or batches complete, without explicit approval from the responsible human role.
 - After a Shape operation produces an accepted diff, YOU MUST ask whether to prepare and submit a commit.

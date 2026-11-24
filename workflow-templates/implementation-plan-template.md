@@ -59,6 +59,7 @@ Rules:
 - Batches should remain small enough for a single high-quality developer review step.
 - Tasks should be marked done only after developer approval of the implemented batch.
 - An approved batch should be committed only on explicit developer instruction before the next batch begins so that review boundaries remain clean.
+- For a batch with both codebase and Shape changes, propose both commits together, codebase first and Shape artifacts second. The Shape commit records plan updates, including Iteration closure when explicitly approved and validated after the codebase commit succeeds.
 
 ---
 

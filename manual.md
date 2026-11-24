@@ -296,6 +296,8 @@ Important:
 - within the same operation, implementation may temporarily be in one of several explicit states: awaiting review, under revision, awaiting approval, or approved but still awaiting commit
 - the operation is not complete until the approved batch is committed, either by the user or by the agent on explicit instruction
 
+When the approved diff contains both codebase changes and files inside configured Shape feature folders, the agent proposes both commits together and asks for consent once. The codebase commit comes first. The second commit contains only the approved Shape artifact changes, with a subject that identifies them, such as `shape: Record batch completion` where the prefix fits repository conventions. All files outside feature folders count as codebase changes for this split. If the approved diff contains only one kind of change, the agent proposes one commit.
+
 Typical prompts:
 - Implement tasks 1 and 2 from the approved Iteration as one batch
 - Implement only the selected tasks and stop for review
@@ -319,6 +321,8 @@ Confirm that:
 - the approved batch work for the Iteration that should be committed is already committed
 
 Then explicitly transition the Iteration from `approved` to `done` and commit the updated Implementation Plan.
+
+If you explicitly approve closing the Iteration alongside its final approved batch, the agent can propose the codebase and Shape commits together. Once the codebase commit succeeds and closure is validated, the agent marks the Iteration `done` and includes closure with the final task updates in the Shape commit.
 
 Typical prompts:
 - Finish the current iteration

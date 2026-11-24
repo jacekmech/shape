@@ -72,7 +72,7 @@ Include a concise `## Batch Summary` section that is self-contained and suitable
 
 Do not duplicate this content elsewhere in the response. Keep the handoff short enough to scan in about five seconds while retaining the task and plan reference needed to recover the execution context.
 
-Place the follow-up below the handoff in its own final paragraph. When the batch is ready for review, ask “Do you approve this batch?” Once the batch is approved and awaiting consent to commit, ask “Should I commit the approved batch?”
+Place the follow-up below the handoff in its own final paragraph. When the batch is ready for review, ask “Do you approve this batch?” Once the batch is approved and awaiting commit consent, use the commit proposal below.
 
 Only after the Developer explicitly approves the batch may this skill:
 - mark the relevant tasks done in `## Execution Order`
@@ -81,13 +81,17 @@ Only after the Developer explicitly approves the batch may this skill:
 - update `## Important Decisions` when accepted implementation introduced decisions worth preserving
 - state clearly that the batch is `approved but awaiting commit`
 
-Commit remains a separate consent boundary inside the same skill flow:
+### Commit proposal and execution
+
+Use the configured feature root and resolved feature folder paths to identify Shape artifacts. Files inside Shape feature folders are Shape artifacts. All other files are non-Shape changes, including code, tests, configuration, and documentation outside those folders.
+
+- If the approved scope contains both kinds of changes, YOU MUST propose two commits together. List the codebase commit first and the Shape artifact commit second, with a subject and scope for each. Ask once for explicit consent to create both commits in that order. If only one kind of change remains to commit, propose one commit.
+- The Shape commit subject MUST identify the Shape artifact changes. Use `shape:` when it fits the repository's commit conventions. A subject such as `Record Shape batch completion` also makes the scope clear.
 - YOU MUST NOT commit merely because the batch was approved
 - commit only if the Developer explicitly instructs you to commit
-- keep the commit scoped to the approved batch
-- surface unrelated-change contamination before committing
-- state clearly when the batch is `approved but awaiting commit`
-- state clearly when the batch is `committed`
+- Inspect what will enter each commit. Keep both commits scoped to the approved changes and surface any unrelated staged or unstaged changes before committing. Preserve those unrelated changes.
+- If both commits are needed, the Developer also explicitly approves closing the Iteration, and the final batch is its only pending checkpoint, include closure in the Shape commit's proposed scope. Validate closure using `finish iteration`. After the codebase commit succeeds, mark the Iteration `done` and include that change with the final task updates in the Shape commit.
+- If either commit fails, report what succeeded and what remains. If the codebase commit succeeded, retain it and resume from the pending Shape commit. Report the batch as `committed` only when all required commits have succeeded.
 
 Treat commit as part of completing this operation:
 - YOU MUST NOT treat `approved and marked done` as the final completion state of `implement batch`
@@ -107,9 +111,9 @@ The agent implements the selected work, supports review, and can perform the com
 
 - YOU MUST stop for Developer review after implementing the selected batch.
 - YOU MUST NOT mark tasks done until the Developer explicitly approves the implemented batch.
-- After marking approved tasks done, YOU MUST ask whether to prepare and submit a commit for the approved batch diff.
+- After marking approved tasks done, YOU MUST follow the commit proposal and execution rules above.
 - YOU MUST NOT create a commit unless the Developer explicitly approves committing the current diff.
-- YOU MUST NOT start another batch, finish the iteration, or move to any other Shape workflow step until the approved batch commit boundary is resolved.
+- YOU MUST resolve the approved batch commit boundary before starting another batch or moving to another Shape step. The explicitly approved Iteration closure described above may be recorded in the final batch's Shape commit after the codebase commit succeeds.
 - After the commit boundary is resolved, YOU MUST ask whether to proceed to the next Shape workflow step.
 - YOU MUST NOT proceed to the next Shape workflow step unless the Developer explicitly approves proceeding.
 
@@ -132,7 +136,7 @@ This skill may:
 - update `## Relevant Files` in `03-implementation-plan.md`
 - update `## Important Decisions` in `03-implementation-plan.md`
 - mark approved tasks done in `## Execution Order` after explicit approval
-- create a repository commit for the approved batch after explicit user instruction
+- create the required scoped commits for the approved batch after explicit user instruction
 - prepare a concise mapping from selected tasks to implemented changes
 
 This skill must not:

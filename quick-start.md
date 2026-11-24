@@ -175,7 +175,7 @@ Tasks:
 - [ ] store the file
 ```
 
-The approved Batch is committed before the next Batch starts.
+The agent proposes two commits together for this Batch, first the implementation and then the Shape plan updates. One confirmation covers both. Both commits are complete before the next Batch starts.
 
 ## What Shape gives you
 

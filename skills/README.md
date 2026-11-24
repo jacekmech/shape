@@ -101,7 +101,7 @@ Examples:
 - only approved updates are effective
 - implementation tasks are marked done only after explicit developer approval
 - `implement batch` includes commit as part of completing the operation, even when the developer performs the commit directly
-- the agent may create that commit only on explicit developer instruction
+- the agent may create the required commits only on explicit developer instruction
 
 ### Anchor to real artifacts and sections
 Where relevant, the skill should refer to:
@@ -228,6 +228,13 @@ Explicit user consent is still required before the agent creates the commit:
 - YOU MUST NOT create a commit unless the responsible human explicitly approves committing the current diff.
 - YOU MUST keep the commit scoped to the accepted diff for the current Shape operation.
 - YOU MUST surface unrelated or unexpected changes before committing.
+
+### Separate codebase and Shape commits
+
+- Files inside Shape feature folders resolved under the configured feature root are Shape artifacts. All other files are non-Shape changes.
+- If both kinds of changes are in scope, YOU MUST propose the codebase commit first and the Shape artifact commit second in one proposal. Give the subject and scope of each and ask once for consent to create both in order. If only one kind of change is in scope, propose a single commit.
+- The Shape subject MUST identify the artifact change. Use `shape:` if it fits repository conventions.
+- When the Developer explicitly approves closing the Iteration with the final batch, validate closure and commit the codebase changes first. Then mark the Iteration `done` and record closure with the final batch's Shape changes in the second commit.
 
 ### Preserve next-step boundaries
 Skills should make the next likely valid workflow action obvious, but making the next action obvious is not permission to start it.

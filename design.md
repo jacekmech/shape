@@ -504,7 +504,7 @@ The Developer validates the result of the Batch as part of the same **Implement 
 
 This is a developer-led review step centered on the diff and intended batch outcome. The Developer may request adjustments, ask for clarifications, record implementation decisions, or even adjust upcoming iteration structure before approving the batch. These actions should occur through prompting the AI Agent rather than by directly editing workflow artifacts outside Shape.
 
-Approval and commit form a single normal progression boundary. Once a batch is approved, it should be committed before any subsequent batch begins so that the next review starts from a clean diff boundary.
+Explicit approval and commit consent are both required. Once a batch is approved, all required commits must be complete before the next batch begins. Files inside configured Shape feature folders are Shape artifacts. All other files are non-Shape changes. A mixed diff requires one proposal and one commit consent decision covering two commits, first the codebase and then the Shape artifacts. The second subject identifies the artifact changes and uses `shape:` where it fits repository conventions. A diff with only one kind of change requires one commit.
 
 **Process**
 - Developer reviews code diff
@@ -539,6 +539,8 @@ When review support is provided, the AI Agent should clearly state whether the b
 
 **Summary**  
 After all Tasks within an Iteration are completed and their approved batches have been committed, the Iteration is validated.
+
+When the Developer explicitly approves closure with the last approved batch and closure checks pass, record completion in that batch's Shape commit. The codebase commit must succeed before changing the Iteration status to `done`.
 
 **Process**
 - Developer verifies that iteration objectives are met

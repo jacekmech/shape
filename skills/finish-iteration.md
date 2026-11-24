@@ -35,11 +35,15 @@ Before finishing an Iteration:
 - identify the selected Iteration, defaulting to the approved Iteration with completed tasks when the context is clear
 - verify that the Iteration is currently `approved`
 - verify that the Iteration tasks are completed
-- verify that any approved batches for the Iteration that should be committed have already been committed
+- verify that any approved batches for the Iteration that should be committed have already been committed, subject to the final-batch procedure below
 - inspect whether the iteration objective appears satisfied
 
 This skill should close only validated Iterations.
 If the Iteration is still `draft`, if tasks remain open, or if approved work that should be committed is still uncommitted, surface that clearly instead of marking the Iteration `done`.
+
+### Closure with the final batch
+
+When the Developer explicitly approves closure and the final approved batch is the only pending checkpoint, validate the Iteration and verify that all its tasks are complete. If both codebase and Shape changes remain, use the `implement batch` commit proposal for both. Propose the codebase commit first and the Shape commit second, with closure listed in the Shape commit's scope. Wait for the codebase commit to succeed before marking the Iteration `done`. The Shape commit then records the final batch's artifact updates and Iteration closure together. When the final batch is already committed and only closure changes remain, propose a single commit with a subject that identifies the Shape artifact change. Use `shape:` when it fits repository conventions.
 
 ## Behavior
 Validate the selected iteration against its intended objective and task completion state.
@@ -55,13 +59,13 @@ If iteration completion changes what future work should focus on:
 - keep the section selective and forward-looking rather than historical
 
 The responsible role remains the Developer.
-The agent may help validate and update the plan, but should not silently close an Iteration that still has unresolved work or approved changes that should be committed but are still uncommitted.
+The agent may help validate and update the plan. The final-batch procedure still requires explicit approval of closure and a successful codebase commit before the Iteration status changes.
 
 ## Workflow Boundary Rules
 
 - YOU MUST stop for Developer review before changing an Iteration from `approved` to `done`.
 - YOU MUST NOT mark an Iteration `done` unless the Developer explicitly approves closing that Iteration.
-- After finishing this Shape operation, YOU MUST ask whether to prepare and submit a commit for the accepted Iteration closure diff.
+- After finishing this Shape operation, YOU MUST ask whether to prepare and submit a commit for the accepted Iteration closure diff, unless that commit is already covered by explicit consent for the final-batch proposal.
 - YOU MUST NOT create a commit unless the Developer explicitly approves committing the current diff.
 - After the commit boundary is resolved, YOU MUST ask whether to proceed to the next Shape workflow step.
 - YOU MUST NOT proceed to planning the next Iteration, finishing the feature, or any other next Shape workflow step unless the Developer explicitly approves proceeding.
@@ -76,7 +80,7 @@ Work against these sections:
 - `## Notes`
 
 Apply these rules:
-- Iteration completion happens only after its tasks are completed and approved batches that should be committed are committed
+- Iteration completion requires completed tasks and committed approved batches, with the final batch's Shape changes allowed in the closure commit as described above
 - the Iteration status in `## Iterations` should change from `approved` to `done` only after validated completion
 - the corresponding Iteration line in `## Execution Order` should already reflect completed tasks before closure
 - `## Relevant Files` may be pruned or refreshed when iteration completion changes what is useful for subsequent iterations
@@ -90,7 +94,7 @@ This skill may:
 This skill must not:
 - mark an Iteration `done` while tasks are still open
 - close an Iteration that has not yet reached `approved`
-- close an Iteration before approved batches that should be committed are committed
+- close an Iteration with uncommitted approved batch work outside the final-batch procedure above
 - use iteration closure to hide incomplete work
 - mark the whole implementation done unless all Iterations are `done`
 
@@ -113,7 +117,7 @@ This skill is complete when:
 
 ## Guardrails
 - YOU MUST NOT close an Iteration with open tasks
-- YOU MUST NOT close an Iteration before approved work that should be committed is committed
+- YOU MUST verify the required codebase commits before marking the Iteration `done`
 - YOU MUST NOT use iteration closure as a shortcut for unresolved review or approval state
 - YOU MUST NOT leave the next execution step implicit once an iteration is closed
 - YOU MUST NOT mark implementation done unless all Iterations are `done` and validated
