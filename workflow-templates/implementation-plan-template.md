@@ -88,6 +88,7 @@ Examples:
 - `packages/validation/src/contact-schema.ts`
 
 Rules:
+- When planning, link to the Product Specification and Technical Specification in the feature folder using their resolved artifact paths. For referenced specifications, follow source links from those files.
 - Keep this section selective and compact.
 - It is a working context map, not a full file inventory.
 - Entries may be added, updated, or removed during implementation as relevance changes.

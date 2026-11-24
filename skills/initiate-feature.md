@@ -79,10 +79,10 @@ Examples:
 ## Existing specifications
 Before scaffolding, explain that Shape can draft either specification or reference an existing one by document name, repository path, or URL. If the choice is still open, end the reply with “Which existing specifications, if any, should Shape reference?”
 
-Resolve names against available sources. Ask for clarification only when a name is ambiguous or cannot be resolved. Choose authored or reference mode independently for each specification. Always create all three Shape artifacts. For supplied documents, use the reference template instead of the full authored template, with a source link, relevant scope, and revision/date where available. Keep these artifacts `draft`; source readiness and approval are assessed in the corresponding create-specification step. An unresolved name is an open question, not a verified source link.
+Resolve names against available sources. Ask for clarification only when a name is ambiguous or cannot be resolved. Choose authored or reference mode independently for each specification. For supplied documents, use the reference template and record the source link, relevant scope, and revision/date where available. Keep these artifacts `draft`. The corresponding create-specification step assesses source readiness and handles approval. Record unresolved source details as open questions in the reference artifact.
 
 ## Artifact Scaffolding Rules
-Create all three core files at feature initiation time.
+YOU MUST create all three core files in the feature folder at initiation, even when one or both specifications already exist elsewhere. For each referenced specification, YOU MUST create the corresponding local file using the reference template at the resolved artifact path.
 
 ### Product Specification file
 Create `01-product-specification.md` using the canonical Product Specification structure, or the reference template when an existing source is supplied.
@@ -132,7 +132,7 @@ When a strong default is available:
 ## Completion Criteria
 This skill is complete when:
 - the new feature folder is resolved
-- all three core artifact files exist
+- all three core artifact files exist in the feature folder, including a reference file for each specification supplied from elsewhere
 - each file starts in `draft`
 - the workspace is clearly ready for the user or agent to create the feature-initiation commit
 - a commit can be proposed cleanly as the feature-initiation checkpoint

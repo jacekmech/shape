@@ -31,14 +31,14 @@ Helpful but optional:
 - known repository areas likely to matter first
 
 ## Preconditions
-Before initiating implementation:
-- resolve the active feature and locate `01-product-specification.md`, `02-technical-specification.md`, and `03-implementation-plan.md`
+Before creating or refining the Implementation Plan, resolve the active feature and its artifact paths. YOU MUST verify that both specification files exist at their resolved paths in the feature folder. If either file is missing, report its path and pause planning until the corresponding `create product specification` or `create technical specification` step establishes the approved local artifact. When both are missing, resolve the Product Specification first.
+
+Once both files exist:
 - confirm the Product Specification status is `approved`
 - confirm the Technical Specification status is `approved`
 - inspect any approved updates in the Product Specification or Technical Specification that materially affect execution
 - inspect the codebase enough to shape realistic initial Iterations
 
-Implementation planning should not begin from unstable upstream artifacts.
 If the Product Specification or Technical Specification is still `draft`, surface that clearly and redirect to the appropriate upstream skill.
 
 ## Behavior
@@ -75,7 +75,7 @@ The Implementation Plan remains `approved` during execution and moves to `done` 
 - YOU MUST NOT proceed to the next Shape workflow step unless the Developer explicitly approves proceeding.
 
 ## Artifact Rules
-Read and update only the Implementation Plan in `03-implementation-plan.md`, using the approved Product Specification and approved Technical Specification as upstream inputs.
+Write only to the Implementation Plan in `03-implementation-plan.md`. Read the approved Product Specification and approved Technical Specification as upstream inputs.
 
 Use the canonical Implementation Plan section structure:
 - `## Header`
@@ -88,6 +88,7 @@ Use the canonical Implementation Plan section structure:
 
 Apply these rules:
 - the Implementation Plan is a live inline document rather than an append-only update artifact
+- YOU MUST link to both feature-local specifications under `## Relevant Files`. Replace direct links to external specifications that serve as the plan's upstream references with links to the corresponding local artifacts. Resolve external sources through the local artifacts' `## Source` sections and approved updates.
 - `## Iterations` should define the feature implementation breakdown using explicit Iteration status entries
 - initial Iterations created by this skill should start in `draft`
 - `## Execution Order` should establish Iteration ordering, but implementation tasks must remain empty until `plan iteration`
@@ -118,7 +119,7 @@ This skill should produce:
 
 ## Completion Signals
 This skill is complete when:
-- `03-implementation-plan.md` reflects the approved Product Specification and approved Technical Specification
+- `03-implementation-plan.md` reflects and links to the approved Product Specification and approved Technical Specification in the feature folder
 - initial Iterations exist, represent deliverable iterations, and are small enough to support focused execution sessions
 - `## Execution Order` contains the execution skeleton without prematurely turning into task-level detail
 - the plan status accurately reflects whether execution planning is still being refined or is approved as the execution baseline

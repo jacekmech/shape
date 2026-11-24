@@ -30,9 +30,8 @@ Helpful but optional:
 
 ## Preconditions
 Before editing the Product Specification baseline:
-- resolve the active feature and locate `01-product-specification.md`
-- confirm the Product Specification baseline is still in baseline-creation mode rather than append-only update mode
-- inspect the current Product Specification content and status
+- resolve the active feature and the expected path of `01-product-specification.md`
+- if the file exists, inspect its content and status and confirm the baseline is still in baseline-creation mode
 - invite larger user-provided requirement input if the Product Specification is sparse or still mostly skeletal
 
 This skill should operate on the baseline Product Specification only while its status is `draft`.
@@ -42,7 +41,7 @@ If the Product Specification baseline is already `approved`, this skill should n
 Before drafting, explain that Shape can draft a Product Specification or reference an existing one by name, repository path, or URL. If the choice is still open, end the reply with “Which existing Product Specification, if any, should Shape reference?” Honor a choice already made during initiation.
 
 - Resolve a supplied document name using available repository or connected sources; ask for a path or URL only if ambiguous or unavailable.
-- For an existing document, keep the Shape artifact as a small reference using `.shape/workflow-templates/specification-reference-template.md`. Record its title, Shape status, date, source link, relevant scope, and reviewed revision or date. Do not copy the document or require empty authored-template sections.
+- When referencing an existing document, YOU MUST create or update the Product Specification file in the feature folder using `.shape/workflow-templates/specification-reference-template.md`. If the local file is missing, create it as `draft`. Record its title, Shape status, date, source link, relevant scope, and reviewed revision or date. Do not copy the document or require empty authored-template sections.
 - Read the source and assess readiness for the feature. External approval alone does not approve the Shape artifact; Product Owner acceptance is still required. Keep it `draft` while material gaps or access problems remain.
 - Add only necessary local supplements, keeping the external source authoritative within its stated scope. Identify conflicts for human resolution rather than silently overriding it.
 - Reference mode replaces the full section requirements below. Both modes retain `## Header` and `## Updates` and follow the same approval and append-only lifecycle.

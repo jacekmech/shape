@@ -208,6 +208,8 @@ Typical prompts:
 
 This step is for creating the first usable feature execution structure. The user should ask the agent to plan implementation only after the Product Specification and Technical Specification are approved.
 
+The plan links to both approved specification files in the feature folder. When a specification references an existing document, follow its source link from the local file. If either local file is missing, complete the corresponding specification step before planning.
+
 The first version should include:
 - the objective
 - initial Iterations with defined delivery outcomes

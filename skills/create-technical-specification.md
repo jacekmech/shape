@@ -32,10 +32,10 @@ Helpful but optional:
 
 ## Preconditions
 Before editing the Technical Specification baseline:
-- resolve the active feature and locate `01-product-specification.md` and `02-technical-specification.md`
+- resolve the active feature, locate `01-product-specification.md`, and resolve the expected path of `02-technical-specification.md`
 - inspect the Product Specification and confirm the requirement baseline is `approved`, including any approved updates that materially affect design
 - inspect repository guidance that shapes architecture, structure, commands, and preferred boundaries
-- inspect the current Technical Specification content and status
+- if the Technical Specification file exists, inspect its content and status
 
 This skill should operate on the Technical Specification baseline only while its status is `draft`.
 If the Product Specification is not yet `approved`, this skill should not proceed and should redirect upstream to `create product specification` or `update product specification` as appropriate.
@@ -45,7 +45,7 @@ If the Technical Specification baseline is already `approved`, this skill should
 Before drafting, explain that Shape can draft a Technical Specification or reference an existing one by name, repository path, or URL. If the choice is still open, end the reply with “Which existing Technical Specification, if any, should Shape reference?” Honor a choice already made during initiation.
 
 - Resolve a supplied document name using available repository or connected sources; ask for a path or URL only if ambiguous or unavailable.
-- For an existing document, keep the Shape artifact as a small reference using `.shape/workflow-templates/specification-reference-template.md`. Record its title, Shape status, date, source link, relevant scope, and reviewed revision or date. Do not copy the document or require empty authored-template sections.
+- When referencing an existing document, YOU MUST create or update the Technical Specification file in the feature folder using `.shape/workflow-templates/specification-reference-template.md`. If the local file is missing, create it as `draft`. Record its title, Shape status, date, source link, relevant scope, and reviewed revision or date. Do not copy the document or require empty authored-template sections.
 - Read the source and assess readiness for the feature. External approval alone does not approve the Shape artifact; Architect acceptance is still required. Keep it `draft` while material gaps or access problems remain.
 - Add only necessary local supplements, keeping the external source authoritative within its stated scope. Identify conflicts for human resolution rather than silently overriding it.
 - Reference mode replaces the full section requirements below. Both modes retain `## Header` and `## Updates` and follow the same approval and append-only lifecycle.

@@ -403,4 +403,6 @@ If a skill is elegant but vague, it is not done.
 
 At initiation and before drafting, offer to reference existing Product and/or Technical Specifications by name, path, or URL. Honor choices already supplied. Each specification independently uses authored mode or `specification-reference-template.md`; reference mode replaces full authored section requirements. Always read the referenced source, check scope and reviewed revision, and require Shape approval. Product specifications must include or link to proposed delivery iterations, adding a local supplement if needed. Source changes use append-only updates with old/new revisions and downstream impact.
 
+YOU MUST keep a file for each specification in the feature folder, including when the source lives elsewhere. Implementation planning requires both local artifacts to be approved and must link to their resolved paths. Follow external sources through the local reference artifacts.
+
 Skills must resolve configured roots and artifact filenames before using defaults. Legacy `prd`/`technicalConcept` keys, PRD/Technical Concept files, and Slice Plan headings remain readable without rewriting project documents. Installed skill directories use the new names. Installer upgrades remove old managed and retired skill names, replace the current skill set, and preserve per-agent inventories for subsequent upgrades.

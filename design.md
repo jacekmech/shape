@@ -304,7 +304,7 @@ Version 1 of the document (baseline)
 
 ### Referencing existing specifications
 
-At initiation and before drafting either specification, explicitly offer to use an existing document by name, repository path, or URL. Resolve names to concrete sources and ask only when ambiguous or unavailable. Product and Technical Specifications choose authored or reference mode independently; all three Shape artifacts are still created.
+At initiation and before drafting either specification, explicitly offer to use an existing document by name, repository path, or URL. Resolve names to concrete sources and ask only when ambiguous or unavailable. Product and Technical Specifications choose authored or reference mode independently. All three Shape artifacts must exist in the feature folder, including a local reference file for each specification whose source lives elsewhere. The Implementation Plan links to the two approved local specifications and follows referenced sources through them.
 
 Reference mode uses `workflow-templates/specification-reference-template.md` instead of the full authored structure. Record title, Shape status, date, source link, relevant scope, and reviewed source revision/date. Read the actual source to assess readiness; do not duplicate it or require empty authored-template sections. Source approval does not automatically confer Shape approval. Missing access or material gaps prevent downstream readiness.
 
