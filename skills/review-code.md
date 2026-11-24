@@ -60,10 +60,10 @@ Do not report praise, general summaries, hypothetical concerns without evidence,
 - YOU MUST treat this as a read-only assessment.
 - YOU MUST NOT modify code, workflow artifacts, task checkboxes, statuses, or workspace state.
 - YOU MUST NOT approve the batch, mark tasks done, create a commit, or advance the workflow.
-- YOU MUST NOT treat an absence of findings as developer approval.
+- YOU MUST NOT treat an absence of findings as approval from the user.
 - YOU MUST surface an unclear or contaminated review boundary rather than attributing unrelated changes to the selected batch.
 
-The responsible role remains the Developer. This skill provides an independent assessment; the Developer retains review, approval, and commit decisions.
+This skill provides an independent assessment. The user decides whether to request revisions, approve the batch, or authorize commits.
 
 ## Artifact Rules
 Read the Implementation Plan referenced by the Batch Summary, especially:
@@ -94,15 +94,15 @@ This skill is complete when:
 - YOU MUST NOT report a finding without evidence in the reviewed code or its execution context
 - YOU MUST NOT use priorities other than `P1`, `P2`, and `P3`
 - YOU MUST NOT begin a finding bullet with anything other than its bracketed priority
-- YOU MUST NOT conflate review findings with developer approval or workflow progress
+- YOU MUST NOT conflate review findings with approval from the user or workflow progress
 - YOU MUST NOT modify the working tree as part of the review
 
 ## Likely Next Step
 Usually suggest:
 - address reported findings through the same `implement batch` revision loop
-- if no issues are found, let the Developer decide whether to approve the batch
+- if no issues are found, let the user decide whether to approve the batch
 
-Do not proceed to revision, approval, commit, or another Shape workflow step without explicit Developer instruction. End a completed review with the findings or outcome when no input is needed. If review context is missing, ask for the specific missing item on the last line.
+Do not proceed to revision, approval, commit, or another Shape workflow step without explicit instruction from the user. End a completed review with the findings or outcome when no input is needed. If review context is missing, ask for the specific missing item on the last line.
 
 ## Follow-up Questions
 

@@ -254,20 +254,20 @@ When working in this repository:
 
 - YOU MUST follow the default Shape step order unless the user explicitly asks for another supported Shape operation.
 - YOU MUST treat each Shape operation as a separate workflow boundary.
-- YOU MUST NOT move to the next Shape operation without explicit human approval.
+- YOU MUST NOT move to the next Shape operation without explicit user approval.
 - YOU MUST NOT silently combine multiple Shape operations into one step.
 - Keep the commit boundary between Shape operations, with the final-batch closure procedure below.
 - When the approved diff includes files both inside and outside configured Shape feature folders, YOU MUST propose the codebase commit first and the Shape artifact commit second, with one consent question for both. If the approved diff contains only one kind of change, propose one commit.
 - Each Shape artifact commit subject MUST identify the Shape changes. Use `shape:` where it fits repository conventions.
-- When the Developer explicitly approves closing the Iteration with its final batch, follow the final-batch procedure in `finish iteration`. Complete the closure checks and commit the codebase changes before marking the Iteration done. Record closure in the final batch's Shape commit.
+- When the user explicitly approves closing the Iteration with its final batch, follow the final-batch procedure in `finish iteration`. Complete the closure checks and commit the codebase changes before marking the Iteration done. Record closure in the final batch's Shape commit.
 - If explicit approval is still missing, YOU MUST stop for human review before changing any artifact or update from `draft` to `approved`.
-- YOU MUST NOT mark artifacts or updates approved or done, or mark tasks or batches complete, without explicit approval from the responsible human role.
+- YOU MUST NOT mark artifacts or updates approved or done, or mark tasks or batches complete, without explicit approval from the user.
 - At an accepted checkpoint, review the scoped diff. If you still need commit consent, YOU MUST report the change and propose the commit subject and scope in the same reply. End with one yes/no question asking whether to create the proposed commit or commits.
 - An explicit request to change a status authorizes that transition once its preconditions are met. It leaves commit consent pending unless the user also explicitly asks you to commit the scoped changes. If they already did, proceed with the authorized commit without asking again.
-- YOU MUST NOT commit without explicit human approval for the current diff.
+- YOU MUST NOT commit without explicit user approval for the current diff.
 - After the commit boundary is resolved, YOU MUST ask whether to proceed to the next Shape workflow step.
-- YOU MUST NOT proceed to the next Shape workflow step unless the human explicitly approves proceeding.
-- `implement batch` is the special exception: it may continue through review handoff, revision, approval handling, task completion updates, and optional commit, but only with explicit human approval and explicit commit instruction.
+- YOU MUST NOT proceed to the next Shape workflow step unless the user explicitly approves proceeding.
+- `implement batch` is the special exception: it may continue through review handoff, revision, approval handling, task completion updates, and optional commit, but only with explicit user approval and explicit commit instruction.
 - YOU MUST NOT deviate from the workflow, e.g. by skipping a step, combining two steps, or implementing two iterations in one go.
 
 Default Shape step order:

@@ -100,7 +100,7 @@ Examples:
 - YOU MUST treat status reporting as orientation, not permission to start the next Shape workflow step.
 - YOU MUST NOT modify artifacts, mark statuses, or create commits while showing status.
 - When there is a specific next workflow step to offer, ask whether to start that step.
-- YOU MUST NOT start the likely next Shape workflow step unless the human explicitly approves proceeding.
+- YOU MUST NOT start the likely next Shape workflow step unless the user explicitly approves proceeding.
 
 ## Completion Criteria
 This skill is complete when the user can answer all of the following quickly:

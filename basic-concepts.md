@@ -48,7 +48,7 @@ Development loops:
 - Iterations deliver coherent functional pieces of the feature. Each Iteration should have a coherent implementation goal and be small enough for one focused agent session.
 - Tasks and Batches execute an approved Iteration. When the Tasks are implemented, reviewed, approved, committed where needed, and validated against the iteration goal, the Iteration becomes `done`.
 - Done Iterations collectively make the Implementation Plan `done`.
-- Batches iterate over reviewable pieces inside an Iteration. Each Batch should produce a diff small enough for the developer to understand, review, approve, and commit.
+- Batches iterate over reviewable pieces inside an Iteration. Each Batch should produce a diff small enough for the user to understand, review, approve, and commit.
 
 ### 3. Agent and developer attention
 
@@ -89,7 +89,7 @@ A **Batch** groups completed implementation work into a reviewable unit that a d
 
 Iterations optimize for agent execution. Batches optimize for human validation.
 
-Together, they let implementation move fast without forcing either the AI or the developer to work in units that are too large for reliable judgment.
+Together, they let implementation move fast without forcing either the AI or the user to work in units that are too large for reliable judgment.
 
 Repository context still matters when it is available. Shape uses repository guidance as input to technical design and implementation decisions, but it does not turn that context into a workflow checkpoint.
 

@@ -1,7 +1,7 @@
 # update product specification
 
 ## Purpose
-Add a new Product Specification Specification Update or continue refining an existing draft update after the Product Specification baseline is already `approved`, while preserving append-only change handling and Product Owner ownership of requirement-level changes.
+Add a new Product Specification Specification Update or continue refining an existing draft update after the Product Specification baseline is already `approved` while preserving append-only change handling.
 
 ## Artifact resolution and compatibility
 Read `.shape/config.json` before resolving artifacts. Filenames below are fresh-install defaults; use configured `featuresRoot` and `artifacts.productSpecification`, `artifacts.technicalSpecification`, and `artifacts.implementationPlan` values instead when present. Older configurations may use `prd` and `technicalConcept` keys. Existing `01-prd.md`, `02-tech-concept.md`, and “Slice Plan” headings remain valid; interpret them as Product Specification, Technical Specification, and Iteration without renaming files or rewriting existing documents solely for terminology.
@@ -58,19 +58,18 @@ When refining an update:
 - state the requirement change or decision explicitly
 - describe the downstream impact plainly enough for later propagation
 
-The responsible role remains the Product Owner.
 The agent may draft or refine update language, but should not silently finalize requirement intent without clear user confirmation.
 
-Only mark the update `approved` when the Product Owner explicitly accepts it as effective.
+Only mark the update `approved` when the user explicitly accepts it as effective.
 
 ## Workflow Boundary Rules
 
-- If explicit approval is still missing, YOU MUST stop for Product Owner review before changing a Product Specification Specification Update from `draft` to `approved`.
-- YOU MUST NOT mark a Product Specification Specification Update `approved` unless the Product Owner explicitly approves that transition.
+- If explicit approval is still missing, YOU MUST pause for the user's review before changing a Product Specification Specification Update from `draft` to `approved`.
+- YOU MUST NOT mark a Product Specification Specification Update `approved` unless the user explicitly approves that transition.
 - Review the accepted Product Specification update diff. When commit consent is still needed, YOU MUST report the new status and propose each commit with its subject and scope in the same reply. End with one yes/no question asking whether to create the proposed commit or commits.
-- Create and report the scoped commit or commits only when the Product Owner explicitly authorizes committing the current changes. Approval of the status change alone leaves commit consent pending.
+- Create and report the scoped commit or commits only when the user explicitly authorizes committing the current changes. Approval of the status change alone leaves commit consent pending.
 - After the commit boundary is resolved, YOU MUST ask whether to proceed to the next Shape workflow step.
-- YOU MUST NOT proceed to downstream propagation or any other next Shape workflow step unless the Product Owner explicitly approves proceeding.
+- YOU MUST NOT proceed to downstream propagation or any other next Shape workflow step unless the user explicitly approves proceeding.
 
 ## Artifact Rules
 Operate only in `01-product-specification.md` under `## Updates`.
@@ -123,7 +122,7 @@ This skill is complete when:
 - Do not rewrite the approved Product Specification baseline
 - Do not silently modify older approved updates
 - Do not create multiple competing draft updates when one should be continued
-- YOU MUST NOT mark an update `approved` without explicit Product Owner acceptance
+- YOU MUST NOT mark an update `approved` without explicit acceptance from the user
 - Do not imply that Technical Specification or Implementation Plan already reflect the update unless that propagation step has happened
 - YOU MUST NOT proceed to the next workflow step without explicit approval
 
@@ -133,7 +132,7 @@ Usually suggest:
 - `update technical specification` if the approved Product Specification update has design implications
 - `show status` if the user needs orientation on downstream impact
 
-Prefer `update technical specification` when a newly approved Product Specification update changes technical design expectations, the commit boundary is resolved, and the Product Owner explicitly approves proceeding.
+Prefer `update technical specification` when a newly approved Product Specification update changes technical design expectations, the commit boundary is resolved, and the user explicitly approves proceeding.
 
 ## Follow-up Questions
 

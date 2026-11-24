@@ -6,14 +6,14 @@ This document outlines the core primitives and design elements required to struc
 
 ## 1. Overview and Principles
 
-Shape is a lightweight software development workflow with clear roles, steps, and document-based handovers, using a **feature** as its atomic unit of work. It provides a minimal but sufficient set of primitives instructing an AI coding agent how to support users in creating feature specifications and working code.
+Shape is a lightweight software development workflow with clear steps and document-based handovers, using a **feature** as its atomic unit of work. It provides a minimal but sufficient set of primitives instructing an AI coding agent how to support users in creating feature specifications and working code.
 
 Shape structures and amplifies human intent. The quality of what gets delivered is bounded by the quality of the input provided. Clear thinking in — clear software out.
 
 Shape separates execution units by cognitive boundary:
 
 - a **Iteration** is sized for reliable execution within a single focused AI session
-- a **Batch** is sized for reliable human review within a single developer validation step
+- a **Batch** is sized for one focused review
 
 Shape is designed not only to be structurally sound, but also easy to operate in practice. A workflow that is conceptually strong but difficult to understand or drive will not be adopted consistently. Shape therefore treats guided execution, discoverability of capabilities, and clear next-step signaling as first-class workflow qualities rather than user-interface polish.
 
@@ -23,16 +23,16 @@ Shape observes the following principles:
   Minimal set of activities and documents required to deliver a feature.
 
 * **Highly Collaborative**  
-  Roles collaborate tightly around the same feature and shared artifacts.
+  The user and agent collaborate on the same feature and shared artifacts.
 
 * **Loosely Coupled**  
-  Clear boundaries between steps and responsibilities.
+  Clear boundaries between workflow steps.
 
 * **Document-Driven**  
   Structured markdown documents define handovers between steps.
 
 * **Guided Execution**  
-  AI produces specifications and code under direct specialist guidance and should always orient the user toward the next meaningful step.
+  AI produces specifications and code under user guidance and should always orient the user toward the next meaningful step.
 
 * **Discoverable**  
   Workflow capabilities should be easy to inspect and understand so that users can operate Shape without memorizing its internal model.
@@ -91,7 +91,7 @@ A bounded delivery increment defined in the Implementation Plan, with an objecti
 Fine-grained unit of work derived from an Iteration. Typically involves a small, well-defined change (e.g., a few related modifications across code or configuration). Tasks are explicitly listed in the Implementation Plan.
 
 ### Implementation Batch  
-A selected group of Implementation Tasks executed in a single coding step by the AI Agent and then reviewed by the Developer. A Batch should be small enough to fit into a single high-quality developer review step. Each batch is followed by developer-led review and, once approved, must be concluded with a commit before the next batch begins.
+A selected group of Implementation Tasks executed in a single coding step by the AI Agent. The user reviews the Batch in one focused step. Once approved, the Batch must be committed before the next one begins.
 
 ### Specification Update  
 Append-only change record added to a Product Specification or Technical Specification after baseline readiness. A Specification Update captures newly discovered information, decisions, or corrections without modifying the original baseline content.
@@ -104,21 +104,11 @@ The current workflow action being executed or proposed. Shape should keep the ac
 
 ---
 
-## 3. Roles and Responsibilities
+## 3. User and Agent Collaboration
 
-This section defines roles as **responsibility boundaries**. The workflow can be executed by a single person, but roles clarify responsibilities and allow scaling across specialists.
+The user guides requirements, design, and implementation. They review results, explicitly approve changes, authorize commits when they want the agent to create them, and decide when to proceed. One person can guide the feature through the whole workflow, and teammates can contribute their expertise at any step.
 
-### Product Owner  
-Responsible for feature definition. Provides input during the specification process and collaborates with the AI Agent to produce a structured Product Specification. Owns requirement-level correctness.
-
-### Architect  
-Responsible for technical design. Translates the Product Specification into a Technical Specification and supports requirement-to-design alignment when changes occur. Owns design-level correctness.
-
-### Developer  
-Responsible for execution. Creates and evolves the Implementation Plan, refines Iterations into Implementation Tasks, selects Implementation Batches, reviews diffs, requests adjustments, records implementation decisions, confirms task completion, commits approved batches, and validates completed Iterations. Owns implementation correctness and repository changes.
-
-### AI Agent  
-Responsible for drafting artifacts, proposing updates, implementing selected task batches, and maintaining workflow artifacts under human guidance. The AI Agent accelerates development work, but does not replace human ownership of requirements, design, or implementation decisions. It should also keep workflow capabilities, current state, and next steps understandable to the user throughout execution. It should signal workflow mode when useful for orientation, especially when entering Shape-driven work, resuming in a fresh session, or when a workflow rule materially affects what happens next, but should avoid repetitive reminder phrasing on every exchange.
+The agent drafts and maintains artifacts, proposes updates, and implements selected task batches. It keeps workflow capabilities, current state, and next steps clear. A brief workflow reminder can help when starting Shape work, resuming in a fresh session, or applying a rule that changes what happens next.
 
 ---
 
@@ -144,9 +134,6 @@ Transforms an initial feature idea into a structured **Product Specification**.\
 The AI Agent collaborates with the user to iteratively refine input until the document is complete, consistent, and approved for downstream use.
 
 Shape should treat larger user-provided requirement input as a first-class starting point. In many cases, the user will already have a draft Product Specification, ticket text, notes, or a rough feature brief prepared outside the workflow. The AI Agent should explicitly invite such input before switching to narrower clarification questions.
-
-**Role**  
-Product Owner
 
 **Input**  
 Unstructured or semi-structured feature description, optionally including an existing draft Product Specification or larger requirement write-up.
@@ -176,9 +163,6 @@ Transforms the Product Specification into a **Technical Specification**, definin
 Shape should treat larger user-provided technical input as a first-class starting point. In many cases, the user will already have a draft Technical Specification, design notes, architectural constraints, or implementation direction prepared outside the workflow. The AI Agent should explicitly invite such input before switching to narrower design questions.
 
 Technical Specification drafting must explicitly align with repository-specific guidance available through agent-facing instructions and related repository documents. This includes repository structure, architectural patterns, validation commands, code organization conventions, and preferred implementation boundaries. Shape assumes that technical design quality depends not only on the Product Specification, but also on how well the proposed design fits the actual repository environment.
-
-**Role**  
-Architect
 
 **Input**  
 - Product Specification markdown document
@@ -213,9 +197,6 @@ The **Implementation Plan** acts as the **primary execution control document**, 
 
 > Execution occurs through iterative microcycles (Iteration → Task → Batch → Review → Commit).\
 > These are defined separately in the Implementation Lifecycle.
-
-**Role**  
-Developer
 
 **Input**  
 - Product Specification markdown document
@@ -296,7 +277,7 @@ The user may also begin by supplying a larger draft or semi-structured write-up.
 Version 1 of the document (baseline)
 
 **Completion Condition**
-- Document is explicitly reviewed and accepted by the responsible role
+- Document is explicitly reviewed and accepted by the user
 - Document status is set to `approved`
 - Document is considered stable for downstream use
 
@@ -385,7 +366,7 @@ Specification Updates may originate during Technical Specification creation, ite
 
 This section defines how a feature is executed using **Iterations, Tasks, and Batches**.
 
-Execution follows a **developer-controlled, iterative microcycle**:
+Execution follows a **user-guided, iterative microcycle**:
 
 **Iteration → Tasks → Batch → Review → Commit**
 
@@ -441,9 +422,9 @@ A selected Iteration is broken into **Implementation Tasks** recorded in the Imp
 
 **Process**
 - In a fresh session, the active feature is first resolved through **Pick Up Feature** unless already clearly active
-- Developer selects a `draft` Iteration, defaulting to the next unfinished one
+- The user selects a `draft` Iteration, defaulting to the next unfinished one
 - AI Agent proposes a breakdown into Tasks
-- Developer reviews and requests adjustment if needed
+- The user reviews and requests adjustment if needed
 - Tasks are added to the Implementation Plan
 - Iteration scope is checked against practical agent context limits
 - Selected Iteration status changes from `draft` to `approved`
@@ -464,10 +445,10 @@ When iteration preparation finishes, the AI Agent should indicate the next likel
 ### 6.3 Batch Selection
 
 **Summary**  
-The Developer selects a subset of Implementation Tasks to execute as a **Batch**.
+The user selects a subset of Implementation Tasks to execute as a **Batch**.
 
 **Rules**
-- Batch is explicitly defined by the Developer
+- Batch is explicitly defined by the user
 - Batch size is small and controlled (e.g., 1–3 Tasks)
 - Batch defines the scope of the next execution step
 - Batch should remain small enough for a single high-quality developer review step
@@ -485,7 +466,7 @@ The AI Agent executes the selected Batch.
 - AI Agent keeps within the selected Batch scope
 - AI Agent does not select or reorder Tasks
 - AI Agent does **not** mark the batch as approved merely because implementation completed
-- AI Agent may update temporary execution state in the Implementation Plan if needed, but task completion should be finalized only after developer approval during review
+- AI Agent may update temporary execution state in the Implementation Plan if needed, but task completion should be finalized only after approval from the user during review
 - AI Agent may update the **Relevant Files** and **Important Decisions** sections of the Implementation Plan during implementation so that the working execution context stays current as code changes are made
 
 **Constraints**
@@ -500,23 +481,23 @@ When a batch finishes implementing, the AI Agent should end with a concise, self
 ### 6.5 Review, Approval, and Commit
 
 **Summary**  
-The Developer validates the result of the Batch as part of the same **Implement Batch** operation.
+The user validates the result of the Batch as part of the same **Implement Batch** operation.
 
-This is a developer-led review step centered on the diff and intended batch outcome. The Developer may request adjustments, ask for clarifications, record implementation decisions, or even adjust upcoming iteration structure before approving the batch. These actions should occur through prompting the AI Agent rather than by directly editing workflow artifacts outside Shape.
+The review focuses on the diff and intended batch outcome. The user can ask the agent to make adjustments, explain changes, record implementation decisions, or revise upcoming Iterations before approving the batch.
 
 Explicit approval and commit consent are both required. Once a batch is approved, all required commits must be complete before the next batch begins. Files inside configured Shape feature folders are Shape artifacts. All other files are non-Shape changes. A mixed diff requires one proposal and one commit consent decision covering two commits, first the codebase and then the Shape artifacts. The second subject identifies the artifact changes and uses `shape:` where it fits repository conventions. A diff with only one kind of change requires one commit.
 
 **Process**
-- Developer reviews code diff
-- Developer verifies alignment with selected Tasks and iteration intent
-- Developer may request one or more adjustment iterations
-- Developer may ask the AI Agent to record relevant implementation decisions or relevant files
-- Developer may reshape future tasking or iteration boundaries if implementation reveals a better plan
-- Once satisfied, the Developer explicitly confirms the batch is approved
-- After approval, the AI Agent marks relevant tasks as completed in the Implementation Plan so that the workflow continues to minimize direct document editing by the Developer
+- The user reviews code diff
+- The user verifies alignment with selected Tasks and iteration intent
+- The user may request one or more adjustment iterations
+- The user may ask the AI Agent to record relevant implementation decisions or relevant files
+- The user may reshape future tasking or iteration boundaries if implementation reveals a better plan
+- Once satisfied, the user explicitly confirms the batch is approved
+- After approval, the AI Agent marks relevant tasks as completed in the Implementation Plan so that the workflow continues to minimize direct document editing by the user
 - Completed tasks under an approved Iteration show that execution is underway
 - Iteration and Implementation Plan statuses do not change during batch implementation
-- Developer commits or asks the agent to commit the approved batch before the next batch begins
+- The user commits or asks the agent to commit the approved batch before the next batch begins
 
 **Outcome**
 - Relevant tasks are marked done by the AI Agent in the Implementation Plan
@@ -528,7 +509,7 @@ Explicit approval and commit consent are both required. Once a batch is approved
 - Same-session review by the implementing AI Agent may be useful for summarization, task-to-diff mapping, and obvious risk surfacing
 - It should not be treated as a strong independent quality signal
 - A separate `review code` session may provide additional value by using the Batch Summary to examine the diff with fresher context, but this remains supportive rather than authoritative
-- Human developer validation remains the trusted approval boundary
+- The user decides whether the batch is approved
 
 **Guidance to user**  
 When review support is provided, the AI Agent should clearly state whether the batch is awaiting **review**, under **review / iteration**, awaiting **approval**, approved but still awaiting commit, or fully ready for the next step.
@@ -540,15 +521,15 @@ When review support is provided, the AI Agent should clearly state whether the b
 **Summary**  
 After all Tasks within an Iteration are completed and their approved batches have been committed, the Iteration is validated.
 
-When the Developer explicitly approves closure with the last approved batch and closure checks pass, record completion in that batch's Shape commit. The codebase commit must succeed before changing the Iteration status to `done`.
+When the user explicitly approves closure with the last approved batch and closure checks pass, record completion in that batch's Shape commit. The codebase commit must succeed before changing the Iteration status to `done`.
 
 **Process**
-- Developer verifies that iteration objectives are met
+- The user verifies that iteration objectives are met
 - Functional and technical expectations are confirmed
 - Iteration implementation is confirmed as complete within the intended session-sized boundary
-- Developer may confirm that the **Relevant Files** section still reflects the files and directories most useful for subsequent iterations; the AI Agent should prune or refresh entries when iteration completion changes what is worth carrying forward
-- Developer may confirm that the **Important Decisions** section still reflects the changes introduced in the implementation step for subsequent Iterations
-- Iteration status changes from `approved` to `done` only after explicit Developer confirmation
+- The user may confirm that the **Relevant Files** section still reflects the files and directories most useful for subsequent iterations; the AI Agent should prune or refresh entries when iteration completion changes what is worth carrying forward
+- The user may confirm that the **Important Decisions** section still reflects the changes introduced in the implementation step for subsequent Iterations
+- Iteration status changes from `approved` to `done` only after explicit confirmation from the user
 
 **Output**
 - Iteration marked `done` in the Implementation Plan
@@ -604,19 +585,13 @@ Discoveries during Implementation may require requirement-level or design-level 
 
 This section defines where Shape artifacts live in the monorepo and how they are organized.
 
-Shape explicitly optimizes repository layout for **speed, feature-level collaboration, and execution continuity**, rather than for strict separation of artifacts by role or document type.
-
-The workflow assumes tight collaboration between Product Owner, Architect, Developer, and AI Agent around the same feature. For that reason, the core feature artifacts are **co-located in a single feature folder**, instead of being separated into document-type buckets such as `product-specifications/`, `technical-specifications/`, and `implementation-plans/`.
-
-This is a deliberate choice. Shape favors:
+Shape keeps the core artifacts for each feature in a single folder. This layout supports:
 
 - faster handoffs
 - lower navigation overhead
 - stronger feature-local context
 - easier AI-assisted artifact resolution
 - room for additional feature-specific documents when needed
-
-over stricter role-based separation in repository structure.
 
 ---
 
@@ -704,8 +679,6 @@ Co-locating the Product Specification, Technical Specification, and Implementati
 - reduces ambiguity for AI-assisted workflows
 - allows extra ad hoc feature documents to be added without inventing new repository-wide categories
 
-This means Shape explicitly chooses **feature-local collaboration over repository-level role separation**.
-
 ---
 
 ### 7.4 Additional Feature-Local Documents
@@ -777,11 +750,9 @@ docs/implementation/
 This layout is chosen deliberately to support:
 
 - speed
-- tight cross-role collaboration
+- collaboration on shared feature artifacts
 - feature-local execution context
 - scalable AI-assisted artifact handling
-
-rather than stricter separation of artifacts by role or document type.
 
 ---
 
@@ -795,7 +766,7 @@ Shape uses three core documents:
 
 These documents define the baseline specification and execution structure for a feature.
 
-The design document explains the **intent**, **role**, and **minimum expected structure** of each document.  
+The design document explains the **purpose** and **minimum expected structure** of each document.
 The full canonical templates live in:
 
 - `/workflow-templates/product-specification-template.md`
@@ -1076,11 +1047,11 @@ The Implementation Plan should contain:
   - Implementation Tasks are appended continuously during execution
   - Iteration definition and planning content should be changed only while the Iteration is `draft`, or while an `approved` Iteration has no completed tasks
   - Execution-progress content is reflected through task completion while the Iteration remains `approved`
-  - Developer selects tasks for execution in batches (batches are not explicitly represented)
+  - The user selects tasks for execution in batches (batches are not explicitly represented)
   - This is the only place where sequencing exists
   - Progress is reflected inline through task completion and Iteration status
   - Batches should remain small enough for a single high-quality developer review step
-  - Tasks should be marked done only after developer approval of the implemented batch
+  - Tasks should be marked done only after the user approves the implemented batch
   - An approved batch should be committed before the next batch begins so that review boundaries remain clean
 
 - **Important Decisions**
@@ -1127,9 +1098,6 @@ Shape also assumes that a workflow is easier to use when its capabilities are vi
 **Description**  
 Create the initial feature workspace and establish the feature as a concrete unit of work in the repository.
 
-**Responsible role**  
-Product Owner, Architect, or Developer
-
 **AI Agent**  
 Proposes feature identifier and slug if needed, scaffolds the feature folder and core artifact files according to Shape conventions, and indicates the most likely next step after setup. This includes scaffolding an initial `03-implementation-plan.md` file from the default template, but it does not fill in execution content such as iterations or tasks beyond that starting structure.
 
@@ -1144,9 +1112,6 @@ Provides or approves the feature identity, confirms creation of the feature work
 #### 2. Create Product Specification
 **Description**  
 Draft and iteratively refine the Product Specification until it is approved for downstream use.
-
-**Responsible role**  
-Product Owner
 
 **AI Agent**  
 Guides the discussion, explicitly invites any larger existing requirement draft if available, identifies gaps and ambiguities, drafts and revises the Product Specification, and updates the document until it is approved. It should conclude each interaction turn with the clearest next step. It may briefly signal that work is proceeding under Shape when entering workflow mode or when that orientation materially helps, but should avoid repetitive reminder phrasing on every exchange. It must not mark the document as approved without explicit approval from the user. It must not move on to the next workflow operation without explicit approval from the user.
@@ -1163,9 +1128,6 @@ Provides product intent, optionally provides existing requirement material, answ
 **Description**  
 Draft and iteratively refine the Technical Specification from the approved Product Specification until it is approved for implementation.
 
-**Responsible role**  
-Architect
-
 **AI Agent**  
 Validates the Product Specification as input, explicitly invites any larger existing technical draft if available, analyzes the codebase and repository guidance, aligns the proposed design with repository structure and local architectural patterns, drafts and revises the Technical Specification, and updates the document until it is approved. It should conclude each interaction turn with the clearest next step. It must not mark the document as approved without explicit approval from the user. It must not move on to the next workflow operation without explicit approval from the user.
 
@@ -1181,9 +1143,6 @@ Provides technical guidance and constraints, optionally provides existing techni
 **Description**  
 Fill in the scaffolded Implementation Plan from the approved Product Specification and Technical Specification and prepare execution to begin.
 
-**Responsible role**  
-Developer
-
 **AI Agent**  
 Validates that Product Specification and Technical Specification are approved, fills in the scaffolded Implementation Plan by proposing the initial execution structure and initial Iterations, checks that iterations are shaped for fresh-session execution, and updates the document accordingly. It does not create implementation tasks, and initial Iterations are created in `draft`. It must not mark the Implementation Plan as approved without explicit approval from the user. It must not move on to the next workflow operation without explicit approval from the user.
 
@@ -1198,9 +1157,6 @@ Reviews the proposed implementation structure, asks for adjustments if needed, a
 #### 5. Plan Iteration
 **Description**  
 Turn a selected implementation iteration into a concrete, reviewable execution proposal and record the approved planning changes in the Implementation Plan.
-
-**Responsible role**  
-Developer
 
 **AI Agent**  
 In a fresh session, resolves the active feature through the **Pick Up Feature** operation unless already clearly active. For the selected Iteration, it:
@@ -1223,12 +1179,9 @@ Selects the Iteration, reviews the proposed tasks and decisions, iterates if nee
 **Description**  
 Execute an approved batch of implementation tasks through its full internal lifecycle: user input, agent execution, developer review and iteration, approval-driven plan updates, and commit.
 
-**Responsible role**  
-Developer
-
 **AI Agent**  
-Starts implementation **only after explicit Developer approval** for the selected batch. Within this single operation, it:
-- accepts the selected task batch and any execution constraints from the Developer
+Starts implementation **only after explicit approval from the user** for the selected batch. Within this single operation, it:
+- accepts the selected task batch and any execution constraints from the user
 - asks clarifying questions if needed
 - implements the selected tasks in code
 - stays within the approved batch scope
@@ -1236,10 +1189,10 @@ Starts implementation **only after explicit Developer approval** for the selecte
 - updates **Important Decisions** in the Implementation Plan when implementation introduces decisions worth preserving
 - ends with a concise, self-contained **Batch Summary**: coarse-grained bullets of what changed, then one brief sentence naming the implemented task numbers and their defining Iteration and Implementation Plan document, followed by the current-state handoff
 - supports review iteration by explaining task-to-diff mapping, highlighting notable decisions, gaps, or risks, and applying requested adjustments
-- marks tasks as done in the Implementation Plan **only after explicit Developer approval**
+- marks tasks as done in the Implementation Plan **only after explicit approval from the user**
 - leaves Iteration and Implementation Plan statuses unchanged during batch implementation
 - proposes a commit message or commit summary when useful
-- creates the commit itself **only if explicitly asked by the Developer**
+- creates the commit itself **only if explicitly asked by the user**
 
 The AI Agent does **not** treat implementation completion as approval. It does **not** mark tasks as done until approval is explicit. It does **not** assume who performs the commit, but it does treat commit as part of completing the operation, and it does not move to the next batch or workflow operation without explicit approval.
 
@@ -1255,11 +1208,8 @@ Selects the tasks for the batch, provides execution constraints or corrections, 
 **Description**  
 Validate that an `approved` Iteration is complete and transition it to `done` in the Implementation Plan.
 
-**Responsible role**  
-Developer
-
 **AI Agent**  
-Summarizes completed tasks and resulting functionality, confirms whether the Iteration is complete within its intended boundary, and updates the Iteration state only if the Developer explicitly confirms completion. It should treat committed approved batches as the expected precondition for closing the Iteration. It must not mark the Iteration `done` without explicit Developer approval.
+Summarizes completed tasks and resulting functionality, confirms whether the Iteration is complete within its intended boundary, and updates the Iteration state only if the user explicitly confirms completion. It should treat committed approved batches as the expected precondition for closing the Iteration. It must not mark the Iteration `done` without explicit approval from the user.
 
 **User**  
 Reviews the implemented iteration outcome, validates that the iteration goal has been met, confirms transitioning the Iteration from `approved` to `done`, commits the updated Implementation Plan or asks the agent to commit.
@@ -1272,9 +1222,6 @@ Reviews the implemented iteration outcome, validates that the iteration goal has
 #### 8. Update Product Specification
 **Description**  
 Add a new Product Specification Specification Update or continue refining an existing draft Product Specification update until it remains `draft` or is marked `approved`.
-
-**Responsible role**  
-Product Owner, Architect, or Developer
 
 **AI Agent**  
 Summarizes the issue, proposes the Specification Update content in append-only form, and updates the relevant Product Specification update entry.
@@ -1291,9 +1238,6 @@ Confirms that the issue should be formalized, adjusts the proposal if needed, de
 **Description**  
 Add a new Technical Specification Specification Update or continue refining an existing draft Technical Specification update until it remains `draft` or is marked `approved`.
 
-**Responsible role**  
-Product Owner, Architect, or Developer
-
 **AI Agent**  
 Summarizes the issue, proposes the Specification Update content in append-only form, aligns the update with repository guidance and local architectural patterns when relevant, and updates the relevant Technical Specification update entry.
 
@@ -1309,9 +1253,6 @@ Confirms that the issue should be formalized, adjusts the proposal if needed, de
 **Description**  
 Apply relevant approved updates from the Product Specification and/or Technical Specification to the Implementation Plan.
 
-**Responsible role**  
-Developer
-
 **AI Agent**  
 Identifies which approved Product Specification or Technical Specification updates affect execution planning, summarizes their implementation impact, and proposes corresponding inline changes to the Implementation Plan. It may add new Iterations or update existing `draft` Iterations or not-yet-started `approved` Iterations, but does not modify already-started `approved` Iterations, `done` Iterations, or any Implementation Tasks.
 
@@ -1326,9 +1267,6 @@ Confirms that the specification updates should be reflected in the Implementatio
 #### 11. Finish Feature
 **Description**  
 Conclude implementation by verifying completion state, repository cleanliness, and final Implementation Plan status.
-
-**Responsible role**  
-Developer
 
 **AI Agent**  
 Checks that all Iterations are marked `done`, confirms the Implementation Plan reflects execution state, treats the Implementation Plan as the canonical feature-completion artifact, checks for unresolved draft updates, proposes final status updates, clears local workspace state so `activeFeature` becomes `null`, and indicates completion clearly.
@@ -1347,9 +1285,6 @@ Verifies repository cleanliness and completion state, confirms marking the Imple
 **Description**  
 Select the feature to work on and make it the active local Shape context.
 
-**Responsible role**  
-Product Owner, Architect, or Developer
-
 **AI Agent**  
 Resolves candidate feature folders, sets the selected feature as active in local Shape state, confirms the resolved workspace, and indicates the most likely next step based on current workflow state. When a single in-progress feature is the obvious candidate, the agent should resolve it with minimal friction, preferably through a short confirmation rather than a heavy selection ritual.
 
@@ -1361,9 +1296,6 @@ Identifies or chooses the feature to work on and confirms the selection if neede
 #### 13. Show Status
 **Description**  
 Display the current Shape configuration, active feature context, resolved artifacts, structural warnings, and likely next actions.
-
-**Responsible role**  
-Product Owner, Architect, or Developer
 
 **AI Agent**  
 Reads Shape configuration and local state, resolves the active feature and core artifacts, reports current statuses and missing prerequisites, and suggests the next likely workflow step.
@@ -1377,9 +1309,6 @@ Requests the current workflow state and uses the result to decide what to do nex
 **Description**  
 Display the currently supported Shape operations or skills in a user-friendly form so that the workflow is easy to operate without memorization.
 
-**Responsible role**  
-Product Owner, Architect, or Developer
-
 **AI Agent**  
 Lists the relevant operations or skills, groups them by stage when useful, and indicates which ones are currently most relevant given the active workflow state.
 
@@ -1391,9 +1320,6 @@ Requests guidance on what Shape can do and uses the result to choose the next ac
 #### 15. Review Code
 **Description**
 Independently assess a completed implementation batch from its Batch Summary, task context, and working-tree diff without changing the batch or workflow state.
-
-**Responsible role**
-Developer
 
 **AI Agent**
 Resolves the Batch Summary's Iteration and Implementation Plan reference, reviews the selected diff and relevant code, and reports only actionable findings as bullets beginning with `[P1]`, `[P2]`, or `[P3]`. It does not approve the batch, mark tasks done, or modify code.
@@ -1471,7 +1397,7 @@ The inventory should also be easy to surface to the user on demand. Shape assume
 - **review code**
   - **Purpose:** independently assess a completed batch from its Batch Summary, task context, and working-tree diff without changing code or workflow state
   - **Triggers on:** a request for a code review, review of current changes, or a pasted Batch Summary
-  - **Outcome:** actionable issues are reported as `[P1]`, `[P2]`, or `[P3]` bullets, while developer approval remains separate
+  - **Outcome:** actionable issues are reported as `[P1]`, `[P2]`, or `[P3]` bullets, while approval from the user remains separate
 
 - **finish iteration**
   - **Purpose:** validate that an `approved` Iteration is complete and transition it to `done` in the Implementation Plan
@@ -1531,7 +1457,7 @@ The inventory should also be easy to surface to the user on demand. Shape assume
 - `plan iteration` and `plan implementation` should both reinforce that each new iteration should normally begin in a fresh agent session.
 - `plan iteration` should normally begin a fresh execution session by resolving the active feature through `pick up feature`, unless the active feature is already unambiguous.
 - `implement batch` should preserve batch sizes that remain reviewable by a developer in one focused step.
-- `implement batch` should support Developer-led review and approval, not replace them.
+- `implement batch` should support review and approval by the user.
 - `implement batch` should keep explicit approval and explicit commit consent as separate boundaries even when commit happens within the same skill flow.
 - When a skill applies an authorized status change, it should review the scoped diff and report the new status with the concrete commit proposal in the same reply. Ask once for consent to create the proposed commit or commits. If consent for the current scope was already explicit, create the authorized commits and report them.
 - Workflow-mode reminder phrasing should be used selectively for orientation, not repeated mechanically on every exchange.

@@ -52,13 +52,13 @@ Rules:
 - Iteration entries here correspond to the explicit definitions in `## Iterations`.
 - Implementation Tasks use checkboxes to indicate progress (`done / not done`).
 - Implementation Tasks are added during Iteration approval and updated during iteration execution.
-- Developer selects tasks for execution in batches (batches are not explicitly represented).
+- The user selects tasks for execution in batches (batches are not explicitly represented).
 - This is the only place where sequencing exists.
 - Feature-level execution is reflected through Iteration status.
 - Iteration-level execution is reflected through task completion and batch state.
 - Batches should remain small enough for a single high-quality developer review step.
-- Tasks should be marked done only after developer approval of the implemented batch.
-- An approved batch should be committed only on explicit developer instruction before the next batch begins so that review boundaries remain clean.
+- Tasks should be marked done only after the user approves the implemented batch.
+- An approved batch should be committed only on explicit instruction from the user before the next batch begins so that review boundaries remain clean.
 - For a batch with both codebase and Shape changes, propose both commits together, codebase first and Shape artifacts second. The Shape commit records plan updates, including Iteration closure when explicitly approved and validated after the codebase commit succeeds.
 
 ---

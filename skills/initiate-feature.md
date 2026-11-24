@@ -115,9 +115,9 @@ Do not prematurely mark any artifact as `approved`.
 - YOU MUST stop for human review after scaffolding the feature workspace.
 - YOU MUST NOT mark any scaffolded artifact `approved` during feature initiation.
 - Review the accepted feature-initiation diff. When commit consent is still needed, YOU MUST report the accepted changes and propose each commit with its subject and scope in the same reply. End with one yes/no question asking whether to create the proposed commit or commits.
-- Create and report the scoped commit or commits only when the human explicitly authorizes committing the current changes. Approval of the changes alone leaves commit consent pending.
+- Create and report the scoped commit or commits only when the user explicitly authorizes committing the current changes. Approval of the changes alone leaves commit consent pending.
 - After the commit boundary is resolved, YOU MUST ask whether to proceed to the next Shape workflow step.
-- YOU MUST NOT proceed to `create product specification` or any other next Shape workflow step unless the human explicitly approves proceeding.
+- YOU MUST NOT proceed to `create product specification` or any other next Shape workflow step unless the user explicitly approves proceeding.
 
 ## Interaction Style
 When feature identity is incomplete:
@@ -151,7 +151,7 @@ Usually suggest:
 - `show status`
 - `show capabilities`
 
-Prefer `create product specification` as the default next step once the commit boundary is resolved and the human explicitly approves proceeding.
+Prefer `create product specification` as the default next step once the commit boundary is resolved and the user explicitly approves proceeding.
 
 ## Follow-up Questions
 

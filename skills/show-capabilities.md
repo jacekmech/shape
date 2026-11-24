@@ -61,7 +61,7 @@ The goal is orientation and workflow discoverability, not exhaustive theory.
 - YOU MUST treat capability reporting as orientation, not permission to start the next Shape workflow step.
 - YOU MUST NOT modify artifacts, mark statuses, or create commits while showing capabilities.
 - When the current context supports offering a specific workflow step, ask whether to start that step.
-- YOU MUST NOT start a suggested Shape workflow step unless the human explicitly approves proceeding.
+- YOU MUST NOT start a suggested Shape workflow step unless the user explicitly approves proceeding.
 
 ## Artifact Rules
 This skill may read:

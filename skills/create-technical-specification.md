@@ -46,7 +46,7 @@ Before drafting, explain that Shape can draft a Technical Specification or refer
 
 - Resolve a supplied document name using available repository or connected sources; ask for a path or URL only if ambiguous or unavailable.
 - When referencing an existing document, YOU MUST create or update the Technical Specification file in the feature folder using `.shape/workflow-templates/specification-reference-template.md`. If the local file is missing, create it as `draft`. Record its title, Shape status, date, source link, relevant scope, and reviewed revision or date. Do not copy the document or require empty authored-template sections.
-- Read the source and assess readiness for the feature. External approval alone does not approve the Shape artifact; Architect acceptance is still required. Keep it `draft` while material gaps or access problems remain.
+- Read the source and assess readiness for the feature. The user must explicitly approve the Shape artifact, even if the source has been approved elsewhere. Keep it `draft` while material gaps or access problems remain.
 - Add only necessary local supplements, keeping the external source authoritative within its stated scope. Identify conflicts for human resolution rather than silently overriding it.
 - Reference mode replaces the full section requirements below. Both modes retain `## Header` and `## Updates` and follow the same approval and append-only lifecycle.
 
@@ -67,20 +67,19 @@ During refinement:
 - keep the design operational enough to guide implementation planning rather than drifting into vague architecture prose
 - follow Technical Specification structure when clarifying the technical design
 
-The responsible role remains the Architect.
 The agent may structure, suggest, and refine, but should not silently finalize uncertain design intent on the user’s behalf.
 
 The Technical Specification may remain `draft` while important design gaps, constraints, or trade-offs remain unresolved.
-Set it to `approved` only when the Architect explicitly accepts it for implementation planning.
+Set it to `approved` only when the user explicitly accepts it for implementation planning.
 
 ## Workflow Boundary Rules
 
-- If explicit approval is still missing, YOU MUST stop for Architect review before changing the Technical Specification from `draft` to `approved`.
-- YOU MUST NOT mark the Technical Specification `approved` unless the Architect explicitly approves that transition.
+- If explicit approval is still missing, YOU MUST pause for the user's review before changing the Technical Specification from `draft` to `approved`.
+- YOU MUST NOT mark the Technical Specification `approved` unless the user explicitly approves that transition.
 - Review the accepted Technical Specification diff. When commit consent is still needed, YOU MUST report the new status and propose each commit with its subject and scope in the same reply. End with one yes/no question asking whether to create the proposed commit or commits.
-- Create and report the scoped commit or commits only when the Architect explicitly authorizes committing the current changes. Approval of the status change alone leaves commit consent pending.
+- Create and report the scoped commit or commits only when the user explicitly authorizes committing the current changes. Approval of the status change alone leaves commit consent pending.
 - After the commit boundary is resolved, YOU MUST ask whether to proceed to the next Shape workflow step.
-- YOU MUST NOT proceed to the next Shape workflow step unless the Architect explicitly approves proceeding.
+- YOU MUST NOT proceed to the next Shape workflow step unless the user explicitly approves proceeding.
 
 ## Artifact Rules
 Update only the Technical Specification baseline in `02-technical-specification.md`.
@@ -123,7 +122,7 @@ This skill should produce:
 - a Technical Specification baseline in `02-technical-specification.md` aligned to the selected authored or reference template
 - updated Technical Specification status of `draft` or `approved`
 - surfaced design gaps, risks, or Product Specification misalignments when readiness is not yet justified
-- a repository state that is ready to be committed when the Architect accepts the current Technical Specification change set
+- a repository state that is ready to be committed when the user accepts the current Technical Specification change set
 - a proposed commit message when the accepted Technical Specification state is suitable for checkpointing
 - a clear likely next step
 
@@ -139,7 +138,7 @@ This skill is complete when:
 
 ## Guardrails
 - Do not treat post-approval design changes as baseline edits
-- YOU MUST NOT mark the Technical Specification `approved` without explicit Architect acceptance
+- YOU MUST NOT mark the Technical Specification `approved` without explicit acceptance from the user
 - Do not skip repository alignment when local guidance materially affects the solution
 - Do not silently absorb requirement-level uncertainty that should be pushed back to the Product Specification
 - Do not drift into implementation task planning; keep this artifact at the design baseline level
@@ -151,7 +150,7 @@ Usually suggest:
 - `update product specification` if requirement-level issues were discovered
 - `plan implementation` if the Technical Specification is `approved`
 
-Prefer `plan implementation` once both the Product Specification and Technical Specification are explicitly accepted as `approved`, the commit boundary is resolved, and the Architect explicitly approves proceeding.
+Prefer `plan implementation` once both the Product Specification and Technical Specification are explicitly accepted as `approved`, the commit boundary is resolved, and the user explicitly approves proceeding.
 
 ## Follow-up Questions
 

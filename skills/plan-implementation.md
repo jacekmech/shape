@@ -27,7 +27,7 @@ Expected inputs:
 
 Helpful but optional:
 - existing draft content in `03-implementation-plan.md`
-- implementation constraints already agreed by the developer
+- implementation constraints already agreed by the user
 - known repository areas likely to matter first
 
 ## Preconditions
@@ -56,23 +56,22 @@ During initialization:
 This skill should reinforce Shape’s execution discipline:
 - each new iteration should normally begin in a fresh agent session
 - fresh execution sessions should normally begin with `pick up feature` unless the active feature is already unambiguous
-- execution will later proceed through Iterations and developer-selected batches
-- approved batches may be committed within `implement batch`, but only on explicit developer instruction before the next batch begins
+- execution will later proceed through Iterations and batches selected by the user
+- approved batches may be committed within `implement batch`, but only on explicit instruction from the user before the next batch begins
 
-The responsible role remains the Developer.
-The agent may propose Iterations and execution order, but should not silently decide implementation strategy where the developer needs to choose trade-offs or sequencing.
+The agent may propose Iterations and execution order, but should not silently decide implementation strategy where the user needs to choose trade-offs or sequencing.
 
 Set the Implementation Plan to `approved` when the feature-level breakdown and execution framing are accepted as the execution baseline.
 The Implementation Plan remains `approved` during execution and moves to `done` only when all Iterations are done and the feature is finished.
 
 ## Workflow Boundary Rules
 
-- If explicit approval is still missing, YOU MUST stop for Developer review before changing the Implementation Plan from `draft` to `approved`.
-- YOU MUST NOT mark the Implementation Plan `approved` unless the Developer explicitly approves that transition.
+- If explicit approval is still missing, YOU MUST pause for the user's review before changing the Implementation Plan from `draft` to `approved`.
+- YOU MUST NOT mark the Implementation Plan `approved` unless the user explicitly approves that transition.
 - Review the accepted Implementation Plan diff. When commit consent is still needed, YOU MUST report the new status and propose each commit with its subject and scope in the same reply. End with one yes/no question asking whether to create the proposed commit or commits.
-- Create and report the scoped commit or commits only when the Developer explicitly authorizes committing the current changes. Approval of the status change alone leaves commit consent pending.
+- Create and report the scoped commit or commits only when the user explicitly authorizes committing the current changes. Approval of the status change alone leaves commit consent pending.
 - After the commit boundary is resolved, YOU MUST ask whether to proceed to the next Shape workflow step.
-- YOU MUST NOT proceed to the next Shape workflow step unless the Developer explicitly approves proceeding.
+- YOU MUST NOT proceed to the next Shape workflow step unless the user explicitly approves proceeding.
 
 ## Artifact Rules
 Write only to the Implementation Plan in `03-implementation-plan.md`. Read the approved Product Specification and approved Technical Specification as upstream inputs.
@@ -100,7 +99,7 @@ This skill may:
 - define initial Iterations in `## Iterations`
 - establish corresponding Iteration entries in `## Execution Order`
 - seed `## Relevant Files` with a compact working file map when useful
-- change plan status between `draft` and `approved` based on explicit developer acceptance
+- change plan status between `draft` and `approved` based on explicit acceptance from the user
 
 This skill must not:
 - start approving or completing Iterations
@@ -113,7 +112,7 @@ This skill should produce:
 - an Implementation Plan in `03-implementation-plan.md` aligned to the Implementation Plan template
 - initial Iterations in `draft` that represent the feature implementation breakdown and are ready for later refinement
 - updated plan status of `draft` or `approved`
-- a repository state that is ready to be committed once the Developer accepts the initial plan structure
+- a repository state that is ready to be committed once the user accepts the initial plan structure
 - a proposed commit message when the accepted planning state is suitable for checkpointing
 - a clear likely next step
 
@@ -141,7 +140,7 @@ Usually suggest:
 - `plan iteration` if the Implementation Plan is `approved`
 - `update technical specification` or `update product specification` if implementation planning exposed a real upstream gap
 
-Prefer `plan iteration` once the Implementation Plan is explicitly accepted as `approved`, the commit boundary is resolved, and the Developer explicitly approves proceeding.
+Prefer `plan iteration` once the Implementation Plan is explicitly accepted as `approved`, the commit boundary is resolved, and the user explicitly approves proceeding.
 
 ## Follow-up Questions
 

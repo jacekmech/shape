@@ -66,7 +66,7 @@ Do not merge adjacent operations unless explicitly instructed.
 ### 2. Preserve Shape workflow boundaries
 Examples:
 - `implement batch` must not imply approval
-- `implement batch` includes review handling and commit as part of the same operation, but explicit developer approval and explicit commit consent must remain separate
+- `implement batch` includes review handling and commit as part of the same operation, but explicit approval from the user and explicit commit consent must remain separate
 - Product Specification and Technical Specification updates remain append-only after readiness
 
 ### 3. Be artifact-aware
@@ -78,7 +78,7 @@ Ground each skill in:
 Do not write generic assistant prompts detached from artifacts.
 
 ### 4. Preserve human ownership
-The skill must support the responsible role, not replace it.
+The skill must preserve the user's decisions about approval, commit consent, and progression to the next workflow step.
 
 ### 5. Keep style consistent with approved examples
 Match:
@@ -141,9 +141,9 @@ Examples:
 - Implementation Plan is updated inline
 
 ### Respect implementation review boundaries
-- tasks are marked done only after explicit developer approval
+- tasks are marked done only after explicit approval from the user
 - `implement batch` is not complete until the approved batch is committed
-- the agent may create the required commits only on explicit developer instruction before the next batch begins
+- the agent may create the required commits only on explicit instruction from the user before the next batch begins
 
 ### Propose commits at accepted checkpoints
 - Treat an explicit request for a specific status change as approval for that transition once its preconditions are met.
@@ -216,7 +216,7 @@ If asked for multiple skills, generate them in a small batch.
 Before considering a generated skill complete, check:
 
 - Does it map to exactly one Shape operation?
-- Does it preserve Shape responsibility boundaries?
+- Does it preserve the user's approval, commit consent, and next-step decisions?
 - Is it grounded in real artifacts and real sections?
 - Does it match the structure and tone of approved examples?
 - Does it define guardrails clearly?

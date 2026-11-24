@@ -1,7 +1,7 @@
 # implement batch
 
 ## Purpose
-Execute an explicitly approved developer-selected batch of implementation tasks in code, support review and revision on that same batch, update execution state only after explicit developer approval, and carry the batch through commit without silently expanding scope or collapsing approval boundaries.
+Implement the task batch the user selects and explicitly approves for execution. Support review and revision of that batch, update execution state only after the user approves the implemented work, and carry the approved changes through commit.
 
 ## Artifact resolution and compatibility
 Read `.shape/config.json` before resolving artifacts. Filenames below are fresh-install defaults; use configured `featuresRoot` and `artifacts.productSpecification`, `artifacts.technicalSpecification`, and `artifacts.implementationPlan` values instead when present. Older configurations may use `prd` and `technicalConcept` keys. Existing `01-prd.md`, `02-tech-concept.md`, and “Slice Plan” headings remain valid; interpret them as Product Specification, Technical Specification, and Iteration without renaming files or rewriting existing documents solely for terminology.
@@ -22,7 +22,7 @@ Typical triggers:
 Expected inputs:
 - active feature reference or resolved feature folder
 - Implementation Plan with prepared tasks in `03-implementation-plan.md`
-- explicit developer-selected task batch
+- task batch explicitly selected by the user
 
 Helpful but optional:
 - preferred validation commands
@@ -35,14 +35,14 @@ Before implementing a batch:
 - resolve the active feature and locate `03-implementation-plan.md`
 - inspect the selected Iteration and tasks in `## Execution Order`
 - confirm the selected Iteration is `approved`
-- confirm the batch is explicitly selected and approved by the Developer
+- confirm the batch is explicitly selected and approved by the user
 - confirm the previous approved batch, if any, has already been committed before starting a new one
 
 This skill should work from an explicit batch definition.
-If the next tasks are not selected yet, redirect to developer batch selection rather than silently choosing scope.
+If the next tasks are still open for selection, ask the user which tasks to include in the batch.
 
 ## Behavior
-Implement only the selected batch in code, then keep the workflow inside that same batch until the Developer either requests revision, explicitly approves it, or completes the commit boundary for that approved batch.
+Implement only the selected batch in code, then keep the workflow inside that same batch until the user either requests revision, explicitly approves it, or completes the commit boundary for that approved batch.
 
 During execution:
 - stay within the selected task scope
@@ -60,7 +60,7 @@ If execution reveals issues outside the selected batch:
 After implementation:
 - conclude with the required `## Batch Summary` handoff section described below
 - make the current state explicit as `awaiting review` or `under revision`
-- if the Developer requests revisions, continue only within the same selected batch unless a new batch is explicitly chosen
+- if the user requests revisions, continue only within the same selected batch unless a new batch is explicitly chosen
 
 ### Batch Summary handoff
 
@@ -74,7 +74,7 @@ Do not duplicate this content elsewhere in the response. Keep the handoff short 
 
 Place the follow-up below the handoff in its own final paragraph. When the batch is ready for review, ask “Do you approve this batch?” Once the batch is approved and awaiting commit consent, use the commit proposal below.
 
-Only after the Developer explicitly approves the batch may this skill:
+Only after the user explicitly approves the batch may this skill:
 - mark the relevant tasks done in `## Execution Order`
 - leave Iteration and Implementation Plan status unchanged unless a separate validation step moves the Iteration to `done`
 - refresh `## Relevant Files` when accepted implementation changed what matters next
@@ -89,14 +89,14 @@ Use the configured feature root and resolved feature folder paths to identify Sh
 - If the approved scope contains both kinds of changes, YOU MUST keep two commits in the sequence. When proposing them, list the codebase commit first and the Shape artifact commit second, with a subject and scope for each. One consent question covers both in that order. If only one kind of change remains to commit, propose one commit.
 - The Shape commit subject MUST identify the Shape artifact changes. Use `shape:` when it fits the repository's commit conventions. A subject such as `Record Shape batch completion` also makes the scope clear.
 - YOU MUST NOT commit merely because the batch was approved
-- If the Developer already explicitly authorized the scoped commit or commits, proceed and report the result.
+- If the user already explicitly authorized the scoped commit or commits, proceed and report the result.
 - Inspect what will enter each commit. Keep both commits scoped to the approved changes and surface any unrelated staged or unstaged changes before committing. Preserve those unrelated changes.
-- If both commits are needed, the Developer also explicitly approves closing the Iteration, and the final batch is its only pending checkpoint, include closure in the Shape commit's proposed scope. Validate closure using `finish iteration`. After the codebase commit succeeds, mark the Iteration `done` and include that change with the final task updates in the Shape commit.
+- If both commits are needed, the user also explicitly approves closing the Iteration, and the final batch is its only pending checkpoint, include closure in the Shape commit's proposed scope. Validate closure using `finish iteration`. After the codebase commit succeeds, mark the Iteration `done` and include that change with the final task updates in the Shape commit.
 - If either commit fails, report what succeeded and what remains. If the codebase commit succeeded, retain it and resume from the pending Shape commit. Report the batch as `committed` only when all required commits have succeeded.
 
 Treat commit as part of completing this operation:
 - YOU MUST NOT treat `approved and marked done` as the final completion state of `implement batch`
-- YOU MUST NOT move to the next batch or workflow operation until the approved batch has been committed, either by the Developer or by the agent on explicit instruction
+- YOU MUST NOT move to the next batch or workflow operation until the approved batch has been committed, either by the user or by the agent on explicit instruction
 
 This skill may update the live Implementation Plan during execution and approval handling, but it must preserve the approval boundary:
 - YOU MUST NOT mark tasks done merely because code was written
@@ -105,18 +105,15 @@ This skill may update the live Implementation Plan during execution and approval
 - YOU MUST NOT treat approval as commit
 - YOU MUST NOT treat approved-but-uncommitted work as a completed `implement batch` outcome
 
-The responsible role remains the Developer.
-The agent implements the selected work, supports review, and can perform the commit, but approval and commit consent still come from the Developer.
-
 ## Workflow Boundary Rules
 
-- YOU MUST stop for Developer review after implementing the selected batch.
-- YOU MUST NOT mark tasks done until the Developer explicitly approves the implemented batch.
+- YOU MUST pause for the user's review after implementing the selected batch.
+- YOU MUST NOT mark tasks done until the user explicitly approves the implemented batch.
 - After marking approved tasks done, YOU MUST follow the commit proposal and execution rules above.
-- YOU MUST NOT create a commit unless the Developer explicitly approves committing the current diff.
+- YOU MUST NOT create a commit unless the user explicitly approves committing the current diff.
 - YOU MUST resolve the approved batch commit boundary before starting another batch or moving to another Shape step. The explicitly approved Iteration closure described above may be recorded in the final batch's Shape commit after the codebase commit succeeds.
 - After the commit boundary is resolved, YOU MUST ask whether to proceed to the next Shape workflow step.
-- YOU MUST NOT proceed to the next Shape workflow step unless the Developer explicitly approves proceeding.
+- YOU MUST NOT proceed to the next Shape workflow step unless the user explicitly approves proceeding.
 
 ## Artifact Rules
 Read the Implementation Plan in `03-implementation-plan.md` to confirm selected tasks and execution context.
@@ -124,7 +121,7 @@ Read the Implementation Plan in `03-implementation-plan.md` to confirm selected 
 Apply these rules:
 - execution occurs against the selected batch only
 - batches are not explicitly represented in the Implementation Plan
-- task completion is finalized only after explicit developer approval
+- task completion is finalized only after explicit approval from the user
 - `## Relevant Files` should reflect resulting implementation state rather than becoming a historical changelog
 - `## Important Decisions` should capture implementation-time decisions that matter for subsequent iterations or future review
 - these implementation-plan updates do not by themselves imply approval of the batch
@@ -155,7 +152,7 @@ This skill should produce:
 - a self-contained `## Batch Summary` handoff with coarse-grained implemented-work bullets, the implemented task numbers and their Iteration/Implementation Plan reference, and the current state
 - any checks run and their results
 - an explicit current state such as awaiting review, under revision, awaiting approval, approved but awaiting commit, or committed
-- a separate yes/no approval question when the batch is ready for Developer review
+- a separate yes/no approval question when the batch is ready for the user's review
 - a clear likely next step
 
 ## Completion Signals
@@ -180,13 +177,13 @@ This skill is complete when:
 
 ## Likely Next Step
 Usually suggest:
-- continue `implement batch` if the developer requests a revision of the same selected tasks
+- continue `implement batch` if the user requests a revision of the same selected tasks
 - explicit approval review on the current batch
 - explicit commit instruction for the approved batch
 - commit changes if commit instruction approved and moving to another workflow step
 - `finish iteration` if the iteration is fully complete and the approved work has been committed
 
-Prefer continuing `implement batch` as the same-batch review and revision loop until approval is explicit. Prefer `finish iteration` only after the approved batch commit boundary is resolved and the Developer explicitly approves proceeding.
+Prefer continuing `implement batch` as the same-batch review and revision loop until approval is explicit. Prefer `finish iteration` only after the approved batch commit boundary is resolved and the user explicitly approves proceeding.
 
 ## Follow-up Questions
 

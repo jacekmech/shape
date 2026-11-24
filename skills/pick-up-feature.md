@@ -111,7 +111,7 @@ This skill should support that behavior by making feature pickup quick, not cere
 
 - YOU MUST treat feature pickup as orientation, not permission to start the next Shape workflow step.
 - YOU MUST ask whether to proceed before starting the likely next Shape workflow step.
-- YOU MUST NOT start the likely next Shape workflow step unless the human explicitly approves proceeding.
+- YOU MUST NOT start the likely next Shape workflow step unless the user explicitly approves proceeding.
 - YOU MUST NOT modify artifacts, mark statuses, or create commits as part of pickup unless the user explicitly requests a separate supported Shape operation.
 
 ## Completion Criteria

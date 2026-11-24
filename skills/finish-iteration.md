@@ -43,7 +43,7 @@ If the Iteration is still `draft`, if tasks remain open, or if approved work tha
 
 ### Closure with the final batch
 
-When the Developer explicitly approves closure and the final approved batch is the only pending checkpoint, validate the Iteration and verify that all its tasks are complete. If both codebase and Shape changes remain, use the `implement batch` commit proposal for both. Propose the codebase commit first and the Shape commit second, with closure listed in the Shape commit's scope. Wait for the codebase commit to succeed before marking the Iteration `done`. The Shape commit then records the final batch's artifact updates and Iteration closure together. When the final batch is already committed and only closure changes remain, propose a single commit with a subject that identifies the Shape artifact change. Use `shape:` when it fits repository conventions.
+When the user explicitly approves closure and the final approved batch is the only pending checkpoint, validate the Iteration and verify that all its tasks are complete. If both codebase and Shape changes remain, use the `implement batch` commit proposal for both. Propose the codebase commit first and the Shape commit second, with closure listed in the Shape commit's scope. Wait for the codebase commit to succeed before marking the Iteration `done`. The Shape commit then records the final batch's artifact updates and Iteration closure together. When the final batch is already committed and only closure changes remain, propose a single commit with a subject that identifies the Shape artifact change. Use `shape:` when it fits repository conventions.
 
 ## Behavior
 Validate the selected iteration against its intended objective and task completion state.
@@ -58,17 +58,16 @@ If iteration completion changes what future work should focus on:
 - refresh `## Relevant Files` to keep fresh-session pickup useful
 - keep the section selective and forward-looking rather than historical
 
-The responsible role remains the Developer.
 The agent may help validate and update the plan. The final-batch procedure still requires explicit approval of closure and a successful codebase commit before the Iteration status changes.
 
 ## Workflow Boundary Rules
 
-- If explicit approval is still missing, YOU MUST stop for Developer review before changing an Iteration from `approved` to `done`.
-- YOU MUST NOT mark an Iteration `done` unless the Developer explicitly approves closing that Iteration.
+- If explicit approval is still missing, YOU MUST pause for the user's review before changing an Iteration from `approved` to `done`.
+- YOU MUST NOT mark an Iteration `done` unless the user explicitly approves closing that Iteration.
 - Review the accepted Iteration closure diff. When commit consent is still needed, YOU MUST report the new status and propose each commit with its subject and scope in the same reply. End with one yes/no question asking whether to create the proposed commit or commits.
-- Create and report the scoped commit or commits only when the Developer explicitly authorizes committing the current changes, including consent already given for the final-batch proposal. Approval of the status change alone leaves commit consent pending.
+- Create and report the scoped commit or commits only when the user explicitly authorizes committing the current changes, including consent already given for the final-batch proposal. Approval of the status change alone leaves commit consent pending.
 - After the commit boundary is resolved, YOU MUST ask whether to proceed to the next Shape workflow step.
-- YOU MUST NOT proceed to planning the next Iteration, finishing the feature, or any other next Shape workflow step unless the Developer explicitly approves proceeding.
+- YOU MUST NOT proceed to planning the next Iteration, finishing the feature, or any other next Shape workflow step unless the user explicitly approves proceeding.
 
 ## Artifact Rules
 Update only the Implementation Plan in `03-implementation-plan.md`.
@@ -128,7 +127,7 @@ Usually suggest one of:
 - `finish feature` if all Iterations are now `done` and validated
 - `update implementation plan` if iteration completion exposed a needed execution reshaping
 
-Prefer `plan iteration` when more Iterations remain and the next one is still `draft`, the commit boundary is resolved, and the Developer explicitly approves proceeding.
+Prefer `plan iteration` when more Iterations remain and the next one is still `draft`, the commit boundary is resolved, and the user explicitly approves proceeding.
 
 ## Follow-up Questions
 

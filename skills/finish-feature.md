@@ -54,18 +54,17 @@ During completion:
 - surface any residual structural warning rather than silently closing an incomplete plan
 - keep the final state compact and clear
 
-The responsible role remains the Developer.
 The agent may help verify completion and update the artifact, but should not silently finalize implementation if meaningful execution work is still unresolved.
 
 ## Workflow Boundary Rules
 
-- If explicit approval is still missing, YOU MUST stop for Developer review before changing the Implementation Plan to `done` or clearing the active feature.
-- YOU MUST NOT mark the Implementation Plan `done` unless the Developer explicitly approves feature completion.
-- YOU MUST NOT clear `.shape/workspace.json` for the feature unless the Developer explicitly approves feature completion.
+- If explicit approval is still missing, YOU MUST pause for the user's review before changing the Implementation Plan to `done` or clearing the active feature.
+- YOU MUST NOT mark the Implementation Plan `done` unless the user explicitly approves feature completion.
+- YOU MUST NOT clear `.shape/workspace.json` for the feature unless the user explicitly approves feature completion.
 - Review the accepted feature-completion diff. When commit consent is still needed, YOU MUST report the new status and propose each commit with its subject and scope in the same reply. End with one yes/no question asking whether to create the proposed commit or commits.
-- Create and report the scoped commit or commits only when the Developer explicitly authorizes committing the current changes. Approval of the status change alone leaves commit consent pending.
+- Create and report the scoped commit or commits only when the user explicitly authorizes committing the current changes. Approval of the status change alone leaves commit consent pending.
 - After the commit boundary is resolved, ask about proceeding only when there is a specific further Shape workflow action to offer.
-- YOU MUST NOT start another Shape workflow action unless the Developer explicitly approves proceeding.
+- YOU MUST NOT start another Shape workflow action unless the user explicitly approves proceeding.
 
 ## Artifact Rules
 Update the Implementation Plan in `03-implementation-plan.md` and `.shape/workspace.json` when available.
@@ -131,7 +130,7 @@ Usually suggest one of:
 - `show status` if the user wants a final workflow snapshot
 - `pick up feature` only if the user intends to inspect the completed feature again in a later session
 
-Once implementation is finalized and the commit boundary is resolved, offer `show status` if a final workflow snapshot would serve the Developer's request. Otherwise, end with the completion outcome.
+Once implementation is finalized and the commit boundary is resolved, offer `show status` if a final workflow snapshot would serve the user's request. Otherwise, end with the completion outcome.
 
 ## Follow-up Questions
 

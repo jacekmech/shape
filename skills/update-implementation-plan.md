@@ -58,17 +58,16 @@ If an approved update affects work that has already started:
 - prefer adding new Iterations or notes that account for the changed iteration direction
 - avoid silently reinterpreting already executed or active work
 
-The responsible role remains the Developer.
-The agent may propose execution reshaping, but should not silently decide how to absorb significant trade-offs without developer confirmation.
+The agent may propose execution reshaping, but should not silently decide how to absorb significant trade-offs without confirmation from the user.
 
 ## Workflow Boundary Rules
 
-- If explicit approval is still missing, YOU MUST stop for Developer review before treating Implementation Plan propagation changes as accepted.
-- YOU MUST NOT apply accepted execution-shape changes, new Iterations, or revised Iteration descriptions as final unless the Developer explicitly approves them.
+- If explicit approval is still missing, YOU MUST pause for the user's review before treating Implementation Plan propagation changes as accepted.
+- YOU MUST NOT apply accepted execution-shape changes, new Iterations, or revised Iteration descriptions as final unless the user explicitly approves them.
 - Review the accepted Implementation Plan update diff. When commit consent is still needed, YOU MUST report the accepted changes and propose each commit with its subject and scope in the same reply. End with one yes/no question asking whether to create the proposed commit or commits.
-- Create and report the scoped commit or commits only when the Developer explicitly authorizes committing the current changes. Approval of the changes alone leaves commit consent pending.
+- Create and report the scoped commit or commits only when the user explicitly authorizes committing the current changes. Approval of the changes alone leaves commit consent pending.
 - After the commit boundary is resolved, YOU MUST ask whether to proceed to the next Shape workflow step.
-- YOU MUST NOT proceed to Iteration approval, batch implementation, or any other next Shape workflow step unless the Developer explicitly approves proceeding.
+- YOU MUST NOT proceed to Iteration approval, batch implementation, or any other next Shape workflow step unless the user explicitly approves proceeding.
 
 ## Artifact Rules
 Read the approved Product Specification and Technical Specification updates as upstream inputs.
@@ -134,7 +133,7 @@ Usually suggest:
 - continue `update implementation plan` if propagation impact is still being resolved
 - `update technical specification` or `update product specification` if the upstream change is still incomplete
 
-Prefer `plan iteration` once the updated plan has a clear next `draft` Iteration to refine, the commit boundary is resolved, and the Developer explicitly approves proceeding.
+Prefer `plan iteration` once the updated plan has a clear next `draft` Iteration to refine, the commit boundary is resolved, and the user explicitly approves proceeding.
 
 ## Follow-up Questions
 

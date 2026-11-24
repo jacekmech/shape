@@ -1,7 +1,7 @@
 # create product specification
 
 ## Purpose
-Create or refine the Product Specification baseline for the active feature until it is usable as a downstream artifact, while keeping the document aligned to the canonical Product Specification template and preserving Product Owner ownership of requirement correctness.
+Create or refine the Product Specification baseline for the active feature until it is usable as a downstream artifact while keeping the document aligned to the canonical Product Specification template.
 
 ## Artifact resolution and compatibility
 Read `.shape/config.json` before resolving artifacts. Filenames below are fresh-install defaults; use configured `featuresRoot` and `artifacts.productSpecification`, `artifacts.technicalSpecification`, and `artifacts.implementationPlan` values instead when present. Older configurations may use `prd` and `technicalConcept` keys. Existing `01-prd.md`, `02-tech-concept.md`, and “Slice Plan” headings remain valid; interpret them as Product Specification, Technical Specification, and Iteration without renaming files or rewriting existing documents solely for terminology.
@@ -26,7 +26,7 @@ Expected inputs:
 Helpful but optional:
 - an existing Product Specification draft in `01-product-specification.md`
 - a larger requirement write-up prepared outside Shape
-- explicit Product Owner decisions on open questions
+- explicit decisions from the user on open questions
 
 ## Preconditions
 Before editing the Product Specification baseline:
@@ -42,7 +42,7 @@ Before drafting, explain that Shape can draft a Product Specification or referen
 
 - Resolve a supplied document name using available repository or connected sources; ask for a path or URL only if ambiguous or unavailable.
 - When referencing an existing document, YOU MUST create or update the Product Specification file in the feature folder using `.shape/workflow-templates/specification-reference-template.md`. If the local file is missing, create it as `draft`. Record its title, Shape status, date, source link, relevant scope, and reviewed revision or date. Do not copy the document or require empty authored-template sections.
-- Read the source and assess readiness for the feature. External approval alone does not approve the Shape artifact; Product Owner acceptance is still required. Keep it `draft` while material gaps or access problems remain.
+- Read the source and assess readiness for the feature. The user must explicitly approve the Shape artifact, even if the source has been approved elsewhere. Keep it `draft` while material gaps or access problems remain.
 - Add only necessary local supplements, keeping the external source authoritative within its stated scope. Identify conflicts for human resolution rather than silently overriding it.
 - Reference mode replaces the full section requirements below. Both modes retain `## Header` and `## Updates` and follow the same approval and append-only lifecycle.
 
@@ -64,20 +64,19 @@ During refinement:
 - distinguish unresolved questions from accepted baseline content
 - follow Product Specification structure when clarifying requirements
 
-The responsible role remains the Product Owner.
 The agent may structure, suggest, and refine, but should not silently decide uncertain requirement intent on the user’s behalf.
 
 The Product Specification may remain `draft` while gaps still matter.
-Set it to `approved` only when the Product Owner explicitly accepts the baseline for downstream use.
+Set it to `approved` only when the user explicitly accepts the baseline for downstream use.
 
 ## Workflow Boundary Rules
 
-- If explicit approval is still missing, YOU MUST stop for Product Owner review before changing the Product Specification from `draft` to `approved`.
-- YOU MUST NOT mark the Product Specification `approved` unless the Product Owner explicitly approves that transition.
+- If explicit approval is still missing, YOU MUST pause for the user's review before changing the Product Specification from `draft` to `approved`.
+- YOU MUST NOT mark the Product Specification `approved` unless the user explicitly approves that transition.
 - Review the accepted Product Specification diff. When commit consent is still needed, YOU MUST report the new status and propose each commit with its subject and scope in the same reply. End with one yes/no question asking whether to create the proposed commit or commits.
-- Create and report the scoped commit or commits only when the Product Owner explicitly authorizes committing the current changes. Approval of the status change alone leaves commit consent pending.
+- Create and report the scoped commit or commits only when the user explicitly authorizes committing the current changes. Approval of the status change alone leaves commit consent pending.
 - After the commit boundary is resolved, YOU MUST ask whether to proceed to the next Shape workflow step.
-- YOU MUST NOT proceed to the next Shape workflow step unless the Product Owner explicitly approves proceeding.
+- YOU MUST NOT proceed to the next Shape workflow step unless the user explicitly approves proceeding.
 
 ## Artifact Rules
 Update only the Product Specification baseline in `01-product-specification.md`.
@@ -117,7 +116,7 @@ This skill should produce:
 - a Product Specification baseline in `01-product-specification.md` aligned to the selected authored or reference template
 - updated Product Specification status of `draft` or `approved`
 - surfaced gaps or open questions when readiness is not yet justified
-- a repository state that is ready to be committed when the Product Owner accepts the current Product Specification change set
+- a repository state that is ready to be committed when the user accepts the current Product Specification change set
 - a proposed commit message when the accepted Product Specification state is suitable for checkpointing
 - a clear likely next step
 
@@ -134,7 +133,7 @@ This skill is complete when:
 
 ## Guardrails
 - Do not treat post-approval changes as baseline edits
-- YOU MUST NOT mark the Product Specification `approved` without explicit Product Owner acceptance
+- YOU MUST NOT mark the Product Specification `approved` without explicit acceptance from the user
 - Keep the Product Specification aligned with the selected authored or reference structure
 - Do not bury open questions inside definitive-looking requirements
 - Do not drift into technical design; keep this artifact requirement-focused
@@ -146,7 +145,7 @@ Usually suggest:
 - `create technical specification` if the Product Specification is `approved`
 - `show status` if the user needs orientation before moving downstream
 
-Prefer `create technical specification` once the Product Specification baseline is explicitly accepted as `approved`, the commit boundary is resolved, and the Product Owner explicitly approves proceeding.
+Prefer `create technical specification` once the Product Specification baseline is explicitly accepted as `approved`, the commit boundary is resolved, and the user explicitly approves proceeding.
 
 ## Follow-up Questions
 

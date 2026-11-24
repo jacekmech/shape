@@ -61,7 +61,7 @@ A bounded delivery increment within the Implementation Plan, with an objective, 
 A small executable step inside an Iteration.
 
 ### Batch
-A small selected group of tasks implemented together and then reviewed by the developer.
+A small selected group of tasks implemented together and then reviewed by the user.
 
 ### Specification Update
 An append-only change added to an approved Product Specification or approved Technical Specification.
@@ -282,7 +282,7 @@ Typical prompts:
 This step is for executing a deliberately small piece of prepared work and carrying that same batch through review handoff, revision if needed, approval handling, task completion updates, and commit.
 
 Important:
-- the developer decides the batch boundary
+- the user decides the batch boundary
 - the batch should stay small enough for one focused review
 - implementation completion is not the same as approval
 - after implementation, the agent should ask for review rather than treating the work as accepted

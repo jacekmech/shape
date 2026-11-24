@@ -36,8 +36,7 @@ All skills should use a common structure, tone, and level of specificity so that
 Each skill should be self-contained, file-based, and easy to map to one Shape capability.
 
 ### Human-guided
-Skills should preserve Shape's responsibility model.  
-The AI Agent accelerates work, but does not take ownership away from the responsible human role.
+The user guides the work and makes approval decisions.
 
 ### Next-step oriented
 Skills should normally end by making the next likely valid workflow action obvious to the user.
@@ -58,7 +57,7 @@ Examples:
 ### Do not merge adjacent operations without a strong reason
 For example:
 - `implement batch` may absorb adjacent batch review and commit handling only when Shape explicitly defines that combined microcycle
-- `review code` provides a read-only independent assessment of a completed batch; it does not replace developer approval or modify workflow state
+- `review code` provides a read-only independent assessment of a completed batch; it does not replace approval from the user or modify workflow state
 - `create technical specification` should not absorb `update technical specification`
 
 Shape deliberately separates these boundaries. Skill boundaries should preserve them.
@@ -99,9 +98,9 @@ The skill should include workflow rules that materially affect behavior.
 Examples:
 - Product Specification and Technical Specification updates are append-only after readiness
 - only approved updates are effective
-- implementation tasks are marked done only after explicit developer approval
-- `implement batch` includes commit as part of completing the operation, even when the developer performs the commit directly
-- the agent may create the required commits only on explicit developer instruction
+- implementation tasks are marked done only after explicit approval from the user
+- `implement batch` includes commit as part of completing the operation, even when the user performs the commit directly
+- the agent may create the required commits only on explicit instruction from the user
 
 ### Anchor to real artifacts and sections
 Where relevant, the skill should refer to:
@@ -191,28 +190,22 @@ Implementation Plan skills must respect:
 
 ---
 
-## 5. Responsibility and Approval Principles
+## 5. Human Approval
 
 ### Preserve human ownership
-The responsible role owns correctness and approval:
-
-- Product Owner owns requirement correctness
-- Architect owns design correctness
-- Developer owns implementation correctness and repository changes
-
-The skill should support that role, not erase it.
+The user reviews requirements, design, and implementation and decides whether to accept workflow changes, authorize commits, or proceed to the next step.
 
 ### Do not collapse approval boundaries
 A skill must not imply approval merely because work is completed.
 
 Examples:
 - `implement batch` does not approve the batch
-- `implement batch` supports review handling but does not replace developer approval
-- `finish iteration` should not assume completion without developer confirmation
+- `implement batch` supports review handling but does not replace approval from the user
+- `finish iteration` should not assume completion without confirmation from the user
 
 Skills that can move artifacts or execution state across approval boundaries should use explicit mandatory wording:
 - If explicit approval is still missing, YOU MUST stop for human review before changing an artifact, update, iteration, or plan from a draft or active state into an approved or done state.
-- YOU MUST NOT mark artifacts or updates approved or done, or mark tasks or batches complete, without explicit approval from the responsible human role.
+- YOU MUST NOT mark artifacts or updates approved or done, or mark tasks or batches complete, without explicit approval from the user.
 - YOU MUST NOT treat completed drafting, planning, implementation, validation, or revision work as approval.
 - An explicit request for a specific status change authorizes that transition once its preconditions are met.
 
@@ -224,20 +217,20 @@ At an accepted repository checkpoint, review the diff and identify the changes i
 >
 > Should I create this commit?
 
-Approval of the status change leaves commit consent pending. If the responsible human also explicitly requested a commit covering the current changes, create the authorized commit and report it. YOU MUST keep each commit scoped to the accepted diff and surface unrelated or unexpected changes before committing.
+Approval of the status change leaves commit consent pending. If the user also explicitly requested a commit covering the current changes, create the authorized commit and report it. YOU MUST keep each commit scoped to the accepted diff and surface unrelated or unexpected changes before committing.
 
 ### Separate codebase and Shape commits
 
 - Files inside Shape feature folders resolved under the configured feature root are Shape artifacts. All other files are non-Shape changes.
 - If both kinds of changes are in scope, YOU MUST propose the codebase commit first and the Shape artifact commit second in one proposal. Give the subject and scope of each and ask once for consent to create both in order. If only one kind of change is in scope, propose a single commit.
 - The Shape subject MUST identify the artifact change. Use `shape:` if it fits repository conventions.
-- When the Developer explicitly approves closing the Iteration with the final batch, validate closure and commit the codebase changes first. Then mark the Iteration `done` and record closure with the final batch's Shape changes in the second commit.
+- When the user explicitly approves closing the Iteration with the final batch, validate closure and commit the codebase changes first. Then mark the Iteration `done` and record closure with the final batch's Shape changes in the second commit.
 
 ### Preserve next-step boundaries
 Skills should make the next likely valid workflow action obvious, but making the next action obvious is not permission to start it.
 
 - After the commit boundary is resolved, YOU MUST ask whether to proceed when there is a specific next Shape workflow step to offer.
-- YOU MUST NOT proceed to the next Shape workflow step unless the responsible human explicitly approves proceeding.
+- YOU MUST NOT proceed to the next Shape workflow step unless the user explicitly approves proceeding.
 - YOU MUST NOT silently combine adjacent Shape operations, even when the next operation seems obvious.
 - YOU MUST NOT start implementation, a new batch, iteration closure, or feature completion merely because the previous step reached review, approval, or commit readiness.
 
@@ -325,7 +318,6 @@ Not every skill needs the exact same depth in every section, but the overall str
 A good Shape skill should make the following clear without ambiguity:
 
 - what triggers the skill
-- which role is responsible
 - which artifacts are read
 - which artifacts are created or updated
 - which sections are affected
