@@ -219,7 +219,7 @@ At an accepted repository checkpoint, review the diff and identify the changes i
 
 Approval of the status change leaves commit consent pending. If the user also explicitly requested a commit covering the current changes, create it. YOU MUST keep each commit scoped to the accepted diff and surface unrelated or unexpected changes before committing.
 
-When reporting completed commits for the current operation, YOU MUST end the final reply with a **Commits** block. Read the short hash and exact, unabridged subject of each commit from Git and list them in creation order. Include a passive hint only for commits the user authorized before seeing their exact subjects. Put “The commit message can be adjusted if needed.” beneath the eligible entry, or “Either commit message can be adjusted if needed.” beneath the list when both commits qualify.
+When reporting completed commits for the current operation, YOU MUST put a **Commits** block at the end of the summary. Read the short hash and exact, unabridged subject of each commit from Git and list them in creation order. Include a passive hint only for commits the user authorized before seeing their exact subjects. Put “The commit message can be adjusted if needed.” beneath the eligible entry, or “Either commit message can be adjusted if needed.” beneath the list when both commits qualify.
 
 ### Separate codebase and Shape commits
 
@@ -285,7 +285,7 @@ Prefer:
 
 ### Follow-up questions
 
-- When the user needs to make a decision or provide input, put one follow-up question in its own paragraph after the summary, findings, checks, or links. If the reply reports completed commits, place the question before the final **Commits** block. In other replies, including those pausing for input, keep the question in the final paragraph.
+- When the user needs to make a decision or provide input, end the reply with one question in its own paragraph after the summary, findings, checks, links, and any **Commits** block and adjustment hint.
 - Use a yes/no question when the user can decide on a single named action, such as approving a draft, committing an accepted diff, or starting a specific workflow step. Ask about each approval boundary separately once it is reached.
 - When the answer needs a choice or missing information, give the relevant options or context before asking for the specific input.
 - End with the result when no user decision or input is needed and there is no concrete next action to offer.

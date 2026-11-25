@@ -1459,7 +1459,7 @@ The inventory should also be easy to surface to the user on demand. Shape assume
 - `implement batch` should preserve batch sizes that remain reviewable by a developer in one focused step.
 - `implement batch` should support review and approval by the user.
 - `implement batch` should keep explicit approval and explicit commit consent as separate boundaries even when commit happens within the same skill flow.
-- When a skill applies an authorized status change, it should review the scoped diff and report the new status with the concrete commit proposal in the same reply. Ask once for consent to create the proposed commit or commits. If consent for the current scope was already explicit, create the authorized commits. End replies that report completed commits with their short hashes and exact Git subjects in creation order. Include a passive adjustment hint only where the user gave consent before seeing the exact subject.
+- When a skill applies an authorized status change, it should review the scoped diff and report the new status with the concrete commit proposal in the same reply. Ask once for consent to create the proposed commit or commits. If consent for the current scope was already explicit, create the authorized commits. List each completed commit's short hash and exact Git subject in creation order at the end of the summary. Include a passive adjustment hint only where the user gave consent before seeing the exact subject. Put any follow-up question last.
 - Workflow-mode reminder phrasing should be used selectively for orientation, not repeated mechanically on every exchange.
 - Skills should normally end by indicating the most likely next valid workflow action.
 
