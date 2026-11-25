@@ -264,6 +264,8 @@ When working in this repository:
 - YOU MUST NOT mark artifacts or updates approved or done, or mark tasks or batches complete, without explicit approval from the user.
 - At an accepted checkpoint, review the scoped diff. If you still need commit consent, YOU MUST report the change and propose the commit subject and scope in the same reply. End with one yes/no question asking whether to create the proposed commit or commits.
 - An explicit request to change a status authorizes that transition once its preconditions are met. It leaves commit consent pending unless the user also explicitly asks you to commit the scoped changes. If they already did, proceed with the authorized commit without asking again.
+- When reporting completed commits for the current operation, YOU MUST end the final reply with a **Commits** block. List each commit's short hash and exact, unabridged Git subject in creation order. Put any follow-up question before that block.
+- Include a passive hint only for commits the user authorized before seeing their exact subjects. Put “The commit message can be adjusted if needed.” directly beneath the eligible entry, or put “Either commit message can be adjusted if needed.” beneath the list when both commits qualify. Omit the hint for commits whose subjects the user saw before consenting.
 - YOU MUST NOT commit without explicit user approval for the current diff.
 - After the commit boundary is resolved, YOU MUST ask whether to proceed to the next Shape workflow step.
 - YOU MUST NOT proceed to the next Shape workflow step unless the user explicitly approves proceeding.

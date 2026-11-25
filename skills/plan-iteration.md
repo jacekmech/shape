@@ -145,6 +145,8 @@ Prefer `implement batch` once the Iteration has a clear, small, reviewable start
 
 ## Follow-up Questions
 
-- When a follow-up is needed, put one question in its own final paragraph after any summary, findings, checks, or links. Do the same when pausing for input.
+- When a follow-up is needed, put one question in its own paragraph after the summary, findings, checks, or links. Put it before any final **Commits** block. Otherwise, keep the question in the final paragraph, including when pausing for input.
+- When reporting completed commits for the current operation, YOU MUST end the final reply with a **Commits** block. List each commit's short hash and exact, unabridged Git subject in creation order.
+- Include a passive hint only for commits the user authorized before seeing their exact subjects. Put “The commit message can be adjusted if needed.” directly beneath the eligible entry, or put “Either commit message can be adjusted if needed.” beneath the list when both commits qualify. Omit the hint for commits whose subjects the user saw before consenting.
 - Use yes/no for a single named action. Ask for approval, commit consent, and permission to start the next step at their respective checkpoints.
 - If the answer requires a choice or missing detail, give context first and ask directly for the input. End with the result when no input is needed and there is no concrete next action to offer.

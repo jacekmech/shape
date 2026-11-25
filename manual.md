@@ -27,9 +27,9 @@ At the beginning of the workflow, Shape creates the feature workspace. As the wo
 
 The workflow also keeps repository and artifact boundaries explicit. Baseline artifacts are created and approved deliberately. Implementation work is reviewed before it is treated as complete. Approved implementation is committed only on explicit instruction before new batch work begins. This keeps both the feature artifacts and the repository in a clean, understandable state as the work moves forward.
 
-When a skill needs your input or approval, look for one question at the end of the reply. Batch approval, commit consent, and permission to start the next step are requested at their respective checkpoints.
+When a skill needs your input or approval, look for one question at the end of the reply or immediately before the final **Commits** block. Batch approval, commit consent, and permission to start the next step are requested at their respective checkpoints.
 
-If you ask Shape to change an artifact's status, the agent checks the transition's prerequisites, updates the artifact, and reviews the diff. In the same reply, it reports the new status and proposes the commit subject and scope with one question asking whether to create the commit. If you also explicitly ask it to commit the scoped changes, it creates the commit and reports the result.
+If you ask Shape to change an artifact's status, the agent checks the transition's prerequisites, updates the artifact, and reviews the diff. In the same reply, it reports the new status and proposes the commit subject and scope with one question asking whether to create the commit. If you also explicitly ask it to commit the scoped changes, it creates the commit. When reporting completed commits, the final **Commits** block lists their short hashes and exact Git subjects in creation order. If you authorized a commit before its exact subject was shown, the block includes a brief note that the message can be adjusted if needed.
 
 When something changes after the Product Specification or Technical Specification is already approved:
 - **update product specification**

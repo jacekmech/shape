@@ -148,14 +148,14 @@ Examples:
 ### Propose commits at accepted checkpoints
 - Treat an explicit request for a specific status change as approval for that transition once its preconditions are met.
 - Require the agent to review the scoped diff at an accepted checkpoint. If commit consent is still needed, report the status or accepted changes and propose the commit subject and scope in the same reply, ending with one question asking whether to create the proposed commit or commits.
-- Require explicit consent for the current commit scope. When it is already given, create the authorized commit and report the result.
+- Require explicit consent for the current commit scope. When it is already given, create the authorized commit. End the final reply reporting completed commits with a **Commits** block listing their short hashes and exact, unabridged Git subjects in creation order. Add a passive hint only for commits authorized before their exact subjects were shown to the user. Use “The commit message can be adjusted if needed.” beneath the eligible entry, or “Either commit message can be adjusted if needed.” beneath the list when both qualify.
 - Split the approved diff by the configured Shape feature folder paths. For mixed changes, require a single proposal and consent question covering two scoped commits, codebase first and Shape artifacts second. Use a clear Shape subject, with `shape:` where repository conventions support it.
 - Allow explicitly approved and validated Iteration closure in the final batch's Shape commit after the codebase commit succeeds.
 
-### Put follow-up questions last
-- Include this guidance in each generated skill. When there is a decision to make or information to provide, place one follow-up question in its own final paragraph, after any summary, findings, checks, or links. Apply the same rule when pausing for input mid-operation.
+### Place follow-up questions
+- Include this guidance in each generated skill. When there is a decision to make or information to provide, place one follow-up question in its own paragraph after the summary, findings, checks, or links. Put it before the final **Commits** block when reporting completed commits. Otherwise, keep the question in the final paragraph, including when pausing for input mid-operation.
 - Use a yes/no question for a single named action. Ask for review approval, commit consent, and permission for the next operation at their respective checkpoints.
-- If the user must choose among options or supply a detail, present the context first and ask for the specific input on the last line.
+- If the user must choose among options or supply a detail, present the context before asking for the specific input.
 - End with the result when no user decision or input is needed and there is no concrete next action to offer.
 
 ### Keep tone operational
